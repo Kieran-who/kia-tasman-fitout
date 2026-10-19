@@ -14,7 +14,7 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.glb': 'model/gltf-binary', '.json': 'application/json' };
 const server = http.createServer((req, res) => {
-  const p = path.join(repo, 'viewer', decodeURIComponent(req.url.split('?')[0]));
+  const p = path.join(process.env.VIEWER_ROOT || path.join(repo, 'viewer'), decodeURIComponent(req.url.split('?')[0]));
   fs.readFile(p, (e, d) => { if (e) { res.writeHead(404); res.end(); return; }
     res.writeHead(200, { 'content-type': types[path.extname(p)] || 'application/octet-stream' }); res.end(d); });
 }).listen(0);
@@ -32,7 +32,7 @@ for (const s of shots) {
   const w = s.w || 1600, h = s.h || 1000;
   await page.setViewportSize({ width: w, height: h });
   const qs = new URLSearchParams({ render: '1', w, h, ...s.params });
-  await page.goto(`http://localhost:${port}/index.html?${qs}`);
+  await page.goto(`http://localhost:${port}/${process.env.VIEWER_PAGE || 'index.html'}?${qs}`);
   await page.waitForFunction(() => window.__ready === true, null, { timeout: 120000 });
   await page.waitForTimeout(300);
   const out = path.join(outDir, `${s.name}.png`);
