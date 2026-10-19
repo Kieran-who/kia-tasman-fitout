@@ -139,8 +139,8 @@ LEG_Z = 17                                  # [DES] underside of the folded leg 
 LEG_FOOT = (40, 30)                         # [DES] swivel levelling foot: pad dia, height incl. M10 stud
 LEG_X_FROM_REAR = (110, 220)                # [DES] leg centres from the deck rear (bay between the last two cross members)
 MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)
-BULKHEAD_D = 70                             # [DES] power pod: sockets face UP so plugs never foul the fridge
-FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 766 -> fridge <= ~756 long
+BULKHEAD_D = 85                             # [DES] power pod: sockets face UP so plugs never foul the fridge; 85 fits a Clipsal Iconic 120x78 double GPO (v0.8)
+FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 751 -> fridge <= ~741 long (Dometic CFX3 45 is 694)
 FRIDGE_WELL_Z = 12                          # [DES] pan top surface -> ~536 under the lid
 CHAIN_R, CHAIN_H, CHAIN_W = 63, 32, 40      # [EST] igus E2.26-class, R63 suits chain-rated 2.5 / 6 mm2 cable
 

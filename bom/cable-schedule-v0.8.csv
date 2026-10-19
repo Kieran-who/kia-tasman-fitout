@@ -16,14 +16,14 @@ MPT,Charging output,vehicle,mppt tent 75 15,System +/- busbars (MIDI fuse),6 mm2
 DCF,DC distribution,vehicle,System + busbar (MEGA 100 A),Rear DC fuse block,25 mm2 twin (red/black),MEGA 100 A,3.36,
 AC1,AC out,vehicle,MultiPlus-II AC-out 1,RCBO enclosure,2.5 mm2 3-core flex (TPS-flex),MultiPlus + RCBOs,3.21,licensed electrician
 AC2,Rear GPO,vehicle,RCBO 1,Rear panel double GPO,2.5 mm2 3-core flex,RCBO 10 A 30 mA,0.4,
-AC3,Slide GPO,vehicle,RCBO 2,Power-slide pod GPO,2.5 mm2 3-core high-flex (chain rated),RCBO 10 A 30 mA,2.29,runs through the cable chain
+AC3,Slide GPO,vehicle,RCBO 2,Power-slide pod GPO,2.5 mm2 3-core high-flex (chain rated),RCBO 10 A 30 mA,2.12,runs through the cable chain
 AC4,Tent heater GPO,vehicle,RCBO 3,Gap junction -> tent services box GPO,"2.5 mm2 3-core flex, UV rated",RCBO 10 A 30 mA,3.79,detaches at the gap junction (IP66 inline plug)
 AC5,Shore inlet,vehicle,Gap junction (from tent 15 A inlet),MultiPlus-II AC-in,2.5 mm2 3-core flex (15 A),RCBO 16 A 30 mA in the services box + MultiPlus AC-in limit 15 A,6.15,
 DO1A,Rear Anderson 1,vehicle,DC fuse block,Rear panel Anderson 1,6 mm2 twin,ATC 30 A,0.63,
 DO1B,Rear Anderson 2,vehicle,DC fuse block,Rear panel Anderson 2,6 mm2 twin,ATC 30 A,0.62,
 DO1C,Rear USB-C x2,vehicle,DC fuse block,Rear panel USB-C x2,2.5 mm2 twin,ATC 10 A,0.57,USB-C sockets daisy-chained at the panel
 DO1D,Rear 12 V socket,vehicle,DC fuse block,Rear panel 12 V socket,4 mm2 twin,ATC 15 A,0.61,
-DO2,Slide DC,vehicle,DC fuse block,Power-slide pod Anderson / 12 V / USB-C,6 mm2 twin high-flex,ATC 30 A (+ inline 15 A / 10 A in the pod),2.16,runs through the cable chain
+DO2,Slide DC,vehicle,DC fuse block,Power-slide pod Anderson / 12 V / USB-C,6 mm2 twin high-flex,ATC 30 A (+ inline 15 A / 10 A in the pod),1.99,runs through the cable chain
 DO3,Cabin outlets,vehicle,DC fuse block,"Under-rear-seat box (Anderson, USB-C, 12 V)",6 mm2 twin,ATC 30 A (+ inline 15 A / 10 A in the box),4.18,
 DO4,Starlink Mini,vehicle,DC fuse block,Starlink Mini (roof),4 mm2 twin + DC barrel lead,ATC 10 A,5.0,
 DO5,Tent 12 V,vehicle,DC fuse block,Gap junction -> tent (Anderson SB50),6 mm2 twin,ATC 30 A,3.98,detaches at the gap junction

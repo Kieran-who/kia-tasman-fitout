@@ -702,7 +702,7 @@ null
 "protection": "RCBO 10 A 30 mA",
 "side": "vehicle",
 "colour": "w_ac",
-"length_m": 2.29,
+"length_m": 2.12,
 "notes": "runs through the cable chain",
 "via": [
 "rcbo",
@@ -729,7 +729,7 @@ null
 20.0
 ],
 [
-960.2,
+1040.2,
 -543.0,
 28.0
 ],
@@ -1044,7 +1044,7 @@ null
 "protection": "ATC 30 A (+ inline 15 A / 10 A in the pod)",
 "side": "vehicle",
 "colour": "w_12v",
-"length_m": 2.16,
+"length_m": 1.99,
 "notes": "runs through the cable chain",
 "via": [
 "dc_fuse_block",
@@ -1071,7 +1071,7 @@ null
 32.0
 ],
 [
-954.2,
+1034.2,
 -557.0,
 40.0
 ],
@@ -2696,7 +2696,7 @@ null,
 122.2
 ],
 "chain_fixed": [
-954.2,
+1034.2,
 -557.0,
 16.0
 ],

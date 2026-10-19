@@ -1,0 +1,260 @@
+[
+ {
+  "name": "01_hero_camp",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "title": "v0.8: camp mode"
+  }
+ },
+ {
+  "name": "02_hero_travel",
+  "params": {
+   "view": "hero",
+   "state": "travel",
+   "title": "v0.8: travel mode"
+  }
+ },
+ {
+  "name": "03_rear_camp",
+  "params": {
+   "view": "rear",
+   "state": "camp",
+   "title": "v0.8: rear, slides out, control panel"
+  }
+ },
+ {
+  "name": "04_tub_iso",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "title": "v0.8 tub with example load"
+  }
+ },
+ {
+  "name": "05_tub_iso_empty",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "title": "v0.8 tub, slides empty"
+  }
+ },
+ {
+  "name": "06_plan",
+  "params": {
+   "view": "plan",
+   "state": "travel",
+   "title": "v0.8 plan (front at top, driver side right)"
+  }
+ },
+ {
+  "name": "07_wiring",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "title": "v0.8 routed wiring (46 cables, sheet E8)"
+  }
+ },
+ {
+  "name": "08_tent_side",
+  "params": {
+   "view": "tent_side",
+   "state": "camp",
+   "title": "v0.8 side view"
+  }
+ },
+ {
+  "name": "bay_01_overview",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,tent_harness,payload,wiring,slide_p,modules",
+   "cam": "1.05,0.95,0.55,0.15,0.2,0.0,38",
+   "title": "v0.8 bay detail: MultiPlus-II flat, charging board on the front wall, 2 x iTech400X Pro on end, slotted rear guard",
+   "show": "bay_cover"
+  }
+ },
+ {
+  "name": "bay_02_distribution",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,batteries,utility,slide_p,slide_d,modules,bay",
+   "cam": "0.5,0.42,-0.62,0.16,0.28,-0.01,36",
+   "title": "v0.8 distribution column (batteries + bay frame hidden): PowerBars, ML-RBS, Class-T 400 A, SmartShunt, MIDI/MEGA fuses",
+   "labels": "busbar_bank_pos:Bank + PowerBar 600 A:60:-10;busbar_bank_neg:Bank - PowerBar:-70:-10;remote_battery_switch_500a:ML-RBS 7713|remote battery switch:0:-30;class_t_400a_fuse:Class-T 400 A|Blue Sea 5502:-60:0;smartshunt_500a:SmartShunt 500 A:-60:0;fuse_holders_midi_cover:MIDI/MEGA fuses|20 / 60 / 70 / 100 A:-40:30;busbar_sys_pos:System + PowerBar:70:0;busbar_sys_neg:System - PowerBar:0:30"
+  }
+ },
+ {
+  "name": "bay_03_inverter_charging",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,slide_p,modules",
+   "cam": "0.78,0.7,0.16,0.12,0.22,0.33,34",
+   "title": "v0.8 MultiPlus-II 12/3000 (connection cover shown see-through), 92 mm fan, Orion XS + SmartSolar 100/30 + 75/15",
+   "labels": "inverter_charger_multiplus2_3000:MultiPlus-II 12/3000/120-32:-80:20;inverter_charger_multiplus2_3000_conn_cover:Connection area|AC blocks, VE.Bus, DC + / -:40:0;inverter_fan:92 mm fan:0:-20;orion_xs_50a:Orion XS 12/12-50A:0:-30;mppt_roof_100_30:SmartSolar 100/30:0:-30;mppt_tent_75_15:SmartSolar 75/15:0:-30"
+  }
+ },
+ {
+  "name": "bay_04_batteries",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,slide_d,modules,utility",
+   "cam": "0.78,0.8,-0.12,0.24,0.4,-0.33,30",
+   "title": "v0.8 2 x iTech400X Pro on end (rear frame clipped): both M8 terminals at the top end, MRBF 300 A on each +, strap buckles",
+   "labels": "battery_1_mrbf:MRBF 300 A|Blue Sea 5191:-70:-10;battery_2_neg:- terminal (M8):60:-20;battery_2_band:iTech400X Pro|orange lid, terminals at the top end:80:60;battery_1_strap_426_buckle:Cage strap buckle:-40:30",
+   "clipx": "0.288"
+  }
+ },
+ {
+  "name": "cabinets_01_panel_shut",
+  "params": {
+   "view": "rear_panel",
+   "state": "camp",
+   "hide": "payload,future,slide_p,wiring",
+   "cam": "1.88,0.20,0.52,1.41,0.15,0.69,36",
+   "title": "v0.8 rear control panel (shut): GX Touch 50, guarded Contura II rockers, IP66 double GPO, 2 x dual USB-C, 2 x SB50, 12 V; quarter-turn latch top left, piano hinge on the inboard edge"
+  }
+ },
+ {
+  "name": "cabinets_02_behind_panel",
+  "params": {
+   "view": "rear_panel",
+   "state": "camp",
+   "hide": "payload,future,slide_p,vehicle,wiring,markers,bay,batteries",
+   "clipx": "1.35",
+   "cam": "1.72,0.30,1.20,1.18,0.15,0.68,36",
+   "title": "v0.8 behind the panel (section at the door, tub wall + cables hidden): Cerbo GX MK2, Blue Sea 5026, IP66 RCBO enclosure",
+   "labels": "dc_fuse_block:Blue Sea 5026|12 x ATO + negative bus;pc_rcbo_modules:IP66 enclosure, clear lid|3 x RCBO 1P+N + blank;pc_wire_duct:Slotted wiring duct;pc_gland_low:Gland to the slide harness"
+  }
+ },
+ {
+  "name": "cabinets_03_upper_drawer",
+  "params": {
+   "view": "drawers",
+   "state": "camp",
+   "hide": "payload,future",
+   "cam": "2.75,0.95,0.20,2.0,0.38,0.68,34",
+   "title": "v0.8 passenger upper drawer out: 48 in 3-member runners, flush lockable paddle latch, U-channel slots at 120 mm, lift-out dividers",
+   "labels": "ud_pass_divider_1:Lift-out divider|finger hole;ud_pass_runner_1:48 in full-extension runner"
+  }
+ },
+ {
+  "name": "cabinets_04_utility_drawer",
+  "params": {
+   "view": "utility",
+   "state": "camp",
+   "hide": "future,markers",
+   "clipx": "1.885",
+   "cam": "2.30,0.33,-0.56,1.65,0.10,-0.70,36",
+   "title": "v0.8 driver utility drawer (section just inside its front): finger-jointed ply box, D-ring tie-downs + strap, divider in U-channels, 22 in runners"
+  }
+ },
+ {
+  "name": "slides_01_runner_lock",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,vehicle,power_cabinet,utility,electrical,batteries,bay",
+   "cam": "2.85,0.07,0.575,2.088,0.044,0.512,16",
+   "title": "v0.8: DZ9308 at full extension - intermediate (ball races) + inner member with the front lock lever",
+   "labels": "slide_power_cable_chain:Cable chain"
+  }
+ },
+ {
+  "name": "slides_02_power_pod",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring",
+   "cam": "1.72,0.70,0.30,1.535,0.25,0.30,33",
+   "title": "v0.8: power pod - Iconic GPO, SB50, 12 V, 2 x dual USB-C (covers open in camp)",
+   "labels": "slide_power_gpo:Iconic 3025 skin 120 x 78|wider than the 68 mm pod"
+  }
+ },
+ {
+  "name": "slides_03_cable_chain",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,power_cabinet,utility,vehicle,electrical,batteries,bay",
+   "cam": "1.55,0.45,0.20,1.10,0.06,0.56,40",
+   "title": "v0.8: link chain, 46 mm pitch, R63 - full extension, fixed end at mid travel",
+   "labels": "slide_power_cable_chain:Cable chain|40 wide, R63, 16 links;slide_power_chain_bracket_fixed:Fixed-end bracket"
+  }
+ },
+ {
+  "name": "slides_04_legs",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring",
+   "cam": "3.75,-0.78,-0.85,2.40,-0.42,0.22,42",
+   "title": "v0.8: power-slide legs deployed; driver-slide legs folded + clipped under its deck",
+   "labels": "slide_power_leg_clevis_0:Clevis|M10 pivot + lock pin;slide_power_leg_1_s1:Pinned every 25 mm;slide_power_leg_0_foot:Swivel levelling foot;slide_driver_leg_clip_1:Folded leg in spring clip"
+  }
+ },
+ {
+  "name": "slides_05_payload",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,wiring",
+   "cam": "3.45,0.95,0.35,2.1,0.2,0.0,34",
+   "title": "v0.8: example payload - CFX3 45-size fridge, NCE 20 L-size microwave, drawers, crate",
+   "labels": "fridge_panel:Fridge (CFX3 45 size)|694 x 398 x 476;microwave_led:Microwave (NCE 20 L size);drawer_module:2-drawer module|flush pulls + locks;food_crate_lid:Food crate"
+  }
+ },
+ {
+  "name": "vehicle_01_hero",
+  "params": {
+   "view": "hero",
+   "state": "travel",
+   "cam": "-6.3,2.3,5.9,-1.05,0.3,0,32",
+   "title": "v0.8: Kia Tasman X-Pro context, Ute Master Load-Lid, Vortex bars, Panther Horizon 1600, Wedgetail roof"
+  }
+ },
+ {
+  "name": "vehicle_02_tub_liner",
+  "params": {
+   "view": "tub_iso",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay,bay_cover,batteries,electrical,wiring,tent_harness,slide_p,slide_d,power_cabinet,utility,payload,modules,well_filler,markers",
+   "cam": "1.7,1.85,-1.45,0.66,0.1,0.42,42",
+   "title": "v0.8: factory tub liner - arch hump with shelf + recessed well, factory 240 V outlet behind the passenger arch, step under the rail, tie-down rails (cf. reference photo)",
+   "labels": "tub_rail_cleat_passenger_1:Corner cleat;tub_floor_ribs:Fore-aft floor ribs"
+  }
+ },
+ {
+  "name": "vehicle_03_tent_lid_rack",
+  "params": {
+   "view": "hero",
+   "state": "travel",
+   "hide": "roof,solar,cargo",
+   "cam": "3.3,1.75,-2.6,0.55,0.75,0,32",
+   "title": "v0.8: Panther Horizon 1600 (closed) on Vortex bars + raised brackets, Ute Master Load-Lid with Destroyer rails"
+  }
+ },
+ {
+  "name": "vehicle_04_tent_services",
+  "params": {
+   "view": "hero",
+   "state": "travel",
+   "hide": "roof,solar,cargo,future",
+   "cam": "1.0,0.79,-1.6,0.37,0.69,-0.47,32",
+   "title": "v0.8: tent services box, driver side under the tent front - rear to front: Anderson SB50 over PV MC4, IP66 15 A inlet, IP66 10 A outlet"
+  }
+ },
+ {
+  "name": "vehicle_05_roof",
+  "params": {
+   "view": "roof",
+   "state": "travel",
+   "cam": "0.9,2.6,1.6,-0.95,1.0,0,34",
+   "title": "v0.8: Wedgetail platform - Victron 190 W + 130 W, Starlink Mini, flush light bar, cargo bars"
+  }
+ }
+]

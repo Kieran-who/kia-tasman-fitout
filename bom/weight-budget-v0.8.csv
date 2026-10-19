@@ -52,12 +52,12 @@ fit-out,slide_p,slide_power_runner_plate_a,Plate 6 5052,1.45
 fit-out,slide_p,slide_power_runner_plate_b,Plate 6 5052,1.45
 fit-out,slide_p,slide_power_uhmw_stop_-502,UHMW 10,0.04
 fit-out,slide_p,slide_power_uhmw_stop_-73,UHMW 10,0.04
-fit-out,slide_p,slide_power_runner_a_0,purchased,2.1
-fit-out,slide_p,slide_power_runner_a_1,purchased,2.1
-fit-out,slide_p,slide_power_runner_a_2,purchased,2.1
-fit-out,slide_p,slide_power_runner_b_0,purchased,2.1
-fit-out,slide_p,slide_power_runner_b_1,purchased,2.1
-fit-out,slide_p,slide_power_runner_b_2,purchased,2.1
+fit-out,slide_p,slide_power_runner_a_0,purchased,1.92
+fit-out,slide_p,slide_power_runner_a_1,purchased,1.92
+fit-out,slide_p,slide_power_runner_a_2,purchased,1.92
+fit-out,slide_p,slide_power_runner_b_0,purchased,1.92
+fit-out,slide_p,slide_power_runner_b_1,purchased,1.92
+fit-out,slide_p,slide_power_runner_b_2,purchased,1.92
 fit-out,slide_p,slide_power_carr_side_0,RHS 75x25x2 6060,1.22
 fit-out,slide_p,slide_power_deck_angle_0,Angle 60x40x3 6060,0.93
 fit-out,slide_p,slide_power_carr_side_1,RHS 75x25x2 6060,1.22
@@ -65,25 +65,25 @@ fit-out,slide_p,slide_power_deck_angle_1,Angle 60x40x3 6060,0.93
 fit-out,slide_p,slide_power_carr_cross_0,RHS 50x25x2 6060,0.33
 fit-out,slide_p,slide_power_carr_cross_3,RHS 50x25x2 6060,0.33
 fit-out,slide_p,slide_power_carr_cross_4,RHS 50x25x2 6060,0.33
-fit-out,slide_p,slide_power_deck,Ply 15 marine,2.45
+fit-out,slide_p,slide_power_deck,Ply 15 marine,2.51
 fit-out,slide_p,slide_power_edge_cap,Angle 30x30x3 6060,0.55
 fit-out,slide_p,slide_power_ltrack,L-track HD,0.23
-fit-out,slide_p,slide_power_receivers,purchased,1.02
-fit-out,slide_p,slide_power_fridge_well_pan,Plate 3 5052,0.16
-fit-out,slide_p,slide_power_well_track_-458,L-track HD,0.53
-fit-out,slide_p,slide_power_well_track_-106,L-track HD,0.53
-option: well filler (no fridge),well_filler,slide_power_filler_panel,Ply 15 marine,2.51
-option: well filler (no fridge),well_filler,slide_power_filler_riser_0,Ply 18 marine,0.47
-option: well filler (no fridge),well_filler,slide_power_filler_riser_1,Ply 18 marine,0.47
-option: well filler (no fridge),well_filler,slide_power_filler_ltrack,L-track HD,0.55
-option: well filler (no fridge),well_filler,slide_power_filler_receivers,purchased,0.96
+fit-out,slide_p,slide_power_receivers,purchased,1.14
+fit-out,slide_p,slide_power_fridge_well_pan,Plate 3 5052,0.15
+fit-out,slide_p,slide_power_well_track_-458,L-track HD,0.52
+fit-out,slide_p,slide_power_well_track_-106,L-track HD,0.52
+option: well filler (no fridge),well_filler,slide_power_filler_panel,Ply 15 marine,2.44
+option: well filler (no fridge),well_filler,slide_power_filler_riser_0,Ply 18 marine,0.46
+option: well filler (no fridge),well_filler,slide_power_filler_riser_1,Ply 18 marine,0.46
+option: well filler (no fridge),well_filler,slide_power_filler_ltrack,L-track HD,0.54
+option: well filler (no fridge),well_filler,slide_power_filler_receivers,purchased,0.84
 fit-out,slide_p,slide_power_power_pod,Plate 3 5052,0.59
 fit-out,slide_p,slide_power_gpo,purchased,0.4
 fit-out,slide_p,slide_power_anderson,purchased,0.1
 fit-out,slide_p,slide_power_12v,purchased,0.05
 fit-out,slide_p,slide_power_usbc,purchased,0.05
 fit-out,slide_p,slide_power_usbc_2,purchased,0.05
-fit-out,slide_p,slide_power_rear_plate,Plate 3 5052,0.36
+fit-out,slide_p,slide_power_rear_plate,Plate 3 5052,0.32
 fit-out,slide_p,slide_power_handle,purchased,0.3
 fit-out,slide_p,slide_power_leg_clevis_0,Plate 6 5052,0.01
 fit-out,slide_p,slide_power_leg_0_s0,SHS 32x32x2 6060,0.25
@@ -98,8 +98,9 @@ fit-out,slide_p,slide_power_leg_1_s2,SHS 19x19x1.6 6060,0.11
 fit-out,slide_p,slide_power_leg_1_foot,purchased,0.15
 fit-out,slide_p,slide_power_leg_clip_1,UHMW 10,0.02
 fit-out,slide_p,slide_power_cable_chain,purchased,1.4
-fit-out,slide_p,slide_power_chain_bracket,Plate 3 5052,0.04
-fit-out,slide_p,slide_power_chain_trough,UHMW 10,0.28
+fit-out,slide_p,slide_power_chain_bracket,Plate 3 5052,0.06
+fit-out,slide_p,slide_power_chain_bracket_fixed,Plate 3 5052,0.05
+fit-out,slide_p,slide_power_chain_trough,UHMW 10,0.31
 fit-out,slide_d,slide_driver_base_plate_3,Plate 6 5052,1.14
 fit-out,slide_d,slide_driver_base_plate_522,Plate 6 5052,1.14
 fit-out,slide_d,slide_driver_base_cross_0,Flat 50x6 6060,0.37
@@ -109,12 +110,12 @@ fit-out,slide_d,slide_driver_runner_plate_a,Plate 6 5052,1.45
 fit-out,slide_d,slide_driver_runner_plate_b,Plate 6 5052,1.45
 fit-out,slide_d,slide_driver_uhmw_stop_33,UHMW 10,0.04
 fit-out,slide_d,slide_driver_uhmw_stop_512,UHMW 10,0.04
-fit-out,slide_d,slide_driver_runner_a_0,purchased,2.1
-fit-out,slide_d,slide_driver_runner_a_1,purchased,2.1
-fit-out,slide_d,slide_driver_runner_a_2,purchased,2.1
-fit-out,slide_d,slide_driver_runner_b_0,purchased,2.1
-fit-out,slide_d,slide_driver_runner_b_1,purchased,2.1
-fit-out,slide_d,slide_driver_runner_b_2,purchased,2.1
+fit-out,slide_d,slide_driver_runner_a_0,purchased,1.92
+fit-out,slide_d,slide_driver_runner_a_1,purchased,1.92
+fit-out,slide_d,slide_driver_runner_a_2,purchased,1.92
+fit-out,slide_d,slide_driver_runner_b_0,purchased,1.92
+fit-out,slide_d,slide_driver_runner_b_1,purchased,1.92
+fit-out,slide_d,slide_driver_runner_b_2,purchased,1.92
 fit-out,slide_d,slide_driver_carr_side_0,RHS 75x25x2 6060,1.22
 fit-out,slide_d,slide_driver_deck_angle_0,Angle 60x40x3 6060,0.93
 fit-out,slide_d,slide_driver_carr_side_1,RHS 75x25x2 6060,1.22
@@ -128,7 +129,7 @@ fit-out,slide_d,slide_driver_deck,Ply 15 marine,5.53
 fit-out,slide_d,slide_driver_edge_cap,Angle 30x30x3 6060,0.55
 fit-out,slide_d,slide_driver_ltrack,L-track HD,0.86
 fit-out,slide_d,slide_driver_receivers,purchased,2.16
-fit-out,slide_d,slide_driver_rear_plate,Plate 3 5052,0.39
+fit-out,slide_d,slide_driver_rear_plate,Plate 3 5052,0.36
 fit-out,slide_d,slide_driver_handle,purchased,0.3
 fit-out,slide_d,slide_driver_leg_clevis_0,Plate 6 5052,0.01
 fit-out,slide_d,slide_driver_leg_0_s0,SHS 32x32x2 6060,0.25
@@ -254,16 +255,16 @@ payload (example),payload,drawer_module_pin_1,purchased,0.05
 payload (example),payload,drawer_module_pin_2,purchased,0.05
 payload (example),payload,drawer_module_pin_3,purchased,0.05
 payload (example),payload,food_crate,purchased,22
-option: example edge modules,modules,p_fence_out_foot,Flat 60x6 6060,1.06
-option: example edge modules,modules,p_fence_out_wall,Ply 12 marine,1.13
+option: example edge modules,modules,p_fence_out_foot,Flat 60x6 6060,1.05
+option: example edge modules,modules,p_fence_out_wall,Ply 12 marine,1.07
 option: example edge modules,modules,p_fence_out_pin_0,purchased,0.05
 option: example edge modules,modules,p_fence_out_pin_1,purchased,0.05
 option: example edge modules,modules,p_fence_out_pin_2,purchased,0.05
 option: example edge modules,modules,p_fence_out_pin_3,purchased,0.05
 option: example edge modules,modules,p_fence_out_pin_4,purchased,0.05
 option: example edge modules,modules,p_fence_out_pin_5,purchased,0.05
-option: example edge modules,modules,p_fence_in_foot,Flat 60x6 6060,1.06
-option: example edge modules,modules,p_fence_in_wall,Ply 12 marine,1.13
+option: example edge modules,modules,p_fence_in_foot,Flat 60x6 6060,1.05
+option: example edge modules,modules,p_fence_in_wall,Ply 12 marine,1.07
 option: example edge modules,modules,p_fence_in_pin_0,purchased,0.05
 option: example edge modules,modules,p_fence_in_pin_1,purchased,0.05
 option: example edge modules,modules,p_fence_in_pin_2,purchased,0.05
@@ -271,11 +272,11 @@ option: example edge modules,modules,p_fence_in_pin_3,purchased,0.05
 option: example edge modules,modules,p_fence_in_pin_4,purchased,0.05
 option: example edge modules,modules,p_fence_in_pin_5,purchased,0.05
 option: example edge modules,modules,p_divider_foot,Flat 60x6 6060,0.4
-option: example edge modules,modules,p_divider_wall,Ply 12 marine,0.42
+option: example edge modules,modules,p_divider_wall,Ply 12 marine,0.4
 option: example edge modules,modules,p_divider_pin_0,purchased,0.05
 option: example edge modules,modules,p_divider_pin_1,purchased,0.05
 option: example edge modules,modules,d_fence_in_foot,Flat 60x6 6060,1.13
-option: example edge modules,modules,d_fence_in_wall,Ply 12 marine,1.21
+option: example edge modules,modules,d_fence_in_wall,Ply 12 marine,1.16
 option: example edge modules,modules,d_fence_in_pin_0,purchased,0.05
 option: example edge modules,modules,d_fence_in_pin_1,purchased,0.05
 option: example edge modules,modules,d_fence_in_pin_2,purchased,0.05
@@ -284,7 +285,7 @@ option: example edge modules,modules,d_fence_in_pin_4,purchased,0.05
 option: example edge modules,modules,d_fence_in_pin_5,purchased,0.05
 option: example edge modules,modules,d_fence_in_pin_6,purchased,0.05
 option: example edge modules,modules,d_fence_out_foot,Flat 60x6 6060,1.13
-option: example edge modules,modules,d_fence_out_wall,Ply 12 marine,1.21
+option: example edge modules,modules,d_fence_out_wall,Ply 12 marine,1.16
 option: example edge modules,modules,d_fence_out_pin_0,purchased,0.05
 option: example edge modules,modules,d_fence_out_pin_1,purchased,0.05
 option: example edge modules,modules,d_fence_out_pin_2,purchased,0.05
@@ -293,8 +294,8 @@ option: example edge modules,modules,d_fence_out_pin_4,purchased,0.05
 option: example edge modules,modules,d_fence_out_pin_5,purchased,0.05
 option: example edge modules,modules,d_fence_out_pin_6,purchased,0.05
 option: example edge modules,modules,d_divider_foot,Flat 60x6 6060,0.45
-option: example edge modules,modules,d_divider_wall,Ply 12 marine,0.48
+option: example edge modules,modules,d_divider_wall,Ply 12 marine,0.45
 option: example edge modules,modules,d_divider_pin_0,purchased,0.05
 option: example edge modules,modules,d_divider_pin_1,purchased,0.05
 fit-out,electrical,gap_junction_box,purchased,1.8
-fit-out,wiring,all cables (from schedule),cable,22.8
+fit-out,wiring,all cables (from schedule),cable,22.7
