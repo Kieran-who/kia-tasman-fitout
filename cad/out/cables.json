@@ -1,0 +1,2798 @@
+{
+"version": "v0.8",
+"cables": [
+{
+"id": "B1P",
+"circuit": "Bank +",
+"frm": "Battery 1 + (MRBF 300 A)",
+"to": "Bank + busbar",
+"size": "70",
+"spec": "70 mm2 tinned, red",
+"protection": "MRBF 300 A on terminal",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.56,
+"notes": "cut B1P/B2P to identical length",
+"via": [
+"batt1_pos",
+null,
+null,
+"bus_bank_pos"
+],
+"points": [
+[
+257.0,
+210.0,
+471.0
+],
+[
+292.0,
+210.0,
+471.0
+],
+[
+292.0,
+60.0,
+500.0
+],
+[
+255.0,
+30.0,
+500.0
+]
+]
+},
+{
+"id": "B1N",
+"circuit": "Bank -",
+"frm": "Battery 1 -",
+"to": "Bank - busbar",
+"size": "70",
+"spec": "70 mm2 tinned, black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 0.9,
+"notes": "cut B1N/B2N to identical length",
+"via": [
+"batt1_neg",
+null,
+null,
+null,
+"bus_bank_neg"
+],
+"points": [
+[
+243.0,
+210.0,
+66.0
+],
+[
+284.0,
+217.0,
+72.0
+],
+[
+284.0,
+67.0,
+72.0
+],
+[
+66.0,
+67.0,
+326.0
+],
+[
+60.0,
+30.0,
+320.0
+]
+]
+},
+{
+"id": "B2P",
+"circuit": "Bank +",
+"frm": "Battery 2 + (MRBF 300 A)",
+"to": "Bank + busbar",
+"size": "70",
+"spec": "70 mm2 tinned, red",
+"protection": "MRBF 300 A on terminal",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.83,
+"notes": "cut B1P/B2P to identical length",
+"via": [
+"batt2_pos",
+null,
+null,
+"bus_bank_pos"
+],
+"points": [
+[
+257.0,
+460.0,
+471.0
+],
+[
+304.0,
+474.0,
+483.0
+],
+[
+304.0,
+74.0,
+512.0
+],
+[
+255.0,
+30.0,
+500.0
+]
+]
+},
+{
+"id": "B2N",
+"circuit": "Bank -",
+"frm": "Battery 2 -",
+"to": "Bank - busbar",
+"size": "70",
+"spec": "70 mm2 tinned, black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 1.18,
+"notes": "cut B1N/B2N to identical length",
+"via": [
+"batt2_neg",
+null,
+null,
+null,
+"bus_bank_neg"
+],
+"points": [
+[
+243.0,
+460.0,
+66.0
+],
+[
+296.0,
+460.0,
+84.0
+],
+[
+296.0,
+60.0,
+84.0
+],
+[
+78.0,
+60.0,
+338.0
+],
+[
+60.0,
+30.0,
+320.0
+]
+]
+},
+{
+"id": "RB1",
+"circuit": "Main +",
+"frm": "Bank + busbar",
+"to": "Remote battery switch IN",
+"size": "70",
+"spec": "70 mm2 tinned, red",
+"protection": "MRBF x2 upstream",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.38,
+"notes": "",
+"via": [
+"bus_bank_pos",
+"rbs_in"
+],
+"points": [
+[
+255.0,
+30.0,
+500.0
+],
+[
+190.0,
+40.0,
+470.0
+]
+]
+},
+{
+"id": "RB2",
+"circuit": "Main +",
+"frm": "Remote battery switch OUT",
+"to": "System + busbar",
+"size": "70",
+"spec": "70 mm2 tinned, red",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.6,
+"notes": "",
+"via": [
+"rbs_out",
+null,
+"bus_sys_pos"
+],
+"points": [
+[
+125.0,
+40.0,
+410.0
+],
+[
+131.0,
+79.0,
+270.0
+],
+[
+255.0,
+30.0,
+270.0
+]
+]
+},
+{
+"id": "SH1",
+"circuit": "Main -",
+"frm": "Bank - busbar",
+"to": "SmartShunt (battery side)",
+"size": "70",
+"spec": "70 mm2 tinned, black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 0.37,
+"notes": "",
+"via": [
+"bus_bank_neg",
+"shunt"
+],
+"points": [
+[
+60.0,
+30.0,
+320.0
+],
+[
+60.0,
+26.0,
+260.0
+]
+]
+},
+{
+"id": "SH2",
+"circuit": "Main -",
+"frm": "SmartShunt (system side)",
+"to": "System - busbar",
+"size": "70",
+"spec": "70 mm2 tinned, black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 0.49,
+"notes": "",
+"via": [
+"shunt_sys",
+null,
+"bus_sys_neg"
+],
+"points": [
+[
+60.0,
+26.0,
+160.0
+],
+[
+78.0,
+58.0,
+72.0
+],
+[
+130.0,
+30.0,
+60.0
+]
+]
+},
+{
+"id": "CT1",
+"circuit": "Inverter +",
+"frm": "System + busbar",
+"to": "Class-T 400 A",
+"size": "50",
+"spec": "2 x 50 mm2 tinned, red",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.47,
+"notes": "",
+"via": [
+"bus_sys_pos",
+null,
+"classT_in"
+],
+"points": [
+[
+255.0,
+30.0,
+270.0
+],
+[
+255.0,
+69.0,
+348.0
+],
+[
+170.0,
+50.0,
+330.0
+]
+]
+},
+{
+"id": "INVP",
+"circuit": "Inverter +",
+"frm": "Class-T 400 A",
+"to": "MultiPlus-II DC +",
+"size": "50",
+"spec": "2 x 50 mm2 tinned, red",
+"protection": "Class-T 400 A",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.57,
+"notes": "Victron: 2 x 50 mm2 per pole for 0-5 m, 400 A fuse",
+"via": [
+"classT_out",
+null,
+"inv_dc_pos"
+],
+"points": [
+[
+170.0,
+50.0,
+240.0
+],
+[
+176.0,
+-14.0,
+104.0
+],
+[
+229.0,
+-34.0,
+50.0
+]
+]
+},
+{
+"id": "INVN",
+"circuit": "Inverter -",
+"frm": "System - busbar",
+"to": "MultiPlus-II DC -",
+"size": "50",
+"spec": "2 x 50 mm2 tinned, black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 0.42,
+"notes": "",
+"via": [
+"bus_sys_neg",
+null,
+"inv_dc_neg"
+],
+"points": [
+[
+130.0,
+30.0,
+60.0
+],
+[
+181.0,
+42.0,
+50.0
+],
+[
+169.0,
+-34.0,
+50.0
+]
+]
+},
+{
+"id": "ORO",
+"circuit": "Charging output",
+"frm": "orion xs 50a",
+"to": "System +/- busbars (MIDI fuse)",
+"size": "16",
+"spec": "16 mm2 twin",
+"protection": "MIDI 70 A",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 1.18,
+"notes": "",
+"via": [
+"orion_xs_50a",
+null,
+null,
+"midi_fuses"
+],
+"points": [
+[
+46.0,
+-498.5,
+305.0
+],
+[
+94.0,
+-484.5,
+156.0
+],
+[
+238.0,
+74.0,
+156.0
+],
+[
+255.0,
+30.0,
+110.0
+]
+]
+},
+{
+"id": "MPR",
+"circuit": "Charging output",
+"frm": "mppt roof 100 30",
+"to": "System +/- busbars (MIDI fuse)",
+"size": "16",
+"spec": "16 mm2 twin",
+"protection": "MIDI 40 A",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 1.01,
+"notes": "",
+"via": [
+"mppt_roof_100_30",
+null,
+null,
+"midi_fuses"
+],
+"points": [
+[
+76.0,
+-347.0,
+305.0
+],
+[
+106.0,
+-347.0,
+162.0
+],
+[
+220.0,
+60.0,
+162.0
+],
+[
+255.0,
+30.0,
+110.0
+]
+]
+},
+{
+"id": "MPT",
+"circuit": "Charging output",
+"frm": "mppt tent 75 15",
+"to": "System +/- busbars (MIDI fuse)",
+"size": "6",
+"spec": "6 mm2 twin",
+"protection": "MIDI 20 A",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 0.87,
+"notes": "",
+"via": [
+"mppt_tent_75_15",
+null,
+null,
+"midi_fuses"
+],
+"points": [
+[
+46.0,
+-200.5,
+305.0
+],
+[
+82.0,
+-193.5,
+168.0
+],
+[
+226.0,
+67.0,
+168.0
+],
+[
+255.0,
+30.0,
+110.0
+]
+]
+},
+{
+"id": "DCF",
+"circuit": "DC distribution",
+"frm": "System + busbar (MEGA 100 A)",
+"to": "Rear DC fuse block",
+"size": "25",
+"spec": "25 mm2 twin (red/black)",
+"protection": "MEGA 100 A",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 3.4,
+"notes": "",
+"via": [
+"midi_fuses",
+"dist_top",
+"bay_top",
+"tray_front",
+"tray_rear",
+"drop_gland",
+"cab_in",
+"dc_fuse_block"
+],
+"points": [
+[
+255.0,
+30.0,
+110.0
+],
+[
+212.0,
+54.0,
+544.0
+],
+[
+292.0,
+-528.0,
+544.0
+],
+[
+292.0,
+-742.0,
+548.0
+],
+[
+1372.0,
+-742.0,
+548.0
+],
+[
+1372.0,
+-761.0,
+444.0
+],
+[
+1372.0,
+-761.0,
+284.0
+],
+[
+1140.5,
+-646.0,
+210.0
+]
+]
+},
+{
+"id": "AC1",
+"circuit": "AC out",
+"frm": "MultiPlus-II AC-out 1",
+"to": "RCBO enclosure",
+"size": "2.5x3",
+"spec": "2.5 mm2 3-core flex (TPS-flex)",
+"protection": "MultiPlus + RCBOs",
+"side": "vehicle",
+"colour": "w_ac",
+"length_m": 3.25,
+"notes": "licensed electrician",
+"via": [
+"inv_ac",
+"dist_top",
+"bay_top",
+"tray_front",
+"tray_rear",
+"drop_gland",
+"cab_in",
+"rcbo"
+],
+"points": [
+[
+64.0,
+-34.0,
+100.0
+],
+[
+218.0,
+40.0,
+520.0
+],
+[
+298.0,
+-542.0,
+520.0
+],
+[
+298.0,
+-756.0,
+524.0
+],
+[
+1378.0,
+-756.0,
+524.0
+],
+[
+1378.0,
+-775.0,
+420.0
+],
+[
+1378.0,
+-775.0,
+260.0
+],
+[
+1317.0,
+-721.0,
+200.0
+]
+]
+},
+{
+"id": "AC2",
+"circuit": "Rear GPO",
+"frm": "RCBO 1",
+"to": "Rear panel double GPO",
+"size": "2.5x3",
+"spec": "2.5 mm2 3-core flex",
+"protection": "RCBO 10 A 30 mA",
+"side": "vehicle",
+"colour": "w_ac",
+"length_m": 0.4,
+"notes": "",
+"via": [
+"rcbo",
+"pc_gpo_double"
+],
+"points": [
+[
+1317.0,
+-721.0,
+200.0
+],
+[
+1377.0,
+-712.0,
+135.0
+]
+]
+},
+{
+"id": "AC3",
+"circuit": "Slide GPO",
+"frm": "RCBO 2",
+"to": "Power-slide pod GPO",
+"size": "2.5x3",
+"spec": "2.5 mm2 3-core high-flex (chain rated)",
+"protection": "RCBO 10 A 30 mA",
+"side": "vehicle",
+"colour": "w_ac",
+"length_m": 2.29,
+"notes": "runs through the cable chain",
+"via": [
+"rcbo",
+"cab_floor",
+"under_slide",
+"chain_fixed",
+"chain_moving",
+"slide_bulkhead"
+],
+"points": [
+[
+1317.0,
+-721.0,
+200.0
+],
+[
+1071.0,
+-605.0,
+37.0
+],
+[
+1071.0,
+-555.0,
+20.0
+],
+[
+960.2,
+-543.0,
+28.0
+],
+[
+1624.4,
+-543.0,
+154.0
+],
+[
+1523.4,
+-522.0,
+122.2
+]
+]
+},
+{
+"id": "AC4",
+"circuit": "Tent heater GPO",
+"frm": "RCBO 3",
+"to": "Gap junction -> tent services box GPO",
+"size": "2.5x3",
+"spec": "2.5 mm2 3-core flex, UV rated",
+"protection": "RCBO 10 A 30 mA",
+"side": "vehicle",
+"colour": "w_ac",
+"length_m": 3.79,
+"notes": "detaches at the gap junction (IP66 inline plug)",
+"via": [
+"rcbo",
+"cab_in",
+"drop_gland",
+"gland_in",
+"wall_out",
+"wall_low",
+"chassis_rear",
+"chassis_gap",
+"gap_low",
+"junction_bot"
+],
+"points": [
+[
+1317.0,
+-721.0,
+200.0
+],
+[
+1372.0,
+-775.0,
+278.0
+],
+[
+1372.0,
+-775.0,
+438.0
+],
+[
+1342.0,
+-778.0,
+418.0
+],
+[
+1342.0,
+-853.0,
+418.0
+],
+[
+1342.0,
+-853.0,
+-42.0
+],
+[
+1342.0,
+-515.0,
+-152.0
+],
+[
+-70.0,
+-515.0,
+-152.0
+],
+[
+-70.0,
+-700.0,
+138.0
+],
+[
+-82.0,
+-700.0,
+360.0
+]
+]
+},
+{
+"id": "AC5",
+"circuit": "Shore inlet",
+"frm": "Gap junction (from tent 15 A inlet)",
+"to": "MultiPlus-II AC-in",
+"size": "2.5x3",
+"spec": "2.5 mm2 3-core flex (15 A)",
+"protection": "RCBO 16 A 30 mA in the services box + MultiPlus AC-in limit 15 A",
+"side": "vehicle",
+"colour": "w_ac",
+"length_m": 6.19,
+"notes": "",
+"via": [
+"junction_bot",
+"gap_low",
+"chassis_gap",
+"chassis_rear",
+"wall_low",
+"wall_out",
+"gland_in",
+"gland_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+"inv_ac"
+],
+"points": [
+[
+-82.0,
+-700.0,
+360.0
+],
+[
+-64.0,
+-693.0,
+144.0
+],
+[
+-64.0,
+-508.0,
+-146.0
+],
+[
+1348.0,
+-508.0,
+-146.0
+],
+[
+1348.0,
+-846.0,
+-36.0
+],
+[
+1348.0,
+-846.0,
+424.0
+],
+[
+1348.0,
+-771.0,
+424.0
+],
+[
+1378.0,
+-768.0,
+444.0
+],
+[
+1378.0,
+-749.0,
+548.0
+],
+[
+298.0,
+-749.0,
+548.0
+],
+[
+298.0,
+-535.0,
+544.0
+],
+[
+218.0,
+47.0,
+544.0
+],
+[
+64.0,
+-34.0,
+100.0
+]
+]
+},
+{
+"id": "DO1A",
+"circuit": "Rear Anderson 1",
+"frm": "DC fuse block",
+"to": "Rear panel Anderson 1",
+"size": "6",
+"spec": "6 mm2 twin",
+"protection": "ATC 30 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.63,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"pc_anderson_1"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1377.0,
+-742.0,
+52.0
+]
+]
+},
+{
+"id": "DO1B",
+"circuit": "Rear Anderson 2",
+"frm": "DC fuse block",
+"to": "Rear panel Anderson 2",
+"size": "6",
+"spec": "6 mm2 twin",
+"protection": "ATC 30 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.61,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"pc_anderson_2"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1377.0,
+-676.0,
+52.0
+]
+]
+},
+{
+"id": "DO1C",
+"circuit": "Rear USB-C x2",
+"frm": "DC fuse block",
+"to": "Rear panel USB-C x2",
+"size": "2.5x3",
+"spec": "2.5 mm2 twin",
+"protection": "ATC 10 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.57,
+"notes": "USB-C sockets daisy-chained at the panel",
+"via": [
+"dc_fuse_block",
+"pc_usbc_1"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1377.0,
+-619.0,
+158.0
+]
+]
+},
+{
+"id": "DO1D",
+"circuit": "Rear 12 V socket",
+"frm": "DC fuse block",
+"to": "Rear panel 12 V socket",
+"size": "4",
+"spec": "4 mm2 twin",
+"protection": "ATC 15 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.61,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"pc_12v"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1377.0,
+-619.0,
+52.0
+]
+]
+},
+{
+"id": "DO2",
+"circuit": "Slide DC",
+"frm": "DC fuse block",
+"to": "Power-slide pod Anderson / 12 V / USB-C",
+"size": "6",
+"spec": "6 mm2 twin high-flex",
+"protection": "ATC 30 A (+ inline 15 A / 10 A in the pod)",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 2.16,
+"notes": "runs through the cable chain",
+"via": [
+"dc_fuse_block",
+"cab_floor",
+"under_slide",
+"chain_fixed",
+"chain_moving",
+"slide_bulkhead"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1065.0,
+-619.0,
+49.0
+],
+[
+1065.0,
+-569.0,
+32.0
+],
+[
+954.2,
+-557.0,
+40.0
+],
+[
+1618.4,
+-557.0,
+166.0
+],
+[
+1523.4,
+-522.0,
+122.2
+]
+]
+},
+{
+"id": "DO3",
+"circuit": "Cabin outlets",
+"frm": "DC fuse block",
+"to": "Under-rear-seat box (Anderson, USB-C, 12 V)",
+"size": "6",
+"spec": "6 mm2 twin",
+"protection": "ATC 30 A (+ inline 15 A / 10 A in the box)",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 4.18,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"cab_in",
+"drop_gland",
+"gland_in",
+"wall_out",
+"wall_low",
+"chassis_rear",
+"chassis_cabin",
+"cabin_grommet",
+"cabin_outlets"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1366.0,
+-768.0,
+260.0
+],
+[
+1366.0,
+-768.0,
+420.0
+],
+[
+1336.0,
+-771.0,
+400.0
+],
+[
+1336.0,
+-846.0,
+400.0
+],
+[
+1336.0,
+-846.0,
+-60.0
+],
+[
+1336.0,
+-508.0,
+-170.0
+],
+[
+-644.0,
+-508.0,
+-170.0
+],
+[
+-644.0,
+-373.0,
+-40.0
+],
+[
+-650.0,
+-380.0,
+-30.0
+]
+]
+},
+{
+"id": "DO4",
+"circuit": "Starlink Mini",
+"frm": "DC fuse block",
+"to": "Starlink Mini (roof)",
+"size": "4",
+"spec": "4 mm2 twin + DC barrel lead",
+"protection": "ATC 10 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 5.0,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"cab_in",
+"drop_gland",
+"gland_in",
+"wall_out",
+"wall_low",
+"chassis_rear",
+"chassis_gap",
+"gap_low",
+"junction_bot",
+"junction_top",
+"gap_high",
+"roof_drop",
+"starlink"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1372.0,
+-761.0,
+266.0
+],
+[
+1372.0,
+-761.0,
+426.0
+],
+[
+1342.0,
+-764.0,
+406.0
+],
+[
+1342.0,
+-839.0,
+406.0
+],
+[
+1342.0,
+-839.0,
+-54.0
+],
+[
+1342.0,
+-501.0,
+-164.0
+],
+[
+-70.0,
+-501.0,
+-164.0
+],
+[
+-70.0,
+-686.0,
+126.0
+],
+[
+-70.0,
+-686.0,
+366.0
+],
+[
+-70.0,
+-686.0,
+541.0
+],
+[
+-70.0,
+-546.0,
+886.0
+],
+[
+-93.0,
+-546.0,
+926.0
+],
+[
+-334.5,
+-350.0,
+1038.0
+]
+]
+},
+{
+"id": "DO5",
+"circuit": "Tent 12 V",
+"frm": "DC fuse block",
+"to": "Gap junction -> tent (Anderson SB50)",
+"size": "6",
+"spec": "6 mm2 twin",
+"protection": "ATC 30 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 3.98,
+"notes": "detaches at the gap junction",
+"via": [
+"dc_fuse_block",
+"cab_in",
+"drop_gland",
+"gland_in",
+"wall_out",
+"wall_low",
+"chassis_rear",
+"chassis_gap",
+"gap_low",
+"junction_bot"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+1378.0,
+-775.0,
+272.0
+],
+[
+1378.0,
+-775.0,
+432.0
+],
+[
+1348.0,
+-778.0,
+412.0
+],
+[
+1348.0,
+-853.0,
+412.0
+],
+[
+1348.0,
+-853.0,
+-48.0
+],
+[
+1348.0,
+-515.0,
+-158.0
+],
+[
+-64.0,
+-515.0,
+-158.0
+],
+[
+-64.0,
+-700.0,
+132.0
+],
+[
+-82.0,
+-700.0,
+360.0
+]
+]
+},
+{
+"id": "ALT",
+"circuit": "Alternator charge",
+"frm": "Start battery (60 A MIDI)",
+"to": "Orion XS input",
+"size": "25",
+"spec": "25 mm2 twin (+/-), tinned",
+"protection": "60 A at start battery",
+"side": "vehicle",
+"colour": "w_pos",
+"length_m": 8.62,
+"notes": "Orion XS input limit 25-30 A until the alternator rating is known",
+"via": [
+"start_battery",
+"engine_up",
+"chassis_engine",
+"chassis_gap",
+"chassis_rear",
+"wall_low",
+"wall_out",
+"gland_in",
+"gland_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+null,
+"orion_xs_50a"
+],
+"points": [
+[
+-3050.0,
+-520.0,
+220.0
+],
+[
+-2800.0,
+-513.0,
+278.0
+],
+[
+-2800.0,
+-508.0,
+-152.0
+],
+[
+-82.0,
+-508.0,
+-152.0
+],
+[
+1330.0,
+-508.0,
+-152.0
+],
+[
+1330.0,
+-846.0,
+-42.0
+],
+[
+1330.0,
+-846.0,
+418.0
+],
+[
+1330.0,
+-771.0,
+418.0
+],
+[
+1360.0,
+-768.0,
+438.0
+],
+[
+1360.0,
+-749.0,
+542.0
+],
+[
+280.0,
+-749.0,
+542.0
+],
+[
+280.0,
+-535.0,
+538.0
+],
+[
+66.0,
+-491.5,
+528.0
+],
+[
+46.0,
+-498.5,
+305.0
+]
+]
+},
+{
+"id": "PVR",
+"circuit": "Roof PV",
+"frm": "Roof panels (parallel, MC4 Y-branch)",
+"to": "MPPT 100/30 PV in",
+"size": "6",
+"spec": "6 mm2 solar twin (UV)",
+"protection": "2-pole DC PV isolator 32 A",
+"side": "vehicle",
+"colour": "w_pv",
+"length_m": 6.87,
+"notes": "",
+"via": [
+"roof_pv",
+"roof_drop",
+"gap_high",
+"junction_top",
+"junction_bot",
+"gap_low",
+"chassis_gap",
+"chassis_rear",
+"wall_low",
+"wall_out",
+"gland_in",
+"gland_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+null,
+"mppt_roof_100_30"
+],
+"points": [
+[
+-210.0,
+0.0,
+1040.0
+],
+[
+-99.0,
+-546.0,
+944.0
+],
+[
+-76.0,
+-546.0,
+904.0
+],
+[
+-76.0,
+-686.0,
+559.0
+],
+[
+-76.0,
+-686.0,
+384.0
+],
+[
+-76.0,
+-686.0,
+144.0
+],
+[
+-76.0,
+-501.0,
+-146.0
+],
+[
+1336.0,
+-501.0,
+-146.0
+],
+[
+1336.0,
+-839.0,
+-36.0
+],
+[
+1336.0,
+-839.0,
+424.0
+],
+[
+1336.0,
+-764.0,
+424.0
+],
+[
+1366.0,
+-761.0,
+444.0
+],
+[
+1366.0,
+-742.0,
+548.0
+],
+[
+286.0,
+-742.0,
+548.0
+],
+[
+286.0,
+-528.0,
+544.0
+],
+[
+102.0,
+-333.0,
+534.0
+],
+[
+76.0,
+-347.0,
+305.0
+]
+]
+},
+{
+"id": "PVT",
+"circuit": "Tent PV",
+"frm": "Gap junction (from tent panels)",
+"to": "MPPT 75/15 PV in",
+"size": "6",
+"spec": "6 mm2 solar twin (UV)",
+"protection": "2-pole DC PV isolator 32 A",
+"side": "vehicle",
+"colour": "w_pv",
+"length_m": 5.72,
+"notes": "detaches at the gap junction",
+"via": [
+"junction_bot",
+"gap_low",
+"chassis_gap",
+"chassis_rear",
+"wall_low",
+"wall_out",
+"gland_in",
+"gland_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+null,
+"mppt_tent_75_15"
+],
+"points": [
+[
+-82.0,
+-700.0,
+360.0
+],
+[
+-70.0,
+-700.0,
+120.0
+],
+[
+-70.0,
+-515.0,
+-170.0
+],
+[
+1342.0,
+-515.0,
+-170.0
+],
+[
+1342.0,
+-853.0,
+-60.0
+],
+[
+1342.0,
+-853.0,
+400.0
+],
+[
+1342.0,
+-778.0,
+400.0
+],
+[
+1372.0,
+-775.0,
+420.0
+],
+[
+1372.0,
+-756.0,
+524.0
+],
+[
+292.0,
+-756.0,
+524.0
+],
+[
+292.0,
+-542.0,
+520.0
+],
+[
+78.0,
+-200.5,
+510.0
+],
+[
+46.0,
+-200.5,
+305.0
+]
+]
+},
+{
+"id": "SW1",
+"circuit": "Battery switch control",
+"frm": "Rear panel ML-RBS switch (Blue Sea 2155)",
+"to": "ML-RBS control harness",
+"size": "data",
+"spec": "4-core 1.0 mm2 (+12 V feed, control, LED, ground)",
+"protection": "2 A inline at bank + (RBF)",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 2.89,
+"notes": "switch feed taken from the battery side so the RBS can be closed again",
+"via": [
+"pc_sw_battery",
+"cab_in",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+null
+],
+"points": [
+[
+1377.0,
+-617.0,
+252.0
+],
+[
+1378.0,
+-768.0,
+266.0
+],
+[
+1378.0,
+-768.0,
+426.0
+],
+[
+1378.0,
+-749.0,
+530.0
+],
+[
+298.0,
+-749.0,
+530.0
+],
+[
+298.0,
+-535.0,
+526.0
+],
+[
+218.0,
+47.0,
+526.0
+],
+[
+190.0,
+40.0,
+470.0
+]
+]
+},
+{
+"id": "RBF",
+"circuit": "Battery switch control",
+"frm": "Bank + busbar",
+"to": "ML-RBS control feed (inline 2 A)",
+"size": "data",
+"spec": "1.0 mm2 red",
+"protection": "ATC 2 A inline",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 0.38,
+"notes": "",
+"via": [
+"bus_bank_pos",
+null
+],
+"points": [
+[
+255.0,
+30.0,
+500.0
+],
+[
+190.0,
+40.0,
+470.0
+]
+]
+},
+{
+"id": "SHV",
+"circuit": "Shunt sense",
+"frm": "Bank + busbar",
+"to": "SmartShunt Vbatt+",
+"size": "data",
+"spec": "0.75 mm2 red (supplied lead)",
+"protection": "1 A inline (supplied)",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 0.64,
+"notes": "",
+"via": [
+"bus_bank_pos",
+null
+],
+"points": [
+[
+255.0,
+30.0,
+500.0
+],
+[
+60.0,
+26.0,
+260.0
+]
+]
+},
+{
+"id": "FAN",
+"circuit": "Inverter fan",
+"frm": "System + busbar",
+"to": "92 mm thermostatic fan",
+"size": "2.5x3",
+"spec": "1.5 mm2 twin",
+"protection": "ATC 5 A inline",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.7,
+"notes": "",
+"via": [
+"bus_sys_pos",
+null
+],
+"points": [
+[
+255.0,
+30.0,
+270.0
+],
+[
+141.5,
+-307.0,
+197.0
+]
+]
+},
+{
+"id": "CGX",
+"circuit": "Cerbo GX power",
+"frm": "DC fuse block",
+"to": "Cerbo GX power in",
+"size": "data",
+"spec": "0.75 mm2 twin",
+"protection": "ATC 2 A",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.5,
+"notes": "",
+"via": [
+"dc_fuse_block",
+"cerbo"
+],
+"points": [
+[
+1140.5,
+-646.0,
+210.0
+],
+[
+956.0,
+-649.0,
+228.0
+]
+]
+},
+{
+"id": "IGN",
+"circuit": "Orion ignition sense",
+"frm": "Engine-bay fuse box (add-a-fuse, ignition)",
+"to": "Orion XS remote H",
+"size": "data",
+"spec": "1.0 mm2 single",
+"protection": "ATC 2 A add-a-fuse",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 8.63,
+"notes": "engine-run signal; avoids relying on voltage detection with a smart alternator",
+"via": [
+"start_battery",
+"engine_up",
+"chassis_engine",
+"chassis_gap",
+"chassis_rear",
+"wall_low",
+"wall_out",
+"gland_in",
+"gland_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+null,
+null
+],
+"points": [
+[
+-3050.0,
+-520.0,
+220.0
+],
+[
+-2800.0,
+-520.0,
+266.0
+],
+[
+-2800.0,
+-515.0,
+-164.0
+],
+[
+-82.0,
+-515.0,
+-164.0
+],
+[
+1330.0,
+-515.0,
+-164.0
+],
+[
+1330.0,
+-853.0,
+-54.0
+],
+[
+1330.0,
+-853.0,
+406.0
+],
+[
+1330.0,
+-778.0,
+406.0
+],
+[
+1360.0,
+-775.0,
+426.0
+],
+[
+1360.0,
+-756.0,
+530.0
+],
+[
+280.0,
+-756.0,
+530.0
+],
+[
+280.0,
+-542.0,
+526.0
+],
+[
+66.0,
+-498.5,
+528.0
+],
+[
+46.0,
+-498.5,
+305.0
+]
+]
+},
+{
+"id": "PE1",
+"circuit": "Inverter case earth",
+"frm": "MultiPlus-II chassis earth stud",
+"to": "System - busbar",
+"size": "50",
+"spec": "50 mm2 green/yellow",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_pe",
+"length_m": 0.38,
+"notes": "Victron: same size as the DC negative",
+"via": [
+null,
+"bus_sys_neg"
+],
+"points": [
+[
+169.0,
+-34.0,
+50.0
+],
+[
+130.0,
+30.0,
+60.0
+]
+]
+},
+{
+"id": "CHB",
+"circuit": "Chassis bond",
+"frm": "System - busbar",
+"to": "Chassis rail bond point",
+"size": "25",
+"spec": "25 mm2 black",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_neg",
+"length_m": 4.02,
+"notes": "single DC-negative / PE bond to the vehicle chassis",
+"via": [
+"bus_sys_neg",
+"dist_top",
+"bay_top",
+"tray_front",
+"tray_rear",
+"drop_gland",
+"gland_in",
+"gland_in",
+"wall_out",
+"wall_low",
+"chassis_rear"
+],
+"points": [
+[
+130.0,
+30.0,
+60.0
+],
+[
+212.0,
+54.0,
+538.0
+],
+[
+292.0,
+-528.0,
+538.0
+],
+[
+292.0,
+-742.0,
+542.0
+],
+[
+1372.0,
+-742.0,
+542.0
+],
+[
+1372.0,
+-761.0,
+438.0
+],
+[
+1342.0,
+-764.0,
+418.0
+],
+[
+1342.0,
+-839.0,
+418.0
+],
+[
+1342.0,
+-839.0,
+-42.0
+],
+[
+1330.0,
+-515.0,
+-170.0
+]
+]
+},
+{
+"id": "SW2",
+"circuit": "Inverter remote on/off",
+"frm": "Rear panel switch",
+"to": "MultiPlus-II remote terminals",
+"size": "data",
+"spec": "2-core 0.75 mm2",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 3.3,
+"notes": "",
+"via": [
+"pc_sw_inverter",
+"cab_in",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+"inv_comms"
+],
+"points": [
+[
+1377.0,
+-617.0,
+208.0
+],
+[
+1378.0,
+-775.0,
+284.0
+],
+[
+1378.0,
+-775.0,
+444.0
+],
+[
+1378.0,
+-756.0,
+548.0
+],
+[
+298.0,
+-756.0,
+548.0
+],
+[
+298.0,
+-542.0,
+544.0
+],
+[
+218.0,
+40.0,
+544.0
+],
+[
+154.0,
+-34.0,
+120.0
+]
+]
+},
+{
+"id": "D1",
+"circuit": "VE.Bus",
+"frm": "Cerbo GX",
+"to": "MultiPlus-II",
+"size": "data",
+"spec": "RJ45 VE.Bus cable",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 3.58,
+"notes": "",
+"via": [
+"cerbo",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+"inv_comms"
+],
+"points": [
+[
+956.0,
+-649.0,
+228.0
+],
+[
+1360.0,
+-768.0,
+260.0
+],
+[
+1360.0,
+-768.0,
+420.0
+],
+[
+1360.0,
+-749.0,
+524.0
+],
+[
+280.0,
+-749.0,
+524.0
+],
+[
+280.0,
+-535.0,
+520.0
+],
+[
+200.0,
+47.0,
+520.0
+],
+[
+154.0,
+-34.0,
+120.0
+]
+]
+},
+{
+"id": "D2",
+"circuit": "VE.Direct",
+"frm": "Cerbo GX VE.Direct 1-3",
+"to": "SmartShunt / MPPT 100/30 / MPPT 75/15",
+"size": "data",
+"spec": "VE.Direct cables x3",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 3.8,
+"notes": "",
+"via": [
+"cerbo",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+null,
+"mppt_roof_100_30"
+],
+"points": [
+[
+956.0,
+-649.0,
+228.0
+],
+[
+1366.0,
+-761.0,
+266.0
+],
+[
+1366.0,
+-761.0,
+426.0
+],
+[
+1366.0,
+-742.0,
+530.0
+],
+[
+286.0,
+-742.0,
+530.0
+],
+[
+286.0,
+-528.0,
+526.0
+],
+[
+206.0,
+54.0,
+526.0
+],
+[
+102.0,
+-333.0,
+524.0
+],
+[
+76.0,
+-347.0,
+305.0
+]
+]
+},
+{
+"id": "D4",
+"circuit": "VE.Direct",
+"frm": "Cerbo GX USB",
+"to": "Orion XS VE.Direct",
+"size": "data",
+"spec": "VE.Direct to USB interface",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 3.97,
+"notes": "Cerbo GX MK2 has only 3 VE.Direct ports",
+"via": [
+"cerbo",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+null,
+"orion_xs_50a"
+],
+"points": [
+[
+956.0,
+-649.0,
+228.0
+],
+[
+1372.0,
+-775.0,
+272.0
+],
+[
+1372.0,
+-775.0,
+432.0
+],
+[
+1372.0,
+-756.0,
+536.0
+],
+[
+292.0,
+-756.0,
+536.0
+],
+[
+292.0,
+-542.0,
+532.0
+],
+[
+212.0,
+40.0,
+532.0
+],
+[
+78.0,
+-498.5,
+530.0
+],
+[
+46.0,
+-498.5,
+305.0
+]
+]
+},
+{
+"id": "D3",
+"circuit": "Display",
+"frm": "Cerbo GX (HDMI + USB)",
+"to": "GX Touch 50",
+"size": "data",
+"spec": "GX Touch cable (HDMI + USB)",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 0.77,
+"notes": "",
+"via": [
+"cerbo",
+"pc_gx_touch_50"
+],
+"points": [
+[
+956.0,
+-649.0,
+228.0
+],
+[
+1377.0,
+-708.0,
+231.5
+]
+]
+},
+{
+"id": "T1",
+"circuit": "Tent harness",
+"frm": "Tent services box",
+"to": "Gap junction plugs (240 V out, 240 V in, 12 V)",
+"size": "2.5x3",
+"spec": "2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle",
+"protection": "RCBO 16 A 30 mA (AC-in, in the services box)",
+"side": "tent",
+"colour": "w_tent",
+"length_m": 1.87,
+"notes": "stays with the tent; check clearance at the lid hinge",
+"via": [
+"tent_services",
+null,
+null,
+"lid_front",
+"junction_top"
+],
+"points": [
+[
+240.0,
+335.0,
+746.4
+],
+[
+20.0,
+349.0,
+770.4
+],
+[
+20.0,
+-501.0,
+770.4
+],
+[
+-82.0,
+-501.0,
+677.0
+],
+[
+-82.0,
+-700.0,
+535.0
+]
+]
+},
+{
+"id": "T2",
+"circuit": "Tent PV harness",
+"frm": "Tent panels",
+"to": "Gap junction (PV plug)",
+"size": "6",
+"spec": "6 mm2 solar twin (UV)",
+"protection": "-",
+"side": "tent",
+"colour": "w_tent",
+"length_m": 1.56,
+"notes": "",
+"via": [
+"tent_pv_jbox",
+null,
+null,
+"lid_front",
+"junction_top"
+],
+"points": [
+[
+468.5,
+-512.0,
+1089.4
+],
+[
+16.0,
+-512.0,
+1089.4
+],
+[
+16.0,
+-515.0,
+796.4
+],
+[
+-76.0,
+-515.0,
+653.0
+],
+[
+-82.0,
+-700.0,
+535.0
+]
+]
+}
+],
+"anchors": {
+"exit_inside": [
+1330.0,
+-776.0,
+400.0
+],
+"exit_outside": [
+1330.0,
+-851.0,
+400.0
+],
+"start_battery": [
+-3050.0,
+-520.0,
+220.0
+],
+"cabin_outlets": [
+-650.0,
+-380.0,
+-30.0
+],
+"tent_pv_jbox": [
+468.5,
+-512.0,
+1089.4
+],
+"tent_services": [
+240.0,
+335.0,
+746.4
+],
+"tent_front_drop": [
+5.0,
+-515.0,
+746.4
+],
+"inv_dc_pos": [
+229.0,
+-34.0,
+50.0
+],
+"inv_dc_neg": [
+169.0,
+-34.0,
+50.0
+],
+"inv_ac": [
+64.0,
+-34.0,
+100.0
+],
+"inv_comms": [
+154.0,
+-34.0,
+120.0
+],
+"orion_xs_50a": [
+46.0,
+-498.5,
+305.0
+],
+"mppt_roof_100_30": [
+76.0,
+-347.0,
+305.0
+],
+"mppt_tent_75_15": [
+46.0,
+-200.5,
+305.0
+],
+"batt1_pos": [
+257.0,
+210.0,
+471.0
+],
+"batt1_neg": [
+243.0,
+210.0,
+66.0
+],
+"batt2_pos": [
+257.0,
+460.0,
+471.0
+],
+"batt2_neg": [
+243.0,
+460.0,
+66.0
+],
+"bus_bank_pos": [
+255.0,
+30.0,
+500.0
+],
+"rbs_in": [
+190.0,
+40.0,
+470.0
+],
+"rbs_out": [
+125.0,
+40.0,
+410.0
+],
+"bus_sys_pos": [
+255.0,
+30.0,
+270.0
+],
+"midi_fuses": [
+255.0,
+30.0,
+110.0
+],
+"classT_in": [
+170.0,
+50.0,
+330.0
+],
+"classT_out": [
+170.0,
+50.0,
+240.0
+],
+"bus_bank_neg": [
+60.0,
+30.0,
+320.0
+],
+"shunt": [
+60.0,
+26.0,
+260.0
+],
+"shunt_sys": [
+60.0,
+26.0,
+160.0
+],
+"bus_sys_neg": [
+130.0,
+30.0,
+60.0
+],
+"slide_bulkhead": [
+1523.4,
+-522.0,
+122.2
+],
+"chain_fixed": [
+954.2,
+-557.0,
+16.0
+],
+"chain_moving": [
+1618.4,
+-557.0,
+142.0
+],
+"pc_gx_touch_50": [
+1377.0,
+-708.0,
+231.5
+],
+"pc_sw_battery": [
+1377.0,
+-617.0,
+252.0
+],
+"pc_sw_inverter": [
+1377.0,
+-617.0,
+208.0
+],
+"pc_gpo_double": [
+1377.0,
+-712.0,
+135.0
+],
+"pc_usbc_1": [
+1377.0,
+-619.0,
+158.0
+],
+"pc_usbc_2": [
+1377.0,
+-619.0,
+114.0
+],
+"pc_anderson_1": [
+1377.0,
+-742.0,
+52.0
+],
+"pc_anderson_2": [
+1377.0,
+-676.0,
+52.0
+],
+"pc_12v": [
+1377.0,
+-619.0,
+52.0
+],
+"rcbo": [
+1317.0,
+-721.0,
+200.0
+],
+"dc_fuse_block": [
+1140.5,
+-646.0,
+210.0
+],
+"cerbo": [
+956.0,
+-649.0,
+228.0
+],
+"starlink": [
+-334.5,
+-350.0,
+1038.0
+],
+"roof_pv": [
+-210.0,
+0.0,
+1040.0
+],
+"roof_drop": [
+-105.0,
+-560.0,
+920.0
+],
+"bay_top": [
+280.0,
+-542.0,
+520.0
+],
+"dist_top": [
+200.0,
+40.0,
+520.0
+],
+"tray_front": [
+280.0,
+-756.0,
+524.0
+],
+"tray_rear": [
+1360.0,
+-756.0,
+524.0
+],
+"drop_gland": [
+1360.0,
+-775.0,
+420.0
+],
+"gland_in": [
+1330.0,
+-778.0,
+400.0
+],
+"cab_in": [
+1360.0,
+-775.0,
+260.0
+],
+"cab_floor": [
+1065.0,
+-619.0,
+25.0
+],
+"under_slide": [
+1065.0,
+-569.0,
+8.0
+],
+"wall_out": [
+1330.0,
+-853.0,
+400.0
+],
+"wall_low": [
+1330.0,
+-853.0,
+-60.0
+],
+"chassis_rear": [
+1330.0,
+-515.0,
+-170.0
+],
+"chassis_gap": [
+-82.0,
+-515.0,
+-170.0
+],
+"chassis_cabin": [
+-650.0,
+-515.0,
+-170.0
+],
+"cabin_grommet": [
+-650.0,
+-380.0,
+-40.0
+],
+"chassis_engine": [
+-2800.0,
+-515.0,
+-170.0
+],
+"engine_up": [
+-2800.0,
+-520.0,
+260.0
+],
+"gap_low": [
+-82.0,
+-700.0,
+120.0
+],
+"junction_bot": [
+-82.0,
+-700.0,
+360.0
+],
+"junction_top": [
+-82.0,
+-700.0,
+535.0
+],
+"gap_high": [
+-82.0,
+-560.0,
+880.0
+],
+"lid_front": [
+-82.0,
+-515.0,
+653.0
+]
+}
+}

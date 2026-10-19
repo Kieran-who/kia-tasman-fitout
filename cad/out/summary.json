@@ -1,6 +1,6 @@
 {
-  "version": "v0.7",
-  "fitout_kg": 483.7,
+  "version": "v0.8",
+  "fitout_kg": 486.9,
   "example_payload_kg": 108.2,
   "options_kg": {
     "option: well filler (no fridge)": 5.0,
@@ -22,7 +22,7 @@
     "tent": 84.0,
     "tent_services": 2.5,
     "utility": 15.6,
-    "wiring": 19.5,
+    "wiring": 22.7,
     "modules": 12.3,
     "well_filler": 5.0,
     "payload": 108.2
@@ -37,8 +37,8 @@
   "slide_travel": 1168.4,
   "tent_gap": 163.4,
   "solar_w": 520,
-  "cable_count": 35,
-  "cable_total_m": 84.1,
+  "cable_count": 46,
+  "cable_total_m": 105.1,
   "material_need": {
     "ACM 3": 1.25,
     "Plate 6 5052": 1.28,
