@@ -58,22 +58,27 @@ const RENDER = q.has('render');
 if (RENDER) document.body.classList.add('render');
 
 const GROUP_NAMES = {
-  vehicle:'Vehicle (context)', lid:'Load lid', tent:'Rooftop tent', bay:'Battery bay frame', bay_cover:'Bay cover',
-  batteries:'Batteries', electrical:'Electrical components', slide_p:'Slide – power side', slide_d:'Slide – driver side',
-  power_cabinet:'Power cabinet + arch box', water:'Water tank', roof:'Roof platform', solar:'Solar panels',
-  cargo:'Cargo bars', cables:'Cable routes', markers:'Markers'
+  vehicle:'Vehicle + tub (context)', lid:'Load lid + Destroyer rails', rack:'Rhino-Rack bars', tent:'Rooftop tent',
+  tent_services:'Tent services box', future:'Future storage (ghost)', bay:'Battery bay frame', bay_cover:'Covers',
+  batteries:'Batteries', electrical:'Electrical components', wiring:'Wiring (vehicle)', tent_harness:'Wiring (tent, detachable)',
+  slide_p:'Slide – power side', slide_d:'Slide – driver side', power_cabinet:'Power cabinet + charging board',
+  utility:'Utility storage (driver side)', payload:'Example payload', roof:'Roof platform', solar:'Solar panels',
+  cargo:'Cargo bars', markers:'Markers'
 };
 
 // camera presets: [position], [target], options  (GL frame: x = rearward, y = up, z = passenger side)
 const VIEWS = {
   hero:     { pos:[5.2, 2.0, 3.9],  tgt:[0.2, 0.2, 0],   fov:32 },
   rear:     { pos:[5.4, 1.1, 1.6],  tgt:[0.9, 0.05, 0],  fov:30 },
-  tub_iso:  { pos:[3.0, 2.2, 2.1],  tgt:[0.75, 0.1, 0],  fov:30, hide:['lid','tent','roof','solar','cargo'] },
-  plan:     { pos:[0.75, 6, 0.0001],tgt:[0.75, 0, 0],    fov:22, up:[-1,0,0], hide:['lid','tent','roof','solar','cargo','bay_cover'] },
-  bay:      { pos:[1.55, 1.15, 0.75], tgt:[0.15, 0.28, 0], fov:34, hide:['lid','tent','roof','solar','cargo','bay_cover'] },
+  tub_iso:  { pos:[3.0, 2.2, 2.1],  tgt:[0.75, 0.1, 0],  fov:30, hide:['lid','rack','tent','tent_services','future','roof','solar','cargo','bay_cover','tent_harness'] },
+  plan:     { pos:[0.75, 6, 0.0001],tgt:[0.75, 0, 0],    fov:22, up:[-1,0,0], hide:['lid','rack','tent','tent_services','future','roof','solar','cargo','bay_cover','payload','tent_harness','wiring'] },
+  bay:      { pos:[1.25, 1.05, 0.55], tgt:[0.15, 0.25, -0.05], fov:36, hide:['lid','rack','tent','tent_services','future','roof','solar','cargo','bay_cover','payload','tent_harness'] },
+  wiring:   { pos:[2.2, 2.6, 3.4],  tgt:[-0.4, 0.0, -0.2], fov:38, hide:['lid','rack','tent','future','roof','solar','cargo','bay_cover','payload','slide_d','utility','tent_services'], ghost:['vehicle'] },
+  tent_side:{ pos:[0.55, 0.95, -5.4], tgt:[0.55, 0.6, 0], fov:24, hide:['roof','solar','cargo'] },
   side_d:   { pos:[-0.8, 0.6, -8.5], tgt:[-0.8, 0.3, 0],  fov:34 },
   roof:     { pos:[1.2, 2.9, 2.6],  tgt:[-0.9, 1.0, 0],  fov:34 },
-  slides:   { pos:[3.7, 0.9, -1.9], tgt:[1.4, 0.0, 0],   fov:32, hide:['lid','tent'] },
+  slides:   { pos:[3.7, 0.9, -1.9], tgt:[1.4, 0.0, 0],   fov:32, hide:['lid','rack','tent','tent_services','future','tent_harness'] },
+  utility:  { pos:[2.9, 1.75, -1.25], tgt:[1.05, 0.2, -0.6], fov:32, hide:['lid','rack','tent','tent_services','future','tent_harness','roof','solar','cargo'] },
 };
 
 const canvas = document.getElementById('c');
@@ -120,6 +125,7 @@ async function load(state) {
   const root = gltf.scene;
   root.traverse(o => {
     if (o.isMesh) {
+      o.material = o.material.clone();
       const tr = o.material.transparent;
       o.castShadow = !tr; o.receiveShadow = true;
       if (tr) o.material.depthWrite = false;
@@ -143,8 +149,20 @@ function setView(key) {
   camera.up.set(...(v.up || [0,1,0]));
   camera.position.set(...v.pos); controls.target.set(...v.tgt);
   camera.updateProjectionMatrix(); controls.update();
+  setGhost(v.ghost || []);
   if (v.hide) { for (const g in groups) groups[g] = !v.hide.includes(g); applyVisibility(); syncLayerUI(); }
   else { for (const g in groups) groups[g] = true; applyVisibility(); syncLayerUI(); }
+}
+
+function setGhost(list) {
+  for (const st in models) models[st].traverse(o => {
+    if (!o.isMesh) return;
+    const g = groupOf(o.name || o.parent?.name || '');
+    if (o.userData.base === undefined) o.userData.base = { t: o.material.transparent, op: o.material.opacity, dw: o.material.depthWrite };
+    const b = o.userData.base, ghost = list.includes(g);
+    o.material.transparent = ghost ? true : b.t; o.material.opacity = ghost ? 0.12 : b.op;
+    o.material.depthWrite = ghost ? false : b.dw; o.castShadow = !ghost && !b.t;
+  });
 }
 
 function syncLayerUI() {

@@ -8,26 +8,26 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives in v0.1 |
+| # | Requirement | Where it lives (v0.2) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
-| R2 | Solar + alternator charging | Charging board: Orion XS ×2, MPPT ×2 |
-| R3 | Inverter about 3000 W for a kettle and microwave | MultiPlus-II 12/3000 (Quattro 12/5000 as an option) |
-| R4 | 240 V mains charging, inlet under the tent, detachable | MultiPlus AC-in via the tent umbilical |
-| R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box + lid connector panel |
-| R6 | Power to the tent and to the cabin under the rear seats | Tent umbilical; cabin feed through the factory outlet path |
-| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 4 runners per slide + fold-down legs |
-| R8 | Power-side slide has integrated cable management and outlets | Lay-flat chain + outlet bulkhead |
+| R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
+| R3 | Inverter at least 3000 W (kettle + microwave) | Quattro 12/5000, 4000 W (v0.2) |
+| R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
+| R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
+| R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2) |
+| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 per slide, UHMW stowed stops, pin-in legs |
+| R8 | Power-side slide has integrated cable management and outlets | Upright chain in the centre gap + up-facing power pod + fridge well |
 | R9 | Modular slides: centre tie-down track + quick-release module mounting | L-track + 100 mm receiver grid |
 | R10 | Passenger rear pocket: power management + 240 V, Anderson, USB-C outlets | Power cabinet |
-| R11 | Driver side: drinking-water tank with tap + short hose, may go over the arch | L-shaped tank |
+| R11 | ~~Driver side: drinking-water tank~~ → always-in-the-car utility storage (straps, odd gear) | Utility drawer + over-arch tray (v0.2) |
 | R12 | Clever use of the space above the passenger arch | Charging board |
 | R13 | Quality components; Home Assistant monitoring preferred | Victron + Cerbo GX |
 | R14 | Roof platform over the full roof, mostly solar, still carries light cargo above the panels | Wedgetail 1600 × 1450 + removable cargo bars |
 | R15 | Flush light bar at the front of the platform (nice to have) | Platform front plate |
-| R16 | Starlink Mini permanently on the roof, powered | Rear edge of the platform, 12 V direct |
+| R16 | Starlink Mini permanently on the roof, powered, never over the tent (it opens sideways) | Inside the platform frame (v0.2) |
 | R17 | Tent-top solar, 20 kg limit | 2 × 100 W flexible on an ACM sheet (about 10 kg) |
-| R18 | Full product list + cutting list, all files kept in this repo | `bom/` (product list v0.1; cutting list after layout freeze) |
+| R18 | Full product list + cutting list, all files kept in this repo | `bom/` (product list, generated cut list, cable schedule, weight budget) |
 
 ## Decisions log
 | Date | Version | Decision | Why |
@@ -39,3 +39,12 @@
 | 2026-10-19 | v0.1 | DC-DC/MPPT/Cerbo on a vertical board above the passenger arch | Must mount vertically; frees the bay deck |
 | 2026-10-19 | v0.1 | 4 runners per slide + legs + UHMW stowed stops | One 1.1 m pair is only rated about 120 kg in vehicle use |
 | 2026-10-19 | v0.1 | Tent wiring through a lid gland to connectors on the lid underside | Weather-protected, nothing exposed, tent detaches in minutes |
+| 2026-10-19 | v0.2 | Water tank removed; driver side becomes utility storage | Freezing in winter; weight |
+| 2026-10-19 | v0.2 | Quattro 12/5000 lying flat beside the batteries; batteries stand on end | ≥ 3000 W needs the 5 kVA model; Victron forbids mounting above batteries |
+| 2026-10-19 | v0.2 | 2 × Class-T 400 A (one per battery), 2 × 120 mm² per pole, ≥ 600 A isolator, SmartShunt 1000 A | Victron spec for the Quattro 12/5000 |
+| 2026-10-19 | v0.2 | 1 × Orion XS, input limit 25–30 A | Alternator rating unknown; Orion caps alternator draw |
+| 2026-10-19 | v0.2 | All external wiring through the factory outlet hole → chassis → cab–tub gap junction; tent harness unplugs there | Nothing through the lid (owner) |
+| 2026-10-19 | v0.2 | Tent on Rhino-Rack bars, 163.4 mm above the lid; services box under the tent near the front, inset | Matches vehicle; sheltered |
+| 2026-10-19 | v0.2 | Slides: 2 × DZ9308 each, deck at 84 mm, fridge well on the power slide, upright chain in a 50 mm centre gap, pin-in legs, no reliance on the tailgate | Deck height is set by runner height; tailgate rating unpublished |
+| 2026-10-19 | v0.2 | Push-button 8 mm ball-lock pins on a 100 mm receiver grid | Owner choice |
+| 2026-10-19 | v0.2 | Model gains materials, masses, routed cables, generated BOM/cut/cable lists, axle loads and an interference check | Fidelity toward a fully mapped build |

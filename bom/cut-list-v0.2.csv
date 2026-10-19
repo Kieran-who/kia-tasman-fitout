@@ -1,0 +1,45 @@
+material,cut size (mm),qty,stock,parts
+ACM 3,1124 x 1113,1,2440x1220 sheet,tent_solar_backing
+Flat 50x6 6060,246,4,6.5 m length,battery_1_strap_156; battery_1_strap_426; battery_2_strap_156; battery_2_strap_426
+Flat 50x6 6060,437,6,6.5 m length,slide_driver_base_cross_0; slide_driver_base_cross_1; slide_driver_base_cross_2; slide_power_base_cross_0; slide_power_base_cross_1; slide_power_base_cross_2
+L-track HD,1104,1,1.2 m length,slide_driver_ltrack
+L-track HD,306,1,1.2 m length,slide_power_ltrack
+L-track HD,668,2,1.2 m length,slide_power_well_track_-120; slide_power_well_track_-516
+Plate 3 5052,190 x 90,3,2400x1200 sheet,ut_tray_divider_0; ut_tray_divider_1; ut_tray_divider_2
+Plate 3 5052,451 x 288,1,2400x1200 sheet,slide_power_power_pod
+Plate 3 5052,470 x 117,1,2400x1200 sheet,ut_drawer_front
+Plate 3 5052,484 x 193,1,2400x1200 sheet,pc_outlet_panel
+Plate 3 5052,507 x 80,2,2400x1200 sheet,slide_driver_rear_plate; slide_power_rear_plate
+Plate 3 5052,60 x 58,1,2400x1200 sheet,slide_power_chain_bracket
+Plate 3 5052,728 x 457,1,2400x1200 sheet,slide_power_fridge_well_pan
+Plate 3 5052,840 x 193,1,2400x1200 sheet,ut_arch_tray
+Plate 3 5052,840 x 90,1,2400x1200 sheet,ut_arch_tray_lip
+Plate 4 5052,170 x 140,1,2400x1200 sheet,isolator_plate
+Plate 4 5052,430 x 310,1,2400x1200 sheet,quattro_standoffs
+Plate 4 5052,625 x 279,1,2400x1200 sheet,starlink_bracket
+Plate 6 5052,1134 x 60,4,2400x1200 sheet,slide_driver_base_plate_25; slide_driver_base_plate_522; slide_power_base_plate_-582; slide_power_base_plate_-85
+Plate 6 5052,1134 x 78,4,2400x1200 sheet,slide_driver_runner_plate_a; slide_driver_runner_plate_b; slide_power_runner_plate_a; slide_power_runner_plate_b
+Plate 6 5052,1164 x 360,1,2400x1200 sheet,bay_base_tray
+Plate 6 5052,499 x 120,1,2400x1200 sheet,dist_board
+Plate 6 5052,840 x 193,1,2400x1200 sheet,charge_board_shelf
+Plate 6 5052,90 x 30,2,2400x1200 sheet,bay_front_bracket_-582; bay_front_bracket_552
+Ply 12 marine,489 x 181,1,2400x1200 sheet,pc_bottom
+Ply 12 marine,496 x 181,1,2400x1200 sheet,ut_divider
+Ply 12 marine,501 x 193,2,2400x1200 sheet,pc_top; ut_top
+Ply 12 marine,508 x 181,2,2400x1200 sheet,pc_front; ut_front
+Ply 12 marine,508 x 501,2,2400x1200 sheet,pc_inner_wall; ut_inner_wall
+Ply 12 marine,840 x 212,1,2400x1200 sheet,charge_board
+Ply 15 marine,1126 x 457,1,2400x1200 sheet,slide_driver_deck
+Ply 15 marine,457 x 332,1,2400x1200 sheet,slide_power_deck
+Ply 9 marine,447 x 91,2,2400x1200 sheet,ut_drawer_shelf_0; ut_drawer_shelf_1
+Ply 9 marine,465 x 462,1,2400x1200 sheet,ut_drawer_box
+RHS 50x25x2 6060,457,9,6.5 m length,slide_driver_carr_cross_0; slide_driver_carr_cross_1; slide_driver_carr_cross_2; slide_driver_carr_cross_3; slide_driver_carr_cross_4; slide_power_carr_cross_0; slide_power_carr_cross_1; slide_power_carr_cross_2; slide_power_carr_cross_3
+RHS 75x25x2 6060,1134,4,6.5 m length,slide_driver_carr_side_0; slide_driver_carr_side_1; slide_power_carr_side_0; slide_power_carr_side_1
+SHS 30x30x2 6060,1104,1,6.5 m length,bay_rear_top
+SHS 30x30x2 6060,330,2,6.5 m length,bay_side_top_-582; bay_side_top_552
+SHS 30x30x2 6060,529,2,6.5 m length,bay_rear_post_-582; bay_rear_post_552
+SHS 30x30x2 6060,592,1,6.5 m length,bay_rear_low
+Sheet 1.6 5005,1168 x 362,1,2400x1200 sheet,bay_cover
+Sheet 1.6 5005,840 x 212,1,2400x1200 sheet,charge_board_cover
+UHMW 10,100 x 40,4,1000x500 sheet,slide_driver_uhmw_stop_512; slide_driver_uhmw_stop_55; slide_power_uhmw_stop_-552; slide_power_uhmw_stop_-95
+UHMW 10,629 x 48,1,1000x500 sheet,slide_power_chain_trough

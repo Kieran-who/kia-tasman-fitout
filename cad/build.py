@@ -1,69 +1,74 @@
 """
 Build the fit-out model and export:
-    ../viewer/models/fitout_<state>.glb - coloured meshes for the web viewer + renders (Y-up, metres)
-    out/fitout_fab.step      - fabricated parts only (for CAD / CNC hand-off)
-    out/summary.json         - derived numbers (volumes, clearances) used by the docs
+    ../viewer/models/fitout_<state>.glb   coloured meshes for the web viewer + renders (Y-up, metres)
+    out/fitout_fab.step                   fabricated parts only, stowed (travel) state
+    out/summary.json                      key derived numbers
+    ../bom/weight-budget-<ver>.csv        mass of every part (fixed fit-out vs payload)
+    ../bom/cut-list-<ver>.csv             fabricated parts grouped by material
+    ../bom/cable-schedule-<ver>.csv       every cable: from/to, size, protection, modelled length
+    ../bom/cable-totals-<ver>.csv         purchase quantities per cable type
 
 Usage:  ../.venv/bin/python build.py
 """
+import csv
 import json
 import os
 import sys
+from collections import defaultdict
 
 import cadquery as cq
 import numpy as np
 import trimesh
 
-sys.path.insert(0, os.path.dirname(__file__))
-import model  # noqa: E402
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 import params as P  # noqa: E402
+from fitout import assembly  # noqa: E402
+from fitout.core import C, MAT  # noqa: E402
 
-OUT = os.path.join(os.path.dirname(__file__), "out")
-VIEWER = os.path.join(os.path.dirname(__file__), "..", "viewer", "models")
-os.makedirs(OUT, exist_ok=True)
-os.makedirs(VIEWER, exist_ok=True)
+OUT = os.path.join(HERE, "out")
+VIEWER = os.path.join(HERE, "..", "viewer", "models")
+BOM = os.path.join(HERE, "..", "bom")
+for d in (OUT, VIEWER, BOM):
+    os.makedirs(d, exist_ok=True)
+V = P.VERSION
 
 # CAD frame (Z up, mm) -> glTF frame (Y up, m)
 TO_GL = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1]], dtype=float)
 TO_GL[:3, :3] *= 0.001
+METAL = {"alu", "alu_dark", "runner", "ltrack", "solar_frame", "copper", "receiver"}
+NOT_FITOUT = {"vehicle", "markers", "future", "payload"}
 
 
 def material(rgba, metal=False):
     r, g, b, a = rgba
-    lin = [((c / 255 + 0.055) / 1.055) ** 2.4 for c in (r, g, b)]   # sRGB -> linear (glTF spec)
+    lin = [((c / 255 + 0.055) / 1.055) ** 2.4 for c in (r, g, b)]   # sRGB -> linear (glTF)
     return trimesh.visual.material.PBRMaterial(
-        baseColorFactor=lin + [a / 255],
-        metallicFactor=0.6 if metal else 0.0,
-        roughnessFactor=0.45 if metal else 0.75,
-        alphaMode="BLEND" if a < 255 else "OPAQUE",
-        doubleSided=a < 255,
-    )
+        baseColorFactor=lin + [a / 255], metallicFactor=0.6 if metal else 0.0,
+        roughnessFactor=0.45 if metal else 0.75, alphaMode="BLEND" if a < 255 else "OPAQUE", doubleSided=a < 255)
 
 
-METAL = {"alu", "alu_dark", "runner", "ltrack", "solar_frame", "copper"}
-
-
-def mesh_of(p: model.Part):
+def mesh_of(p):
     if p.tube:
         meshes = []
         pts = [np.array(q, dtype=float) for q in p.tube]
         for a, b in zip(pts[:-1], pts[1:]):
-            meshes.append(trimesh.creation.cylinder(radius=p.tube_r, segment=[a, b], sections=12))
+            meshes.append(trimesh.creation.cylinder(radius=p.tube_r, segment=[a, b], sections=10))
         for q in pts:
             s = trimesh.creation.icosphere(subdivisions=1, radius=p.tube_r)
             s.apply_translation(q)
             meshes.append(s)
         m = trimesh.util.concatenate(meshes)
     else:
-        verts, tris = p.shape.tessellate(0.8, 0.4)
+        verts, tris = p.shape.tessellate(0.6, 0.35)
         m = trimesh.Trimesh(np.array([v.toTuple() for v in verts]), np.array(tris), process=False)
-    colour_key = next((k for k, v in model.C.items() if v == p.color), "")
-    m.visual = trimesh.visual.TextureVisuals(material=material(p.color, colour_key in METAL))
+    key = next((k for k, v in C.items() if v == p.color), "")
+    m.visual = trimesh.visual.TextureVisuals(material=material(p.color, key in METAL))
     return m
 
 
 def export_glb(state):
-    parts = model.build(state)
+    parts, cables = assembly.build(state)
     scene = trimesh.Scene()
     for p in parts:
         scene.add_geometry(mesh_of(p), node_name=f"{p.group}__{p.name}", geom_name=f"{p.group}__{p.name}")
@@ -71,7 +76,7 @@ def export_glb(state):
     path = os.path.join(VIEWER, f"fitout_{state}.glb")
     scene.export(path, include_normals=True)
     print(f"wrote {path} ({os.path.getsize(path)/1e6:.1f} MB, {len(parts)} parts)")
-    return parts
+    return parts, cables
 
 
 def export_step(parts):
@@ -85,27 +90,120 @@ def export_step(parts):
     print(f"wrote {path}")
 
 
-def summary(parts):
-    d = {}
+def write_csv(name, header, rows):
+    path = os.path.join(BOM, name)
+    with open(path, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(header)
+        w.writerows(rows)
+    print(f"wrote {path} ({len(rows)} rows)")
+
+
+def weight_budget(parts):
+    rows, by_group = [], defaultdict(float)
     for p in parts:
-        if "gross_litres" in p.meta:
-            d["water_tank_gross_litres"] = p.meta["gross_litres"]
-    d["slide_deck_top_z"] = P.DECK_TOP_Z
-    d["clear_height_above_slide_deck"] = P.TUB_D + P.LID_CLEAR - P.DECK_TOP_Z
-    d["carriage_width"] = round(P.CARRIAGE_W, 1)
-    d["cassette_width"] = round(P.CASSETTE_W, 1)
-    d["slide_length"] = P.SLIDE_L
-    d["slide_extension"] = P.SLIDE_EXT
-    d["side_pocket_width"] = P.POCKET_W
-    d["side_pocket_length"] = P.POCKET_X1 - P.POCKET_X0
-    d["solar_watts_placeholder"] = sum(p.meta.get("watts", 0) for p in parts)
-    with open(os.path.join(OUT, "summary.json"), "w") as f:
-        json.dump(d, f, indent=2)
-    print(json.dumps(d, indent=2))
+        if p.group in ("vehicle", "markers", "future") or p.tube:
+            continue
+        m = p.mass
+        if m <= 0:
+            continue
+        cls = "payload (example)" if p.group == "payload" else "fit-out"
+        rows.append([cls, p.group, p.name, p.mat or "purchased", round(m, 2)])
+        by_group[(cls, p.group)] += m
+    # cable mass from the schedule (approx kg/m by size)
+    return rows, by_group
+
+
+CABLE_KGM = {"120": 1.2, "70": 0.70, "50": 0.50, "25": 0.27 * 2, "16": 0.18 * 2, "6": 0.07 * 2, "4": 0.05 * 2, "2.5x3": 0.12, "data": 0.04}
+
+
+def cable_outputs(cables):
+    rows, totals = [], defaultdict(float)
+    kg = 0.0
+    for c in cables:
+        L = c.length_m()
+        mult = 2 if c.spec.startswith("2 x") else 1
+        rows.append([c.cid, c.circuit, c.side, c.frm, c.to, c.spec, c.protection, L * mult, c.notes])
+        totals[c.spec] += L * mult
+        kg += CABLE_KGM[c.size] * L * mult
+    write_csv(f"cable-schedule-{V}.csv", ["id", "circuit", "harness", "from", "to", "cable", "protection", "length_m (model +10%)", "notes"], rows)
+    write_csv(f"cable-totals-{V}.csv", ["cable", "total_m (model)", "buy_m (+15%, rounded up)"],
+              [[k, round(v, 1), int(np.ceil(v * 1.15))] for k, v in sorted(totals.items())])
+    return kg
+
+
+def cut_list(parts):
+    groups = defaultdict(list)
+    for p in parts:
+        if not (p.fab and p.mat and p.shape is not None):
+            continue
+        m = MAT[p.mat]
+        d = p.bbox_dims
+        size = f"{d[0]:.0f}" if m["kind"] == "linear" else f"{d[0]:.0f} x {d[1]:.0f}"
+        groups[(p.mat, size)].append(p.name)
+    rows = []
+    for (mat, size), names in sorted(groups.items()):
+        rows.append([mat, size, len(names), MAT[mat]["stock"], "; ".join(sorted(names))])
+    write_csv(f"cut-list-{V}.csv", ["material", "cut size (mm)", "qty", "stock", "parts"], rows)
+    # stock estimate per material
+    need = defaultdict(float)
+    for (mat, size), names in groups.items():
+        dims = [float(v) for v in size.split(" x ")]
+        need[mat] += (dims[0] / 1000 if len(dims) == 1 else dims[0] * dims[1] / 1e6) * len(names)
+    return {k: round(v, 2) for k, v in need.items()}
+
+
+def axle_loads(parts):
+    """Split every mass between the axles by its X position (simple beam). Returns kg added per axle."""
+    xr = P.REAR_AXLE_X
+    xf = xr - P.WHEELBASE
+
+    def split(m, x):
+        r = (x - xf) / P.WHEELBASE
+        return m * (1 - r), m * r
+    out = defaultdict(lambda: [0.0, 0.0])
+    for p in parts:
+        if p.group in ("vehicle", "markers", "future") or p.tube or p.mass <= 0:
+            continue
+        bb = p.shape.BoundingBox()
+        f, r = split(p.mass, (bb.xmin + bb.xmax) / 2)
+        key = "payload (example)" if p.group == "payload" else "fit-out"
+        out[key][0] += f
+        out[key][1] += r
+    # occupants + accessories (estimates, for the GVM / axle check)
+    for name, m, x in (("4 adults (2 front, 2 rear)", 320, None), ("bull bar (est)", 75, -3900), ("tow bar (est)", 30, P.TUB_L + 250)):
+        if x is None:
+            f1, r1 = split(160, -2050)
+            f2, r2 = split(160, -1150)
+            out[name] = [f1 + f2, r1 + r2]
+        else:
+            out[name] = list(split(m, x))
+    return {k: [round(v[0], 1), round(v[1], 1)] for k, v in out.items()}
 
 
 if __name__ == "__main__":
-    export_glb("travel")
-    parts = export_glb("camp")
-    export_step(parts)
-    summary(parts)
+    travel, cables = export_glb("travel")
+    camp, _ = export_glb("camp")
+    export_step(travel)
+    rows, by_group = weight_budget(travel)
+    cable_kg = cable_outputs(cables)
+    rows.append(["fit-out", "wiring", "all cables (from schedule)", "cable", round(cable_kg, 1)])
+    by_group[("fit-out", "wiring")] += cable_kg
+    write_csv(f"weight-budget-{V}.csv", ["class", "group", "item", "material", "kg"], rows)
+    stock = cut_list(travel)
+    fit = sum(v for (c, g), v in by_group.items() if c == "fit-out")
+    pay = sum(v for (c, g), v in by_group.items() if c != "fit-out")
+    summary = dict(
+        version=V,
+        fitout_kg=round(fit, 1), example_payload_kg=round(pay, 1),
+        by_group_kg={g: round(v, 1) for (c, g), v in sorted(by_group.items())},
+        slide_deck_top_z=round(P.DECK_TOP_Z, 1), clear_above_deck=round(P.UNDER_LID_Z - P.DECK_TOP_Z, 1),
+        carriage_width=round(P.CARRIAGE_W, 1), slide_length=P.SLIDE_L, slide_travel=P.SLIDE_EXT,
+        tent_gap=P.TENT_GAP, solar_w=sum(p.meta.get("watts", 0) for p in travel),
+        cable_count=len(cables), cable_total_m=round(sum(c.length_m() for c in cables), 1),
+        material_need=stock,
+        axle_added_kg_front_rear=axle_loads(travel),   # driving: slides stowed
+    )
+    with open(os.path.join(OUT, "summary.json"), "w") as f:
+        json.dump(summary, f, indent=2)
+    print(json.dumps(summary, indent=2))

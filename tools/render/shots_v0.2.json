@@ -1,0 +1,23 @@
+[
+ {"name":"01_hero_camp","params":{"view":"hero","state":"camp","title":"v0.2: camp mode",
+   "labels":"tent_shell:Panther Horizon 1600|on Rhino bars, 163 mm above lid:0:-40;roof_solar_190w:Roof 190 W + 130 W|Starlink Mini inside frame:-40:-30;pc_gpo_1:Rear power panel:-150:0;fridge:45 L fridge in dropped well:0:-20;microwave:20 L microwave:40:0;drawer_module:Drawer module|ball-lock pins:0:0"}},
+ {"name":"02_hero_travel","params":{"view":"hero","state":"travel","title":"v0.2: travel mode"}},
+ {"name":"03_tub_iso","params":{"view":"tub_iso","state":"camp","title":"v0.2 tub layout (lid, tent, covers hidden)",
+   "labels":"battery_2:2 x iTech400X Pro|standing on end:0:0;inverter_charger_quattro_12_5000:Victron Quattro 12/5000|4000 W, beside batteries:0:-10;charge_board:Charging board|Orion XS, 2 x MPPT, fuse block:0:-30;slide_power_cable_chain:Upright cable chain|centre gap:60:-10;ut_arch_tray:Utility tray:0:-20;ut_drawer_front:Utility drawer:30:0;pc_outlet_panel:Power cabinet:-40:0"}},
+ {"name":"04_plan","params":{"view":"plan","state":"travel","title":"v0.2 plan (front at top, driver side right)",
+   "labels":"inverter_charger_quattro_12_5000:Quattro:0:0;battery_1:Batt 1:0:0;battery_2:Batt 2:0:0;slide_power_deck:Power slide|fridge well at front:0:0;slide_driver_deck:Driver slide:0:0;charge_board:Charging|board:0:0;pc_inner_wall:Power|cabinet:0:0;ut_arch_tray:Utility|tray:0:0;ut_drawer_box:Utility|drawer:0:0"}},
+ {"name":"05_bay","params":{"view":"bay","state":"camp","title":"v0.2 battery + inverter bay",
+   "labels":"battery_1:iTech400X Pro #1|on end:0:-40;battery_2:iTech400X Pro #2|on end:0:-40;inverter_charger_quattro_12_5000:Quattro 12/5000|flat, not above batteries:0:20;class_t_400a_1:2 x Class-T 400 A:-60:-20;busbar_pos:+/- busbars 1000 A:-70:30;smartshunt_1000a:SmartShunt 1000 A:-80:0;battery_isolator_600a:Isolator 600 A:40:0"}},
+ {"name":"06_rear","params":{"view":"rear","state":"camp","title":"v0.2 rear, camp mode",
+   "labels":"pc_gx_touch_50:GX Touch 50:-90:0;pc_gpo_1:2 x IP66 GPO:-100:20;pc_anderson_1:2 x Anderson:-90:10;ut_drawer_front:Utility drawer:60:0;slide_power_leg_0:Pin-in legs:0:0"}},
+ {"name":"07_wiring","params":{"view":"wiring","state":"travel","title":"v0.2 wiring: everything exits via the factory outlet hole",
+   "labels":"gap_junction_box:Cab-tub gap junction|tent plugs detach here:-40:-30;cable_ALT:Alternator feed 25 mm2:0:0;cable_DO3:Cabin outlets:0:20;cable_PVR:Roof PV + Starlink drop:40:-20;factory_outlet_gland_plate:Factory outlet hole|gland plate:60:20;cable_AC3:Slide feed via chain:0:0"}},
+ {"name":"08_tent_side","params":{"view":"tent_side","state":"travel","title":"v0.2 tent on Rhino bars (driver side view)",
+   "labels":"under_tent_storage_volume:Future storage|163 mm (slim jerries):60:0;rack_bar_180:Rhino-Rack Vortex on raised brackets:-40:60;tent_services_box:Tent services box|240 V out + shore inlet:-150:-70;gap_junction_box:Gap junction|plugs detach here:-70:40"}},
+ {"name":"09_slides","params":{"view":"slides","state":"camp","title":"v0.2 slides from the driver side",
+   "labels":"slide_driver_ltrack:L-track:0:-20;slide_driver_receivers:Ball-lock receiver grid|100 mm pitch:0:20;food_crate:Strapped crate:0:0;fridge:Fridge well:0:-20"}},
+ {"name":"10_roof","params":{"view":"roof","state":"travel","title":"v0.2 roof: Starlink inside the frame, clear of the tent",
+   "labels":"light_bar:Flush light bar:0:-20;starlink_mini:Starlink Mini:0:-25;cargo_bar_-1490:Removable cargo bars:0:-25;roof_solar_190w:190 W:0:0;roof_solar_130w:130 W:0:0;tent_solar_1:Tent 2 x 100 W:0:0"}},
+ {"name":"11_utility","params":{"view":"utility","state":"camp","title":"v0.2 driver-side utility storage",
+   "labels":"ut_drawer_box:Pull-out utility drawer:0:0;ut_arch_tray:Over-arch tray|straps, shackles:0:-20;ut_strap_roll_0:Strap pegs:0:-10"}}
+]

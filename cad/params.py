@@ -4,108 +4,147 @@ Single source of truth for every dimension in the fit-out model (mm, kg).
 Coordinate system (tub frame):
     X  = along the vehicle, 0 at the inner face of the tub FRONT wall, +X towards the tailgate
     Y  = across the vehicle, 0 on the centreline, +Y = DRIVER side (right, RHD), -Y = PASSENGER side
-    Z  = up, 0 on the tub floor (top of factory liner ribs)
+    Z  = up, 0 on the tub floor (top of the factory liner ribs)
 
 Status flags in comments:
-    [PUB]  published manufacturer figure
-    [EST]  estimated from photos / drawings - MUST be verified on the vehicle
-    [DES]  design choice (free to change)
+    [PUB]      published manufacturer figure
+    [EST]      estimated from photos / drawings - MUST be verified on the vehicle
+    [DES]      design choice (free to change)
+    [CONFIRM]  assumption the owner needs to confirm
 """
 
-# ---------------------------------------------------------------- vehicle / tub
-TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate
+VERSION = "v0.2"
+
+# ================================================================ vehicle / tub
+TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
 TUB_W = 1572           # [PUB] max width wall-to-wall
 TUB_D = 540            # [PUB] depth floor -> top of tub rail
-ARCH_GAP_PUB = 1186    # [PUB] width between wheel arches (same figure for liner/no-liner grades -> likely bare steel)
-LINER_ALLOW = 8        # [EST] factory liner thickness allowance per side over the arches
-ARCH_GAP = ARCH_GAP_PUB - 2 * LINER_ALLOW   # 1170 design width used for everything between the arches
-ARCH_L = 860           # [EST] arch length from front wall (arches start AT the front wall)
-ARCH_H = 290           # [EST] arch top height above floor
-ARCH_IN = (TUB_W - ARCH_GAP) / 2   # ~201 - arch intrusion per side (incl. liner allowance)
+ARCH_GAP_PUB = 1186    # [PUB] between wheel arches (same for liner/no-liner grades -> likely bare steel)
+LINER_ALLOW = 8        # [EST] liner thickness allowance per side over the arches
+ARCH_GAP = ARCH_GAP_PUB - 2 * LINER_ALLOW   # 1170 design width between the arches
+ARCH_L = 860           # [EST] arch length from the front wall (arches start AT the front wall)
+ARCH_H = 290           # [EST] arch top height above the floor
+ARCH_IN = (TUB_W - ARCH_GAP) / 2            # ~201 arch intrusion per side
+ARCH_R = 70            # [EST] radius on the arch's top inboard edge
+RIB_PITCH = 100        # [EST] liner floor rib pitch (ribs run fore-aft)
+RIB_W = 45             # [EST] rib top width
+RIB_H = 14             # [EST] rib height (Z=0 is the rib tops)
+TAIL_BULGE_L = 140     # [EST] tail-light housing bulge at each rear corner (along X)
+TAIL_BULGE_IN = 60     # [EST] how far it intrudes into the tub (Y)
 TAILGATE_T = 60        # [EST]
-TUB_WALL_T = 55        # [EST] visual thickness of side walls incl. liner
-LID_CLEAR = 8          # [EST] gap between tub rail and underside of Ute Master lid
+TAILGATE_H = TUB_D - 15
+TUB_WALL_T = 55        # [EST] visual thickness of the side walls incl. liner
+LID_CLEAR = 8          # [EST] tub rail -> underside of the Ute Master lid
+UNDER_LID_Z = TUB_D + LID_CLEAR             # 548: hard ceiling for everything in the tub
+BED_HOOKS = [          # [EST] 4 factory bed hooks (x, side, z) - side +1 driver / -1 passenger
+    (ARCH_L - 140, 1, ARCH_H - 50), (ARCH_L - 140, -1, ARCH_H - 50),
+    (TUB_L - 190, 1, 330), (TUB_L - 190, -1, 330)]
+FACTORY_OUTLET = (1330, -1, 400)            # [EST] passenger wall, becomes the cable gland plate
 
-# body context (only used for the context shell, not for fabrication)
+# body context (only used for the context shell)
 WHEELBASE = 3270       # [PUB]
-REAR_AXLE_X = ARCH_L / 2          # [EST] axle roughly central under the arch
-FLOOR_ABOVE_GROUND = 920          # [EST]
-ROOF_Z = 1880 - FLOOR_ABOVE_GROUND  # [EST] roof skin; X-Pro height 1920 [PUB] incl. bridge rails
-CAB_REAR_X = -110                 # [EST] cab back wall relative to tub front wall
-CAB_FRONT_X = -1790               # [EST] top of windscreen
-TYRE_D = 810                      # [EST] X-Pro all-terrains
+REAR_AXLE_X = ARCH_L / 2                    # [EST]
+FLOOR_ABOVE_GROUND = 920                    # [EST]
+ROOF_Z = 1880 - FLOOR_ABOVE_GROUND          # [EST] roof skin; X-Pro height 1920 [PUB] incl. rails
+CAB_REAR_X = -110                           # [EST] cab back wall -> ~55 mm gap to the tub front wall. MEASURE
+CAB_FRONT_X = -1790                         # [EST] top of windscreen
+TYRE_D = 810
 TYRE_W = 265
+CHASSIS_RAIL_Y = 470                        # [EST] chassis rail centre lines (+/-)
+CHASSIS_Z = -150                            # [EST] top of chassis rail in tub frame
+ENGINE_BAY_BATT = (-3050, -520, 120)        # [EST] start battery (passenger side of engine bay)
+CABIN_SEAT_BOX = (-650, -380, 20)           # [EST] under rear seat outlet box location
 
-# ---------------------------------------------------------------- load lid + tent
+# ================================================================ load lid + rack + tent
 LID_L = 1600           # [EST]
 LID_W = 1720           # [EST]
 LID_T = 45             # [EST]
 LID_X0 = -25           # [EST] lid front edge
-LID_RAIL_H = 55        # [EST] black ladder side rails on lid
-TENT_L = 1550          # [PUB 23Zero drawing] along vehicle
-TENT_W = 1270          # [PUB 23Zero drawing] across vehicle
-TENT_H = 330           # [PUB 23Zero manual] 55 base/rails + 250 shell + 25 roof bars
+LID_TOP_Z = UNDER_LID_Z + LID_T
+LID_RAIL_H = 55        # [EST] Destroyer side rails
+LID_RAIL_W = 45        # [EST]
+LID_RAIL_Y = LID_W / 2 - 30                 # rail centre lines
+TENT_GAP = 163.4       # [owner] lid top -> underside of tent = iPhone 17 Pro Max height (163.4 mm, Apple)
+RACK_BAR = (79, 30)    # [PUB-ish] Rhino-Rack Vortex bar section (79 x 30), ~1.5 kg/m
+RACK_BAR_X = (180, 1080)                    # [EST] crossbar centre lines (X)
+RACK_BAR_L = 1500      # [EST] bar length
+TENT_L = 1550          # [PUB] along vehicle
+TENT_W = 1270          # [PUB] across vehicle
+TENT_H = 330           # [PUB] 55 base/rails + 250 shell + 25 roof bars
+TENT_BASE_H = 55
 TENT_KG = 84           # [PUB]
-TENT_BAR_CC = 1040     # [EST from drawing] top bars c/c
-TENT_BAR_L = 890       # [EST from drawing]
 TENT_X0 = -10          # [EST]
-TENT_TOP_SOLAR_MAX_KG = 20  # [user]
+TENT_Z0 = LID_TOP_Z + TENT_GAP
+TENT_FOLDOUT_SIDE = 1  # [CONFIRM] +1 = folds out to the DRIVER side, -1 = passenger side
+TENT_SLOPE_L = 380     # [EST] the shell slopes down over this length at the front end [CONFIRM]
+TENT_BAR_CC = 1040     # [EST] top bars c/c
+TENT_BAR_L = 890       # [EST]
+TENT_UNDER_RAILS_CC = 800    # [PUB] underside mounting rails c/c (run along X, 1440 long)
+TENT_SERVICES = dict(x=240, inset=170, w=260, d=150, h=95)   # [DES] under-tent box near the front, inset
 
-# ---------------------------------------------------------------- batteries + electrical bay
-BATT_L, BATT_W, BATT_H = 525, 240, 235   # [PUB] iTech400X Pro incl. terminals, 38 kg each
+# ================================================================ batteries + electrical bay
+BATT_L, BATT_W, BATT_H = 525, 240, 235      # [PUB] iTech400X Pro incl. terminals; any orientation except upside down
 BATT_KG = 38
-BAY_D = 300            # [DES] depth of front electrical bay (X)
-BAY_W = ARCH_GAP - 6   # [DES] fits between arches with 3 mm each side
-BAY_H = 470            # [DES] height of bay frame (below lid)
-BAY_DECK_Z = 255       # [DES] component deck above batteries
+# batteries stand ON END (525 tall) with terminals facing the rear (slide side): footprint 240 (Y) x 235 (X)
+BAY_D = 360            # [DES] Quattro lying flat is 350 deep
+BAY_W = ARCH_GAP - 6
+BAY_H = 535            # [DES] rear posts / top rail (batteries on end are 525 + base)
+# Victron Quattro 12/5000/220-100/100 230V: 470 x 350 x 280 (H x W x D), 34 kg, 4000 W @25C / 3700 W @40C.
+# Horizontal mounting permitted (vertical preferred) - must NOT be directly above the batteries.
+INVERTER = (470, 350, 280)    # [PUB] as laid flat: along Y, along X, height
+INVERTER_KG = 34
+SHUNT = (120, 46, 54)         # [PUB] SmartShunt 1000 A (same body as 500 A)
+CLASS_T = (115, 70, 75)       # [EST] Blue Sea 5502 Class-T holder + 400 A fuse (one per battery = 2 x 400 A)
+BUSBAR = (265, 55, 50)        # [EST] Blue Sea PowerBar 1000 A (+ and -)
+# charging board (vertical, above the passenger wheel arch): (along X, thickness, height)
+DCDC = (123, 40, 137)         # [PUB] Orion XS 12/12-50A x1, input current limit 1-50 A: start at 25-30 A
+MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/50
+MPPT_TENT = (113, 40, 100)    # [PUB] SmartSolar 75/15
+CERBO = (154, 48, 78)         # [PUB] Cerbo GX MK2
+FUSE_BLOCK = (211, 45, 140)   # [EST] Blue Sea 5026 12-way with negative bus
+GX_TOUCH = (128, 13, 87)      # [PUB] GX Touch 50
 
-# placeholder envelopes for components (L(Y) x D(X) x H(Z)) - refined after datasheet research
-# envelopes as (along Y, along X, height Z) for flat-mounted parts, (along X, thickness, height) for board-mounted
-INVERTER = (546, 275, 147)       # [PUB] Victron MultiPlus-II 12/3000/120-32, 19 kg - mounted FLAT + forced-air fan
-LYNX_CT = (170, 280, 97)         # [PUB] Lynx Class-T Power In (400 A Class-T)
-LYNX_DIST = (170, 290, 80)       # [PUB] Lynx Distributor (4 x MEGA fuses)
-SHUNT = (120, 46, 54)            # [PUB] SmartShunt 500 A (on the bank negative)
-# charging board (vertical, above the passenger wheel arch) - all must mount vertically, terminals down
-DCDC = (123, 40, 137)            # [PUB] Orion XS 12/12-50A  x2 in parallel = 100 A
-MPPT_ROOF = (130, 70, 186)       # [PUB] SmartSolar 100/50
-MPPT_TENT = (113, 40, 100)       # [PUB] SmartSolar 75/15
-CERBO = (154, 48, 78)            # [PUB] Cerbo GX MK2
-GX_TOUCH = (128, 13, 87)         # [PUB] GX Touch 50 (on the rear power panel)
-
-# ---------------------------------------------------------------- slides
-SLIDE_X0 = BAY_D + 10            # [DES] slides start behind the bay
-SLIDE_L = TUB_L - SLIDE_X0 - 8   # cassette length (~1194)
-SLIDE_GAP_MID = 6                # [DES]
-CASSETTE_W = (ARCH_GAP - 2 * 3 - SLIDE_GAP_MID) / 2   # ~587 per slide
-RUNNER_T, RUNNER_H = 19.1, 76.2  # [PUB] Accuride DZ9308 (lock in+out, outer) + DZ9301 (centre keel)
-RUNNER_LEN = 1117.6              # [PUB] 44" - 218 kg/pair moderate use; 2 pairs per slide
-KEEL_T = 6                       # [DES] centre keel plate carrying the second runner pair
-BASE_RAIL_H = 12                 # [DES] base plate/rail under runners (sits on liner ribs)
-SIDE_PLATE_T = 5                 # [DES] fixed runner mounting angle
+# ================================================================ slides
+SLIDE_X0 = BAY_D + 10
+SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1134
+SLIDE_GAP_MID = 50                          # [DES] centre gap carries the upright cable chain
+CASSETTE_W = (ARCH_GAP - 2 * 3 - SLIDE_GAP_MID) / 2   # 557
+RUNNER_T, RUNNER_H = 19.1, 76.2             # [PUB] Accuride DZ9308 / DZ9301
+RUNNER_LEN = 1117.6                         # [PUB] 44"
+RUNNERS_POWER = 2                           # [DES] DZ9308 pair (a keel pair would block the fridge well)
+RUNNERS_DRIVER = 2                          # [DES] DZ9308 outer pair only (lighter)
+KEEL_T = 6
+BASE_T = 6                                  # [DES] 6 mm base plates under the runners
+SIDE_PLATE_T = 5
 CARRIAGE_W = CASSETTE_W - 2 * (SIDE_PLATE_T + RUNNER_T + 1)
-DECK_T = 15                      # [DES] 15 mm marine/hoop-pine ply
-DECK_TOP_Z = BASE_RAIL_H + RUNNER_H + DECK_T - 5   # ~98
-SLIDE_EXT = RUNNER_LEN           # 100% extension
-LTRACK_W = 30                    # [EST] L-track width (flush, recessed)
-RECEIVER_PITCH = 100             # [DES] module receiver grid pitch
-RECEIVER_D = 22                  # [DES] countersunk receiver diameter
+DECK_T = 15                                 # [DES] 15 mm hoop-pine marine ply, recessed in the frame
+DECK_TOP_Z = BASE_T + RUNNER_H + 2          # ~84: deck flush with top of the carriage frame
+SLIDE_EXT = RUNNER_LEN
+LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
+RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid
+RECEIVER_D = 22                             # [DES] flanged stainless bush OD (8 mm ball-lock pin)
+LEG_INSET = 45                              # removable pin-in legs (stored in the utility drawer)
+FRIDGE_WELL_L = 728                         # [DES] dropped pan at the FRONT of the power slide (fridge <= 718 long)
+FRIDGE_WELL_Z = 12                          # [DES] pan top surface (deck is ~84) -> ~536 under the lid
+BULKHEAD_D = 70                             # [DES] power pod: sockets face UP so plugs never foul the fridge
+CHAIN_R, CHAIN_H, CHAIN_W = 48, 32, 40      # [EST] igus E2.26-class, standing upright in the centre gap
 
-# ---------------------------------------------------------------- side bays
-POCKET_X0 = ARCH_L + 5           # behind the arch
-POCKET_X1 = TUB_L - 10
-POCKET_W = ARCH_IN - 8           # ~185
-WATER_TOP_Z = 505                # [DES] top of water tank below lid
-WATER_REAR_GAP = 95              # [DES] space at tank rear for pump + tap + hose
-WALL_T_POLY = 8                  # [DES] tank wall thickness (welded PE)
+# ================================================================ side bays
+POCKET_X0 = ARCH_L + 5
+POCKET_X1 = TUB_L - 6
+POCKET_Y_IN = ARCH_GAP / 2 + 4              # inboard face of the side pockets
+POCKET_Y_OUT = TUB_W / 2 - 4
+TOP_Z = UNDER_LID_Z - 40                    # top of fixed furniture (40 mm clear under the lid)
 
-# ---------------------------------------------------------------- roof platform
-PLAT_L = 1600          # [PUB] Wedgetail Adventure WT-KT-1614U (Tasman fit kit WTM-KT-1614)
+# ================================================================ roof platform
+PLAT_L = 1600          # [PUB] Wedgetail Adventure WT-KT-1614U
 PLAT_W = 1450          # [PUB]
-PLAT_Z = ROOF_Z + 70   # [PUB] sits ~70 mm off the roof
-PLAT_T = 40            # [EST] typical slimline profile
+PLAT_Z = ROOF_Z + 70   # [PUB]
+PLAT_T = 40
 PLAT_X0 = CAB_REAR_X - 40 - PLAT_L
-ROOF_PANEL = (1485, 668, 30)   # [PUB] Victron BlueSolar 190 W, 10.5 kg - two side by side
-TENT_PANEL = (1093, 552, 2)    # [PUB] Sunman eArc 100 W flexible, ~2 kg - two on an ACM backing sheet
-PANEL_T = 35
-CARGO_BAR_Z = 130      # [DES] removable cargo bars sit this far above the platform
-STARLINK_MINI = (298.5, 259, 38.5)   # [PUB]
+ROOF_PANEL_A = (1485, 668, 30)   # [PUB] Victron BlueSolar 190 W (driver half)
+ROOF_PANEL_B = (1020, 668, 30)   # [PUB] Victron BlueSolar 130 W, 7.1 kg (no quality ~1200 mm panel exists)
+PANEL_T = 30
+CARGO_BAR_Z = 130
+STARLINK_MINI = (298.5, 259, 38.5)    # [PUB]
+TENT_PANEL = (1093, 552, 2)           # [PUB] Sunman eArc 100 W (x2 on ACM sheet)

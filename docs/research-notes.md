@@ -161,3 +161,20 @@ Anything marked **MEASURE** must be checked on the vehicle before cutting materi
 - AS/NZS 3001.2 summary: https://teambmpro.com/12v-guru-as-nzs-3001-2-electrical-installations-what-does-it-all-mean/
 - Clipsal 56 series: https://www.clipsal.com/products/industrial/56-series/appliance-inlet-ip66-250v-15a-3-flat-pins-56ai315
 - Water: https://dunnandwatson.com.au/?p=2444 · https://defender.com/assets/pdf/shurflo/pds-4008-101-x65.pdf
+
+## v0.2 additions (October 2026)
+
+| Item | Finding | Source / confidence |
+|---|---|---|
+| Tasman masses (X-Pro) | **Rear axle (GAWR) 2002 kg** (2040 other grades), front 1450, GVM 3250, GCM 6200, kerb 2237, payload 1013, roof 100, towball 350 | Kia AU MY26 spec PDF (H) |
+| Tailgate | **No load rating published.** Steel support cables; manual warns against heavy loads/standing. Carsales: strap loads on rear-wall hooks distorted the tub so the tailgate fouled | ownersmanual.kia.com …/t00139.html (H); aol.com Carsales report (M) |
+| Victron Quattro 12/5000/220-100/100 | 470 x 350 x 280, 34 kg, 4000 W @25 °C / 3700 @40 °C, 10 kW peak, 220 A charger, no-load 30 / AES 20 / search 10 W. **Horizontal or vertical (vertical preferred), not directly above batteries.** DC: no internal fuse; **800 A (or 2 x 400 A), 2 x 120 mm² per pole (0–5 m)** | Victron Quattro datasheet + AUS installation manual (H) |
+| MultiPlus-II 12/5000/220-50 | 702 x 345 x 152, 33 kg, 4000 W, no-load 15 W. Too tall to stand in the tub | Victron datasheet (H) |
+| Orion XS 12/12-50A | Input/output current limit adjustable **1–50 A** in 0.1 A steps ("avoid overloading an alternator"). Start at 25–30 A and watch temperatures | Victron manual (H) |
+| iPhone 17 Pro Max | 163.4 x 78.0 x 8.75 mm | support.apple.com/125091 (H) |
+| Rhino-Rack Vortex bar | ~79 x 30 mm, ~1.5 kg/m | etrailer / rackattack (M) |
+| Ute Master lid hinge | Not published. Probably hinged at the cab end, lifting at the tailgate | Reviews (L) |
+| Fridges ≤ 450 tall | Dometic CFX3 35 694x398x407; CFF 35 715x398x407; Bushman SC35-52 (35 L) 690x385x380. 45 L class is ~475–480 tall (CFX3 45 476, CFF 45 475) | Dometic / retailers (H/M) |
+| Compact microwaves | NCE 20 L 440x332x259, 700 W out / 1150 W in; Panasonic NN-ST25 443x330x258 | retailers (M) |
+| Rigid panels ~1200 long | None from quality brands. Victron 130 W 1020x668 (7.1 kg) and 190 W 1485x668 used | Victron datasheet (H) |
+| Slim water/fuel | Front Runner flat tank 40 L 1260x550x65; RotopaX 1/2/4 gal 76 mm thick | retailers (H/M) |
