@@ -1,0 +1,47 @@
+[
+ {
+  "name": "bay_01_overview",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,tent_harness,payload,wiring,slide_p,modules",
+   "cam": "1.05,0.95,0.55,0.15,0.2,0.0,38",
+   "title": "v0.8 bay detail: MultiPlus-II flat, charging board on the front wall, 2 x iTech400X Pro on end, slotted rear guard",
+   "show": "bay_cover"
+  }
+ },
+ {
+  "name": "bay_02_distribution",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,batteries,utility,slide_p,slide_d,modules,bay",
+   "cam": "0.5,0.42,-0.62,0.16,0.28,-0.01,36",
+   "title": "v0.8 distribution column (batteries + bay frame hidden): PowerBars, ML-RBS, Class-T 400 A, SmartShunt, MIDI/MEGA fuses",
+   "labels": "busbar_bank_pos:Bank + PowerBar 600 A:60:-10;busbar_bank_neg:Bank - PowerBar:-70:-10;remote_battery_switch_500a:ML-RBS 7713|remote battery switch:0:-30;class_t_400a_fuse:Class-T 400 A|Blue Sea 5502:-60:0;smartshunt_500a:SmartShunt 500 A:-60:0;fuse_holders_midi_cover:MIDI/MEGA fuses|20 / 60 / 70 / 100 A:-40:30;busbar_sys_pos:System + PowerBar:70:0;busbar_sys_neg:System - PowerBar:0:30"
+  }
+ },
+ {
+  "name": "bay_03_inverter_charging",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,slide_p,modules",
+   "cam": "0.78,0.7,0.16,0.12,0.22,0.33,34",
+   "title": "v0.8 MultiPlus-II 12/3000 (connection cover shown see-through), 92 mm fan, Orion XS + SmartSolar 100/30 + 75/15",
+   "labels": "inverter_charger_multiplus2_3000:MultiPlus-II 12/3000/120-32:-80:20;inverter_charger_multiplus2_3000_conn_cover:Connection area|AC blocks, VE.Bus, DC + / -:40:0;inverter_fan:92 mm fan:0:-20;orion_xs_50a:Orion XS 12/12-50A:0:-30;mppt_roof_100_30:SmartSolar 100/30:0:-30;mppt_tent_75_15:SmartSolar 75/15:0:-30"
+  }
+ },
+ {
+  "name": "bay_04_batteries",
+  "params": {
+   "view": "bay",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,slide_d,modules,utility",
+   "cam": "0.78,0.8,-0.12,0.24,0.4,-0.33,30",
+   "title": "v0.8 2 x iTech400X Pro on end (rear frame clipped): both M8 terminals at the top end, MRBF 300 A on each +, strap buckles",
+   "labels": "battery_1_mrbf:MRBF 300 A|Blue Sea 5191:-70:-10;battery_2_neg:- terminal (M8):60:-20;battery_2_band:iTech400X Pro|orange lid, terminals at the top end:80:60;battery_1_strap_426_buckle:Cage strap buckle:-40:30",
+   "clipx": "0.288"
+  }
+ }
+]
