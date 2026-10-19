@@ -13,13 +13,15 @@ fit-out,solar,tent_solar_backing,ACM 3,5.63
 fit-out,solar,tent_solar_1,purchased,2.0
 fit-out,solar,tent_solar_2,purchased,2.0
 fit-out,tent_services,tent_services_box,purchased,2.5
-fit-out,bay,bay_base_tray,Plate 6 5052,6.03
+fit-out,bay,bay_base_tray,Plate 6 5052,5.99
 fit-out,bay,bay_rear_post_-582,SHS 30x30x2 6060,0.32
 fit-out,bay,bay_rear_post_552,SHS 30x30x2 6060,0.32
 fit-out,bay,bay_rear_top,SHS 30x30x2 6060,0.67
 fit-out,electrical,inverter_charger_multiplus2_3000,purchased,20
 fit-out,bay,inverter_standoffs,Plate 4 5052,1.28
 fit-out,electrical,inverter_fan,purchased,0.3
+fit-out,bay,bay_fan_bracket,Plate 3 5052,0.09
+fit-out,bay,bay_fan_bracket_leg,Plate 3 5052,0.05
 fit-out,bay,charge_board,Plate 6 5052,2.13
 fit-out,electrical,orion_xs_50a,purchased,0.4
 fit-out,electrical,mppt_roof_100_30,purchased,1.3
@@ -33,14 +35,14 @@ fit-out,electrical,battery_2_mrbf,purchased,0.1
 fit-out,bay,battery_2_strap_156,Flat 50x6 6060,0.2
 fit-out,bay,battery_2_strap_426,Flat 50x6 6060,0.2
 fit-out,bay,dist_board,Plate 6 5052,2.15
-fit-out,electrical,busbar_bank_pos,purchased,0.6
-fit-out,electrical,remote_battery_switch_500a,purchased,0.9
-fit-out,electrical,busbar_sys_pos,purchased,0.6
-fit-out,electrical,class_t_400a,purchased,0.5
 fit-out,electrical,busbar_bank_neg,purchased,0.6
-fit-out,electrical,smartshunt_500a,purchased,0.2
+fit-out,electrical,busbar_bank_pos,purchased,0.6
+fit-out,electrical,busbar_sys_pos,purchased,0.6
 fit-out,electrical,busbar_sys_neg,purchased,0.5
-fit-out,bay_cover,bay_guard,Sheet 1.6 5005,1.64
+fit-out,electrical,remote_battery_switch_500a,purchased,0.9
+fit-out,electrical,class_t_400a,purchased,0.5
+fit-out,electrical,smartshunt_500a,purchased,0.2
+fit-out,bay_cover,bay_guard,Sheet 1.6 5005,1.28
 fit-out,slide_p,slide_power_base_plate_-532,Plate 6 5052,1.14
 fit-out,slide_p,slide_power_base_plate_-63,Plate 6 5052,1.14
 fit-out,slide_p,slide_power_base_cross_0,Flat 50x6 6060,0.33
@@ -140,12 +142,11 @@ fit-out,slide_d,slide_driver_leg_1_s1,SHS 25x25x2 6060,0.19
 fit-out,slide_d,slide_driver_leg_1_s2,SHS 19x19x1.6 6060,0.11
 fit-out,slide_d,slide_driver_leg_1_foot,purchased,0.15
 fit-out,slide_d,slide_driver_leg_clip_1,UHMW 10,0.02
-fit-out,power_cabinet,pc_inner_wall,Ply 12 marine,1.08
-fit-out,power_cabinet,pc_front,Ply 12 marine,0.36
-fit-out,power_cabinet,pc_top,Ply 12 marine,0.72
+fit-out,power_cabinet,pc_inner_wall,Ply 12 marine,1.05
+fit-out,power_cabinet,pc_front,Ply 12 marine,0.35
+fit-out,power_cabinet,pc_top,Ply 12 marine,0.69
 fit-out,power_cabinet,pc_bottom,Ply 12 marine,0.66
-fit-out,power_cabinet,pc_door,Plate 3 5052,0.41
-fit-out,power_cabinet,pc_door_hinge,purchased,0.1
+fit-out,power_cabinet,pc_door_stile,Angle 30x30x3 6060,0.13
 fit-out,power_cabinet,pc_gx_touch_50,purchased,0.3
 fit-out,power_cabinet,pc_sw_battery,purchased,0.05
 fit-out,power_cabinet,pc_sw_inverter,purchased,0.05
@@ -155,41 +156,66 @@ fit-out,power_cabinet,pc_usbc_2,purchased,0.05
 fit-out,power_cabinet,pc_anderson_1,purchased,0.1
 fit-out,power_cabinet,pc_anderson_2,purchased,0.1
 fit-out,power_cabinet,pc_12v,purchased,0.05
+fit-out,power_cabinet,pc_door_latch,purchased,0.06
+fit-out,power_cabinet,pc_door,Plate 3 5052,0.33
+fit-out,power_cabinet,pc_door_hinge,purchased,0.15
 fit-out,electrical,pc_rcbo_enclosure,purchased,1.2
 fit-out,electrical,dc_fuse_block,purchased,0.6
 fit-out,electrical,cerbo_gx,purchased,0.4
-fit-out,power_cabinet,ud_pass_floor,Ply 9 marine,1.51
-fit-out,power_cabinet,ud_pass_inner_wall,Ply 12 marine,2.16
-fit-out,power_cabinet,ud_pass_runner_panel,Ply 9 marine,1.63
-fit-out,power_cabinet,ud_pass_box,Ply 9 marine,0.29
+fit-out,power_cabinet,pc_wire_duct,purchased,0.15
+fit-out,power_cabinet,ud_pass_floor,Ply 9 marine,1.42
+fit-out,power_cabinet,ud_pass_inner_wall,Ply 12 marine,2.21
+fit-out,power_cabinet,ud_pass_runner_panel,Ply 9 marine,1.66
+fit-out,power_cabinet,ud_pass_trim,purchased,0.05
+fit-out,power_cabinet,ud_pass_box,Ply 9 marine,0.87
+fit-out,power_cabinet,ud_pass_box_side_0,Ply 9 marine,1.48
+fit-out,power_cabinet,ud_pass_box_side_1,Ply 9 marine,1.48
+fit-out,power_cabinet,ud_pass_box_back,Ply 9 marine,0.12
+fit-out,power_cabinet,ud_pass_box_front,Ply 9 marine,0.09
 fit-out,power_cabinet,ud_pass_divider_slots,purchased,0.88
-fit-out,power_cabinet,ud_pass_divider_0,Ply 9 marine,0.09
-fit-out,power_cabinet,ud_pass_divider_1,Ply 9 marine,0.09
-fit-out,power_cabinet,ud_pass_divider_2,Ply 9 marine,0.09
-fit-out,power_cabinet,ud_pass_front,Plate 3 5052,0.22
-fit-out,power_cabinet,ud_pass_pull,purchased,0.1
+fit-out,power_cabinet,ud_pass_divider_0,Ply 9 marine,0.08
+fit-out,power_cabinet,ud_pass_divider_1,Ply 9 marine,0.08
+fit-out,power_cabinet,ud_pass_divider_2,Ply 9 marine,0.08
+fit-out,power_cabinet,ud_pass_front,Plate 3 5052,0.19
+fit-out,power_cabinet,ud_pass_pull,purchased,0.25
+fit-out,power_cabinet,ud_pass_keeper,purchased,0.04
 fit-out,power_cabinet,ud_pass_runner_0,purchased,1.6
 fit-out,power_cabinet,ud_pass_runner_1,purchased,1.6
 fit-out,power_cabinet,cable_tray,Plate 3 5052,0.16
-fit-out,utility,ut_inner_wall,Ply 12 marine,1.28
-fit-out,utility,ut_front,Ply 12 marine,0.36
-fit-out,utility,ut_top,Ply 12 marine,0.85
-fit-out,utility,ut_drawer_box,Ply 9 marine,0.14
-fit-out,utility,ut_drawer_front,Plate 3 5052,0.37
-fit-out,utility,ut_drawer_pull,purchased,0.1
-fit-out,utility,ut_drawer_divider,Ply 9 marine,0.15
+fit-out,utility,ut_inner_wall,Ply 12 marine,1.26
+fit-out,utility,ut_front,Ply 12 marine,0.35
+fit-out,utility,ut_top,Ply 12 marine,0.83
+fit-out,utility,ut_runner_plate,Plate 3 5052,0.95
+fit-out,utility,ut_runner_cleats,purchased,0.2
+fit-out,utility,ut_drawer_box,Ply 9 marine,0.46
+fit-out,utility,ut_drawer_box_side_0,Ply 9 marine,0.81
+fit-out,utility,ut_drawer_box_side_1,Ply 9 marine,0.81
+fit-out,utility,ut_drawer_box_back,Ply 9 marine,0.2
+fit-out,utility,ut_drawer_box_front,Ply 9 marine,0.18
+fit-out,utility,ut_drawer_front,Plate 3 5052,0.34
+fit-out,utility,ut_drawer_pull,purchased,0.25
+fit-out,utility,ut_drawer_keeper,purchased,0.04
+fit-out,utility,ut_drawer_divider,Ply 9 marine,0.14
+fit-out,utility,ut_drawer_divider_slots,purchased,0.06
+fit-out,utility,ut_drawer_tiedowns,purchased,0.12
 fit-out,utility,ut_drawer_runner_0,purchased,1.0
 fit-out,utility,ut_drawer_runner_1,purchased,1.0
-fit-out,utility,ud_driver_floor,Ply 9 marine,1.51
-fit-out,utility,ud_driver_inner_wall,Ply 12 marine,2.16
-fit-out,utility,ud_driver_runner_panel,Ply 9 marine,1.63
-fit-out,utility,ud_driver_box,Ply 9 marine,0.26
+fit-out,utility,ud_driver_floor,Ply 9 marine,1.43
+fit-out,utility,ud_driver_inner_wall,Ply 12 marine,2.21
+fit-out,utility,ud_driver_runner_panel,Ply 9 marine,1.66
+fit-out,utility,ud_driver_trim,purchased,0.05
+fit-out,utility,ud_driver_box,Ply 9 marine,1.04
+fit-out,utility,ud_driver_box_side_0,Ply 9 marine,1.48
+fit-out,utility,ud_driver_box_side_1,Ply 9 marine,1.48
+fit-out,utility,ud_driver_box_back,Ply 9 marine,0.14
+fit-out,utility,ud_driver_box_front,Ply 9 marine,0.12
 fit-out,utility,ud_driver_divider_slots,purchased,0.88
-fit-out,utility,ud_driver_divider_0,Ply 9 marine,0.11
-fit-out,utility,ud_driver_divider_1,Ply 9 marine,0.11
-fit-out,utility,ud_driver_divider_2,Ply 9 marine,0.11
-fit-out,utility,ud_driver_front,Plate 3 5052,0.26
-fit-out,utility,ud_driver_pull,purchased,0.1
+fit-out,utility,ud_driver_divider_0,Ply 9 marine,0.1
+fit-out,utility,ud_driver_divider_1,Ply 9 marine,0.1
+fit-out,utility,ud_driver_divider_2,Ply 9 marine,0.1
+fit-out,utility,ud_driver_front,Plate 3 5052,0.22
+fit-out,utility,ud_driver_pull,purchased,0.25
+fit-out,utility,ud_driver_keeper,purchased,0.04
 fit-out,utility,ud_driver_runner_0,purchased,1.6
 fit-out,utility,ud_driver_runner_1,purchased,1.6
 payload (example),payload,ud_strap_roll_0,purchased,0.6
@@ -271,4 +297,4 @@ option: example edge modules,modules,d_divider_wall,Ply 12 marine,0.48
 option: example edge modules,modules,d_divider_pin_0,purchased,0.05
 option: example edge modules,modules,d_divider_pin_1,purchased,0.05
 fit-out,electrical,gap_junction_box,purchased,1.8
-fit-out,wiring,all cables (from schedule),cable,22.7
+fit-out,wiring,all cables (from schedule),cable,22.8
