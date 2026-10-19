@@ -2,12 +2,13 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.6.** See [`docs/v0.6-concept.md`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences). Earlier versions: [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.7.** See [`docs/v0.7-concept.md`](docs/v0.7-concept.md) (fold-out telescopic legs stowed under the slides, arch hooks removed). Earlier versions: [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.6/01_hero_camp.png)
+![Camp mode](renders/v0.7/01_hero_camp.png)
 
 | | |
 |---|---|
+| ![Fold-out legs deployed](renders/v0.7/02_legs_deployed.png) | ![Legs folded under the deck](renders/v0.7/03_legs_folded_below.png) |
 | ![Receiver grid to the edges](renders/v0.6/02_tub_iso_empty.png) | ![Well filler fitted](renders/v0.6/03_tub_iso_filler.png) |
 | ![Flush edge fences](renders/v0.6/04_tub_iso_fences.png) | ![Edge pin section](renders/v0.6/08b_section_edge.png) |
 | ![Rear control panel](renders/v0.5/08_rear_panel.png) | ![Drawers with removable dividers](renders/v0.5/09_drawers.png) |
@@ -17,7 +18,8 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.6-concept.md` | Current: receiver grid to the deck edges, removable fridge-well filler, flush edge fences |
+| `docs/v0.7-concept.md` | Current: fold-out telescopic legs under the slides; arch hooks removed (recessed well instead) |
+| `docs/v0.6-concept.md` | Receiver grid to the deck edges, removable fridge-well filler, flush edge fences (still current) |
 | `docs/v0.5-concept.md` | Slides: side-mount runners under a covered continuous deck (still current) |
 | `docs/v0.4-concept.md` | Charging rationale, rear panel, dividers (still current); under-mount slides (dropped) |
 | `docs/v0.3-concept.md` | Battery configuration and tailgate-only access (still current) |
@@ -47,7 +49,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 python3 -m venv .venv && .venv/bin/pip install -r cad/requirements.txt
 cd cad && ../.venv/bin/python build.py      # model -> GLB + STEP + summary + BOM CSVs
 ../.venv/bin/python clash.py                 # interference check
-cd ../tools/render && npm install && node render.mjs shots_v0.6.json ../../renders/v0.6
+cd ../tools/render && npm install && node render.mjs shots_v0.7.json ../../renders/v0.7
 ```
 
 Change a number in `cad/params.py`, rebuild, re-check and re-render. Every part, cable length and weight follows.

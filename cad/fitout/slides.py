@@ -176,14 +176,58 @@ def slide(side: str, ext: float, power: bool):
     parts.append(part(f"{nm}_rear_plate", g, rear, "alu", fab=True, mat="Plate 3 5052"))
     parts.append(part(f"{nm}_handle", g, box(cx1 - 3.5, cx1 + 1, yc - 120, yc + 120, rz0 + 20, rz0 + 50).cut(
         box(cx1 - 4, cx1 + 2, yc - 105, yc + 105, rz0 + 26, rz0 + 44)), "alu_dark", kg=0.3))
-    # removable pin-in legs at the rear corners (camp mode)
-    if ext > 0:
-        zg = -P.FLOOR_ABOVE_GROUND
-        for i, yy in enumerate((cy0 + P.LEG_INSET, cy1 - P.LEG_INSET - 30)):
-            leg = tube_box(cx1 - 70, cx1 - 40, yy, yy + 30, zg, rz0 + 5, axis="Z").union(box(cx1 - 85, cx1 - 25, yy - 15, yy + 45, zg, zg + 6))
-            parts.append(part(f"{nm}_leg_{i}", g, leg, "alu_dark", fab=True, mat="SHS 30x30x2 6060"))
+    parts += fold_legs(nm, g, cx0, cx1, cy0, cy1, ext)
     if power:
         parts += cable_chain(x0, cx0, ya)
+    return parts
+
+
+def fold_legs(nm, g, cx0, cx1, cy0, cy1, ext):
+    """Two fold-out telescopic legs per slide. Each pivots on a clevis on the inner face of one carriage side member
+    (in the rear bay, between the last two cross members). Stowed: folded across under the deck, nested, clipped to the
+    opposite side member. Deployed (slide out past the open tailgate): swung down 90 deg, locked by a ball-lock pin through
+    the clevis, sections extended to the ground and pinned, swivel foot screwed down to take the load."""
+    parts = []
+    (s0, w0, l0), (s1, w1, l1), (s2, w2, l2) = P.LEG_SECTIONS
+    fd, fh = P.LEG_FOOT
+    zc = P.LEG_Z + s0 / 2                       # pivot / folded-leg centreline height
+    tg_tip = P.TUB_L + 10 + P.TAILGATE_H        # open tailgate tip: legs must land behind it
+    xs = [cx1 - d for d in P.LEG_X_FROM_REAR]
+    deployed = ext > 0 and min(xs) - s0 / 2 > tg_tip + 15
+    for i, (xl, yface, dirn) in enumerate(((xs[0], cy0 + 25, 1), (xs[1], cy1 - 25, -1))):
+        yp = yface + dirn * P.LEG_PIVOT_DY
+        h = s0 / 2
+        # clevis: two 5 mm plates either side of the leg, bolted through the side member
+        clev = union_all([box(xl - h - 5, xl - h, yface, yp + dirn * 18, zc - 22, zc + 22),
+                          box(xl + h, xl + h + 5, yface, yp + dirn * 18, zc - 22, zc + 22)])
+        parts.append(part(f"{nm}_leg_clevis_{i}", g, clev, "alu_dark", fab=True, mat="Plate 6 5052"))
+        if deployed:
+            zg = -P.FLOOR_ABOVE_GROUND
+            ztop = zc + h                               # leg top just above the pivot
+            z_o = ztop - l0
+            z_m0 = z_o + P.LEG_OVERLAP
+            z_i1 = zg + fh
+            secs = [(s0, w0, z_o, ztop), (s1, w1, z_m0 - l1, z_m0), (s2, w2, z_i1, z_i1 + l2)]
+            for k, (sz, wl, za, zb_) in enumerate(secs):
+                parts.append(part(f"{nm}_leg_{i}_s{k}", g, tube_box(xl - sz / 2, xl + sz / 2, yp - sz / 2, yp + sz / 2, za, zb_, wall=wl, axis="Z"),
+                                  "alu_dark", fab=True, mat=f"SHS {sz}x{sz}x{wl:g} 6060"))
+            parts.append(part(f"{nm}_leg_{i}_foot", g, cyl(fd / 2, 8, (xl, yp, zg + 4)).union(cyl(5, fh - 8, (xl, yp, zg + 8 + (fh - 8) / 2))),
+                              "alu", kg=0.15))
+        else:
+            # folded across under the deck: sections collapsed inside the outer tube, foot just past its free end
+            y0 = yp - dirn * h
+            offs = (0, 5, l0 - l2)
+            for k, ((sz, wl, ln), o) in enumerate(zip(P.LEG_SECTIONS, offs)):
+                ya_, yb_ = sorted((y0 + dirn * o, y0 + dirn * (o + ln)))
+                parts.append(part(f"{nm}_leg_{i}_s{k}", g, tube_box(xl - sz / 2, xl + sz / 2, ya_, yb_, zc - sz / 2, zc + sz / 2, wall=wl, axis="Y"),
+                                  "alu_dark", fab=True, mat=f"SHS {sz}x{sz}x{wl:g} 6060"))
+            yend = y0 + dirn * l0
+            parts.append(part(f"{nm}_leg_{i}_foot", g, cyl(5, fh - 8, (xl, yend + dirn * (fh - 8) / 2, zc), axis="Y").union(
+                cyl(fd / 2, 8, (xl, yend + dirn * (fh - 4), zc), axis="Y")), "alu", kg=0.15))
+            # spring clip on a UHMW block under the deck holds the folded leg at mid-length
+            ym = y0 + dirn * l0 * 0.6
+            parts.append(part(f"{nm}_leg_clip_{i}", g, box(xl - 25, xl + 25, ym - 20, ym + 20, zc, P.DECK_BOT_Z).cut(
+                box(xl - h - 0.5, xl + h + 0.5, ym - 21, ym + 21, zc - 1, zc + h + 0.5)), "uhmw", fab=True, mat="UHMW 10"))
     return parts
 
 

@@ -1,0 +1,71 @@
+[
+ {
+  "name": "01_hero_camp",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "title": "v0.7: camp mode"
+  }
+ },
+ {
+  "name": "02_legs_deployed",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,tent_harness,payload,roof,solar,cargo",
+   "cam": "4.3,0.35,2.1,2.45,-0.42,0.25,36",
+   "title": "v0.7: power slide at full extension, fold-out legs down and telescoped to the ground",
+   "labels": "slide_power_leg_0_s1:Telescopic leg|32/25/19 SHS, pinned every 25 mm:-90:0;slide_power_leg_1_foot:Swivel levelling foot:60:0;slide_power_leg_clevis_1:Clevis + lock pin:80:-30"
+  }
+ },
+ {
+  "name": "03_legs_folded_below",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "vehicle,lid,rack,tent,tent_services,future,tent_harness,payload,roof,solar,cargo,wiring,utility,power_cabinet",
+   "cam": "2.75,-0.75,-0.95,2.05,0.05,-0.3,34",
+   "title": "v0.7: driver slide from below - legs folded across under the deck, clipped",
+   "labels": "slide_driver_leg_0_s0:Folded leg|clevis on the side member:0:-20;slide_driver_leg_clip_1:Spring clip block:40:30;slide_driver_carr_cross_4:Rear cross member:0:-30"
+  }
+ },
+ {
+  "name": "04_travel_folded_plan_below",
+  "params": {
+   "view": "slides",
+   "state": "travel",
+   "hide": "vehicle,lid,rack,tent,tent_services,future,tent_harness,payload,roof,solar,cargo,wiring,utility,power_cabinet,bay,bay_cover,batteries,electrical",
+   "cam": "1.25,-1.1,0.0001,1.25,0.0,0.0,40",
+   "title": "v0.7 underside (travel): both slides, legs folded in the rear bay (rear at right)"
+  }
+ },
+ {
+  "name": "05_arch_recess",
+  "params": {
+   "view": "tub_iso",
+   "state": "travel",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,slide_p,slide_d,power_cabinet,utility,wiring,modules,well_filler",
+   "cam": "1.35,0.75,-0.35,0.55,0.15,0.35,40",
+   "title": "v0.7: no hooks on the arches - recessed well moulded into each arch face ([EST] size, measure)",
+   "labels": "wheel_arch_passenger:Recessed well|in the arch face:60:-10"
+  }
+ },
+ {
+  "name": "06_tub_iso_fences",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "show": "well_filler,modules",
+   "title": "v0.7: edge fences back to 150 mm (no hooks to clear)"
+  }
+ },
+ {
+  "name": "07_slides_loaded",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "title": "v0.7 slides, example load, power-slide legs down"
+  }
+ }
+]

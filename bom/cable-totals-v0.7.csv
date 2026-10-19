@@ -1,0 +1,23 @@
+cable,total_m (model),"buy_m (+15%, rounded up)"
+16 mm2 twin,2.2,3
+"2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle",3.7,5
+"2 x 50 mm2 tinned, black",0.8,1
+"2 x 50 mm2 tinned, red",2.1,3
+2-core 0.75 mm2,3.3,4
+2.5 mm2 3-core flex,0.4,1
+2.5 mm2 3-core flex (15 A),6.2,8
+2.5 mm2 3-core flex (TPS-flex),3.2,4
+"2.5 mm2 3-core flex, UV rated",3.8,5
+2.5 mm2 3-core high-flex (chain rated),2.3,3
+"25 mm2 twin (+/-), tinned",8.6,10
+25 mm2 twin (red/black),3.4,4
+3-core 1.0 mm2,2.9,4
+4 mm2 twin + DC barrel lead,5.0,6
+6 mm2 solar twin (UV),14.2,17
+6 mm2 twin,9.7,12
+6 mm2 twin high-flex,2.2,3
+"70 mm2 tinned, black",2.9,4
+"70 mm2 tinned, red",2.4,3
+GX Touch cable,0.8,1
+RJ45 VE.Bus cable,3.6,5
+VE.Direct cables x4,3.8,5

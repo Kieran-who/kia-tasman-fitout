@@ -67,7 +67,7 @@ def payload(ext_p, ext_d):
     return parts
 
 
-FENCE_H = 95       # edge fence / divider wall height: wall top 101 above the deck clears the front bed hooks (bottom ~108) when stowed
+FENCE_H = 150      # edge fence / divider wall height above the deck (anything up to ~180 clears the upper drawers when stowed)
 FENCE_T = 12       # ply wall
 FOOT_W = 60        # 60 x 6 alu flat foot, carries the ball-lock pins
 

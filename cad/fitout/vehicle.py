@@ -22,6 +22,10 @@ def tub(tailgate_open=False):
         arch = (box(0, P.ARCH_L, s * P.ARCH_GAP / 2, s * hw, -P.RIB_H, P.ARCH_H)
                 .edges("|X").edges(">Z").edges("<Y" if s > 0 else ">Y").fillet(P.ARCH_R)
                 .edges("|Y").edges(">X").edges(">Z").fillet(P.ARCH_R))
+        # recessed well moulded into the arch's inner face (owner photo) - nothing protrudes into the tub here
+        ap = P.ARCH_POCKET
+        ya_ = s * P.ARCH_GAP / 2
+        arch = arch.cut(box(ap["x0"], ap["x1"], ya_ - s * 1, ya_ + s * ap["depth"], ap["z0"], ap["z1"]))
         parts.append(part(f"wheel_arch_{nm}", "vehicle", arch, "liner"))
         # tail-light housing bulge at the rear corner
         if P.TAIL_BULGE_L and P.TAIL_BULGE_IN:

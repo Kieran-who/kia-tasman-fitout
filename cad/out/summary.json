@@ -1,10 +1,10 @@
 {
-  "version": "v0.6",
-  "fitout_kg": 480.8,
+  "version": "v0.7",
+  "fitout_kg": 483.7,
   "example_payload_kg": 108.2,
   "options_kg": {
     "option: well filler (no fridge)": 5.0,
-    "option: example edge modules": 10.3
+    "option: example edge modules": 12.3
   },
   "by_group_kg": {
     "batteries": 76.0,
@@ -16,14 +16,14 @@
     "power_cabinet": 15.0,
     "rack": 13.8,
     "roof": 36.7,
-    "slide_d": 34.9,
-    "slide_p": 33.2,
+    "slide_d": 36.3,
+    "slide_p": 34.6,
     "solar": 27.2,
     "tent": 84.0,
     "tent_services": 2.5,
     "utility": 15.6,
     "wiring": 19.5,
-    "modules": 10.3,
+    "modules": 12.3,
     "well_filler": 5.0,
     "payload": 108.2
   },
@@ -46,7 +46,7 @@
     "Plate 4 5052": 0.29,
     "Flat 50x6 6060": 3.59,
     "Sheet 1.6 5005": 0.38,
-    "UHMW 10": 0.05,
+    "UHMW 10": 0.06,
     "RHS 75x25x2 6060": 4.7,
     "Angle 60x40x3 6060": 4.7,
     "RHS 50x25x2 6060": 3.63,
@@ -55,14 +55,17 @@
     "L-track HD": 3.6,
     "Plate 3 5052": 0.78,
     "Ply 18 marine": 0.09,
-    "Ply 12 marine": 1.91,
+    "SHS 32x32x2 6060": 1.52,
+    "SHS 25x25x2 6060": 1.48,
+    "SHS 19x19x1.6 6060": 1.44,
+    "Ply 12 marine": 2.21,
     "Ply 9 marine": 2.08,
     "Flat 60x6 6060": 5.39
   },
   "axle_added_kg_front_rear": {
     "fit-out": [
-      6.4,
-      454.9
+      5.6,
+      458.6
     ],
     "payload (example)": [
       -14.8,

@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.6"
+VERSION = "v0.7"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -37,9 +37,8 @@ TUB_WALL_T = 55        # [EST] visual thickness of the side walls incl. liner
 LID_CLEAR = 8          # [EST] tub rail -> underside of the Ute Master lid
 # The lid CANNOT be opened with the tent on (weight): everything in the tub is reached from the tailgate.
 UNDER_LID_Z = TUB_D + LID_CLEAR             # 548: hard ceiling for everything in the tub
-BED_HOOKS = [          # [EST] 4 factory bed hooks (x, side, z) - side +1 driver / -1 passenger
-    (ARCH_L - 140, 1, ARCH_H - 50), (ARCH_L - 140, -1, ARCH_H - 50),
-    (TUB_L - 190, 1, 330), (TUB_L - 190, -1, 330)]
+BED_HOOKS = []         # v0.7: owner confirms there are NO hooks on the arch faces (the v0.2-v0.6 hooks were placeholders)
+ARCH_POCKET = dict(x0=620, x1=780, z0=195, z1=245, depth=35)   # [EST] recessed well moulded into each arch's inner face - measure
 FACTORY_OUTLET = (1330, -1, 400)            # [EST] passenger wall, becomes the cable gland plate
 
 # body context (only used for the context shell)
@@ -131,7 +130,14 @@ LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
 RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid (interior)
 RECEIVER_EDGE_X = 35                        # [DES] front/rear edge rows over the end cross members
 RECEIVER_D = 22                             # [DES] flanged stainless bush OD (8 mm ball-lock pin)
-LEG_INSET = 45                              # removable pin-in legs (stored in the lower utility drawer)
+# fold-out telescopic legs (v0.7): pivot on the inner face of each carriage side member in the rear bay, fold ACROSS under
+# the deck and clip to the opposite side member; deployed they swing down, telescope and lock (8 mm ball-lock pins, 25 mm holes)
+LEG_SECTIONS = ((32, 2.0, 380), (25, 2.0, 370), (19, 1.6, 360))   # [DES] nested 6060 SHS: (size, wall, length)
+LEG_OVERLAP = 70                            # [DES] min overlap between sections when extended
+LEG_PIVOT_DY = 20                           # [DES] clevis: pivot centre inboard of the side member face
+LEG_Z = 17                                  # [DES] underside of the folded leg (clears the UHMW stops / base plates)
+LEG_FOOT = (40, 30)                         # [DES] swivel levelling foot: pad dia, height incl. M10 stud
+LEG_X_FROM_REAR = (110, 220)                # [DES] leg centres from the deck rear (bay between the last two cross members)
 MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)
 BULKHEAD_D = 70                             # [DES] power pod: sockets face UP so plugs never foul the fridge
 FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 766 -> fridge <= ~756 long

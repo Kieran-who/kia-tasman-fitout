@@ -1,0 +1,67 @@
+material,cut size (mm),qty,stock,parts
+ACM 3,1124 x 1113,1,2440x1220 sheet,tent_solar_backing
+Angle 30x30x3 6060,1174,2,6.5 m length,slide_driver_edge_cap; slide_power_edge_cap
+Angle 60x40x3 6060,1174,4,6.5 m length,slide_driver_deck_angle_0; slide_driver_deck_angle_1; slide_power_deck_angle_0; slide_power_deck_angle_1
+Flat 50x6 6060,246,4,6.5 m length,battery_1_strap_156; battery_1_strap_426; battery_2_strap_156; battery_2_strap_426
+Flat 50x6 6060,409,3,6.5 m length,slide_power_base_cross_0; slide_power_base_cross_1; slide_power_base_cross_2
+Flat 50x6 6060,459,3,6.5 m length,slide_driver_base_cross_0; slide_driver_base_cross_1; slide_driver_base_cross_2
+Flat 60x6 6060,1094,2,6.5 m length,p_fence_in_foot; p_fence_out_foot
+Flat 60x6 6060,1166,2,6.5 m length,d_fence_in_foot; d_fence_out_foot
+Flat 60x6 6060,409,1,6.5 m length,p_divider_foot
+Flat 60x6 6060,459,1,6.5 m length,d_divider_foot
+L-track HD,1144,1,1.2 m length,slide_driver_ltrack
+L-track HD,308,1,1.2 m length,slide_power_ltrack
+L-track HD,706,2,1.2 m length,slide_power_well_track_-106; slide_power_well_track_-458
+L-track HD,736,1,1.2 m length,slide_power_filler_ltrack
+Plate 3 5052,1380 x 90,1,2400x1200 sheet,cable_tray
+Plate 3 5052,201 x 136,1,2400x1200 sheet,ud_pass_front
+Plate 3 5052,201 x 158,1,2400x1200 sheet,ud_driver_front
+Plate 3 5052,266 x 189,1,2400x1200 sheet,pc_door
+Plate 3 5052,269 x 171,1,2400x1200 sheet,ut_drawer_front
+Plate 3 5052,489 x 150,1,2400x1200 sheet,slide_power_power_pod
+Plate 3 5052,529 x 90,1,2400x1200 sheet,slide_power_rear_plate
+Plate 3 5052,579 x 90,1,2400x1200 sheet,slide_driver_rear_plate
+Plate 3 5052,766 x 423,1,2400x1200 sheet,slide_power_fridge_well_pan
+Plate 3 5052,82 x 60,1,2400x1200 sheet,slide_power_chain_bracket
+Plate 4 5052,506 x 235,1,2400x1200 sheet,inverter_standoffs
+Plate 4 5052,625 x 279,1,2400x1200 sheet,starlink_bracket
+Plate 6 5052,1164 x 320,1,2400x1200 sheet,bay_base_tray
+Plate 6 5052,1174 x 60,4,2400x1200 sheet,slide_driver_base_plate_3; slide_driver_base_plate_522; slide_power_base_plate_-532; slide_power_base_plate_-63
+Plate 6 5052,1174 x 76,4,2400x1200 sheet,slide_driver_runner_plate_a; slide_driver_runner_plate_b; slide_power_runner_plate_a; slide_power_runner_plate_b
+Plate 6 5052,44 x 42,4,2400x1200 sheet,slide_driver_leg_clevis_0; slide_driver_leg_clevis_1; slide_power_leg_clevis_0; slide_power_leg_clevis_1
+Plate 6 5052,519 x 256,1,2400x1200 sheet,dist_board
+Plate 6 5052,536 x 245,1,2400x1200 sheet,charge_board
+Ply 12 marine,1094 x 150,2,2400x1200 sheet,p_fence_in_wall; p_fence_out_wall
+Ply 12 marine,1166 x 150,2,2400x1200 sheet,d_fence_in_wall; d_fence_out_wall
+Ply 12 marine,1501 x 209,2,2400x1200 sheet,ud_driver_inner_wall; ud_pass_inner_wall
+Ply 12 marine,290 x 181,2,2400x1200 sheet,pc_front; ut_front
+Ply 12 marine,409 x 150,1,2400x1200 sheet,p_divider_wall
+Ply 12 marine,459 x 150,1,2400x1200 sheet,d_divider_wall
+Ply 12 marine,530 x 181,1,2400x1200 sheet,pc_bottom
+Ply 12 marine,542 x 193,1,2400x1200 sheet,pc_top
+Ply 12 marine,542 x 290,1,2400x1200 sheet,pc_inner_wall
+Ply 12 marine,641 x 193,1,2400x1200 sheet,ut_top
+Ply 12 marine,641 x 290,1,2400x1200 sheet,ut_inner_wall
+Ply 15 marine,1171 x 529,1,2400x1200 sheet,slide_power_deck
+Ply 15 marine,1171 x 579,1,2400x1200 sheet,slide_driver_deck
+Ply 15 marine,758 x 415,1,2400x1200 sheet,slide_power_filler_panel
+Ply 18 marine,706 x 65,2,2400x1200 sheet,slide_power_filler_riser_0; slide_power_filler_riser_1
+Ply 9 marine,1456 x 199,2,2400x1200 sheet,ud_driver_box; ud_pass_box
+Ply 9 marine,1501 x 193,2,2400x1200 sheet,ud_driver_floor; ud_pass_floor
+Ply 9 marine,1501 x 209,2,2400x1200 sheet,ud_driver_runner_panel; ud_pass_runner_panel
+Ply 9 marine,160 x 106,3,2400x1200 sheet,ud_pass_divider_0; ud_pass_divider_1; ud_pass_divider_2
+Ply 9 marine,160 x 128,3,2400x1200 sheet,ud_driver_divider_0; ud_driver_divider_1; ud_driver_divider_2
+Ply 9 marine,213 x 137,1,2400x1200 sheet,ut_drawer_divider
+Ply 9 marine,594 x 264,1,2400x1200 sheet,ut_drawer_box
+RHS 50x25x2 6060,423,3,6.5 m length,slide_power_carr_cross_0; slide_power_carr_cross_3; slide_power_carr_cross_4
+RHS 50x25x2 6060,473,5,6.5 m length,slide_driver_carr_cross_0; slide_driver_carr_cross_1; slide_driver_carr_cross_2; slide_driver_carr_cross_3; slide_driver_carr_cross_4
+RHS 75x25x2 6060,1174,4,6.5 m length,slide_driver_carr_side_0; slide_driver_carr_side_1; slide_power_carr_side_0; slide_power_carr_side_1
+SHS 19x19x1.6 6060,360,4,6.5 m length,slide_driver_leg_0_s2; slide_driver_leg_1_s2; slide_power_leg_0_s2; slide_power_leg_1_s2
+SHS 25x25x2 6060,370,4,6.5 m length,slide_driver_leg_0_s1; slide_driver_leg_1_s1; slide_power_leg_0_s1; slide_power_leg_1_s1
+SHS 30x30x2 6060,1104,1,6.5 m length,bay_rear_top
+SHS 30x30x2 6060,529,2,6.5 m length,bay_rear_post_-582; bay_rear_post_552
+SHS 32x32x2 6060,380,4,6.5 m length,slide_driver_leg_0_s0; slide_driver_leg_1_s0; slide_power_leg_0_s0; slide_power_leg_1_s0
+Sheet 1.6 5005,1104 x 345,1,2400x1200 sheet,bay_guard
+UHMW 10,100 x 40,4,1000x500 sheet,slide_driver_uhmw_stop_33; slide_driver_uhmw_stop_512; slide_power_uhmw_stop_-502; slide_power_uhmw_stop_-73
+UHMW 10,54 x 50,4,1000x500 sheet,slide_driver_leg_clip_0; slide_driver_leg_clip_1; slide_power_leg_clip_0; slide_power_leg_clip_1
+UHMW 10,654 x 45,1,1000x500 sheet,slide_power_chain_trough
