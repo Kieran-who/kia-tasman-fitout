@@ -36,7 +36,8 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 ## Viewing the model
 
 - **STEP:** open `cad/out/fitout_fab.step` in [Onshape](https://www.onshape.com) or [FreeCAD](https://www.freecad.org) (both free).
-- **Interactive viewer:** run `npx serve viewer` (or `python3 -m http.server -d viewer`) and open the URL it prints.
+- **Interactive viewer (artifact):** `python3 tools/make_artifact.py <dir>` packages the viewer as a self-contained page.
+- **Interactive viewer (local):** run `npx serve viewer` (or `python3 -m http.server -d viewer`) and open the URL it prints.
 
 ## Rebuilding
 
