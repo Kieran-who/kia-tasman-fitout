@@ -8,20 +8,20 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.2) |
+| # | Requirement | Where it lives (v0.3) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
 | R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
-| R3 | Inverter at least 3000 W (kettle + microwave) | Quattro 12/5000, 4000 W (v0.2) |
+| R3 | Inverter ~2400 W (kettle or microwave, one at a time) | MultiPlus-II 12/3000 (v0.3) |
 | R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
 | R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
 | R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2) |
 | R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 per slide, UHMW stowed stops, pin-in legs |
 | R8 | Power-side slide has integrated cable management and outlets | Upright chain in the centre gap + up-facing power pod + fridge well |
 | R9 | Modular slides: centre tie-down track + quick-release module mounting | L-track + 100 mm receiver grid |
-| R10 | Passenger rear pocket: power management + 240 V, Anderson, USB-C outlets | Power cabinet |
+| R10 | Passenger rear pocket: power management + 240 V, Anderson, USB-C outlets; **all switches (incl. battery isolation) at the back of the tub** | Lower control cabinet with hinged rear control panel (v0.3) |
 | R11 | ~~Driver side: drinking-water tank~~ → always-in-the-car utility storage (straps, odd gear) | Utility drawer + over-arch tray (v0.2) |
-| R12 | Clever use of the space above the passenger arch | Charging board |
+| R12 | Clever use of the space above the arches; **lid can't open with the tent on, so all storage slides out the back** | Full-length upper drawers both sides (v0.3) |
 | R13 | Quality components; Home Assistant monitoring preferred | Victron + Cerbo GX |
 | R14 | Roof platform over the full roof, mostly solar, still carries light cargo above the panels | Wedgetail 1600 × 1450 + removable cargo bars |
 | R15 | Flush light bar at the front of the platform (nice to have) | Platform front plate |
@@ -48,3 +48,10 @@
 | 2026-10-19 | v0.2 | Slides: 2 × DZ9308 each, deck at 84 mm, fridge well on the power slide, upright chain in a 50 mm centre gap, pin-in legs, no reliance on the tailgate | Deck height is set by runner height; tailgate rating unpublished |
 | 2026-10-19 | v0.2 | Push-button 8 mm ball-lock pins on a 100 mm receiver grid | Owner choice |
 | 2026-10-19 | v0.2 | Model gains materials, masses, routed cables, generated BOM/cut/cable lists, axle loads and an interference check | Fidelity toward a fully mapped build |
+| 2026-10-19 | v0.3 | MultiPlus-II 12/3000 (2400 W) instead of the Quattro | Owner: 2400 W is sufficient; -14 kg, shallower bay |
+| 2026-10-19 | v0.3 | MRBF per battery, equal-length 70 mm² bank cables, Class-T 400 A inverter feed, 2 × 50 mm² | Victron MultiPlus-II 12/3000 spec; even sharing between batteries |
+| 2026-10-19 | v0.3 | ML-RBS remote battery switch, controlled from the rear panel | Lid can't open; isolation must be reachable from the tailgate |
+| 2026-10-19 | v0.3 | Charging board moved to the front wall above the inverter | Frees the over-arch space for slide-out storage |
+| 2026-10-19 | v0.3 | Full-length upper drawers over both arches + lower control cabinet / utility drawer behind the arches | All storage slides out the back |
+| 2026-10-19 | v0.3 | No tail-light bulge; tent folds out to the driver side | Owner confirmation |
+| 2026-10-19 | v0.3 | Bay 320 deep, slides 1174 mm on 46" DZ9308 | Smaller inverter |

@@ -17,7 +17,7 @@ ALLOW = [("_deck", "_ltrack"), ("_deck", "_receiver"), ("bulkhead", "_gpo"), ("b
          ("_side_angle", "_base_"), ("_carr_cross", "_deck"), ("isolator", "isolator"), ("quattro", "inverter"),
          ("charge_board", "charge_board"), ("ut_", "ut_"), ("_leg_", "_leg_"), ("plat_fairing", "light_bar"),
          ("_rear_plate", "_carr_side"), ("_rear_plate", "_handle"), ("_deck", "_handle"), ("cable_chain", "chain_trough"),
-         ("_runner_plate", "_base_plate"), ("_base_cross", "_base_plate"), ("pc_outlet_panel", "pc_"), ("_well_track", "fridge"), ("power_pod", "_gpo"), ("power_pod", "_anderson"), ("power_pod", "_12v"), ("power_pod", "_usbc"), ("microwave", "microwave_door")]
+         ("_runner_plate", "_base_plate"), ("_base_cross", "_base_plate"), ("pc_outlet_panel", "pc_"), ("_well_track", "fridge"), ("power_pod", "_gpo"), ("power_pod", "_anderson"), ("power_pod", "_12v"), ("power_pod", "_usbc"), ("microwave", "microwave_door"), ("_front", "_pull"), ("bed_hook", "ud_")]
 
 
 def allowed(a, b):

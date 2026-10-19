@@ -58,7 +58,7 @@ def slide(side: str, ext: float, power: bool, runners: int):
     def runner_set(y_face, dirn, label):
         for k, off in enumerate((0, ext / 2, ext)):
             yy0 = y_face + dirn * k * third
-            parts.append(part(f"{nm}_runner_{label}_{k}", g, box(x0 + 8 + off, x0 + 8 + rl + off, yy0, yy0 + dirn * third, rz0 + 3, rz1 - 3),
+            parts.append(part(f"{nm}_runner_{label}_{k}", g, box(x0 + 3 + off, x0 + 3 + rl + off, yy0, yy0 + dirn * third, rz0 + 3, rz1 - 3),
                               "runner", kg=2.0))
     runner_set(ya + P.SIDE_PLATE_T, 1, "a")
     runner_set(yb - P.SIDE_PLATE_T, -1, "b")

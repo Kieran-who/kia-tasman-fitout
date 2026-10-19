@@ -39,6 +39,7 @@ def payload(ext_p, ext_d):
             box(x, x + 25, yc - fw / 2 - 4, yc - fw / 2, zf, zf + fh)).union(box(x, x + 25, yc + fw / 2, yc + fw / 2 + 4, zf, zf + fh)), "strap"))
     mw, md, mh = MICROWAVE
     mx1 = cx1 - 3
+    md = min(md, P.MICROWAVE_D)
     parts.append(part("microwave", "payload", box(mx1 - md, mx1, yc - mw / 2, yc + mw / 2, top + 5, top + 5 + mh), "outlet", kg=11))
     parts.append(part("microwave_door", "payload", box(mx1 - 1, mx1 + 0.5, yc - mw / 2 + 10, yc + mw / 2 - 90, top + 20, top + mh - 10), "usb"))
     parts += pins("microwave_base", mx1 - md, mx1, yc - mw / 2, yc + mw / 2, top - 14, "payload")

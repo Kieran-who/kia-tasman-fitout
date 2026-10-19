@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.2"
+VERSION = "v0.3"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -29,12 +29,13 @@ ARCH_R = 70            # [EST] radius on the arch's top inboard edge
 RIB_PITCH = 100        # [EST] liner floor rib pitch (ribs run fore-aft)
 RIB_W = 45             # [EST] rib top width
 RIB_H = 14             # [EST] rib height (Z=0 is the rib tops)
-TAIL_BULGE_L = 140     # [EST] tail-light housing bulge at each rear corner (along X)
-TAIL_BULGE_IN = 60     # [EST] how far it intrudes into the tub (Y)
+TAIL_BULGE_L = 0       # [owner] no tail-light bulge inside the tub
+TAIL_BULGE_IN = 0
 TAILGATE_T = 60        # [EST]
 TAILGATE_H = TUB_D - 15
 TUB_WALL_T = 55        # [EST] visual thickness of the side walls incl. liner
 LID_CLEAR = 8          # [EST] tub rail -> underside of the Ute Master lid
+# The lid CANNOT be opened with the tent on (weight): everything in the tub is reached from the tailgate.
 UNDER_LID_Z = TUB_D + LID_CLEAR             # 548: hard ceiling for everything in the tub
 BED_HOOKS = [          # [EST] 4 factory bed hooks (x, side, z) - side +1 driver / -1 passenger
     (ARCH_L - 140, 1, ARCH_H - 50), (ARCH_L - 140, -1, ARCH_H - 50),
@@ -85,32 +86,35 @@ TENT_SERVICES = dict(x=240, inset=170, w=260, d=150, h=95)   # [DES] under-tent 
 # ================================================================ batteries + electrical bay
 BATT_L, BATT_W, BATT_H = 525, 240, 235      # [PUB] iTech400X Pro incl. terminals; any orientation except upside down
 BATT_KG = 38
-# batteries stand ON END (525 tall) with terminals facing the rear (slide side): footprint 240 (Y) x 235 (X)
-BAY_D = 360            # [DES] Quattro lying flat is 350 deep
+# Batteries stand ON END (525 tall), terminals facing the rear: footprint 240 (Y) x 235 (X).
+# The inverter lies flat BESIDE them (Victron: not directly above batteries) - this keeps the bay shallow.
+BAY_D = 320            # [DES] 235 battery + ~85 for terminal cable bends; inverter is 275 deep
 BAY_W = ARCH_GAP - 6
 BAY_H = 535            # [DES] rear posts / top rail (batteries on end are 525 + base)
-# Victron Quattro 12/5000/220-100/100 230V: 470 x 350 x 280 (H x W x D), 34 kg, 4000 W @25C / 3700 W @40C.
-# Horizontal mounting permitted (vertical preferred) - must NOT be directly above the batteries.
-INVERTER = (470, 350, 280)    # [PUB] as laid flat: along Y, along X, height
-INVERTER_KG = 34
-SHUNT = (120, 46, 54)         # [PUB] SmartShunt 1000 A (same body as 500 A)
-CLASS_T = (115, 70, 75)       # [EST] Blue Sea 5502 Class-T holder + 400 A fuse (one per battery = 2 x 400 A)
-BUSBAR = (265, 55, 50)        # [EST] Blue Sea PowerBar 1000 A (+ and -)
-# charging board (vertical, above the passenger wheel arch): (along X, thickness, height)
+INVERTER = (546, 275, 147)    # [PUB] Victron MultiPlus-II 12/3000/120-32 laid flat: along Y, along X, height
+INVERTER_KG = 20              # [PUB] 2400 W @25 C / 2200 W @40 C, 5500 W peak, 120 A charger, 32 A transfer
+SHUNT = (120, 46, 54)         # [PUB] SmartShunt 500 A
+CLASS_T = (115, 70, 75)       # [EST] Blue Sea 5502 holder + 400 A Class-T (inverter feed, per Victron)
+MRBF = (40, 35, 14)           # [EST] Blue Sea 5191 MRBF 300 A on each battery + terminal
+BUSBAR = (200, 50, 45)        # [EST] Blue Sea PowerBar 600 A (bank +, system +, bank -, system -)
+RBS = (110, 95, 100)          # [EST] Blue Sea ML-RBS 7713 remote battery switch 500 A (switched from the rear panel)
+# charging board on the FRONT WALL above the inverter (vertical, terminals down): (along Y, thickness, height)
 DCDC = (123, 40, 137)         # [PUB] Orion XS 12/12-50A x1, input current limit 1-50 A: start at 25-30 A
 MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/50
 MPPT_TENT = (113, 40, 100)    # [PUB] SmartSolar 75/15
+CHARGE_BOARD_Z = 290          # [DES] bottom of the board: ~140 mm air gap above the inverter
+# rear control cabinet (passenger, behind the arch): reached by opening the tailgate only
 CERBO = (154, 48, 78)         # [PUB] Cerbo GX MK2
 FUSE_BLOCK = (211, 45, 140)   # [EST] Blue Sea 5026 12-way with negative bus
 GX_TOUCH = (128, 13, 87)      # [PUB] GX Touch 50
 
 # ================================================================ slides
 SLIDE_X0 = BAY_D + 10
-SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1134
+SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1174
 SLIDE_GAP_MID = 50                          # [DES] centre gap carries the upright cable chain
 CASSETTE_W = (ARCH_GAP - 2 * 3 - SLIDE_GAP_MID) / 2   # 557
 RUNNER_T, RUNNER_H = 19.1, 76.2             # [PUB] Accuride DZ9308 / DZ9301
-RUNNER_LEN = 1117.6                         # [PUB] 44"
+RUNNER_LEN = 1168.4                         # [PUB] 46" DZ9308 (2" increments)
 RUNNERS_POWER = 2                           # [DES] DZ9308 pair (a keel pair would block the fridge well)
 RUNNERS_DRIVER = 2                          # [DES] DZ9308 outer pair only (lighter)
 KEEL_T = 6
@@ -124,17 +128,26 @@ LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
 RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid
 RECEIVER_D = 22                             # [DES] flanged stainless bush OD (8 mm ball-lock pin)
 LEG_INSET = 45                              # removable pin-in legs (stored in the utility drawer)
-FRIDGE_WELL_L = 728                         # [DES] dropped pan at the FRONT of the power slide (fridge <= 718 long)
-FRIDGE_WELL_Z = 12                          # [DES] pan top surface (deck is ~84) -> ~536 under the lid
+MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)
 BULKHEAD_D = 70                             # [DES] power pod: sockets face UP so plugs never foul the fridge
+FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 766 -> fridge <= ~756 long
+FRIDGE_WELL_Z = 12                          # [DES] pan top surface (deck is ~84) -> ~536 under the lid
 CHAIN_R, CHAIN_H, CHAIN_W = 48, 32, 40      # [EST] igus E2.26-class, standing upright in the centre gap
 
 # ================================================================ side bays
+# Each side: LOWER cabinet/drawer behind the arch (floor -> arch height) + UPPER long drawer over the arch that
+# runs the full tub length and pulls out of the back. Nothing needs the lid opened.
 POCKET_X0 = ARCH_L + 5
 POCKET_X1 = TUB_L - 6
 POCKET_Y_IN = ARCH_GAP / 2 + 4              # inboard face of the side pockets
 POCKET_Y_OUT = TUB_W / 2 - 4
 TOP_Z = UNDER_LID_Z - 40                    # top of fixed furniture (40 mm clear under the lid)
+LOWER_TOP_Z = ARCH_H                        # lower cabinets end level with the arch top
+UPPER_Z0 = ARCH_H + 2                       # upper drawer carcass floor
+UPPER_Z1 = UNDER_LID_Z - 38                 # 510: leaves a 28 mm cable tray band under the lid (passenger)
+REAR_PANEL_X = TUB_L - 105                  # [DES] control/outlet panel recessed 105 mm so plugs clear the tailgate
+CABLE_GAP = 22                              # [DES] passenger wall channel behind the upper drawer (gland drop)
+UPPER_DRAWER_TRAVEL = 1000                  # [DES] 48" light-duty runners
 
 # ================================================================ roof platform
 PLAT_L = 1600          # [PUB] Wedgetail Adventure WT-KT-1614U

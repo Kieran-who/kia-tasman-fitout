@@ -24,8 +24,9 @@ def tub(tailgate_open=False):
                 .edges("|Y").edges(">X").edges(">Z").fillet(P.ARCH_R))
         parts.append(part(f"wheel_arch_{nm}", "vehicle", arch, "liner"))
         # tail-light housing bulge at the rear corner
-        bul = box(P.TUB_L - P.TAIL_BULGE_L, P.TUB_L, s * hw, s * (hw - P.TAIL_BULGE_IN), -P.RIB_H, P.TUB_D - 30)
-        parts.append(part(f"tail_bulge_{nm}", "vehicle", bul.edges("|Z").fillet(25), "liner"))
+        if P.TAIL_BULGE_L and P.TAIL_BULGE_IN:
+            bul = box(P.TUB_L - P.TAIL_BULGE_L, P.TUB_L, s * hw, s * (hw - P.TAIL_BULGE_IN), -P.RIB_H, P.TUB_D - 30)
+            parts.append(part(f"tail_bulge_{nm}", "vehicle", bul.edges("|Z").fillet(25), "liner"))
         # body skin + rail cap
         parts.append(part(f"tub_skin_{nm}", "vehicle",
                           box(-P.TUB_WALL_T, P.TUB_L + P.TAILGATE_T, s * ow, s * (ow + 30), -330, P.TUB_D - 10), "body"))

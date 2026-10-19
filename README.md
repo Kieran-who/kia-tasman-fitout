@@ -2,23 +2,23 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.2.** See [`docs/v0.2-concept.md`](docs/v0.2-concept.md). The previous version is in [`docs/v0.1-concept.md`](docs/v0.1-concept.md), and [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.3.** See [`docs/v0.3-concept.md`](docs/v0.3-concept.md). Earlier versions: [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.2/01_hero_camp.png)
+![Camp mode](renders/v0.3/01_hero_camp.png)
 
 | | |
 |---|---|
-| ![Tub layout](renders/v0.2/03_tub_iso.png) | ![Plan](renders/v0.2/04_plan.png) |
-| ![Battery + inverter bay](renders/v0.2/05_bay.png) | ![Rear](renders/v0.2/06_rear.png) |
-| ![Wiring](renders/v0.2/07_wiring.png) | ![Tent on Rhino bars](renders/v0.2/08_tent_side.png) |
-| ![Slides](renders/v0.2/09_slides.png) | ![Roof](renders/v0.2/10_roof.png) |
+| ![Camp, slides empty](renders/v0.3/02_hero_camp_empty.png) | ![Tub layout](renders/v0.3/04_tub_iso.png) |
+| ![Plan](renders/v0.3/06_plan.png) | ![Battery + inverter bay](renders/v0.3/07_bay.png) |
+| ![Rear control panel](renders/v0.3/08_rear_panel.png) | ![Side drawers](renders/v0.3/09_drawers.png) |
+| ![Slides empty](renders/v0.3/11_slides_empty.png) | ![Wiring](renders/v0.3/10_wiring.png) |
 
 ## Repository layout
 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.2-concept.md` | Current concept: changes, layout, slide proposal, electrical diagram, weight and axle loads, measurements needed |
+| `docs/v0.3-concept.md` | Current concept: changes, layout, battery configuration, tailgate-only access, weight and axle loads |
 | `docs/research-notes.md` | Sourced dimensions and specs |
 | `cad/params.py` | **Every dimension in one place.** Each is flagged `[PUB]` (published), `[EST]` (estimate, measure it), `[DES]` (design choice) or `[CONFIRM]` |
 | `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `modules` (example payload), `wiring` (routed cables + schedule) |
@@ -45,7 +45,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 python3 -m venv .venv && .venv/bin/pip install -r cad/requirements.txt
 cd cad && ../.venv/bin/python build.py      # model -> GLB + STEP + summary + BOM CSVs
 ../.venv/bin/python clash.py                 # interference check
-cd ../tools/render && npm install && node render.mjs shots_v0.2.json ../../renders/v0.2
+cd ../tools/render && npm install && node render.mjs shots_v0.3.json ../../renders/v0.3
 ```
 
 Change a number in `cad/params.py`, rebuild, re-check and re-render. Every part, cable length and weight follows.
@@ -57,4 +57,5 @@ Change a number in `cad/params.py`, rebuild, re-check and re-render. Every part,
 ## Safety notes
 
 - Fixed 240 V wiring in a vehicle must be installed or certified by a licensed electrician (AS/NZS 3001.2), with an RCD/RCBO on every inverter circuit.
-- Check the limits: GVM 3250 kg (payload 1013), **rear axle 2002 kg**, roof 100 kg dynamic, Load-Lid 200 kg dynamic. The open tailgate has no published rating. See the weight and axle tables in the v0.2 concept.
+- Check the limits: GVM 3250 kg (payload 1013), **rear axle 2002 kg**, roof 100 kg dynamic, Load-Lid 200 kg dynamic. The open tailgate has no published rating. See the weight and axle tables in the v0.3 concept.
+- The load lid can't be opened with the tent fitted, so every control, fuse and storage space is reached from the tailgate.
