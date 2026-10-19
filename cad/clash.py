@@ -22,6 +22,12 @@ ALLOW = [("_deck", "_ltrack"), ("_deck", "_receiver"), ("bulkhead", "_gpo"), ("b
          ("_runner_plate", "_base_plate"), ("_base_cross", "_base_plate"), ("pc_outlet_panel", "pc_"), ("_well_track", "fridge"), ("power_pod", "_gpo"), ("power_pod", "_anderson"), ("power_pod", "_12v"), ("power_pod", "_usbc"), ("_deck", "_edge_cap"), ("_deck", "_wear_strip"), ("_edge_cap", "_wear_strip"), ("_deck", "_handle"), ("_edge_cap", "_handle"), ("_roller_bracket", "_roller_"), ("_base_bar", "_base_tie"), ("_rail_", "_rail_"), ("_rail_", "_base_bar"), ("divider_slots", "divider_"), ("ud_", "ud_"), ("power_pod", "_deck"), ("power_pod", "_edge_cap"), ("microwave", "microwave_door"), ("_front", "_pull"), ("_fence_", "_fence_"), ("_divider_foot", "_divider_wall"), ("_filler_", "_filler_"), ("_filler_riser", "_well_track")]
 
 
+# each fitout module may declare its own intentional contacts as CLASH_ALLOW = [("name_a", "name_b"), ...]
+from fitout import bay, lid_tent, modules, roof, side_bays, slides, vehicle, wiring  # noqa: E402
+for _m in (bay, lid_tent, modules, roof, side_bays, slides, vehicle, wiring):
+    ALLOW += getattr(_m, "CLASH_ALLOW", [])
+
+
 def allowed(a, b):
     return any((x in a and y in b) or (x in b and y in a) for x, y in ALLOW)
 
