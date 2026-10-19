@@ -196,6 +196,7 @@ if __name__ == "__main__":
     open(os.path.join(OUT, "cables.json"), "w").write(json.dumps(dict(
         version=V, cables=[dict(id=c.cid, circuit=c.circuit, frm=c.frm, to=c.to, size=c.size, spec=c.spec, protection=c.protection,
                                 side=c.side, colour=c.colour, length_m=c.length_m(), notes=c.notes,
+                                via=[q if isinstance(q, str) else None for q in c.path],
                                 points=[[round(v, 1) for v in q] for q in c.points(k)]) for k, c in enumerate(cables)],
         anchors={k: [round(float(v), 1) for v in xyz] for k, xyz in ANCHORS.items()}), indent=0))
     rows.append(["fit-out", "wiring", "all cables (from schedule)", "cable", round(cable_kg, 1)])

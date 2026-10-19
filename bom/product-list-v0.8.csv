@@ -1,0 +1,70 @@
+system,item,model / part no.,qty,unit price AUD (approx),price basis,dimensions mm,unit kg,status,notes
+energy storage,Lithium battery 12V 400Ah,iTechworld iTech400X Pro,2,2999,retail inc GST,525x240x235,38,owner-specified,mounted ON END (any orientation except upside down per iTechworld); 250 A cont each
+distribution,MIDI/MEGA fuse holders + fuses,Blue Sea 5151 (MIDI) / 5502-type MEGA,4,30,est,,0.1,proposed,"F4 Orion 70 A, F5 MPPT roof 40 A, F6 MPPT tent 20 A, F7 fuse block 100 A MEGA (sheet E2)"
+monitoring,GX device,Victron Cerbo GX MK2,1,425,list ex GST,48x154x78,0.4,proposed,Home Assistant: core Victron GX (MQTT) integration
+monitoring,Touch display,Victron GX Touch 50,1,378,list ex GST,87x128x12.5,0.2,proposed,rear power panel
+DC charging,DC-DC charger 50A,Victron Orion XS 12/12-50A,1,534,list ex GST,137x123x40,0.33,proposed,input limit 25-30 A until alternator rating known
+solar,MPPT roof array,Victron SmartSolar MPPT 100/30,1,221,list ex GST,130x186x70,1.3,proposed,320 W roof array
+solar,MPPT tent array,Victron SmartSolar MPPT 75/15,1,109,list ex GST,100x113x40,0.5,proposed,
+solar,Roof panel 190W,Victron BlueSolar 190 W (SPM041903903),1,TBC,,1485x668x30,10.5,proposed,
+solar,Roof panel 130W,Victron BlueSolar 130 W,1,TBC,,1020x668x30,7.1,proposed,leaves the Starlink pocket
+solar,Tent flexible panel 100W,Sunman eArc 100 W,2,TBC,,1093x552x2,2,proposed,bonded to 3 mm ACM sheet across tent top bars
+protection,DC fuse block 12-way + neg bus,Blue Sea 5026 (or similar),1,90,est,211x45x140,0.6,proposed,
+AC,RCBO 10 A 30 mA,Clipsal/Hager 1P+N,3,80,est,,0.2,proposed,rear GPOs / slide / tent - licensed electrician
+AC,IP66 enclosure for RCBOs,Clipsal 56 series (TBC),1,90,est,140x180x100,0.6,proposed,inside power cabinet
+AC,Flush double GPO (slide pod top),Clipsal Iconic (TBC),1,40,est,116x73,0.2,proposed,faces up on the power pod
+AC,IP66 inlet 15A (shore),Clipsal 56AI315,1,290,RRP,101x107x82,0.42,proposed,tent services box
+AC,Gap junction 230 V connectors,"J1: IP66 10 A socket outlet 56SO310 (vehicle) + 10 A plug (tent); J2: IP66 15 A inlet 56AI315 (vehicle) + 15 A extension socket (tent)",1,450,est,,0.8,proposed,"keyed by rating and gender so the tent can't feed its own outlet (sheet E7)"
+DC,Anderson SB50 + flush housings,Anderson SB50 red / Altronics P7862,6,20,retail,,0.1,proposed,"X1-X5 + J3 (rear x2, pod, cabin, tent 12 V, gap junction)"
+DC,12V socket,Narva / Blue Sea,3,25,est,,0.05,proposed,
+wiring,IP66 junction box,generic polycarbonate,1,60,est,175x40x175,1.8,proposed,cab-tub gap (passenger front corner) - measure gap
+wiring,Cable gland plate / split cable entry,icotek KEL (or plate + glands),1,80,est,,0.2,proposed,replaces factory outlet
+wiring,Cables,see bom/cable-totals-v0.8.csv,1,,,,,proposed,lengths from the routed model (46 cables)
+slides,L-track heavy duty,35x13,5,49,retail per m,,0.75,proposed,deck centres + fridge well + well filler
+slides,Ball-lock receiver (flanged stainless bush 8mm),,150,3,est,22 OD,0.03,proposed,"v0.6 edge-to-edge grid: 106 in the decks + 32 in the well filler, + spares"
+slides,Ball-lock pin 8 mm stainless (>= 32 mm grip),,52,33,retail,,0.05,proposed,"4 per module; 3 per leg (clevis lock + 2 section joints); edge fences 6 each, cross dividers 2 each; grip must reach under the RHS top wall at the edge rows"
+roof,Roof platform,Wedgetail Adventure WT-KT-1614U + WTM-KT-1614,1,2195,retail,1600x1450,TBC,proposed,factory roof points
+roof,Recessed solar brackets,Wedgetail,1,527,retail,,,proposed,
+roof,Light bar ~40in flush,TBC,1,TBC,,,3,proposed,
+roof,Starlink Mini mount,Wedgetail / Front Runner RRAC352,1,TBC,,,0.7,proposed,inside frame
+roof,Cargo bars + risers,platform-compatible,1,TBC,,,8.4,proposed,removable
+tent,Rhino-Rack Vortex bars + raised brackets,existing,2,,,,,existing,
+inverter/charger,Inverter/charger 3000 VA (2400 W),Victron MultiPlus-II 12/3000/120-32 230V,1,1795,list ex GST,546x275x147,20,proposed,lying flat beside the batteries (not above); 120 A charger; 32 A transfer; kettle OR microwave
+inverter/charger,Cooling fan 12V 92mm thermostatic,generic,1,40,est,92x92x25,0.3,proposed,"above the inverter, under the charging board"
+protection,Terminal fuse 300 A (per battery),Blue Sea 5191 MRBF + 300 A,2,55,retail,40x35x14,0.1,proposed,on each battery + terminal
+protection,Class-T 400 A (inverter feed),Blue Sea 5502 + 5121,1,140,retail,115x70x75,0.5,proposed,Victron spec for MultiPlus-II 12/3000
+protection,Remote battery switch 500 A,Blue Sea ML-RBS 7713 (12 V),1,450,est,110x95x100,0.9,proposed,"latching, manual override; controlled from the rear panel"
+protection,Switch for ML-RBS + inverter remote,IP66 illuminated rockers / Blue Sea ML-RBS contura switch,2,40,est,,0.05,proposed,rear control panel
+distribution,"Busbars 600 A (bank +/-, system +/-)",Blue Sea PowerBar 600A (part TBC),4,70,est,200x50x45,0.6,proposed,
+monitoring,Battery shunt 500A,Victron SmartShunt 500A,1,167,list ex GST,46x120x54,0.2,proposed,
+AC,IP66 double outlet 10A,Clipsal 56 series double (TBC),1,160,est,120x90,0.5,proposed,rear control panel
+AC,IP66 outlet 10A,Clipsal 56SO310A,1,120,est,101x107x77,0.4,proposed,tent heater
+storage,Full-extension runners 48in light/medium duty,"TBC (e.g. 1219 mm, 45-70 kg/pair)",4,90,est,1219x45x13,1.6,proposed,upper drawers (2 pairs)
+storage,Side-mount runners ~600 mm,TBC,2,40,est,600x45x13,1.0,proposed,lower utility drawer (1 pair)
+storage,Cable tray / wall channel,3 mm aluminium angle (fabricated),1,,,1380 long,,proposed,passenger wall above the upper drawer
+slides,Locking slide 46in (handed L/R),"Accuride DZ9308 46""",4,TBC (~A$350/pair est),,1168.4x76.2x19.1,6.3,proposed,"1 pair per slide, side-mounted under the covered deck"
+slides,Cable drag chain,igus E2.26 class ~0.75 m + mounting brackets,1,120,est,40 wide,1.2,proposed,"upright, power slide outboard lane"
+slides,Fold-out telescopic legs (fabricated),"6060 SHS 32x32x2 / 25x25x2 / 19x19x1.6 nested, 380/370/360 long; 8 mm holes at 25 mm",4,,,"closed 380, reach ~1000 below the pivot",0.6,proposed,"v0.7: clevis-mounted under each deck, fold across + clip; nylon/UHMW slide pads in each joint"
+slides,Leg clevis + pivot,2 x 6 mm 5052 plates + M10 shoulder bolt + nyloc,4,15,est,,0.1,proposed,"bolts through the RHS side member; second hole for a ball-lock pin locks the leg vertical"
+slides,Swivel levelling foot M10,40 mm pad,4,12,retail,,0.15,proposed,"final height trim after the leg is pinned"
+slides,Leg stow clip,"spring tool clip 32 mm on a UHMW block under the deck",4,8,est,,0.05,proposed,"holds the folded leg; add a velcro/rubber strap if it rattles"
+DC,Dual USB-C PD socket (2 ports),Campervanbuilders dual USB-C 120W (100+20 W) or equivalent - check 12 V rating,4,60,est,~29 round cutout,0.05,proposed,rear panel x2 (4 ports) + power pod x1 + cabin x1
+storage,Aluminium U-channel for divider slots,12x12x1.6 6060,~40,3,est,~190 long each,0.03,proposed,"upper drawers, 120 mm pitch both sides"
+storage,Lift-out dividers,9 mm ply,6+,,,~125x190,,proposed,upper drawers
+slides,Deck carrier L-angle,60x40x3 6060 aluminium,4,,,1174 long,0.9,proposed,top leg over the runner carries the ply edge
+slides,Fridge-well filler (fabricated),15 mm ply panel 758x415 on 2 x 18 mm ply risers + L-track 736,1,,,758x415x~90,5.0,option,"v0.6: lifts out when a fridge is fitted; risers stud into the well L-tracks; see cut list (well_filler)"
+slides,Example edge fence / cross divider (fabricated),12 mm ply wall 95 high on 60x6 6060 flat foot,6,,,,1.7,option,"v0.6 example modules: wall flush with the deck edge, pins in the edge receiver row; see cut list (modules)"
+monitoring,VE.Direct to USB interface,Victron ASS030530010,1,45,list ex GST,,0.05,proposed,"Orion XS to Cerbo USB (Cerbo GX MK2 has only 3 VE.Direct ports) - D4"
+monitoring,VE.Direct cables,Victron VE.Direct cable (lengths per schedule),3,20,est,,0.05,proposed,"SmartShunt, MPPT 100/30, MPPT 75/15 - D2"
+monitoring,RJ45 VE.Bus cable,Victron RJ45 UTP 5 m,1,25,est,,0.1,proposed,D1
+protection,ML-RBS remote switch,Blue Sea 2155 Contura SPDT ON-ON with LED,1,60,est,,0.05,proposed,"S1 - check whether it is included with the 7713"
+protection,Inline ATC fuse holders,weatherproof inline ATC,4,8,est,,0.03,proposed,"F10 2 A (RBS feed), F12 5 A (fan), + spares"
+protection,Add-a-fuse (ignition sense),mini/micro add-a-fuse to suit the Tasman fuse box,1,10,est,,0.02,proposed,F9 2 A - IGN to Orion XS remote H
+protection,MIDI fuse holder at start battery,Blue Sea 5151 + 60 A MIDI,1,35,est,,0.1,proposed,F8 - ALT
+protection,RCBO 16 A 30 mA (shore in),1P+N 16 A 30 mA,1,90,est,,0.2,proposed,"Q4 in the tent services box, after the inlet"
+protection,2-pole DC PV isolator 32 A,"e.g. NHP / Suntree 2P 32 A DC",2,45,est,,0.3,proposed,"QP1 roof, QP2 tent - beside the MPPTs"
+solar,MC4 Y-branch pair,MC4 2-to-1 branch (+ and -),1,25,est,,0.1,proposed,roof panels in parallel
+DC,Anderson SB50 grey (PV),Anderson SB50 grey + housing,2,25,retail,,0.1,proposed,"J4 tent PV - grey and red SB50 can't mate"
+DC,Local fuse holders (pod / cabin),2-way ATC holder + M6 +/- studs,2,25,est,,0.1,proposed,"FB2 / FB3: F13-F16"
+wiring,Earth conductor,50 mm2 green/yellow + lugs,1,,,,,proposed,"PE1 MultiPlus case to BB4 (Victron: same size as DC -)"
+wiring,Chassis bond,25 mm2 black + lug to chassis rail,1,,,,,proposed,CHB single DC-/PE bond
