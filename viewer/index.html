@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasman Fit-out Viewer</title>
+<style>
+  :root { --bg:#eef0f2; --panel:#ffffffee; --ink:#1d2329; --muted:#5d6874; --accent:#e8711a; --line:#d5dade; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1b1f24; --panel:#262b31ee; --ink:#e9edf1; --muted:#a3adb8; --line:#3a4148; } }
+  :root[data-theme="dark"] { --bg:#1b1f24; --panel:#262b31ee; --ink:#e9edf1; --muted:#a3adb8; --line:#3a4148; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--ink); font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; overflow:hidden; }
+  #c { position:fixed; inset:0; }
+  #ui { position:fixed; top:12px; left:12px; width:250px; max-height:calc(100% - 24px); overflow:auto; background:var(--panel);
+        border:1px solid var(--line); border-radius:10px; padding:12px 14px; box-sizing:border-box; backdrop-filter:blur(6px); }
+  #ui h1 { font-size:15px; margin:0 0 2px; } #ui p { margin:0 0 10px; color:var(--muted); font-size:12px; }
+  #ui h2 { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:12px 0 6px; }
+  #ui label { display:flex; gap:8px; align-items:center; padding:2px 0; cursor:pointer; }
+  .row { display:flex; flex-wrap:wrap; gap:6px; }
+  button { font:inherit; font-size:12px; padding:5px 9px; border-radius:6px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
+  button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  #toggle { display:none; position:fixed; top:12px; left:12px; z-index:2; }
+  @media (max-width:600px) { #ui { width:calc(100% - 32px); left:16px; max-height:45%; } }
+  .lbl { font:600 12px system-ui,sans-serif; color:#111; background:#ffffffe8; border:1px solid #0002; border-radius:5px; padding:3px 7px; white-space:nowrap; box-shadow:0 1px 4px #0002; }
+  .lbl small { display:block; font-weight:400; color:#444; }
+  body.render #ui, body.render #toggle { display:none; }
+  #title { position:fixed; right:16px; bottom:12px; font:600 13px system-ui; color:var(--muted); }
+  body:not(.render) #title { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>Kia Tasman fit-out</h1>
+  <p>Concept model. Drag to orbit, scroll to zoom, right-drag to pan.</p>
+  <h2>State</h2>
+  <div class="row" id="states"></div>
+  <h2>Views</h2>
+  <div class="row" id="views"></div>
+  <h2>Layers</h2>
+  <div id="layers"></div>
+</div>
+<div id="title"></div>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const q = new URLSearchParams(location.search);
+const RENDER = q.has('render');
+if (RENDER) document.body.classList.add('render');
+
+const GROUP_NAMES = {
+  vehicle:'Vehicle (context)', lid:'Load lid', tent:'Rooftop tent', bay:'Battery bay frame', bay_cover:'Bay cover',
+  batteries:'Batteries', electrical:'Electrical components', slide_p:'Slide – power side', slide_d:'Slide – driver side',
+  power_cabinet:'Power cabinet + arch box', water:'Water tank', roof:'Roof platform', solar:'Solar panels',
+  cargo:'Cargo bars', cables:'Cable routes', markers:'Markers'
+};
+
+// camera presets: [position], [target], options  (GL frame: x = rearward, y = up, z = passenger side)
+const VIEWS = {
+  hero:     { pos:[5.2, 2.0, 3.9],  tgt:[0.2, 0.2, 0],   fov:32 },
+  rear:     { pos:[5.4, 1.1, 1.6],  tgt:[0.9, 0.05, 0],  fov:30 },
+  tub_iso:  { pos:[3.0, 2.2, 2.1],  tgt:[0.75, 0.1, 0],  fov:30, hide:['lid','tent','roof','solar','cargo'] },
+  plan:     { pos:[0.75, 6, 0.0001],tgt:[0.75, 0, 0],    fov:22, up:[-1,0,0], hide:['lid','tent','roof','solar','cargo','bay_cover'] },
+  bay:      { pos:[1.55, 1.15, 0.75], tgt:[0.15, 0.28, 0], fov:34, hide:['lid','tent','roof','solar','cargo','bay_cover'] },
+  side_d:   { pos:[-0.8, 0.6, -8.5], tgt:[-0.8, 0.3, 0],  fov:34 },
+  roof:     { pos:[1.2, 2.9, 2.6],  tgt:[-0.9, 1.0, 0],  fov:34 },
+  slides:   { pos:[3.7, 0.9, -1.9], tgt:[1.4, 0.0, 0],   fov:32, hide:['lid','tent'] },
+};
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, preserveDrawingBuffer:true });
+renderer.setPixelRatio(RENDER ? 1 : Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.9;
+const scene = new THREE.Scene();
+const dark = matchMedia('(prefers-color-scheme: dark)').matches && !RENDER;
+scene.background = new THREE.Color(dark ? 0x1b1f24 : 0xe9ecef);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 200);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = !RENDER;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8170, 0.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.8);
+sun.position.set(4, 9, 5); sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left:-6, right:6, top:6, bottom:-6, near:1, far:30 });
+sun.shadow.bias = -0.0004;
+scene.add(sun);
+const ground = new THREE.Mesh(new THREE.CircleGeometry(14, 64), new THREE.ShadowMaterial({ opacity:0.22 }));
+ground.rotation.x = -Math.PI/2; ground.position.y = -0.92; ground.receiveShadow = true; scene.add(ground);
+const grid = new THREE.GridHelper(20, 40, 0xb9bfc5, 0xd3d8dc); grid.position.y = -0.919;
+grid.material.transparent = true; grid.material.opacity = dark ? 0.15 : 0.5; scene.add(grid);
+
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.domElement.style.cssText = 'position:fixed;inset:0;pointer-events:none';
+document.body.appendChild(labelRenderer.domElement);
+
+const loader = new GLTFLoader();
+const models = {};      // state -> THREE.Group
+const groups = {};      // group -> visible
+let current = q.get('state') || 'camp';
+
+function groupOf(name) { return name.split('__')[0]; }
+
+async function load(state) {
+  if (models[state]) return models[state];
+  const gltf = await loader.loadAsync(`models/fitout_${state}.glb?v=${Date.now() % 1e6}`);
+  const root = gltf.scene;
+  root.traverse(o => {
+    if (o.isMesh) {
+      const tr = o.material.transparent;
+      o.castShadow = !tr; o.receiveShadow = true;
+      if (tr) o.material.depthWrite = false;
+      o.material.envMapIntensity = 0.6;
+    }
+  });
+  models[state] = root;
+  return root;
+}
+
+function applyVisibility() {
+  for (const st in models) {
+    models[st].visible = st === current;
+    models[st].traverse(o => { if (o.name && o.name.includes('__')) o.visible = groups[groupOf(o.name)] !== false; });
+  }
+}
+
+function setView(key) {
+  const v = VIEWS[key]; if (!v) return;
+  camera.fov = v.fov || 32;
+  camera.up.set(...(v.up || [0,1,0]));
+  camera.position.set(...v.pos); controls.target.set(...v.tgt);
+  camera.updateProjectionMatrix(); controls.update();
+  if (v.hide) { for (const g in groups) groups[g] = !v.hide.includes(g); applyVisibility(); syncLayerUI(); }
+  else { for (const g in groups) groups[g] = true; applyVisibility(); syncLayerUI(); }
+}
+
+function syncLayerUI() {
+  document.querySelectorAll('#layers input').forEach(i => i.checked = groups[i.dataset.g] !== false);
+}
+
+function buildUI(root) {
+  const seen = new Set();
+  root.traverse(o => { if (o.name && o.name.includes('__')) seen.add(groupOf(o.name)); });
+  const layers = document.getElementById('layers'); layers.innerHTML = '';
+  for (const g of Object.keys(GROUP_NAMES).filter(g => seen.has(g))) {
+    if (!(g in groups)) groups[g] = true;
+    const l = document.createElement('label');
+    l.innerHTML = `<input type="checkbox" data-g="${g}" ${groups[g] ? 'checked' : ''}> ${GROUP_NAMES[g]}`;
+    l.querySelector('input').onchange = e => { groups[g] = e.target.checked; applyVisibility(); };
+    layers.appendChild(l);
+  }
+  const st = document.getElementById('states'); st.innerHTML = '';
+  for (const [k, t] of [['camp','Camp (slides out)'],['travel','Travel (stowed)']]) {
+    const b = document.createElement('button'); b.textContent = t; b.className = k === current ? 'on' : '';
+    b.onclick = async () => { current = k; const r = await load(k); if (!r.parent) scene.add(r); applyVisibility();
+      st.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); };
+    st.appendChild(b);
+  }
+  const vw = document.getElementById('views'); vw.innerHTML = '';
+  for (const k of Object.keys(VIEWS)) {
+    const b = document.createElement('button'); b.textContent = k.replace('_',' '); b.onclick = () => setView(k); vw.appendChild(b);
+  }
+}
+
+// labels: ?labels=node:Text|Sub;node2:Text   (node = part name without group prefix)
+function addLabels(root, spec) {
+  if (!spec) return;
+  for (const item of spec.split(';')) {
+    const [node, text, dx = '0', dy = '0'] = item.split(':');
+    let target = null;
+    root.traverse(o => { if (!target && o.name && o.name.split('__')[1] === node) target = o; });
+    if (!target) continue;
+    const box = new THREE.Box3().setFromObject(target);
+    const c = box.getCenter(new THREE.Vector3());
+    const div = document.createElement('div'); div.className = 'lbl';
+    const [main, sub] = decodeURIComponent(text).split('|');
+    div.innerHTML = main + (sub ? `<small>${sub}</small>` : '');
+    div.style.transform = `translate(${dx}px, ${dy}px)`;
+    const obj = new CSS2DObject(div); obj.position.copy(c); scene.add(obj);
+  }
+}
+
+function resize() {
+  const w = RENDER ? +q.get('w') || 1600 : innerWidth, h = RENDER ? +q.get('h') || 1000 : innerHeight;
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  labelRenderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+
+(async () => {
+  const root = await load(current); scene.add(root);
+  buildUI(root);
+  resize();
+  setView(q.get('view') || 'hero');
+  if (q.get('hide')) { for (const g of q.get('hide').split(',')) groups[g] = false; applyVisibility(); syncLayerUI(); }
+  if (q.get('show')) { for (const g of q.get('show').split(',')) groups[g] = true; applyVisibility(); syncLayerUI(); }
+  addLabels(root, q.get('labels'));
+  if (q.get('title')) document.getElementById('title').textContent = q.get('title');
+  const loop = () => { controls.update(); renderer.render(scene, camera); labelRenderer.render(scene, camera); if (!RENDER) requestAnimationFrame(loop); };
+  loop();
+  if (RENDER) { renderer.render(scene, camera); labelRenderer.render(scene, camera); window.__ready = true; }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+ {"name":"01_hero_camp","params":{"view":"hero","state":"camp","title":"v0.1 concept: camp mode, slides out",
+   "labels":"rooftop_tent:Panther Horizon 1600|84 kg, on Ute Master lid:0:-30;roof_solar_1:Roof platform|2 x 190 W + removable cargo bars:-40:-20;pc_gpo_1:Rear power panel|240 V, Anderson, USB-C, GX Touch:-170:0;slide_power_deck:Power slide|outlets + cable chain:0:0;slide_driver_deck:Driver slide:0:0"}},
+ {"name":"02_hero_travel","params":{"view":"hero","state":"travel","title":"v0.1 concept: travel mode"}},
+ {"name":"03_tub_iso","params":{"view":"tub_iso","state":"camp","title":"v0.1 tub layout (lid + tent hidden)",
+   "labels":"battery_1:2 x iTech400X Pro|800 Ah, 76 kg:0:0;inverter_charger_multiplus2_3000:MultiPlus-II 12/3000|flat + fan:0:-20;slide_power_power_bulkhead:Slide outlets|240 V / Anderson / 12 V / USB-C:60:-30;slide_power_cable_chain:Lay-flat cable chain:150:40;water_tank:Water tank|~88 L gross, over arch:0:0;power_cabinet:Power cabinet:-60:-40;charge_board:Charging board|2 x Orion XS, 2 x MPPT, Cerbo GX:0:-20"}},
+ {"name":"04_plan","params":{"view":"plan","state":"travel","title":"v0.1 plan view (front of vehicle at top, driver side right)",
+   "labels":"battery_2:Battery + inverter bay|300 deep:0:0;slide_power_deck:Power slide|529 wide deck:0:0;slide_driver_deck:Driver slide|529 wide deck:0:0;water_tank:Water|L-tank:0:0;charge_board:Charging|board:0:0;power_cabinet:Power|cabinet:0:0"}},
+ {"name":"05_bay","params":{"view":"bay","state":"camp","title":"v0.1 front battery + electrical bay",
+   "labels":"battery_1:iTech400X Pro #1:0:30;battery_2:iTech400X Pro #2:0:30;inverter_charger_multiplus2_3000:Victron MultiPlus-II 12/3000:0:-10;lynx_distributor:Lynx Class-T + Distributor:40:-30;smartshunt_500a:SmartShunt:40:0;battery_isolator:Isolator:0:20;orion_xs_1:Orion XS x2:-40:-20;mppt_roof_100_50:MPPT 100/50:0:-30;cerbo_gx:Cerbo GX:0:-20"}},
+ {"name":"06_rear","params":{"view":"rear","state":"camp","title":"v0.1 rear view, camp mode",
+   "labels":"pc_gx_touch_50:GX Touch 50:-90:0;pc_gpo_1:2 x IP66 240 V GPO:-110:20;pc_anderson_1:2 x Anderson SB50:-90:10;water_tap:Drinking water tap|+ hose reel:70:0;slide_power_leg_-83:Fold-down legs:0:0"}},
+ {"name":"07_slides_driver","params":{"view":"slides","state":"camp","title":"v0.1 slides from driver side",
+   "labels":"slide_driver_ltrack:L-track (tie-downs):0:-20;slide_driver_receivers:Module receiver grid|100 mm pitch:0:20;water_tap_box:Pump / tap / hose bay:0:0"}},
+ {"name":"08_roof","params":{"view":"roof","state":"travel","title":"v0.1 roof platform: solar + removable cargo bars + Starlink Mini",
+   "labels":"light_bar:Flush light bar:0:-20;starlink_mini:Starlink Mini:0:-20;cargo_bar_-1500:Removable cargo bars|above panels:0:-25;roof_solar_2:2 x Victron 190 W:0:0;tent_solar_1:Tent top 2 x 100 W flexible:0:0"}}
+]

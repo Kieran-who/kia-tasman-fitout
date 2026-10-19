@@ -1,0 +1,10 @@
+{
+  "name": "tasman-fitout-render",
+  "private": true,
+  "type": "module",
+  "description": "Headless renders of viewer/index.html via Playwright",
+  "dependencies": {
+    "playwright": "1.56.1",
+    "three": "0.160.0"
+  }
+}

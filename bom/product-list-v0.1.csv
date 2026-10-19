@@ -1,0 +1,39 @@
+system,item,model / part no.,qty,unit price AUD (approx),price basis,dimensions mm,unit kg,status,notes
+energy storage,Lithium battery 12V 400Ah,iTechworld iTech400X Pro,2,2999,retail inc GST,525x240x235,38,owner-specified,250A cont each; Bluetooth only - SoC via SmartShunt
+inverter/charger,Inverter/charger 3000VA 120A charger,Victron MultiPlus-II 12/3000/120-32 230V,1,1795,list ex GST,546x275x147,20,proposed,2400W cont @25C; mount flat + fan; option Quattro 12/5000
+inverter/charger,Cooling fan 12V 80mm,generic thermostat-switched,1,40,est,80x80x25,0.2,proposed,
+DC charging,DC-DC charger 50A,Victron Orion XS 12/12-50A,2,534,list ex GST,137x123x40,0.33,proposed,2 in parallel = 100A
+solar,MPPT roof array,Victron SmartSolar MPPT 100/50,1,317,list ex GST,130x186x70,1.3,proposed,
+solar,MPPT tent array,Victron SmartSolar MPPT 75/15,1,109,list ex GST,100x113x40,0.5,proposed,
+solar,Roof panel 190W,Victron BlueSolar SPM041903903,2,TBC,,1485x668x30,10.5,proposed,
+solar,Tent flexible panel 100W,Sunman eArc 100W,2,TBC,,1093x552x2,2,proposed,bond to 3mm ACM sheet
+monitoring,GX device,Victron Cerbo GX MK2,1,425,list ex GST,48x154x78,0.4,proposed,Home Assistant via core Victron GX (MQTT)
+monitoring,Touch display,Victron GX Touch 50,1,378,list ex GST,87x128x12.5,0.2,proposed,on rear power panel
+monitoring,Battery shunt 500A,Victron SmartShunt 500A IP65,1,167,list ex GST,46x120x54,0.2,proposed,
+distribution,Class-T power in,Victron Lynx Class-T Power In M10,1,291,list ex GST,170x280x97,2.1,proposed,with Blue Sea 5121 400A Class-T
+distribution,DC distributor,Victron Lynx Distributor M10,1,345,list ex GST,170x290x80,2.3,proposed,MEGA fuses for Orion feed / MPPTs / DC fuse block; inverter protected by the Class-T
+protection,Terminal fuse block,Blue Sea 5191 MRBF + 300A fuse,2,55,retail,,0.1,proposed,one per battery positive
+protection,Battery isolator 300A,Blue Sea 6006 m-Series,1,53,retail,,0.29,proposed,on bay rear face
+protection,DC fuse block 12-way,Blue Sea 5026 (or similar),1,90,est,,0.4,proposed,
+protection,RCBO / RCD per AC circuit,Clipsal / Hager 1P+N 10A 30mA in IP66 enclosure,4,80,est,,0.2,proposed,licensed electrician
+AC hardware,IP66 outlet 10A,Clipsal 56SO310A (or 56C310RC with RCD),4,120,est,101x107x77,0.4,proposed,rear panel x2 + slide + tent
+AC hardware,IP66 inlet 15A (shore),Clipsal 56AI315,1,290,RRP,101x107x82,0.42,proposed,under tent
+DC hardware,Anderson SB50 flush housing,Altronics P7862 / P7813,6,20,retail,,0.1,proposed,rear panel x2 + slide + cabin + tent x2
+DC hardware,USB-C PD 100W socket,Teralume USB-PD-100W,3,60,est,28.6 hole,0.05,proposed,rear panel + slide + cabin
+DC hardware,12V socket,Narva / Blue Sea,3,25,est,,0.05,proposed,
+tent umbilical,Split cable-entry gland,icotek KEL-DPU (or similar),1,60,est,,0.1,proposed,lid pass-through
+roof,Roof platform,Wedgetail Adventure WT-KT-1614U + WTM-KT-1614,1,2195,retail,1600x1450,TBC,proposed,factory roof point mount
+roof,Recessed solar brackets,Wedgetail,1,527,retail,,,proposed,
+roof,LED light bar (flush),TBC ~40in single row,1,TBC,,,,proposed,choose after platform confirmed
+roof,Starlink Mini mount,Front Runner RRAC352 or Wedgetail,1,TBC,,303x90x78,0.73,proposed,
+roof,Cargo bars + risers,TBC (platform-compatible),1,TBC,,,,proposed,
+slides,Locking slide 44in,Accuride DZ9308 (handed L/R),4,TBC,,1117.6x76.2x19.1,6,proposed,2 per slide (outer)
+slides,Slide 44in,Accuride DZ9301,4,TBC,,1117.6x76.2x19.1,6,proposed,2 per slide (centre keel)
+slides,Cable drag chain,igus E2.26 series ~1.0m R75,1,120,est,,,proposed,power slide
+slides,L-track,heavy-duty aluminium ~35x13,2,49,retail per m,1200 long,0.5,proposed,
+slides,Module receivers,stainless flanged bush 8mm,~120,3,est,,,proposed,
+slides,Ball-lock pins 8mm,stainless,~16,33,retail,,,proposed,
+water,Water tank (custom L-shape PE),local plastic welder,1,800,est,see model,12,proposed,~80 L usable
+water,Pump 3.0 GPM,Shurflo 4008 or Seaflo 42,1,180,est,206x125x110,1.8,proposed,
+water,Tap / pull-out,Suprema XCEL or Camec,1,450,retail,,,proposed,
+water,Hose reel + 3 m food-grade hose,TBC,1,80,est,,,proposed,
