@@ -100,7 +100,7 @@ BUSBAR = (200, 50, 45)        # [EST] Blue Sea PowerBar 600 A (bank +, system +,
 RBS = (110, 95, 100)          # [EST] Blue Sea ML-RBS 7713 remote battery switch 500 A (switched from the rear panel)
 # charging board on the FRONT WALL above the inverter (vertical, terminals down): (along Y, thickness, height)
 DCDC = (123, 40, 137)         # [PUB] Orion XS 12/12-50A x1, input current limit 1-50 A: start at 25-30 A
-MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/50
+MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/30 (320 W roof array ~23 A; same case as 100/50)
 MPPT_TENT = (113, 40, 100)    # [PUB] SmartSolar 75/15
 CHARGE_BOARD_Z = 290          # [DES] bottom of the board: ~140 mm air gap above the inverter
 # rear control cabinet (passenger, behind the arch): reached by opening the tailgate only
@@ -116,13 +116,16 @@ SLIDE_X0 = BAY_D + 10
 SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1174
 SLIDE_GAP_MID = 6                           # [DES] decks almost touch
 CHAIN_LANE = 45                             # [DES] power slide outboard lane for the upright cable chain
-UM_RAIL = (53, 19)                          # [TBC] flat telescopic rail section (width x thickness) - see research
-UM_RAILS = 3                                # [DES] rails per deck
-UM_RAIL_LEN = 1168                          # [TBC]
-UM_RAIL_KG = 6.0                            # [TBC] per rail
-BASE_T = 6                                  # [DES] 60 x 6 flat bars under each rail
-DECK_T = 18                                 # [DES] 18 mm marine ply (spans ~200 mm between rails)
-DECK_TOP_Z = BASE_T + UM_RAIL[1] + 1 + DECK_T   # ~44
+# Rollon DE43 full-extension telescopic rail: the only rail found that is rated lying FLAT at 1.2 m.
+# C0rad 2022 N per rail at full extension (pair ~412 kg static), ~15 mm tip sag at 150 kg, no built-in lock.
+UM_RAIL = (44, 43)                          # [PUB] Rollon DE43 section (width x height)
+UM_RAILS = 2                                # [DES] one pair per deck
+UM_RAIL_LEN = 1170                          # [PUB] DE43 L1170 (stroke 1206; stops set travel to 1170)
+UM_RAIL_KG = 5.5                            # [EST] per rail
+UM_RAIL_INSET = 0.2                         # [DES] rails at 20 % / 80 % of the deck width
+BASE_T = 3                                  # [DES] packer plates under the rails at each floor bolt (rails sit on the ribs)
+DECK_T = 15                                 # [DES] 15 mm marine ply with aluminium edge capping
+DECK_TOP_Z = BASE_T + UM_RAIL[1] + 1 + DECK_T   # 62
 SLIDE_EXT = UM_RAIL_LEN
 LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
 RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid

@@ -8,7 +8,7 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.3) |
+| # | Requirement | Where it lives (v0.4) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
 | R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
@@ -16,8 +16,8 @@
 | R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
 | R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
 | R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2) |
-| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 per slide, UHMW stowed stops, pin-in legs |
-| R8 | Power-side slide has integrated cable management and outlets | Upright chain in the centre gap + up-facing power pod + fridge well |
+| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × Rollon DE43 under each deck (flat), rear roller supports, pin-in legs, plunger lock (v0.4) |
+| R8 | Power-side slide has integrated cable management and outlets | Upright chain in an outboard lane + up-facing power pod; fridge stands on the deck (v0.4) |
 | R9 | Modular slides: centre tie-down track + quick-release module mounting | L-track + 100 mm receiver grid |
 | R10 | Passenger rear pocket: power management + 240 V, Anderson, USB-C outlets; **all switches (incl. battery isolation) at the back of the tub** | Lower control cabinet with hinged rear control panel (v0.3) |
 | R11 | ~~Driver side: drinking-water tank~~ → always-in-the-car utility storage (straps, odd gear) | Utility drawer + over-arch tray (v0.2) |
@@ -55,3 +55,7 @@
 | 2026-10-19 | v0.3 | Full-length upper drawers over both arches + lower control cabinet / utility drawer behind the arches | All storage slides out the back |
 | 2026-10-19 | v0.3 | No tail-light bulge; tent folds out to the driver side | Owner confirmation |
 | 2026-10-19 | v0.3 | Bay 320 deep, slides 1174 mm on 46" DZ9308 | Smaller inverter |
+| 2026-10-19 | v0.4 | Under-mount slides on Rollon DE43 (flat-rated), deck at 62 mm, decks 6 mm apart, fridge well removed | Owner: lower decks + modules butting together; only DE-series rails keep their rating flat |
+| 2026-10-19 | v0.4 | Rear roller supports on the cassette + spring-plunger lock | Unload the rails at the tub edge; DE rails have no lock |
+| 2026-10-19 | v0.4 | Keep separate Orion XS + two SmartSolar MPPTs (roof 100/30, tent 75/15) | Combined DC-DC/MPPT units cap total output (~50 A) and need matched arrays |
+| 2026-10-19 | v0.4 | Rear panel 4 × USB-C (2 dual sockets); upper drawers get removable slot dividers | Owner request |

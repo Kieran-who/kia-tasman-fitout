@@ -22,7 +22,7 @@ fit-out,bay,inverter_standoffs,Plate 4 5052,1.28
 fit-out,electrical,inverter_fan,purchased,0.3
 fit-out,bay,charge_board,Plate 6 5052,2.13
 fit-out,electrical,orion_xs_50a,purchased,0.4
-fit-out,electrical,mppt_roof_100_50,purchased,1.3
+fit-out,electrical,mppt_roof_100_30,purchased,1.3
 fit-out,electrical,mppt_tent_75_15,purchased,0.5
 fit-out,batteries,battery_1,purchased,38
 fit-out,electrical,battery_1_mrbf,purchased,0.1
@@ -41,30 +41,32 @@ fit-out,electrical,busbar_bank_neg,purchased,0.6
 fit-out,electrical,smartshunt_500a,purchased,0.2
 fit-out,electrical,busbar_sys_neg,purchased,0.5
 fit-out,bay_cover,bay_guard,Sheet 1.6 5005,1.64
-fit-out,slide_p,slide_power_base_bar_0,Flat 60x6 6060,1.14
-fit-out,slide_p,slide_power_base_bar_1,Flat 60x6 6060,1.14
-fit-out,slide_p,slide_power_base_bar_2,Flat 60x6 6060,1.14
-fit-out,slide_p,slide_power_base_tie_0,Flat 50x6 6060,0.42
-fit-out,slide_p,slide_power_base_tie_1,Flat 50x6 6060,0.42
+fit-out,slide_p,slide_power_packer_0_0,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_packer_0_1,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_packer_0_2,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_packer_1_0,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_packer_1_1,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_packer_1_2,Plate 3 5052,0.04
 fit-out,slide_p,slide_power_roller_0,purchased,0.1
 fit-out,slide_p,slide_power_roller_bracket_0,Flat 50x6 6060,0.03
 fit-out,slide_p,slide_power_roller_1,purchased,0.1
 fit-out,slide_p,slide_power_roller_bracket_1,Flat 50x6 6060,0.03
-fit-out,slide_p,slide_power_rail_0_0,purchased,2.0
-fit-out,slide_p,slide_power_rail_0_1,purchased,2.0
-fit-out,slide_p,slide_power_rail_0_2,purchased,2.0
-fit-out,slide_p,slide_power_rail_1_0,purchased,2.0
-fit-out,slide_p,slide_power_rail_1_1,purchased,2.0
-fit-out,slide_p,slide_power_rail_1_2,purchased,2.0
-fit-out,slide_p,slide_power_rail_2_0,purchased,2.0
-fit-out,slide_p,slide_power_rail_2_1,purchased,2.0
-fit-out,slide_p,slide_power_rail_2_2,purchased,2.0
-fit-out,slide_p,slide_power_deck,Ply 18 marine,6.15
+fit-out,slide_p,slide_power_roller_2,purchased,0.1
+fit-out,slide_p,slide_power_roller_bracket_2,Flat 50x6 6060,0.03
+fit-out,slide_p,slide_power_rail_0_0,purchased,1.83
+fit-out,slide_p,slide_power_rail_0_1,purchased,1.83
+fit-out,slide_p,slide_power_rail_0_2,purchased,1.83
+fit-out,slide_p,slide_power_rail_1_0,purchased,1.83
+fit-out,slide_p,slide_power_rail_1_1,purchased,1.83
+fit-out,slide_p,slide_power_rail_1_2,purchased,1.83
+fit-out,slide_p,slide_power_deck,Ply 15 marine,5.09
 fit-out,slide_p,slide_power_edge_cap,Angle 30x30x3 6060,0.55
 fit-out,slide_p,slide_power_wear_strip,Sheet 1.6 5005,2.56
 fit-out,slide_p,slide_power_ltrack,L-track HD,0.86
 fit-out,slide_p,slide_power_receivers,purchased,1.32
 fit-out,slide_p,slide_power_handle,purchased,0.3
+fit-out,slide_p,slide_power_lock_plunger,purchased,0.15
+fit-out,slide_p,slide_power_lock_plate,Plate 3 5052,0.02
 fit-out,slide_p,slide_power_power_pod,Plate 3 5052,0.6
 fit-out,slide_p,slide_power_gpo,purchased,0.4
 fit-out,slide_p,slide_power_anderson,purchased,0.1
@@ -72,32 +74,34 @@ fit-out,slide_p,slide_power_12v,purchased,0.05
 fit-out,slide_p,slide_power_usbc,purchased,0.05
 fit-out,slide_p,slide_power_usbc_2,purchased,0.05
 fit-out,slide_p,slide_power_cable_chain,purchased,1.2
-fit-out,slide_p,slide_power_chain_bracket,Plate 3 5052,0.05
+fit-out,slide_p,slide_power_chain_bracket,Plate 3 5052,0.04
 fit-out,slide_p,slide_power_chain_trough,UHMW 10,0.28
-fit-out,slide_d,slide_driver_base_bar_0,Flat 60x6 6060,1.14
-fit-out,slide_d,slide_driver_base_bar_1,Flat 60x6 6060,1.14
-fit-out,slide_d,slide_driver_base_bar_2,Flat 60x6 6060,1.14
-fit-out,slide_d,slide_driver_base_tie_0,Flat 50x6 6060,0.45
-fit-out,slide_d,slide_driver_base_tie_1,Flat 50x6 6060,0.45
+fit-out,slide_d,slide_driver_packer_0_0,Plate 3 5052,0.04
+fit-out,slide_d,slide_driver_packer_0_1,Plate 3 5052,0.04
+fit-out,slide_d,slide_driver_packer_0_2,Plate 3 5052,0.04
+fit-out,slide_d,slide_driver_packer_1_0,Plate 3 5052,0.04
+fit-out,slide_d,slide_driver_packer_1_1,Plate 3 5052,0.04
+fit-out,slide_d,slide_driver_packer_1_2,Plate 3 5052,0.04
 fit-out,slide_d,slide_driver_roller_0,purchased,0.1
 fit-out,slide_d,slide_driver_roller_bracket_0,Flat 50x6 6060,0.03
 fit-out,slide_d,slide_driver_roller_1,purchased,0.1
 fit-out,slide_d,slide_driver_roller_bracket_1,Flat 50x6 6060,0.03
-fit-out,slide_d,slide_driver_rail_0_0,purchased,2.0
-fit-out,slide_d,slide_driver_rail_0_1,purchased,2.0
-fit-out,slide_d,slide_driver_rail_0_2,purchased,2.0
-fit-out,slide_d,slide_driver_rail_1_0,purchased,2.0
-fit-out,slide_d,slide_driver_rail_1_1,purchased,2.0
-fit-out,slide_d,slide_driver_rail_1_2,purchased,2.0
-fit-out,slide_d,slide_driver_rail_2_0,purchased,2.0
-fit-out,slide_d,slide_driver_rail_2_1,purchased,2.0
-fit-out,slide_d,slide_driver_rail_2_2,purchased,2.0
-fit-out,slide_d,slide_driver_deck,Ply 18 marine,6.7
+fit-out,slide_d,slide_driver_roller_2,purchased,0.1
+fit-out,slide_d,slide_driver_roller_bracket_2,Flat 50x6 6060,0.03
+fit-out,slide_d,slide_driver_rail_0_0,purchased,1.83
+fit-out,slide_d,slide_driver_rail_0_1,purchased,1.83
+fit-out,slide_d,slide_driver_rail_0_2,purchased,1.83
+fit-out,slide_d,slide_driver_rail_1_0,purchased,1.83
+fit-out,slide_d,slide_driver_rail_1_1,purchased,1.83
+fit-out,slide_d,slide_driver_rail_1_2,purchased,1.83
+fit-out,slide_d,slide_driver_deck,Ply 15 marine,5.54
 fit-out,slide_d,slide_driver_edge_cap,Angle 30x30x3 6060,0.55
 fit-out,slide_d,slide_driver_wear_strip,Sheet 1.6 5005,2.77
 fit-out,slide_d,slide_driver_ltrack,L-track HD,0.86
 fit-out,slide_d,slide_driver_receivers,purchased,1.32
 fit-out,slide_d,slide_driver_handle,purchased,0.3
+fit-out,slide_d,slide_driver_lock_plunger,purchased,0.15
+fit-out,slide_d,slide_driver_lock_plate,Plate 3 5052,0.02
 fit-out,power_cabinet,pc_inner_wall,Ply 12 marine,1.08
 fit-out,power_cabinet,pc_front,Ply 12 marine,0.36
 fit-out,power_cabinet,pc_top,Ply 12 marine,0.72

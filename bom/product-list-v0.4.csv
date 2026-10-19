@@ -4,7 +4,7 @@ distribution,MIDI/MEGA fuse holders,Blue Sea 5151 (MIDI) / MEGA,4,30,est,,0.1,pr
 monitoring,GX device,Victron Cerbo GX MK2,1,425,list ex GST,48x154x78,0.4,proposed,Home Assistant: core Victron GX (MQTT) integration
 monitoring,Touch display,Victron GX Touch 50,1,378,list ex GST,87x128x12.5,0.2,proposed,rear power panel
 DC charging,DC-DC charger 50A,Victron Orion XS 12/12-50A,1,534,list ex GST,137x123x40,0.33,proposed,input limit 25-30 A until alternator rating known
-solar,MPPT roof array,Victron SmartSolar MPPT 100/50,1,317,list ex GST,130x186x70,1.3,proposed,
+solar,MPPT roof array,Victron SmartSolar MPPT 100/30,1,221,list ex GST,130x186x70,1.3,proposed,320 W roof array
 solar,MPPT tent array,Victron SmartSolar MPPT 75/15,1,109,list ex GST,100x113x40,0.5,proposed,
 solar,Roof panel 190W,Victron BlueSolar 190 W (SPM041903903),1,TBC,,1485x668x30,10.5,proposed,
 solar,Roof panel 130W,Victron BlueSolar 130 W,1,TBC,,1020x668x30,7.1,proposed,leaves the Starlink pocket
@@ -42,10 +42,12 @@ AC,IP66 outlet 10A,Clipsal 56SO310A,1,120,est,101x107x77,0.4,proposed,tent heate
 storage,Full-extension runners 48in light/medium duty,"TBC (e.g. 1219 mm, 45-70 kg/pair)",4,90,est,1219x45x13,1.6,proposed,upper drawers (2 pairs)
 storage,Side-mount runners ~600 mm,TBC,2,40,est,600x45x13,1.0,proposed,lower utility drawer (1 pair)
 storage,Cable tray / wall channel,3 mm aluminium angle (fabricated),1,,,1380 long,,proposed,passenger wall above the upper drawer
-slides,Flat-mount full-extension telescopic rail,TBC - see docs/v0.4-concept.md,6,TBC,,TBC,TBC,proposed,"3 per deck, under the ply"
+slides,Flat-mount full-extension telescopic rail,Rollon DE43 L1170 (DEF/DEV/DEM),4,TBC (US$1.5k+ each est),quote AU distributor,1170x44x43,5.5,proposed,2 per deck; C0rad 2022 N/rail flat; no lock - add spring plunger
 slides,Sealed roller bearings 608-2RS + 8 mm axles,generic,4,5,est,22 OD x 7,0.02,proposed,rear roller supports (2 per slide)
 slides,Cable drag chain,igus E2.26 class ~0.75 m + mounting brackets,1,120,est,40 wide,1.2,proposed,"upright, power slide outboard lane"
 slides,Pin-in legs,30x30 SHS + feet (fabricated),4,,,,,proposed,stored in the lower utility drawer
-DC,Dual USB-C PD socket (2 ports),TBC - see research,4,60,est,~29 round cutout,0.05,proposed,rear panel x2 (4 ports) + power pod x1 + cabin x1
+DC,Dual USB-C PD socket (2 ports),Campervanbuilders dual USB-C 120W (100+20 W) or equivalent - check 12 V rating,4,60,est,~29 round cutout,0.05,proposed,rear panel x2 (4 ports) + power pod x1 + cabin x1
 storage,Aluminium U-channel for divider slots,12x12x1.6 6060,~40,3,est,~190 long each,0.03,proposed,"upper drawers, 120 mm pitch both sides"
 storage,Lift-out dividers,9 mm ply,6+,,,~125x190,,proposed,upper drawers
+slides,Spring plunger slide lock + floor lock plate,generic stainless indexing plunger,2,40,est,,0.15,proposed,one per deck at the handle
+slides,Packer plates + under-floor spreader plates,3 mm 5052 (fabricated),12,,,80x60,,proposed,rail bolt points

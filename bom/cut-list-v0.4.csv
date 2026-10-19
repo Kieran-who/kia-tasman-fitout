@@ -2,10 +2,7 @@ material,cut size (mm),qty,stock,parts
 ACM 3,1124 x 1113,1,2440x1220 sheet,tent_solar_backing
 Angle 30x30x3 6060,1177,2,6.5 m length,slide_driver_edge_cap; slide_power_edge_cap
 Flat 50x6 6060,246,4,6.5 m length,battery_1_strap_156; battery_1_strap_426; battery_2_strap_156; battery_2_strap_426
-Flat 50x6 6060,40,4,6.5 m length,slide_driver_roller_bracket_0; slide_driver_roller_bracket_1; slide_power_roller_bracket_0; slide_power_roller_bracket_1
-Flat 50x6 6060,514,2,6.5 m length,slide_power_base_tie_0; slide_power_base_tie_1
-Flat 50x6 6060,559,2,6.5 m length,slide_driver_base_tie_0; slide_driver_base_tie_1
-Flat 60x6 6060,1174,6,6.5 m length,slide_driver_base_bar_0; slide_driver_base_bar_1; slide_driver_base_bar_2; slide_power_base_bar_0; slide_power_base_bar_1; slide_power_base_bar_2
+Flat 50x6 6060,42,6,6.5 m length,slide_driver_roller_bracket_0; slide_driver_roller_bracket_1; slide_driver_roller_bracket_2; slide_power_roller_bracket_0; slide_power_roller_bracket_1; slide_power_roller_bracket_2
 L-track HD,1144,2,1.2 m length,slide_driver_ltrack; slide_power_ltrack
 Plate 3 5052,1380 x 90,1,2400x1200 sheet,cable_tray
 Plate 3 5052,201 x 136,1,2400x1200 sheet,ud_pass_front
@@ -13,7 +10,9 @@ Plate 3 5052,201 x 158,1,2400x1200 sheet,ud_driver_front
 Plate 3 5052,266 x 189,1,2400x1200 sheet,pc_door
 Plate 3 5052,269 x 171,1,2400x1200 sheet,ut_drawer_front
 Plate 3 5052,494 x 150,1,2400x1200 sheet,slide_power_power_pod
-Plate 3 5052,95 x 68,1,2400x1200 sheet,slide_power_chain_bracket
+Plate 3 5052,55 x 40,2,2400x1200 sheet,slide_driver_lock_plate; slide_power_lock_plate
+Plate 3 5052,77 x 68,1,2400x1200 sheet,slide_power_chain_bracket
+Plate 3 5052,80 x 60,12,2400x1200 sheet,slide_driver_packer_0_0; slide_driver_packer_0_1; slide_driver_packer_0_2; slide_driver_packer_1_0; slide_driver_packer_1_1; slide_driver_packer_1_2; slide_power_packer_0_0; slide_power_packer_0_1; slide_power_packer_0_2; slide_power_packer_1_0; slide_power_packer_1_1; slide_power_packer_1_2
 Plate 4 5052,506 x 235,1,2400x1200 sheet,inverter_standoffs
 Plate 4 5052,625 x 279,1,2400x1200 sheet,starlink_bracket
 Plate 6 5052,1164 x 320,1,2400x1200 sheet,bay_base_tray
@@ -26,8 +25,8 @@ Ply 12 marine,542 x 193,1,2400x1200 sheet,pc_top
 Ply 12 marine,542 x 290,1,2400x1200 sheet,pc_inner_wall
 Ply 12 marine,641 x 193,1,2400x1200 sheet,ut_top
 Ply 12 marine,641 x 290,1,2400x1200 sheet,ut_inner_wall
-Ply 18 marine,1174 x 534,1,2400x1200 sheet,slide_power_deck
-Ply 18 marine,1174 x 579,1,2400x1200 sheet,slide_driver_deck
+Ply 15 marine,1174 x 534,1,2400x1200 sheet,slide_power_deck
+Ply 15 marine,1174 x 579,1,2400x1200 sheet,slide_driver_deck
 Ply 9 marine,1456 x 199,2,2400x1200 sheet,ud_driver_box; ud_pass_box
 Ply 9 marine,1501 x 193,2,2400x1200 sheet,ud_driver_floor; ud_pass_floor
 Ply 9 marine,1501 x 209,2,2400x1200 sheet,ud_driver_runner_panel; ud_pass_runner_panel
@@ -40,4 +39,4 @@ SHS 30x30x2 6060,529,2,6.5 m length,bay_rear_post_-582; bay_rear_post_552
 Sheet 1.6 5005,1104 x 345,1,2400x1200 sheet,bay_guard
 Sheet 1.6 5005,1134 x 524,1,2400x1200 sheet,slide_power_wear_strip
 Sheet 1.6 5005,1134 x 569,1,2400x1200 sheet,slide_driver_wear_strip
-UHMW 10,654 x 46,1,1000x500 sheet,slide_power_chain_trough
+UHMW 10,655 x 46,1,1000x500 sheet,slide_power_chain_trough

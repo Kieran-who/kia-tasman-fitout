@@ -178,3 +178,18 @@ Anything marked **MEASURE** must be checked on the vehicle before cutting materi
 | Compact microwaves | NCE 20 L 440x332x259, 700 W out / 1150 W in; Panasonic NN-ST25 443x330x258 | retailers (M) |
 | Rigid panels ~1200 long | None from quality brands. Victron 130 W 1020x668 (7.1 kg) and 190 W 1485x668 used | Victron datasheet (H) |
 | Slim water/fuel | Front Runner flat tank 40 L 1260x550x65; RotopaX 1/2/4 gal 76 mm thick | retailers (H/M) |
+
+## v0.4 additions
+
+| Item | Finding | Source |
+|---|---|---|
+| Accuride 9301/9308 flat | Flat mounting −80 % (≈36 kg/pair at 1219); flat only ≤ 711 mm; 9308 not for flat use | https://files.hafele.co.uk/CatalogFiles/www/23T10-263.pdf |
+| Rollon DE43 | 44 × 43 mm, L1170 stroke 1206, **C0rad 2022 N/rail** flat (C0ax 672 N), no lock; ~15 mm tip sag at 150 kg on a pair | https://slsbearings.com/uploads/pdf/ROLLON_TELESCOPIC%20RAIL.pdf |
+| Rollon DE63 / DE35 | 6026 N/rail (58 × 63) / 1045 N/rail (34 × 35) | same |
+| Rollon price | ~US$994 for a 450 mm DE43 (list) | https://www.motionindustries.com/products/sku/07050253 |
+| Chambrelan flat mounting | Significant deflection; no flat rating published | https://chambrelan.com/mounting-of-chambrelan-telescopic-slides-and-guide-rails-in-a-vehicle/ |
+| Commercial 4WD slides | 74–146 mm tall (Dometic/Front Runner 88–95, ARB 74–79, Dometic cargo bed 140) | dometic.com, overlandkitted.com |
+| Redarc BCDC Alpha 50 | 50 A total, solar 9–48 V up to 1000 W, Green Power Priority, Bluetooth only, A$899 | https://www.redarcelectronics.com/au/bcdc-alpha50 |
+| Projecta IDC50X | 50 A, MPPT 32 V / 800 W, simultaneous charging, ~A$664 | https://mygenerator.com.au/product/projecta-idc50x-50a-intelli-charge-dc-dc-charger |
+| Enerdrive DC2DC 40A+ | 40 A (5–50 adjustable), solar 14.5–45 Voc | https://solar4rvs.com.au/enerdrive-dc2dc-mppt-12v-40a-battery-charger-mppt |
+| USB-C panel sockets | Dual USB-C 120 W (Campervanbuilders), Marinco 2×C + 12 V (90 W), Teralume C+A 100 W; many only hit headline PD at 24 V | campervanbuilders.com.au, fisheriessupply.com, offgridtec.com |

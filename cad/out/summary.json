@@ -1,6 +1,6 @@
 {
   "version": "v0.4",
-  "fitout_kg": 484.9,
+  "fitout_kg": 461.1,
   "example_payload_kg": 108.2,
   "by_group_kg": {
     "batteries": 76.0,
@@ -12,8 +12,8 @@
     "power_cabinet": 15.0,
     "rack": 13.8,
     "roof": 36.7,
-    "slide_d": 35.1,
-    "slide_p": 37.0,
+    "slide_d": 23.1,
+    "slide_p": 25.3,
     "solar": 27.2,
     "tent": 84.0,
     "tent_services": 2.5,
@@ -21,14 +21,14 @@
     "wiring": 19.5,
     "payload": 108.2
   },
-  "slide_deck_top_z": 44,
-  "clear_above_deck": 504,
+  "slide_deck_top_z": 62,
+  "clear_above_deck": 486,
   "deck_widths": [
     534.0,
     579.0
   ],
   "slide_length": 1174,
-  "slide_travel": 1168,
+  "slide_travel": 1170,
   "tent_gap": 163.4,
   "solar_w": 520,
   "cable_count": 35,
@@ -38,21 +38,20 @@
     "Plate 6 5052": 0.64,
     "SHS 30x30x2 6060": 2.16,
     "Plate 4 5052": 0.29,
-    "Flat 50x6 6060": 3.29,
+    "Flat 50x6 6060": 1.24,
     "Sheet 1.6 5005": 1.62,
-    "Flat 60x6 6060": 7.04,
-    "Ply 18 marine": 1.31,
+    "Plate 3 5052": 0.42,
+    "Ply 15 marine": 1.31,
     "Angle 30x30x3 6060": 2.35,
     "L-track HD": 2.29,
-    "Plate 3 5052": 0.36,
     "UHMW 10": 0.03,
     "Ply 12 marine": 1.4,
     "Ply 9 marine": 2.08
   },
   "axle_added_kg_front_rear": {
     "fit-out": [
-      6.0,
-      459.3
+      9.3,
+      432.3
     ],
     "payload (example)": [
       -14.8,

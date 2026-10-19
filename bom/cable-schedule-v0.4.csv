@@ -11,12 +11,12 @@ CT1,Inverter +,vehicle,System + busbar,Class-T 400 A,"2 x 50 mm2 tinned, red",-,
 INVP,Inverter +,vehicle,Class-T 400 A,MultiPlus-II DC +,"2 x 50 mm2 tinned, red",Class-T 400 A,1.14,"Victron: 2 x 50 mm2 per pole for 0-5 m, 400 A fuse"
 INVN,Inverter -,vehicle,System - busbar,MultiPlus-II DC -,"2 x 50 mm2 tinned, black",-,0.84,
 ORO,Charging output,vehicle,orion xs 50a,System +/- busbars (MIDI fuse),16 mm2 twin,MIDI 70 A,1.18,
-MPR,Charging output,vehicle,mppt roof 100 50,System +/- busbars (MIDI fuse),16 mm2 twin,MIDI 60 A,1.01,
+MPR,Charging output,vehicle,mppt roof 100 30,System +/- busbars (MIDI fuse),16 mm2 twin,MIDI 60 A,1.01,
 MPT,Charging output,vehicle,mppt tent 75 15,System +/- busbars (MIDI fuse),6 mm2 twin,MIDI 20 A,0.87,
 DCF,DC distribution,vehicle,System + busbar (MEGA 100 A),Rear DC fuse block,25 mm2 twin (red/black),MEGA 100 A,3.4,
 AC1,AC out,vehicle,MultiPlus-II AC-out 1,RCBO enclosure,2.5 mm2 3-core flex (TPS-flex),MultiPlus + RCBOs,3.25,licensed electrician
 AC2,Rear GPO,vehicle,RCBO 1,Rear panel double GPO,2.5 mm2 3-core flex,RCBO 10 A 30 mA,0.4,
-AC3,Slide GPO,vehicle,RCBO 2,Power-slide pod GPO,2.5 mm2 3-core high-flex (chain rated),RCBO 10 A 30 mA,2.28,runs through the cable chain
+AC3,Slide GPO,vehicle,RCBO 2,Power-slide pod GPO,2.5 mm2 3-core high-flex (chain rated),RCBO 10 A 30 mA,2.27,runs through the cable chain
 AC4,Tent heater GPO,vehicle,RCBO 3,Gap junction -> tent services box GPO,"2.5 mm2 3-core flex, UV rated",RCBO 10 A 30 mA,3.79,detaches at the gap junction (IP66 inline plug)
 AC5,Shore inlet,vehicle,Gap junction (from tent 15 A inlet),MultiPlus-II AC-in,2.5 mm2 3-core flex (15 A),Inlet + MultiPlus input current limit,6.19,
 DO1,Rear panel DC,vehicle,DC fuse block,Rear panel Anderson x2 / USB-C / 12 V,6 mm2 twin,30 A + 15 A + 10 A,0.63,
@@ -25,7 +25,7 @@ DO3,Cabin outlets,vehicle,DC fuse block,"Under-rear-seat box (Anderson, USB-C, 1
 DO4,Starlink Mini,vehicle,DC fuse block,Starlink Mini (roof),4 mm2 twin + DC barrel lead,10 A,5.0,
 DO5,Tent 12 V,vehicle,DC fuse block,Gap junction -> tent (Anderson SB50),6 mm2 twin,30 A,3.98,detaches at the gap junction
 ALT,Alternator charge,vehicle,Start battery (60 A MIDI),Orion XS input,"25 mm2 twin (+/-), tinned",60 A at start battery,8.62,Orion XS input limit 25-30 A until the alternator rating is known
-PVR,Roof PV,vehicle,Roof panels (series),MPPT 100/50 PV in,6 mm2 solar twin (UV),PV breaker 20 A,6.87,
+PVR,Roof PV,vehicle,Roof panels (series),MPPT 100/30 PV in,6 mm2 solar twin (UV),PV breaker 20 A,6.87,
 PVT,Tent PV,vehicle,Gap junction (from tent panels),MPPT 75/15 PV in,6 mm2 solar twin (UV),PV breaker 15 A,5.72,detaches at the gap junction
 SW1,Battery switch control,vehicle,Rear panel switch,ML-RBS remote battery switch,3-core 1.0 mm2,2 A,2.89,
 SW2,Inverter remote on/off,vehicle,Rear panel switch,MultiPlus-II remote terminals,2-core 0.75 mm2,-,3.3,

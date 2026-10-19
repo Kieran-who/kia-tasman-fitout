@@ -130,7 +130,7 @@ def cables():
                    ["bus_sys_neg", (A["inv_dc_neg"][0], A["bus_sys_neg"][1] + 5, A["inv_dc_neg"][2]), "inv_dc_neg"]))
     # ------------------------------------------------ charging board (front wall) <-> system busbars (short, inside the bay)
     for cid, src, size, spec, prot in (("ORO", "orion_xs_50a", "16", "16 mm2 twin", "MIDI 70 A"),
-                                       ("MPR", "mppt_roof_100_50", "16", "16 mm2 twin", "MIDI 60 A"),
+                                       ("MPR", "mppt_roof_100_30", "16", "16 mm2 twin", "MIDI 60 A"),
                                        ("MPT", "mppt_tent_75_15", "6", "6 mm2 twin", "MIDI 20 A")):
         L.append(Cable(cid, "Charging output", src.replace("_", " "), "System +/- busbars (MIDI fuse)", size, spec, prot, "w_pos",
                        [src, (A[src][0] + 30, A[src][1], 150), (220, A["midi_fuses"][1] + 30, 150), "midi_fuses"]))
@@ -164,9 +164,9 @@ def cables():
     L.append(Cable("ALT", "Alternator charge", "Start battery (60 A MIDI)", "Orion XS input", "25", "25 mm2 twin (+/-), tinned", "60 A at start battery",
                    "w_pos", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY + [_up("orion_xs_50a"), "orion_xs_50a"],
                    notes="Orion XS input limit 25-30 A until the alternator rating is known"))
-    L.append(Cable("PVR", "Roof PV", "Roof panels (series)", "MPPT 100/50 PV in", "6", "6 mm2 solar twin (UV)", "PV breaker 20 A", "w_pv",
+    L.append(Cable("PVR", "Roof PV", "Roof panels (series)", "MPPT 100/30 PV in", "6", "6 mm2 solar twin (UV)", "PV breaker 20 A", "w_pv",
                    ["roof_pv", "roof_drop", "gap_high", "junction_top", "junction_bot", "gap_low", "chassis_gap"] + IN + GLAND_TO_BAY +
-                   [_up("mppt_roof_100_50"), "mppt_roof_100_50"]))
+                   [_up("mppt_roof_100_30"), "mppt_roof_100_30"]))
     L.append(Cable("PVT", "Tent PV", "Gap junction (from tent panels)", "MPPT 75/15 PV in", "6", "6 mm2 solar twin (UV)", "PV breaker 15 A", "w_pv",
                    from_gap + GLAND_TO_BAY + [_up("mppt_tent_75_15"), "mppt_tent_75_15"], notes="detaches at the gap junction"))
     # ------------------------------------------------ control + comms (rear panel <-> bay)
@@ -176,7 +176,7 @@ def cables():
                    ["pc_sw_inverter", "cab_in"] + CAB_TO_BAY + ["inv_comms"]))
     L.append(Cable("D1", "VE.Bus", "Cerbo GX", "MultiPlus-II", "data", "RJ45 VE.Bus cable", "-", "w_data", ["cerbo"] + CAB_TO_BAY + ["inv_comms"]))
     L.append(Cable("D2", "VE.Direct", "Cerbo GX", "SmartShunt / MPPTs / Orion XS", "data", "VE.Direct cables x4", "-", "w_data",
-                   ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_50", 8), "mppt_roof_100_50"]))
+                   ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_30", 8), "mppt_roof_100_30"]))
     L.append(Cable("D3", "Display", "Cerbo GX", "GX Touch 50", "data", "GX Touch cable", "-", "w_data", ["cerbo", "pc_gx_touch_50"]))
     # ------------------------------------------------ detachable tent harness (tent side)
     L.append(Cable("T1", "Tent harness", "Tent services box", "Gap junction plugs (240 V out, 240 V in, 12 V)", "2.5x3",

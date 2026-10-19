@@ -45,7 +45,7 @@ def bay():
     zc = P.CHARGE_BOARD_Z
     parts.append(part("charge_board", g, box(0, 6, yq0 + 5, yq1 - 5, zc, P.BAY_H), "alu", fab=True, mat="Plate 6 5052"))
     yb = yq0 + 20
-    for nm, dims, kg in (("orion_xs_50a", P.DCDC, 0.4), ("mppt_roof_100_50", P.MPPT_ROOF, 1.3), ("mppt_tent_75_15", P.MPPT_TENT, 0.5)):
+    for nm, dims, kg in (("orion_xs_50a", P.DCDC, 0.4), ("mppt_roof_100_30", P.MPPT_ROOF, 1.3), ("mppt_tent_75_15", P.MPPT_TENT, 0.5)):
         l, t_, h = dims
         parts.append(part(nm, "electrical", box(6, 6 + t_, yb, yb + l, zc + 15, zc + 15 + h), "victron", kg=kg))
         anchor(nm, (6 + t_, yb + l / 2, zc + 15))

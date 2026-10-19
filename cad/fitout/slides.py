@@ -51,16 +51,16 @@ def slide(side: str, ext: float, power: bool):
     rw, rh = P.UM_RAIL
     # rail centre lines across the deck
     n = P.UM_RAILS
-    inset = rw / 2 + 25
+    inset = (yb - ya) * P.UM_RAIL_INSET
     ys = [ya + inset + i * (yb - ya - 2 * inset) / (n - 1) for i in range(n)]
     # ------------------------------------------------ fixed cassette
-    for i, y in enumerate(ys):   # base bars under each rail (bolt through the floor with spreader plates)
-        parts.append(part(f"{nm}_base_bar_{i}", g, box(x0, x1, y - 30, y + 30, 0, bt), "alu", fab=True, mat="Flat 60x6 6060"))
-    for i, xx in enumerate((x0 + 10, (x0 + x1) / 2 - 25)):
-        parts.append(part(f"{nm}_base_tie_{i}", g, box(xx, xx + 50, ya + 10, yb - 10, 0, bt), "alu", fab=True, mat="Flat 50x6 6060"))
+    for i, y in enumerate(ys):   # packer plates under each rail at the floor bolts (spreader plates under the tub)
+        for k, xp in enumerate((x0 + 40, (x0 + x1) / 2, x1 - 120)):
+            parts.append(part(f"{nm}_packer_{i}_{k}", g, box(xp - 40, xp + 40, y - 30, y + 30, 0, bt), "alu", fab=True, mat="Plate 3 5052"))
+
     # rear cross member with sealed rollers: the deck rides on these at the tub edge as it slides out
     rx = x1 - 40
-    rys = [(ys[i] + ys[i + 1]) / 2 for i in range(n - 1)]
+    rys = [ya + 45, (ys[0] + ys[-1]) / 2, yb - 45]
     zr = bt + rh + 1 - 11                       # roller (608-size bearing, 22 OD) top kisses the deck underside
     for k, y in enumerate(rys):   # roller + twin cheek brackets bolted to the floor in the gaps between rails
         parts.append(part(f"{nm}_roller_{k}", g, cyl(11, 24, (rx, y, zr), "Y"), "uhmw", kg=0.1))
@@ -69,7 +69,7 @@ def slide(side: str, ext: float, power: bool):
     # ------------------------------------------------ flat telescopic rails (fixed / intermediate / moving)
     for i, y in enumerate(ys):
         for k, off in enumerate((0, ext / 2, ext)):
-            w = rw - k * 8
+            w = rw - k * 6
             parts.append(part(f"{nm}_rail_{i}_{k}", g, box(x0 + 3 + off, x0 + 3 + P.UM_RAIL_LEN + off, y - w / 2, y + w / 2,
                                                             bt + k * rh / 3, bt + (k + 1) * rh / 3), "runner", kg=P.UM_RAIL_KG / 3))
     # ------------------------------------------------ deck (moves with ext)
@@ -79,7 +79,7 @@ def slide(side: str, ext: float, power: bool):
     yc = (ya + yb) / 2
     deck = box(cx0, cx1, ya, yb, z0, top)
     deck = deck.cut(box(cx0 - 1, cx1 + 1, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top + 1))
-    parts.append(part(f"{nm}_deck", g, deck, "ply", fab=True, mat="Ply 18 marine"))
+    parts.append(part(f"{nm}_deck", g, deck, "ply", fab=True, mat="Ply 15 marine"))
     # aluminium edge capping (protects the ply edges, stiffens the deck)
     cap = union_all([box(cx0, cx1, ya - 2, ya, z0 - 4, top), box(cx0, cx1, yb, yb + 2, z0 - 4, top),
                      box(cx1, cx1 + 3, ya - 2, yb + 2, z0 - 4, top)])
@@ -95,6 +95,9 @@ def slide(side: str, ext: float, power: bool):
     parts += _receivers(nm, g, rx0, cx1, ya, yb, yc, top)
     # flush pull + lock release on the rear edge
     parts.append(part(f"{nm}_handle", g, box(cx1 + 1, cx1 + 6, yc - 120, yc + 120, z0 + 2, top - 2), "alu_dark", kg=0.3))
+    # spring-plunger slide lock (DE rails have none): engages holes in a floor plate at stowed + extended positions
+    parts.append(part(f"{nm}_lock_plunger", g, cyl(6, 40, (cx1 - 30, yc + 75, z0 - 20)), "fuse", kg=0.15))
+    parts.append(part(f"{nm}_lock_plate", g, box(x1 - 60, x1 - 5, yc + 55, yc + 95, 0, bt), "alu", fab=True, mat="Plate 3 5052"))
     # removable pin-in legs at the rear corners (camp mode)
     if ext > 0:
         zg = -P.FLOOR_ABOVE_GROUND

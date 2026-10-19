@@ -2,23 +2,23 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.3.** See [`docs/v0.3-concept.md`](docs/v0.3-concept.md). Earlier versions: [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.4.** See [`docs/v0.4-concept.md`](docs/v0.4-concept.md). Earlier versions: [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.3/01_hero_camp.png)
+![Camp mode](renders/v0.4/01_hero_camp.png)
 
 | | |
 |---|---|
-| ![Camp, slides empty](renders/v0.3/02_hero_camp_empty.png) | ![Tub layout](renders/v0.3/04_tub_iso.png) |
-| ![Plan](renders/v0.3/06_plan.png) | ![Battery + inverter bay](renders/v0.3/07_bay.png) |
-| ![Rear control panel](renders/v0.3/08_rear_panel.png) | ![Side drawers](renders/v0.3/09_drawers.png) |
-| ![Slides empty](renders/v0.3/11_slides_empty.png) | ![Wiring](renders/v0.3/10_wiring.png) |
+| ![Camp, slides empty](renders/v0.4/02_hero_camp_empty.png) | ![Tub, under-mount slides](renders/v0.4/04_tub_iso_empty.png) |
+| ![Section through the slides](renders/v0.4/06_section.png) | ![Plan](renders/v0.4/07_plan.png) |
+| ![Rear control panel](renders/v0.4/08_rear_panel.png) | ![Drawers with removable dividers](renders/v0.4/09_drawers.png) |
 
 ## Repository layout
 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.3-concept.md` | Current concept: changes, layout, battery configuration, tailgate-only access, weight and axle loads |
+| `docs/v0.4-concept.md` | Current concept: under-mount slides, charging rationale, rear panel, dividers, numbers |
+| `docs/v0.3-concept.md` | Battery configuration and tailgate-only access (still current) |
 | `docs/research-notes.md` | Sourced dimensions and specs |
 | `cad/params.py` | **Every dimension in one place.** Each is flagged `[PUB]` (published), `[EST]` (estimate, measure it), `[DES]` (design choice) or `[CONFIRM]` |
 | `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `modules` (example payload), `wiring` (routed cables + schedule) |
@@ -45,7 +45,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 python3 -m venv .venv && .venv/bin/pip install -r cad/requirements.txt
 cd cad && ../.venv/bin/python build.py      # model -> GLB + STEP + summary + BOM CSVs
 ../.venv/bin/python clash.py                 # interference check
-cd ../tools/render && npm install && node render.mjs shots_v0.3.json ../../renders/v0.3
+cd ../tools/render && npm install && node render.mjs shots_v0.4.json ../../renders/v0.4
 ```
 
 Change a number in `cad/params.py`, rebuild, re-check and re-render. Every part, cable length and weight follows.
