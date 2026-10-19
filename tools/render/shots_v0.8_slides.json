@@ -1,0 +1,57 @@
+[
+ {
+  "name": "slides_01_runner_lock",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,vehicle,power_cabinet,utility,electrical,batteries,bay",
+   "cam": "2.85,0.07,0.575,2.088,0.044,0.512,16",
+   "title": "v0.8: DZ9308 at full extension - intermediate (ball races) + inner member with the front lock lever",
+   "labels": "slide_power_cable_chain:Cable chain"
+  }
+ },
+ {
+  "name": "slides_02_power_pod",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring",
+   "cam": "1.72,0.70,0.30,1.535,0.25,0.30,33",
+   "title": "v0.8: power pod - Iconic GPO, SB50, 12 V, 2 x dual USB-C (covers open in camp)",
+   "labels": "slide_power_gpo:Iconic 3025 skin 120 x 78|wider than the 68 mm pod"
+  }
+ },
+ {
+  "name": "slides_03_cable_chain",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring,power_cabinet,utility,vehicle,electrical,batteries,bay",
+   "cam": "1.55,0.45,0.20,1.10,0.06,0.56,40",
+   "title": "v0.8: link chain, 46 mm pitch, R63 - full extension, fixed end at mid travel",
+   "labels": "slide_power_cable_chain:Cable chain|40 wide, R63, 16 links;slide_power_chain_bracket_fixed:Fixed-end bracket"
+  }
+ },
+ {
+  "name": "slides_04_legs",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,wiring",
+   "cam": "3.75,-0.78,-0.85,2.40,-0.42,0.22,42",
+   "title": "v0.8: power-slide legs deployed; driver-slide legs folded + clipped under its deck",
+   "labels": "slide_power_leg_clevis_0:Clevis|M10 pivot + lock pin;slide_power_leg_1_s1:Pinned every 25 mm;slide_power_leg_0_foot:Swivel levelling foot;slide_driver_leg_clip_1:Folded leg in spring clip"
+  }
+ },
+ {
+  "name": "slides_05_payload",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,wiring",
+   "cam": "3.45,0.95,0.35,2.1,0.2,0.0,34",
+   "title": "v0.8: example payload - CFX3 45-size fridge, NCE 20 L-size microwave, drawers, crate",
+   "labels": "fridge_panel:Fridge (CFX3 45 size)|694 x 398 x 476;microwave_led:Microwave (NCE 20 L size);drawer_module:2-drawer module|flush pulls + locks;food_crate_lid:Food crate"
+  }
+ }
+]
