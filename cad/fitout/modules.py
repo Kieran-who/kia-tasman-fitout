@@ -3,16 +3,14 @@ import params as P
 
 from .core import box, cyl, part
 
-FRIDGE = (716, 398, 476)       # [EST] 45 L class (e.g. Dometic CFX3 45 is 476 tall) - sits in the dropped well
+FRIDGE = (716, 398, 476)       # [EST] 45 L class (e.g. Dometic CFX3 45 is 476 tall) - sits on the deck
 MICROWAVE = (440, 332, 259)    # [PUB] e.g. NCE 20 L RV microwave 440 x 332 x 259, 700 W out / 1150 W in
 
 
 def _carriage(side, ext):
-    s = -1 if side == "p" else 1
-    ya, yb = sorted((s * P.SLIDE_GAP_MID / 2, s * (P.SLIDE_GAP_MID / 2 + P.CASSETTE_W)))
-    cy0 = ya + P.SIDE_PLATE_T + P.RUNNER_T + 1
-    cy1 = yb - P.SIDE_PLATE_T - P.RUNNER_T - 1
-    return P.SLIDE_X0 + ext, P.SLIDE_X0 + P.SLIDE_L + ext, cy0, cy1
+    from .slides import slide_extent
+    ya, yb = slide_extent(side)
+    return P.SLIDE_X0 + ext, P.SLIDE_X0 + P.SLIDE_L + ext, ya, yb
 
 
 def pins(name, x0, x1, y0, y1, z, g):
@@ -26,12 +24,12 @@ def pins(name, x0, x1, y0, y1, z, g):
 def payload(ext_p, ext_d):
     parts = []
     top = P.DECK_TOP_Z
-    # ---- power slide: fridge in the dropped well behind the bulkhead, microwave at the rear (door faces rear)
+    # ---- power slide: fridge behind the power pod, microwave at the rear (door faces rear)
     cx0, cx1, cy0, cy1 = _carriage("p", ext_p)
     yc = (cy0 + cy1) / 2
     fl, fw, fh = FRIDGE
     fx0 = cx0 + P.BULKHEAD_D + 6
-    zf = P.FRIDGE_WELL_Z + 10      # stands on the two pan L-tracks
+    zf = top                       # stands on the deck (no well needed: ~500 mm clear)
     parts.append(part("fridge", "payload", box(fx0, fx0 + fl, yc - fw / 2, yc + fw / 2, zf, zf + fh).edges("|Z").fillet(25),
                       "fridge", kg=55, note="45 L loaded"))
     for k, x in enumerate((fx0 + 150, fx0 + fl - 175)):

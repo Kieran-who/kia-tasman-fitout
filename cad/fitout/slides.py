@@ -1,10 +1,11 @@
 """
-Heavy-duty slide-out platforms.
+Under-mount slide-out platforms (v0.4).
 
-Each slide = fixed cassette (base plates, cross ties, runner angles) + moving carriage (RHS frame,
-recessed 15 mm ply deck, centre L-track, ball-lock receiver grid). The power slide has a dropped
-fridge well at its front, an outlet bulkhead, and is fed by an upright cable chain that runs in
-the centre gap between the two slides.
+Each slide = fixed cassette on the tub floor (base bars + cross ties + a row of sealed rollers on the rear
+cross member) + a deck carried on flat-mounted telescopic rails underneath it. Deck height is just
+base + rail thickness + ply. The two decks sit side by side with a 6 mm gap, so modules on the two
+slides can butt against each other. The power slide gives up a lane on its outboard edge for an upright
+cable chain and carries a power pod (sockets facing up) at its front.
 """
 import cadquery as cq
 
@@ -13,7 +14,7 @@ import params as P
 from .core import anchor, box, cyl, part, ring, tube_box, union_all
 
 
-def _receivers(nm, g, cx0, cx1, cy0, cy1, yc, top, skip=None):
+def _receivers(nm, g, cx0, cx1, cy0, cy1, yc, top):
     pitch = P.RECEIVER_PITCH
     ny = int((cy1 - cy0 - 80) // pitch)
     nx = int((cx1 - cx0 - 80) // pitch)
@@ -23,7 +24,7 @@ def _receivers(nm, g, cx0, cx1, cy0, cy1, yc, top, skip=None):
         for j in range(ny + 1):
             x = gx0 + i * pitch
             y = yc - ny * pitch / 2 + j * pitch
-            if abs(y - yc) < 45 or (skip and skip[0] - 20 < x < skip[1] + 20):
+            if abs(y - yc) < 45:
                 continue
             recs.append(ring(P.RECEIVER_D / 2, 4.2, 2.2, (x, y, top - 1)))
             bores.append(cyl(4.2, 2.4, (x, y, top - 1)))
@@ -31,137 +32,113 @@ def _receivers(nm, g, cx0, cx1, cy0, cy1, yc, top, skip=None):
             part(f"{nm}_receiver_bores", g, union_all(bores), "hole")]
 
 
-def slide(side: str, ext: float, power: bool, runners: int):
-    """side 'p' = passenger (-Y), 'd' = driver (+Y). ext = extension (0 = stowed)."""
+def slide_extent(side):
+    """Y extents of the deck for a slide: (y_low, y_high)."""
+    gap = P.SLIDE_GAP_MID / 2
+    edge = P.ARCH_GAP / 2 - 3
+    if side == "p":
+        return -(edge - P.CHAIN_LANE), -gap
+    return gap, edge
+
+
+def slide(side: str, ext: float, power: bool):
     parts = []
-    s = -1 if side == "p" else 1
-    ya, yb = sorted((s * P.SLIDE_GAP_MID / 2, s * (P.SLIDE_GAP_MID / 2 + P.CASSETTE_W)))
-    x0, x1 = P.SLIDE_X0, P.SLIDE_X0 + P.SLIDE_L
     g = f"slide_{side}"
     nm = "slide_power" if power else "slide_driver"
-    ykc = (ya + yb) / 2
+    ya, yb = slide_extent(side)
+    x0, x1 = P.SLIDE_X0, P.SLIDE_X0 + P.SLIDE_L
     bt = P.BASE_T
+    rw, rh = P.UM_RAIL
+    # rail centre lines across the deck
+    n = P.UM_RAILS
+    inset = rw / 2 + 25
+    ys = [ya + inset + i * (yb - ya - 2 * inset) / (n - 1) for i in range(n)]
     # ------------------------------------------------ fixed cassette
-    for yy in (ya, yb - 60):
-        parts.append(part(f"{nm}_base_plate_{int(yy)}", g, box(x0, x1, yy, yy + 60, 0, bt), "alu", fab=True, mat="Plate 6 5052"))
-    for i, xx in enumerate((x0 + 10, (x0 + x1) / 2 - 25, x1 - 60)):
-        parts.append(part(f"{nm}_base_cross_{i}", g, box(xx, xx + 50, ya + 60, yb - 60, 0, 6), "alu", fab=True, mat="Flat 50x6 6060"))
-    rz0, rz1 = bt, bt + P.RUNNER_H
-    for lab, yy in (("a", ya), ("b", yb - P.SIDE_PLATE_T)):    # vertical runner plates welded to the base plates
-        parts.append(part(f"{nm}_runner_plate_{lab}", g, box(x0, x1, yy, yy + P.SIDE_PLATE_T, bt, rz1 + 2), "alu", fab=True, mat="Plate 6 5052"))
-    for yy in (ya + 30, yb - 70):   # UHMW stops: stowed carriage rests on these, road shock bypasses the runners
-        parts.append(part(f"{nm}_uhmw_stop_{int(yy)}", g, box(x1 - 120, x1 - 20, yy, yy + 40, 25, 30), "uhmw", fab=True, mat="UHMW 10"))
-    # ------------------------------------------------ runners (3-member, 100 % extension)
-    third = P.RUNNER_T / 3
-    rl = P.RUNNER_LEN
-
-    def runner_set(y_face, dirn, label):
+    for i, y in enumerate(ys):   # base bars under each rail (bolt through the floor with spreader plates)
+        parts.append(part(f"{nm}_base_bar_{i}", g, box(x0, x1, y - 30, y + 30, 0, bt), "alu", fab=True, mat="Flat 60x6 6060"))
+    for i, xx in enumerate((x0 + 10, (x0 + x1) / 2 - 25)):
+        parts.append(part(f"{nm}_base_tie_{i}", g, box(xx, xx + 50, ya + 10, yb - 10, 0, bt), "alu", fab=True, mat="Flat 50x6 6060"))
+    # rear cross member with sealed rollers: the deck rides on these at the tub edge as it slides out
+    rx = x1 - 40
+    rys = [(ys[i] + ys[i + 1]) / 2 for i in range(n - 1)]
+    zr = bt + rh + 1 - 11                       # roller (608-size bearing, 22 OD) top kisses the deck underside
+    for k, y in enumerate(rys):   # roller + twin cheek brackets bolted to the floor in the gaps between rails
+        parts.append(part(f"{nm}_roller_{k}", g, cyl(11, 24, (rx, y, zr), "Y"), "uhmw", kg=0.1))
+        cheeks = box(rx - 20, rx + 20, y - 18, y - 13, 0, zr + 6).union(box(rx - 20, rx + 20, y + 13, y + 18, 0, zr + 6))
+        parts.append(part(f"{nm}_roller_bracket_{k}", g, cheeks, "alu", fab=True, mat="Flat 50x6 6060"))
+    # ------------------------------------------------ flat telescopic rails (fixed / intermediate / moving)
+    for i, y in enumerate(ys):
         for k, off in enumerate((0, ext / 2, ext)):
-            yy0 = y_face + dirn * k * third
-            parts.append(part(f"{nm}_runner_{label}_{k}", g, box(x0 + 3 + off, x0 + 3 + rl + off, yy0, yy0 + dirn * third, rz0 + 3, rz1 - 3),
-                              "runner", kg=2.0))
-    runner_set(ya + P.SIDE_PLATE_T, 1, "a")
-    runner_set(yb - P.SIDE_PLATE_T, -1, "b")
-    if runners == 4:
-        parts.append(part(f"{nm}_keel", g, box(x0, x1, ykc - P.KEEL_T / 2, ykc + P.KEEL_T / 2, bt, rz1), "alu", fab=True, mat="Plate 6 5052"))
-        runner_set(ykc + P.KEEL_T / 2, 1, "keel_a")
-        runner_set(ykc - P.KEEL_T / 2, -1, "keel_b")
-    # ------------------------------------------------ carriage
-    cy0 = ya + P.SIDE_PLATE_T + P.RUNNER_T + 1
-    cy1 = yb - P.SIDE_PLATE_T - P.RUNNER_T - 1
+            w = rw - k * 8
+            parts.append(part(f"{nm}_rail_{i}_{k}", g, box(x0 + 3 + off, x0 + 3 + P.UM_RAIL_LEN + off, y - w / 2, y + w / 2,
+                                                            bt + k * rh / 3, bt + (k + 1) * rh / 3), "runner", kg=P.UM_RAIL_KG / 3))
+    # ------------------------------------------------ deck (moves with ext)
     cx0, cx1 = x0 + ext, x1 + ext
-    top = P.DECK_TOP_Z
-    deck_bot = top - P.DECK_T
-    yc = (cy0 + cy1) / 2
-    for i, yy in enumerate((cy0, cy1 - 25)):
-        parts.append(part(f"{nm}_carr_side_{i}", g, tube_box(cx0, cx1, yy, yy + 25, rz0 + 1, top, axis="X"), "alu", fab=True, mat="RHS 75x25x2 6060"))
-    if runners == 4:
-        for dirn in (1, -1):
-            yy = ykc + dirn * (P.KEEL_T / 2 + P.RUNNER_T + 1)
-            parts.append(part(f"{nm}_keel_hanger_{dirn}", g, box(cx0, cx1, yy, yy + dirn * 25, rz0 + 1, deck_bot), "alu", fab=True, mat="RHS 75x25x2 6060"))
-    # power slide: bulkhead + fridge well occupy the front; deck covers the rest
-    well = None
-    if power:
-        wx0 = cx0 + P.BULKHEAD_D
-        wx1 = wx0 + P.FRIDGE_WELL_L
-        well = (wx0, wx1)
-        dx0 = wx1
-    else:
-        dx0 = cx0
-    n_cross = 4 if power else 5
-    span0 = dx0 + 10
-    for i in range(n_cross):
-        xx = span0 + i * (cx1 - 60 - span0) / (n_cross - 1)
-        parts.append(part(f"{nm}_carr_cross_{i}", g, tube_box(xx, xx + 50, cy0 + 25, cy1 - 25, deck_bot - 25, deck_bot, axis="Y"),
-                          "alu", fab=True, mat="RHS 50x25x2 6060"))
-    deck = box(dx0 + (0 if power else 4), cx1 - 4, cy0 + 25, cy1 - 25, deck_bot, top)
-    deck = deck.cut(box(dx0 - 1, cx1, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top + 1))
-    parts.append(part(f"{nm}_deck", g, deck, "ply", fab=True, mat="Ply 15 marine"))
-    track = box(dx0 + 15, cx1 - 15, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top)
-    track = track.cut(box(dx0 + 10, cx1 - 10, yc - 6, yc + 6, top - 6, top + 1))
+    z0 = bt + rh + 1
+    top = z0 + P.DECK_T
+    yc = (ya + yb) / 2
+    deck = box(cx0, cx1, ya, yb, z0, top)
+    deck = deck.cut(box(cx0 - 1, cx1 + 1, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top + 1))
+    parts.append(part(f"{nm}_deck", g, deck, "ply", fab=True, mat="Ply 18 marine"))
+    # aluminium edge capping (protects the ply edges, stiffens the deck)
+    cap = union_all([box(cx0, cx1, ya - 2, ya, z0 - 4, top), box(cx0, cx1, yb, yb + 2, z0 - 4, top),
+                     box(cx1, cx1 + 3, ya - 2, yb + 2, z0 - 4, top)])
+    parts.append(part(f"{nm}_edge_cap", g, cap, "alu", fab=True, mat="Angle 30x30x3 6060"))
+    # wear strip on the deck underside where it rides on the rollers
+    parts.append(part(f"{nm}_wear_strip", g, box(cx0 + 20, cx1 - 20, ya + 5, yb - 5, z0 - 1, z0), "alu_dark", fab=True, mat="Sheet 1.6 5005"))
+    track = box(cx0 + 15, cx1 - 15, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top)
+    track = track.cut(box(cx0 + 10, cx1 - 10, yc - 6, yc + 6, top - 6, top + 1))
     parts.append(part(f"{nm}_ltrack", g, track, "ltrack", fab=True, mat="L-track HD"))
-    holes = union_all(cyl(6, 3, (dx0 + 30 + i * 25.4, yc, top - 0.5)) for i in range(int((cx1 - dx0 - 60) / 25.4)))
+    holes = union_all(cyl(6, 3, (cx0 + 30 + i * 25.4, yc, top - 0.5)) for i in range(int((P.SLIDE_L - 60) / 25.4)))
     parts.append(part(f"{nm}_ltrack_pockets", g, holes, "hole"))
-    parts += _receivers(nm, g, dx0, cx1, cy0, cy1, yc, top)
-    if power:
-        wx0, wx1 = well
-        zf = P.FRIDGE_WELL_Z
-        # folded 3 mm pan bolted to the side RHS: floor + front/rear walls up to the deck
-        pan = (box(wx0, wx1, cy0 + 25, cy1 - 25, zf - 3, zf)
-               .union(box(wx0, wx0 + 3, cy0 + 25, cy1 - 25, zf - 3, top))
-               .union(box(wx1 - 3, wx1, cy0 + 25, cy1 - 25, zf - 3, top)))
-        parts.append(part(f"{nm}_fridge_well_pan", g, pan, "alu", fab=True, mat="Plate 3 5052"))
-        for yy in (cy0 + 40, cy1 - 70):      # tie-down L-track on the pan floor for the fridge straps
-            parts.append(part(f"{nm}_well_track_{int(yy)}", g, box(wx0 + 30, wx1 - 30, yy, yy + 30, zf, zf + 10), "ltrack",
-                              fab=True, mat="L-track HD"))
-        # power pod at the very front: sockets on its TOP face (plugs point up, clear of the fridge)
-        bw0, bw1 = cy0 + 28, cy1 - 28
-        pz = top + 216
-        parts.append(part(f"{nm}_power_pod", g, box(cx0 + 2, cx0 + P.BULKHEAD_D, bw0, bw1, zf, pz), "alu_dark", fab=True, mat="Plate 3 5052"))
-        px = cx0 + 8
-        parts.append(part(f"{nm}_gpo", g, box(px, px + 58, bw0 + 12, bw0 + 128, pz - 2, pz + 8), "outlet", kg=0.4))
-        parts.append(part(f"{nm}_anderson", g, box(px + 4, px + 54, bw0 + 145, bw0 + 205, pz - 2, pz + 10), "anderson", kg=0.1))
-        parts.append(part(f"{nm}_12v", g, cyl(17, 10, (px + 29, bw0 + 245, pz + 3)), "usb", kg=0.05))
-        parts.append(part(f"{nm}_usbc", g, cyl(15, 10, (px + 29, bw0 + 300, pz + 3)), "usb", kg=0.05))
-        zb = pz
-        anchor("slide_bulkhead", (cx0 + 25, (bw0 + bw1) / 2, zb))
-    # rear face + handle
-    parts.append(part(f"{nm}_rear_plate", g, box(cx1 - 3, cx1, cy0, cy1, rz0, top + 2), "alu", fab=True, mat="Plate 3 5052"))
-    parts.append(part(f"{nm}_handle", g, box(cx1 - 3.5, cx1 + 1, yc - 120, yc + 120, top - 50, top - 20).cut(
-        box(cx1 - 4, cx1 + 2, yc - 105, yc + 105, top - 44, top - 26)), "alu_dark", kg=0.3))   # flush pull + lock release
-    # removable pin-in legs at the rear (deployed in camp mode; stored in the utility drawer)
+    rx0 = cx0 + (P.BULKHEAD_D if power else 0)
+    parts += _receivers(nm, g, rx0, cx1, ya, yb, yc, top)
+    # flush pull + lock release on the rear edge
+    parts.append(part(f"{nm}_handle", g, box(cx1 + 1, cx1 + 6, yc - 120, yc + 120, z0 + 2, top - 2), "alu_dark", kg=0.3))
+    # removable pin-in legs at the rear corners (camp mode)
     if ext > 0:
         zg = -P.FLOOR_ABOVE_GROUND
-        for i, yy in enumerate((cy0 + P.LEG_INSET, cy1 - P.LEG_INSET - 30)):
-            leg = tube_box(cx1 - 70, cx1 - 40, yy, yy + 30, zg, rz0 + 5, axis="Z").union(box(cx1 - 85, cx1 - 25, yy - 15, yy + 45, zg, zg + 6))
+        for i, yy in enumerate((ya + P.LEG_INSET, yb - P.LEG_INSET - 30)):
+            leg = tube_box(cx1 - 70, cx1 - 40, yy, yy + 30, zg, z0, axis="Z").union(box(cx1 - 85, cx1 - 25, yy - 15, yy + 45, zg, zg + 6))
             parts.append(part(f"{nm}_leg_{i}", g, leg, "alu_dark", fab=True, mat="SHS 30x30x2 6060"))
     if power:
-        parts += cable_chain(x0, cx0, s)
+        # power pod at the front: sockets face UP so plugs never foul whatever sits behind it
+        pw0, pw1 = ya + 20, yb - 20
+        pz = top + 150
+        parts.append(part(f"{nm}_power_pod", g, box(cx0 + 2, cx0 + P.BULKHEAD_D, pw0, pw1, top, pz), "alu_dark", fab=True, mat="Plate 3 5052"))
+        px = cx0 + 8
+        parts.append(part(f"{nm}_gpo", g, box(px, px + 58, pw0 + 12, pw0 + 128, pz - 2, pz + 8), "outlet", kg=0.4))
+        parts.append(part(f"{nm}_anderson", g, box(px + 4, px + 54, pw0 + 145, pw0 + 205, pz - 2, pz + 10), "anderson", kg=0.1))
+        parts.append(part(f"{nm}_12v", g, cyl(17, 10, (px + 29, pw0 + 245, pz + 3)), "usb", kg=0.05))
+        parts.append(part(f"{nm}_usbc", g, cyl(15, 10, (px + 29, pw0 + 300, pz + 3)), "usb", kg=0.05))
+        parts.append(part(f"{nm}_usbc_2", g, cyl(15, 10, (px + 29, pw0 + 345, pz + 3)), "usb", kg=0.05))
+        anchor("slide_bulkhead", (cx0 + 25, ya + 10, top + 20))
+        parts += cable_chain(x0, cx0, ya)
     return parts
 
 
-def cable_chain(x0, cx0, s):
-    """Upright chain in the centre gap: lower run on the floor, upper run attached to the power-slide front."""
+def cable_chain(x0, cx0, ya):
+    """Upright chain in the lane on the power slide's outboard edge: lower run on the floor, upper run on the deck edge."""
     R, h, w = P.CHAIN_R, P.CHAIN_H, P.CHAIN_W
     xf = x0 + P.SLIDE_EXT / 2 + 40                       # fixed end at mid travel
-    xm = cx0 + 110                                      # moving end (on the carriage)
+    xm = cx0 + 110                                      # moving end (on the deck edge)
     lc = (xf + (x0 + 110) - 2 * (x0 + 72)) + 3.14159 * R
-    xb = (xf + xm - lc + 3.14159 * R) / 2               # bend position (toward the front)
-    y0, y1 = -w / 2, w / 2
-    zc = 3 + R + h / 2                                   # bend centre height (chain sits on a 3 mm UHMW trough)
-    lower = box(xb, xf, y0, y1, 3, 3 + h)
-    upper = box(xb, xm, y0, y1, 3 + 2 * R, 3 + 2 * R + h)
-    bend = (cq.Workplane("XZ", origin=(0, y1, 0)).center(xb, zc).circle(R + h / 2).circle(R - h / 2).extrude(w)
-            .cut(box(xb, xb + R + h, y0 - 1, y1 + 1, -1, 2 * R + h + 5)))
+    xb = (xf + xm - lc + 3.14159 * R) / 2
+    yl1 = ya - 3
+    yl0 = yl1 - w
+    zc = 3 + R + h / 2
+    lower = box(xb, xf, yl0, yl1, 3, 3 + h)
+    upper = box(xb, xm, yl0, yl1, 3 + 2 * R, 3 + 2 * R + h)
+    bend = (cq.Workplane("XZ", origin=(0, yl1, 0)).center(xb, zc).circle(R + h / 2).circle(R - h / 2).extrude(w)
+            .cut(box(xb, xb + R + h, yl0 - 1, yl1 + 1, -1, 2 * R + h + 5)))
     parts = [part("slide_power_cable_chain", "slide_p", lower.union(upper).union(bend), "chain", kg=1.2, chain_length_mm=round(lc))]
-    parts.append(part("slide_power_chain_bracket", "slide_p", box(xm - 30, xm + 30, s * 18, s * 76, P.DECK_TOP_Z, 3 + 2 * R + h + 8), "alu_dark",
+    parts.append(part("slide_power_chain_bracket", "slide_p", box(xm - 30, xm + 30, yl0, ya + 25, P.DECK_TOP_Z, 3 + 2 * R + h + 8), "alu_dark",
                       fab=True, mat="Plate 3 5052"))
-    parts.append(part("slide_power_chain_trough", "slide_p", box(x0 + 10, xf + 40, -w / 2 - 4, w / 2 + 4, 0, 3), "uhmw", fab=True, mat="UHMW 10"))
-    anchor("chain_fixed", (xf, 0, h / 2))
-    anchor("chain_moving", (xm, 0, 2 * R + h / 2))
+    parts.append(part("slide_power_chain_trough", "slide_p", box(x0 + 10, xf + 40, yl0 - 4, yl1 + 2, 0, 3), "uhmw", fab=True, mat="UHMW 10"))
+    anchor("chain_fixed", (xf, (yl0 + yl1) / 2, h / 2))
+    anchor("chain_moving", (xm, (yl0 + yl1) / 2, 2 * R + h / 2))
     return parts
 
 
 def slides(ext_p, ext_d):
-    return (slide("p", ext_p, power=True, runners=P.RUNNERS_POWER)
-            + slide("d", ext_d, power=False, runners=P.RUNNERS_DRIVER))
+    return slide("p", ext_p, power=True) + slide("d", ext_d, power=False)

@@ -7,7 +7,7 @@ driver:    LOWER pull-out utility drawer behind the arch + UPPER long drawer ove
 """
 import params as P
 
-from .core import anchor, box, cyl, part
+from .core import anchor, box, cyl, part, union_all
 
 T = 12   # carcass ply
 T9 = 9
@@ -36,8 +36,18 @@ def _upper_drawer(yo, yi, ext, gap=0.0):
     zb0, zb1 = z0 + T9 + 4, z1 - 6
     box_ = box(dx0, dx1 - 15, ya, yb, zb0, zb1).cut(box(dx0 + T9, dx1 - 15 - T9, ya - s * T9, yb + s * T9, zb0 + T9, zb1 + 1))
     parts.append(part(f"{nm}_box", g, box_, "ply", fab=True, mat="Ply 9 marine"))
-    for k, xd in enumerate((dx0 + 380, dx0 + 760, dx0 + 1100)):
-        parts.append(part(f"{nm}_divider_{k}", g, box(xd, xd + T9, ya - s * T9, yb + s * T9, zb0 + T9, zb1 - 40), "ply", fab=True, mat="Ply 9 marine"))
+    # removable dividers: lift-out 9 mm ply panels in aluminium U-channel slots on both inner faces (120 mm pitch)
+    pitch = 120
+    xs = [dx0 + T9 + 60 + i * pitch for i in range(int((dl - 15 - 2 * T9 - 60) // pitch))]
+    ywa, ywb = ya - s * T9, yb + s * T9          # inner faces of the box sides
+    slots = union_all(box(x - 7, x + 7, yw, yw - s * d * 6, zb0 + T9, zb1 - 2)
+                      for x in xs for yw, d in ((ywa, 1), (ywb, -1)))
+    parts.append(part(f"{nm}_divider_slots", g, slots, "alu", kg=0.04 * 2 * len(xs), n_slots=len(xs)))
+    for k, i in enumerate((2, 5, 8)):
+        if i < len(xs):
+            xd = xs[i]
+            parts.append(part(f"{nm}_divider_{k}", g, box(xd - 4.5, xd + 4.5, ywa, ywb, zb0 + T9, zb1 - 30),
+                              "ply", fab=True, mat="Ply 9 marine", removable=True))
     parts.append(part(f"{nm}_front", g, box(dx1 - 15, dx1 + 3, ya + s * 6, yb - s * 6, zb0 - 2, zb1), "alu_dark", fab=True, mat="Plate 3 5052"))
     yc = (ya + yb) / 2
     parts.append(part(f"{nm}_pull", g, box(dx1 - 1, dx1 + 4, yc - 40, yc + 40, zb1 - 50, zb1 - 25), "alu", kg=0.1))
@@ -74,10 +84,11 @@ def passenger(drawer_out=0.0):
     knob("pc_sw_battery", "fuse", yi - 28, 252, 14, 0.05)        # remote battery switch ON/OFF (ML-RBS)
     knob("pc_sw_inverter", "victron", yi - 28, 208, 14, 0.05)    # MultiPlus remote on/off
     face("pc_gpo_double", "outlet", yo + 10, yo + 130, 92, 178, 0.5)
-    knob("pc_usbc", "usb", yi - 30, 155, 15, 0.05)
-    knob("pc_12v", "usb", yi - 30, 112, 17, 0.05)
-    face("pc_anderson_1", "anderson", yo + 10, yo + 82, 18, 84, 0.1)
-    face("pc_anderson_2", "anderson", yo + 92, yo + 164, 18, 84, 0.1)
+    knob("pc_usbc_1", "usb", yi - 30, 158, 15, 0.05)            # dual USB-C PD socket (2 ports)
+    knob("pc_usbc_2", "usb", yi - 30, 114, 15, 0.05)            # dual USB-C PD socket (2 ports)
+    face("pc_anderson_1", "anderson", yo + 10, yo + 70, 20, 84, 0.1)
+    face("pc_anderson_2", "anderson", yo + 76, yo + 136, 20, 84, 0.1)
+    knob("pc_12v", "usb", yi - 30, 52, 17, 0.05)
     # behind the door
     parts.append(part("pc_rcbo_enclosure", "electrical", box(xr - 157, xr - 19, yi - T - 120, yi - T, 60, 250), "outlet", kg=1.2))
     anchor("rcbo", (xr - 90, yi - T - 120, 200))

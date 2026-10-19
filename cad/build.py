@@ -25,6 +25,7 @@ sys.path.insert(0, HERE)
 import params as P  # noqa: E402
 from fitout import assembly  # noqa: E402
 from fitout.core import C, MAT  # noqa: E402
+from fitout.slides import slide_extent  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
 VIEWER = os.path.join(HERE, "..", "viewer", "models")
@@ -198,7 +199,7 @@ if __name__ == "__main__":
         fitout_kg=round(fit, 1), example_payload_kg=round(pay, 1),
         by_group_kg={g: round(v, 1) for (c, g), v in sorted(by_group.items())},
         slide_deck_top_z=round(P.DECK_TOP_Z, 1), clear_above_deck=round(P.UNDER_LID_Z - P.DECK_TOP_Z, 1),
-        carriage_width=round(P.CARRIAGE_W, 1), slide_length=P.SLIDE_L, slide_travel=P.SLIDE_EXT,
+        deck_widths=[round(abs(b - a), 1) for a, b in (slide_extent('p'), slide_extent('d'))], slide_length=P.SLIDE_L, slide_travel=P.SLIDE_EXT,
         tent_gap=P.TENT_GAP, solar_w=sum(p.meta.get("watts", 0) for p in travel),
         cable_count=len(cables), cable_total_m=round(sum(c.length_m() for c in cables), 1),
         material_need=stock,

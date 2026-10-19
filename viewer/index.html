@@ -80,6 +80,7 @@ const VIEWS = {
   slides:   { pos:[3.7, 0.9, -1.9], tgt:[1.4, 0.0, 0],   fov:32, hide:['lid','rack','tent','tent_services','future','tent_harness'] },
   rear_panel:{ pos:[2.25, 0.16, 1.05], tgt:[1.40, 0.15, 0.66], fov:30, hide:['payload','future'] },
   drawers:  { pos:[3.6, 1.5, 0.2], tgt:[1.6, 0.35, 0], fov:34, hide:['lid','rack','tent','tent_services','future','tent_harness','roof','solar','cargo'] },
+  section:  { pos:[2.6, 0.42, 0.0], tgt:[1.2, 0.2, 0], fov:34, hide:['lid','rack','tent','tent_services','future','tent_harness','roof','solar','cargo','payload'] },
   utility:  { pos:[2.9, 1.75, -1.25], tgt:[1.05, 0.2, -0.6], fov:32, hide:['lid','rack','tent','tent_services','future','tent_harness','roof','solar','cargo'] },
 };
 
@@ -226,6 +227,8 @@ addEventListener('resize', resize);
   resize();
   setView(q.get('view') || 'hero');
   if (q.get('hide')) { for (const g of q.get('hide').split(',')) groups[g] = false; applyVisibility(); syncLayerUI(); }
+  if (q.get('clipx')) { renderer.clippingPlanes = [new THREE.Plane(new THREE.Vector3(-1, 0, 0), +q.get('clipx'))];
+    root.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; }); }
   if (q.get('show')) { for (const g of q.get('show').split(',')) groups[g] = true; applyVisibility(); syncLayerUI(); }
   addLabels(root, q.get('labels'));
   if (q.get('title')) document.getElementById('title').textContent = q.get('title');
