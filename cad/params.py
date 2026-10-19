@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.4"
+VERSION = "v0.5"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -108,32 +108,34 @@ CERBO = (154, 48, 78)         # [PUB] Cerbo GX MK2
 FUSE_BLOCK = (211, 45, 140)   # [EST] Blue Sea 5026 12-way with negative bus
 GX_TOUCH = (128, 13, 87)      # [PUB] GX Touch 50
 
-# ================================================================ slides (v0.4: UNDER-MOUNT)
-# Rails lie flat under each deck, so deck height = base + rail thickness + ply, and the two decks sit
-# side by side (6 mm gap). A row of sealed rollers on the cassette's rear cross member carries the
-# deck at the tub edge as it slides out; pin-in legs take heavy loads at full extension.
+# ================================================================ slides (v0.5: side-mount runners, COVERED deck)
+# Accuride DZ9308 runners on the cassette sides (as v0.3). Aluminium L-angles on top of the moving side
+# members reach out over the runners, so the 15 mm ply deck covers the whole slide. The two decks meet in
+# the middle (6 mm gap) - one continuous surface except the fridge well. The cable chain moves to a lane
+# on the outboard side of the power slide.
 SLIDE_X0 = BAY_D + 10
 SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1174
 SLIDE_GAP_MID = 6                           # [DES] decks almost touch
-CHAIN_LANE = 45                             # [DES] power slide outboard lane for the upright cable chain
-# Rollon DE43 full-extension telescopic rail: the only rail found that is rated lying FLAT at 1.2 m.
-# C0rad 2022 N per rail at full extension (pair ~412 kg static), ~15 mm tip sag at 150 kg, no built-in lock.
-UM_RAIL = (44, 43)                          # [PUB] Rollon DE43 section (width x height)
-UM_RAILS = 2                                # [DES] one pair per deck
-UM_RAIL_LEN = 1170                          # [PUB] DE43 L1170 (stroke 1206; stops set travel to 1170)
-UM_RAIL_KG = 5.5                            # [EST] per rail
-UM_RAIL_INSET = 0.2                         # [DES] rails at 20 % / 80 % of the deck width
-BASE_T = 3                                  # [DES] packer plates under the rails at each floor bolt (rails sit on the ribs)
-DECK_T = 15                                 # [DES] 15 mm marine ply with aluminium edge capping
-DECK_TOP_Z = BASE_T + UM_RAIL[1] + 1 + DECK_T   # 62
-SLIDE_EXT = UM_RAIL_LEN
+CHAIN_LANE = 50                             # [DES] power slide outboard lane for the upright cable chain
+RUNNER_T, RUNNER_H = 19.1, 76.2             # [PUB] Accuride DZ9308 (lock in + lock out)
+RUNNER_LEN = 1168.4                         # [PUB] 46"
+BASE_T = 6                                  # [DES] 6 mm base plates under the runners
+SIDE_PLATE_T = 5
+DECK_CLEAR = 2                              # [DES] deck lip clears the fixed runner plates by this much
+LIP_T = 3                                   # [DES] L-angle horizontal leg (60 x 40 x 3) carrying the deck edges
+DECK_T = 15                                 # [DES] 15 mm marine ply on top
+DECK_BOT_Z = BASE_T + RUNNER_H + DECK_CLEAR + LIP_T   # 87.2
+DECK_TOP_Z = DECK_BOT_Z + DECK_T                      # ~102
+SLIDE_EXT = RUNNER_LEN
 LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
 RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid
 RECEIVER_D = 22                             # [DES] flanged stainless bush OD (8 mm ball-lock pin)
-LEG_INSET = 45                              # removable pin-in legs (stored in the utility drawer)
-MICROWAVE_D = 332                           # [PUB] NCE 20 L depth
-BULKHEAD_D = 70                             # [DES] power pod: sockets face UP
-CHAIN_R, CHAIN_H, CHAIN_W = 48, 32, 40      # [EST] igus E2.26-class, standing upright in the outboard lane
+LEG_INSET = 45                              # removable pin-in legs (stored in the lower utility drawer)
+MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)
+BULKHEAD_D = 70                             # [DES] power pod: sockets face UP so plugs never foul the fridge
+FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 766 -> fridge <= ~756 long
+FRIDGE_WELL_Z = 12                          # [DES] pan top surface -> ~536 under the lid
+CHAIN_R, CHAIN_H, CHAIN_W = 63, 32, 40      # [EST] igus E2.26-class, R63 suits chain-rated 2.5 / 6 mm2 cable
 
 # ================================================================ side bays
 # Each side: LOWER cabinet/drawer behind the arch (floor -> arch height) + UPPER long drawer over the arch that

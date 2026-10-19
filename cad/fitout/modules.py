@@ -3,7 +3,7 @@ import params as P
 
 from .core import box, cyl, part
 
-FRIDGE = (716, 398, 476)       # [EST] 45 L class (e.g. Dometic CFX3 45 is 476 tall) - sits on the deck
+FRIDGE = (716, 398, 476)       # [EST] 45 L class (e.g. Dometic CFX3 45 is 476 tall) - sits in the fridge well
 MICROWAVE = (440, 332, 259)    # [PUB] e.g. NCE 20 L RV microwave 440 x 332 x 259, 700 W out / 1150 W in
 
 
@@ -24,12 +24,12 @@ def pins(name, x0, x1, y0, y1, z, g):
 def payload(ext_p, ext_d):
     parts = []
     top = P.DECK_TOP_Z
-    # ---- power slide: fridge behind the power pod, microwave at the rear (door faces rear)
+    # ---- power slide: fridge in the well behind the power pod, microwave at the rear (door faces rear)
     cx0, cx1, cy0, cy1 = _carriage("p", ext_p)
     yc = (cy0 + cy1) / 2
     fl, fw, fh = FRIDGE
-    fx0 = cx0 + P.BULKHEAD_D + 6
-    zf = top                       # stands on the deck (no well needed: ~500 mm clear)
+    fx0 = cx0 + P.BULKHEAD_D + 10
+    zf = P.FRIDGE_WELL_Z + 10      # stands on the two L-tracks in the well pan
     parts.append(part("fridge", "payload", box(fx0, fx0 + fl, yc - fw / 2, yc + fw / 2, zf, zf + fh).edges("|Z").fillet(25),
                       "fridge", kg=55, note="45 L loaded"))
     for k, x in enumerate((fx0 + 150, fx0 + fl - 175)):

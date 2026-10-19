@@ -1,0 +1,118 @@
+[
+ {
+  "name": "01_hero_camp",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "title": "v0.5: camp mode",
+   "labels": "tent_shell:Panther Horizon 1600:0:-40;pc_door:Rear control panel:-170:10;fridge:Fridge in the well:0:-20;ud_pass_box:Upper drawer:0:-30"
+  }
+ },
+ {
+  "name": "02_hero_camp_empty",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "hide": "payload",
+   "title": "v0.5: camp mode, slides empty",
+   "labels": "slide_power_power_pod:Power pod|sockets face up:-40:-30;slide_power_fridge_well_pan:Fridge well:0:-10;slide_driver_receivers:Covered deck + receiver grid:30:10;slide_power_cable_chain:Chain lane:0:0"
+  }
+ },
+ {
+  "name": "03_hero_travel",
+  "params": {
+   "view": "hero",
+   "state": "travel",
+   "title": "v0.5: travel mode"
+  }
+ },
+ {
+  "name": "04_tub_iso_empty",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "title": "v0.5 tub: side-mount runners under a covered deck (empty)",
+   "labels": "slide_power_fridge_well_pan:Fridge well:0:0;slide_driver_deck:Continuous ply deck|covers the runners:0:0;slide_power_cable_chain:Upright chain|outboard lane:0:-20;ud_driver_box:Upper drawer:0:-20"
+  }
+ },
+ {
+  "name": "05_tub_iso",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "title": "v0.5 tub with example load"
+  }
+ },
+ {
+  "name": "06_section",
+  "params": {
+   "view": "section",
+   "state": "travel",
+   "clipx": "1.30",
+   "title": "v0.5 section: L-angle carries the ply over the runners (deck top ~102 mm)",
+   "labels": "slide_driver_runner_b_2:Side-mount DZ9308 runner:60:40;slide_driver_deck_angle_1:L-angle over the runner:40:-40;slide_driver_deck:15 mm ply deck:0:-30;slide_power_cable_chain:Chain lane:0:-30"
+  }
+ },
+ {
+  "name": "07_plan",
+  "params": {
+   "view": "plan",
+   "state": "travel",
+   "title": "v0.5 plan (front at top, driver side right)",
+   "labels": "inverter_charger_multiplus2_3000:MultiPlus-II:0:0;battery_1:Batt 1:0:0;battery_2:Batt 2:0:0;slide_power_deck:Power slide:0:0;slide_driver_deck:Driver slide:0:0;pc_top:Control|cabinet:0:60;ut_top:Utility|drawer:0:60"
+  }
+ },
+ {
+  "name": "08_rear_panel",
+  "params": {
+   "view": "rear_panel",
+   "state": "camp",
+   "title": "v0.5 rear control panel",
+   "labels": "pc_gx_touch_50:GX Touch 50:-40:-40;pc_sw_battery:Battery isolate:60:-30;pc_sw_inverter:Inverter on/off:70:-5;pc_gpo_double:Double GPO:-40:0;pc_usbc_1:2 x dual USB-C|4 ports:70:20;pc_anderson_1:2 x Anderson:-10:30;pc_12v:12 V:60:10"
+  }
+ },
+ {
+  "name": "09_drawers",
+  "params": {
+   "view": "drawers",
+   "state": "camp",
+   "title": "v0.5 upper drawers with removable dividers",
+   "labels": "ud_pass_divider_slots:Divider slots|120 mm pitch:0:-30;ud_driver_divider_0:Lift-out dividers:0:-30;ut_drawer_box:Lower utility drawer:0:20"
+  }
+ },
+ {
+  "name": "10_slides_empty",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,tent_harness,payload",
+   "title": "v0.5 slides, empty",
+   "labels": "slide_driver_ltrack:L-track:0:-20;slide_driver_receivers:Ball-lock receivers:0:20;slide_power_fridge_well_pan:Fridge well:0:0;slide_power_leg_0:Pin-in legs:0:0"
+  }
+ },
+ {
+  "name": "11_slides_loaded",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "title": "v0.5 slides, example load"
+  }
+ },
+ {
+  "name": "12_bay",
+  "params": {
+   "view": "bay",
+   "state": "camp",
+   "title": "v0.5 battery + inverter bay"
+  }
+ },
+ {
+  "name": "13_wiring",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "title": "v0.5 wiring"
+  }
+ }
+]

@@ -1,0 +1,203 @@
+class,group,item,material,kg
+fit-out,lid,load_lid,purchased,60
+fit-out,lid,lid_destroyer_rail_1,purchased,4
+fit-out,lid,lid_destroyer_rail_-1,purchased,4
+fit-out,rack,rack_bracket_180_1,purchased,1.2
+fit-out,rack,rack_bracket_180_-1,purchased,1.2
+fit-out,rack,rack_bar_180,purchased,4.5
+fit-out,rack,rack_bracket_1080_1,purchased,1.2
+fit-out,rack,rack_bracket_1080_-1,purchased,1.2
+fit-out,rack,rack_bar_1080,purchased,4.5
+fit-out,tent,tent_shell,purchased,84
+fit-out,solar,tent_solar_backing,ACM 3,5.63
+fit-out,solar,tent_solar_1,purchased,2.0
+fit-out,solar,tent_solar_2,purchased,2.0
+fit-out,tent_services,tent_services_box,purchased,2.5
+fit-out,bay,bay_base_tray,Plate 6 5052,6.03
+fit-out,bay,bay_rear_post_-582,SHS 30x30x2 6060,0.32
+fit-out,bay,bay_rear_post_552,SHS 30x30x2 6060,0.32
+fit-out,bay,bay_rear_top,SHS 30x30x2 6060,0.67
+fit-out,electrical,inverter_charger_multiplus2_3000,purchased,20
+fit-out,bay,inverter_standoffs,Plate 4 5052,1.28
+fit-out,electrical,inverter_fan,purchased,0.3
+fit-out,bay,charge_board,Plate 6 5052,2.13
+fit-out,electrical,orion_xs_50a,purchased,0.4
+fit-out,electrical,mppt_roof_100_30,purchased,1.3
+fit-out,electrical,mppt_tent_75_15,purchased,0.5
+fit-out,batteries,battery_1,purchased,38
+fit-out,electrical,battery_1_mrbf,purchased,0.1
+fit-out,bay,battery_1_strap_156,Flat 50x6 6060,0.2
+fit-out,bay,battery_1_strap_426,Flat 50x6 6060,0.2
+fit-out,batteries,battery_2,purchased,38
+fit-out,electrical,battery_2_mrbf,purchased,0.1
+fit-out,bay,battery_2_strap_156,Flat 50x6 6060,0.2
+fit-out,bay,battery_2_strap_426,Flat 50x6 6060,0.2
+fit-out,bay,dist_board,Plate 6 5052,2.15
+fit-out,electrical,busbar_bank_pos,purchased,0.6
+fit-out,electrical,remote_battery_switch_500a,purchased,0.9
+fit-out,electrical,busbar_sys_pos,purchased,0.6
+fit-out,electrical,class_t_400a,purchased,0.5
+fit-out,electrical,busbar_bank_neg,purchased,0.6
+fit-out,electrical,smartshunt_500a,purchased,0.2
+fit-out,electrical,busbar_sys_neg,purchased,0.5
+fit-out,bay_cover,bay_guard,Sheet 1.6 5005,1.64
+fit-out,slide_p,slide_power_base_plate_-532,Plate 6 5052,1.14
+fit-out,slide_p,slide_power_base_plate_-63,Plate 6 5052,1.14
+fit-out,slide_p,slide_power_base_cross_0,Flat 50x6 6060,0.33
+fit-out,slide_p,slide_power_base_cross_1,Flat 50x6 6060,0.33
+fit-out,slide_p,slide_power_base_cross_2,Flat 50x6 6060,0.33
+fit-out,slide_p,slide_power_runner_plate_a,Plate 6 5052,1.45
+fit-out,slide_p,slide_power_runner_plate_b,Plate 6 5052,1.45
+fit-out,slide_p,slide_power_uhmw_stop_-502,UHMW 10,0.04
+fit-out,slide_p,slide_power_uhmw_stop_-73,UHMW 10,0.04
+fit-out,slide_p,slide_power_runner_a_0,purchased,2.1
+fit-out,slide_p,slide_power_runner_a_1,purchased,2.1
+fit-out,slide_p,slide_power_runner_a_2,purchased,2.1
+fit-out,slide_p,slide_power_runner_b_0,purchased,2.1
+fit-out,slide_p,slide_power_runner_b_1,purchased,2.1
+fit-out,slide_p,slide_power_runner_b_2,purchased,2.1
+fit-out,slide_p,slide_power_carr_side_0,RHS 75x25x2 6060,1.22
+fit-out,slide_p,slide_power_deck_angle_0,Angle 60x40x3 6060,0.93
+fit-out,slide_p,slide_power_carr_side_1,RHS 75x25x2 6060,1.22
+fit-out,slide_p,slide_power_deck_angle_1,Angle 60x40x3 6060,0.93
+fit-out,slide_p,slide_power_carr_cross_0,RHS 50x25x2 6060,0.33
+fit-out,slide_p,slide_power_carr_cross_3,RHS 50x25x2 6060,0.33
+fit-out,slide_p,slide_power_carr_cross_4,RHS 50x25x2 6060,0.33
+fit-out,slide_p,slide_power_deck,Ply 15 marine,2.45
+fit-out,slide_p,slide_power_edge_cap,Angle 30x30x3 6060,0.55
+fit-out,slide_p,slide_power_ltrack,L-track HD,0.23
+fit-out,slide_p,slide_power_receivers,purchased,0.36
+fit-out,slide_p,slide_power_fridge_well_pan,Plate 3 5052,0.16
+fit-out,slide_p,slide_power_well_track_-458,L-track HD,0.53
+fit-out,slide_p,slide_power_well_track_-106,L-track HD,0.53
+fit-out,slide_p,slide_power_power_pod,Plate 3 5052,0.59
+fit-out,slide_p,slide_power_gpo,purchased,0.4
+fit-out,slide_p,slide_power_anderson,purchased,0.1
+fit-out,slide_p,slide_power_12v,purchased,0.05
+fit-out,slide_p,slide_power_usbc,purchased,0.05
+fit-out,slide_p,slide_power_usbc_2,purchased,0.05
+fit-out,slide_p,slide_power_rear_plate,Plate 3 5052,0.36
+fit-out,slide_p,slide_power_handle,purchased,0.3
+fit-out,slide_p,slide_power_cable_chain,purchased,1.4
+fit-out,slide_p,slide_power_chain_bracket,Plate 3 5052,0.04
+fit-out,slide_p,slide_power_chain_trough,UHMW 10,0.28
+fit-out,slide_d,slide_driver_base_plate_3,Plate 6 5052,1.14
+fit-out,slide_d,slide_driver_base_plate_522,Plate 6 5052,1.14
+fit-out,slide_d,slide_driver_base_cross_0,Flat 50x6 6060,0.37
+fit-out,slide_d,slide_driver_base_cross_1,Flat 50x6 6060,0.37
+fit-out,slide_d,slide_driver_base_cross_2,Flat 50x6 6060,0.37
+fit-out,slide_d,slide_driver_runner_plate_a,Plate 6 5052,1.45
+fit-out,slide_d,slide_driver_runner_plate_b,Plate 6 5052,1.45
+fit-out,slide_d,slide_driver_uhmw_stop_33,UHMW 10,0.04
+fit-out,slide_d,slide_driver_uhmw_stop_512,UHMW 10,0.04
+fit-out,slide_d,slide_driver_runner_a_0,purchased,2.1
+fit-out,slide_d,slide_driver_runner_a_1,purchased,2.1
+fit-out,slide_d,slide_driver_runner_a_2,purchased,2.1
+fit-out,slide_d,slide_driver_runner_b_0,purchased,2.1
+fit-out,slide_d,slide_driver_runner_b_1,purchased,2.1
+fit-out,slide_d,slide_driver_runner_b_2,purchased,2.1
+fit-out,slide_d,slide_driver_carr_side_0,RHS 75x25x2 6060,1.22
+fit-out,slide_d,slide_driver_deck_angle_0,Angle 60x40x3 6060,0.93
+fit-out,slide_d,slide_driver_carr_side_1,RHS 75x25x2 6060,1.22
+fit-out,slide_d,slide_driver_deck_angle_1,Angle 60x40x3 6060,0.93
+fit-out,slide_d,slide_driver_carr_cross_0,RHS 50x25x2 6060,0.36
+fit-out,slide_d,slide_driver_carr_cross_1,RHS 50x25x2 6060,0.36
+fit-out,slide_d,slide_driver_carr_cross_2,RHS 50x25x2 6060,0.36
+fit-out,slide_d,slide_driver_carr_cross_3,RHS 50x25x2 6060,0.36
+fit-out,slide_d,slide_driver_carr_cross_4,RHS 50x25x2 6060,0.36
+fit-out,slide_d,slide_driver_deck,Ply 15 marine,5.53
+fit-out,slide_d,slide_driver_edge_cap,Angle 30x30x3 6060,0.55
+fit-out,slide_d,slide_driver_ltrack,L-track HD,0.86
+fit-out,slide_d,slide_driver_receivers,purchased,1.32
+fit-out,slide_d,slide_driver_rear_plate,Plate 3 5052,0.39
+fit-out,slide_d,slide_driver_handle,purchased,0.3
+fit-out,power_cabinet,pc_inner_wall,Ply 12 marine,1.08
+fit-out,power_cabinet,pc_front,Ply 12 marine,0.36
+fit-out,power_cabinet,pc_top,Ply 12 marine,0.72
+fit-out,power_cabinet,pc_bottom,Ply 12 marine,0.66
+fit-out,power_cabinet,pc_door,Plate 3 5052,0.41
+fit-out,power_cabinet,pc_door_hinge,purchased,0.1
+fit-out,power_cabinet,pc_gx_touch_50,purchased,0.3
+fit-out,power_cabinet,pc_sw_battery,purchased,0.05
+fit-out,power_cabinet,pc_sw_inverter,purchased,0.05
+fit-out,power_cabinet,pc_gpo_double,purchased,0.5
+fit-out,power_cabinet,pc_usbc_1,purchased,0.05
+fit-out,power_cabinet,pc_usbc_2,purchased,0.05
+fit-out,power_cabinet,pc_anderson_1,purchased,0.1
+fit-out,power_cabinet,pc_anderson_2,purchased,0.1
+fit-out,power_cabinet,pc_12v,purchased,0.05
+fit-out,electrical,pc_rcbo_enclosure,purchased,1.2
+fit-out,electrical,dc_fuse_block,purchased,0.6
+fit-out,electrical,cerbo_gx,purchased,0.4
+fit-out,power_cabinet,ud_pass_floor,Ply 9 marine,1.51
+fit-out,power_cabinet,ud_pass_inner_wall,Ply 12 marine,2.16
+fit-out,power_cabinet,ud_pass_runner_panel,Ply 9 marine,1.63
+fit-out,power_cabinet,ud_pass_box,Ply 9 marine,0.29
+fit-out,power_cabinet,ud_pass_divider_slots,purchased,0.88
+fit-out,power_cabinet,ud_pass_divider_0,Ply 9 marine,0.09
+fit-out,power_cabinet,ud_pass_divider_1,Ply 9 marine,0.09
+fit-out,power_cabinet,ud_pass_divider_2,Ply 9 marine,0.09
+fit-out,power_cabinet,ud_pass_front,Plate 3 5052,0.22
+fit-out,power_cabinet,ud_pass_pull,purchased,0.1
+fit-out,power_cabinet,ud_pass_runner_0,purchased,1.6
+fit-out,power_cabinet,ud_pass_runner_1,purchased,1.6
+fit-out,power_cabinet,cable_tray,Plate 3 5052,0.16
+fit-out,utility,ut_inner_wall,Ply 12 marine,1.28
+fit-out,utility,ut_front,Ply 12 marine,0.36
+fit-out,utility,ut_top,Ply 12 marine,0.85
+fit-out,utility,ut_drawer_box,Ply 9 marine,0.14
+fit-out,utility,ut_drawer_front,Plate 3 5052,0.37
+fit-out,utility,ut_drawer_pull,purchased,0.1
+fit-out,utility,ut_drawer_divider,Ply 9 marine,0.15
+fit-out,utility,ut_drawer_runner_0,purchased,1.0
+fit-out,utility,ut_drawer_runner_1,purchased,1.0
+fit-out,utility,ud_driver_floor,Ply 9 marine,1.51
+fit-out,utility,ud_driver_inner_wall,Ply 12 marine,2.16
+fit-out,utility,ud_driver_runner_panel,Ply 9 marine,1.63
+fit-out,utility,ud_driver_box,Ply 9 marine,0.26
+fit-out,utility,ud_driver_divider_slots,purchased,0.88
+fit-out,utility,ud_driver_divider_0,Ply 9 marine,0.11
+fit-out,utility,ud_driver_divider_1,Ply 9 marine,0.11
+fit-out,utility,ud_driver_divider_2,Ply 9 marine,0.11
+fit-out,utility,ud_driver_front,Plate 3 5052,0.26
+fit-out,utility,ud_driver_pull,purchased,0.1
+fit-out,utility,ud_driver_runner_0,purchased,1.6
+fit-out,utility,ud_driver_runner_1,purchased,1.6
+payload (example),payload,ud_strap_roll_0,purchased,0.6
+payload (example),payload,ud_strap_roll_1,purchased,0.6
+payload (example),payload,ud_strap_roll_2,purchased,0.6
+fit-out,roof,plat_side_-725,purchased,9.0
+fit-out,roof,plat_side_685,purchased,9.0
+fit-out,roof,plat_end_-1750,purchased,2.5
+fit-out,roof,plat_end_-190,purchased,2.5
+fit-out,roof,plat_spine,purchased,2.0
+fit-out,roof,plat_fairing,purchased,2.5
+fit-out,roof,light_bar,purchased,3.0
+fit-out,roof,plat_mount_-1530_1,purchased,0.8
+fit-out,roof,plat_mount_-1530_-1,purchased,0.8
+fit-out,roof,plat_mount_-410_1,purchased,0.8
+fit-out,roof,plat_mount_-410_-1,purchased,0.8
+fit-out,solar,roof_solar_190w,purchased,10.5
+fit-out,solar,roof_solar_130w,purchased,7.1
+fit-out,roof,starlink_bracket,Plate 4 5052,1.88
+fit-out,roof,starlink_mini,purchased,1.16
+fit-out,cargo,cargo_riser_-1490_1,purchased,0.6
+fit-out,cargo,cargo_riser_-1490_-1,purchased,0.6
+fit-out,cargo,cargo_bar_-1490,purchased,3.0
+fit-out,cargo,cargo_riser_-700_1,purchased,0.6
+fit-out,cargo,cargo_riser_-700_-1,purchased,0.6
+fit-out,cargo,cargo_bar_-700,purchased,3.0
+payload (example),payload,fridge,purchased,55
+payload (example),payload,microwave,purchased,11
+payload (example),payload,microwave_base_pin_0,purchased,0.05
+payload (example),payload,microwave_base_pin_1,purchased,0.05
+payload (example),payload,microwave_base_pin_2,purchased,0.05
+payload (example),payload,microwave_base_pin_3,purchased,0.05
+payload (example),payload,drawer_module,purchased,18
+payload (example),payload,drawer_module_pin_0,purchased,0.05
+payload (example),payload,drawer_module_pin_1,purchased,0.05
+payload (example),payload,drawer_module_pin_2,purchased,0.05
+payload (example),payload,drawer_module_pin_3,purchased,0.05
+payload (example),payload,food_crate,purchased,22
+fit-out,electrical,gap_junction_box,purchased,1.8
+fit-out,wiring,all cables (from schedule),cable,19.5
