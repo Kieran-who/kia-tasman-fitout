@@ -129,11 +129,13 @@ def cables():
     L.append(Cable("INVN", "Inverter -", "System - busbar", "MultiPlus-II DC -", "50", "2 x 50 mm2 tinned, black", "-", "w_neg",
                    ["bus_sys_neg", (A["inv_dc_neg"][0], A["bus_sys_neg"][1] + 5, A["inv_dc_neg"][2]), "inv_dc_neg"]))
     # ------------------------------------------------ charging board (front wall) <-> system busbars (short, inside the bay)
-    for cid, src, size, spec, prot in (("ORO", "orion_xs_50a", "16", "16 mm2 twin", "MIDI 70 A"),
-                                       ("MPR", "mppt_roof_100_30", "16", "16 mm2 twin", "MIDI 40 A"),
-                                       ("MPT", "mppt_tent_75_15", "6", "6 mm2 twin", "MIDI 20 A")):
+    for cid, src, term, fuse, size, spec, prot in (("ORO", "orion_xs_50a", "orion_out", "midi_orion", "16", "16 mm2 twin", "MIDI 70 A"),
+                                                   ("MPR", "mppt_roof_100_30", "mppt_roof_bat", "midi_mppt_roof", "16", "16 mm2 twin", "MIDI 40 A"),
+                                                   ("MPT", "mppt_tent_75_15", "mppt_tent_bat", "midi_mppt_tent", "6", "6 mm2 twin", "MIDI 20 A")):
+        t = A.get(term, A[src])
+        f = A.get(fuse, A["midi_fuses"])
         L.append(Cable(cid, "Charging output", src.replace("_", " "), "System +/- busbars (MIDI fuse)", size, spec, prot, "w_pos",
-                       [src, (A[src][0] + 30, A[src][1], 150), (220, A["midi_fuses"][1] + 30, 150), "midi_fuses"]))
+                       [t, (t[0] + 30, t[1], 150), (f[0], f[1] + 30, 150), f]))
     # ------------------------------------------------ bay -> rear control cabinet
     L.append(Cable("DCF", "DC distribution", "System + busbar (MEGA 100 A)", "Rear DC fuse block", "25", "25 mm2 twin (red/black)", "MEGA 100 A",
                    "w_pos", ["midi_fuses"] + BAY_TO_CAB + ["dc_fuse_block"]))
@@ -166,13 +168,13 @@ def cables():
                    ["dc_fuse_block", "cab_in", "drop_gland"] + to_gap, notes="detaches at the gap junction"))
     # ------------------------------------------------ charging inputs (enter via the gland, run to the front-wall board)
     L.append(Cable("ALT", "Alternator charge", "Start battery (60 A MIDI)", "Orion XS input", "25", "25 mm2 twin (+/-), tinned", "60 A at start battery",
-                   "w_pos", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY + [_up("orion_xs_50a"), "orion_xs_50a"],
+                   "w_pos", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY + [_up("orion_xs_50a"), A.get("orion_in", A["orion_xs_50a"])],
                    notes="Orion XS input limit 25-30 A until the alternator rating is known"))
     L.append(Cable("PVR", "Roof PV", "Roof panels (parallel, MC4 Y-branch)", "MPPT 100/30 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
                    ["roof_pv", "roof_drop", "gap_high", "junction_top", "junction_bot", "gap_low", "chassis_gap"] + IN + GLAND_TO_BAY +
-                   [_up("mppt_roof_100_30"), "mppt_roof_100_30"]))
+                   [_up("mppt_roof_100_30"), A.get("mppt_roof_pv", A["mppt_roof_100_30"])]))
     L.append(Cable("PVT", "Tent PV", "Gap junction (from tent panels)", "MPPT 75/15 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
-                   from_gap + GLAND_TO_BAY + [_up("mppt_tent_75_15"), "mppt_tent_75_15"], notes="detaches at the gap junction"))
+                   from_gap + GLAND_TO_BAY + [_up("mppt_tent_75_15"), A.get("mppt_tent_pv", A["mppt_tent_75_15"])], notes="detaches at the gap junction"))
     # ------------------------------------------------ control + comms (rear panel <-> bay)
     L.append(Cable("SW1", "Battery switch control", "Rear panel ML-RBS switch (Blue Sea 2155)", "ML-RBS control harness", "data",
                    "4-core 1.0 mm2 (+12 V feed, control, LED, ground)", "2 A inline at bank + (RBF)", "w_data",
@@ -195,10 +197,10 @@ def cables():
     L.append(Cable("CHB", "Chassis bond", "System - busbar", "Chassis rail bond point", "25", "25 mm2 black", "-", "w_neg",
                    ["bus_sys_neg", "dist_top"] + list(reversed(GLAND_TO_BAY)) + OUT, notes="single DC-negative / PE bond to the vehicle chassis"))
     L.append(Cable("SW2", "Inverter remote on/off", "Rear panel switch", "MultiPlus-II remote terminals", "data", "2-core 0.75 mm2", "-", "w_data",
-                   ["pc_sw_inverter", "cab_in"] + CAB_TO_BAY + ["inv_comms"]))
+                   ["pc_sw_inverter", "cab_in"] + CAB_TO_BAY + [A.get("inv_remote", A["inv_comms"])]))
     L.append(Cable("D1", "VE.Bus", "Cerbo GX", "MultiPlus-II", "data", "RJ45 VE.Bus cable", "-", "w_data", ["cerbo"] + CAB_TO_BAY + ["inv_comms"]))
     L.append(Cable("D2", "VE.Direct", "Cerbo GX VE.Direct 1-3", "SmartShunt / MPPT 100/30 / MPPT 75/15", "data", "VE.Direct cables x3", "-", "w_data",
-                   ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_30", 8), "mppt_roof_100_30"]))
+                   ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_30", 8), "mppt_roof_100_30", A.get("shunt_vedirect", A["shunt"])]))
     L.append(Cable("D4", "VE.Direct", "Cerbo GX USB", "Orion XS VE.Direct", "data", "VE.Direct to USB interface", "-", "w_data",
                    ["cerbo"] + CAB_TO_BAY + [_up("orion_xs_50a", 8), "orion_xs_50a"], notes="Cerbo GX MK2 has only 3 VE.Direct ports"))
     L.append(Cable("D3", "Display", "Cerbo GX (HDMI + USB)", "GX Touch 50", "data", "GX Touch cable (HDMI + USB)", "-", "w_data", ["cerbo", "pc_gx_touch_50"]))
