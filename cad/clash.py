@@ -7,6 +7,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fitout import assembly  # noqa: E402
 
 SKIP_GROUPS = {"markers", "future"}
+# alternatives that never coexist (filler replaces the fridge; example modules replace the example payload)
+EXCLUSIVE = [{"well_filler", "payload"}, {"modules", "payload"}]
 SKIP_NAMES = ("_pin_", "receiver", "ltrack_pockets", "_band", "strap", "cab_body", "cab_glass", "wheel_", "chassis_rail",
               "tub_underside", "tub_skin", "rear_bumper", "roof_rail", "tub_rail", "tub_floor")
 # intentional contacts (mounted to / sitting in each other)
@@ -17,7 +19,7 @@ ALLOW = [("_deck", "_ltrack"), ("_deck", "_receiver"), ("bulkhead", "_gpo"), ("b
          ("_side_angle", "_base_"), ("_carr_cross", "_deck"), ("isolator", "isolator"), ("quattro", "inverter"),
          ("charge_board", "charge_board"), ("ut_", "ut_"), ("_leg_", "_leg_"), ("plat_fairing", "light_bar"),
          ("_rear_plate", "_carr_side"), ("_rear_plate", "_handle"), ("_deck", "_handle"), ("cable_chain", "chain_trough"),
-         ("_runner_plate", "_base_plate"), ("_base_cross", "_base_plate"), ("pc_outlet_panel", "pc_"), ("_well_track", "fridge"), ("power_pod", "_gpo"), ("power_pod", "_anderson"), ("power_pod", "_12v"), ("power_pod", "_usbc"), ("_deck", "_edge_cap"), ("_deck", "_wear_strip"), ("_edge_cap", "_wear_strip"), ("_deck", "_handle"), ("_edge_cap", "_handle"), ("_roller_bracket", "_roller_"), ("_base_bar", "_base_tie"), ("_rail_", "_rail_"), ("_rail_", "_base_bar"), ("divider_slots", "divider_"), ("ud_", "ud_"), ("power_pod", "_deck"), ("power_pod", "_edge_cap"), ("microwave", "microwave_door"), ("_front", "_pull"), ("bed_hook", "ud_")]
+         ("_runner_plate", "_base_plate"), ("_base_cross", "_base_plate"), ("pc_outlet_panel", "pc_"), ("_well_track", "fridge"), ("power_pod", "_gpo"), ("power_pod", "_anderson"), ("power_pod", "_12v"), ("power_pod", "_usbc"), ("_deck", "_edge_cap"), ("_deck", "_wear_strip"), ("_edge_cap", "_wear_strip"), ("_deck", "_handle"), ("_edge_cap", "_handle"), ("_roller_bracket", "_roller_"), ("_base_bar", "_base_tie"), ("_rail_", "_rail_"), ("_rail_", "_base_bar"), ("divider_slots", "divider_"), ("ud_", "ud_"), ("power_pod", "_deck"), ("power_pod", "_edge_cap"), ("microwave", "microwave_door"), ("_front", "_pull"), ("bed_hook", "ud_"), ("_fence_", "_fence_"), ("_divider_foot", "_divider_wall"), ("_filler_", "_filler_"), ("_filler_riser", "_well_track")]
 
 
 def allowed(a, b):
@@ -34,7 +36,7 @@ def run(state):
         ba, bb = boxes[i], boxes[j]
         if ba.xmax < bb.xmin or bb.xmax < ba.xmin or ba.ymax < bb.ymin or bb.ymax < ba.ymin or ba.zmax < bb.zmin or bb.zmax < ba.zmin:
             continue
-        if allowed(a.name, b.name):
+        if allowed(a.name, b.name) or {a.group, b.group} in EXCLUSIVE:
             continue
         try:
             v = a.shape.intersect(b.shape).Volume()

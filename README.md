@@ -2,14 +2,14 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.5.** See [`docs/v0.5-concept.md`](docs/v0.5-concept.md). Earlier versions: [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.6.** See [`docs/v0.6-concept.md`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences). Earlier versions: [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.5/01_hero_camp.png)
+![Camp mode](renders/v0.6/01_hero_camp.png)
 
 | | |
 |---|---|
-| ![Camp, slides empty](renders/v0.5/02_hero_camp_empty.png) | ![Tub, under-mount slides](renders/v0.5/04_tub_iso_empty.png) |
-| ![Section through the slides](renders/v0.5/06_section.png) | ![Plan](renders/v0.5/07_plan.png) |
+| ![Receiver grid to the edges](renders/v0.6/02_tub_iso_empty.png) | ![Well filler fitted](renders/v0.6/03_tub_iso_filler.png) |
+| ![Flush edge fences](renders/v0.6/04_tub_iso_fences.png) | ![Edge pin section](renders/v0.6/08b_section_edge.png) |
 | ![Rear control panel](renders/v0.5/08_rear_panel.png) | ![Drawers with removable dividers](renders/v0.5/09_drawers.png) |
 
 ## Repository layout
@@ -17,12 +17,13 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.5-concept.md` | Current slides: side-mount runners under a covered continuous deck |
+| `docs/v0.6-concept.md` | Current: receiver grid to the deck edges, removable fridge-well filler, flush edge fences |
+| `docs/v0.5-concept.md` | Slides: side-mount runners under a covered continuous deck (still current) |
 | `docs/v0.4-concept.md` | Charging rationale, rear panel, dividers (still current); under-mount slides (dropped) |
 | `docs/v0.3-concept.md` | Battery configuration and tailgate-only access (still current) |
 | `docs/research-notes.md` | Sourced dimensions and specs |
 | `cad/params.py` | **Every dimension in one place.** Each is flagged `[PUB]` (published), `[EST]` (estimate, measure it), `[DES]` (design choice) or `[CONFIRM]` |
-| `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `modules` (example payload), `wiring` (routed cables + schedule) |
+| `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `modules` (example payload + example edge fences), `wiring` (routed cables + schedule) |
 | `cad/build.py` | Builds both states. Exports the GLB viewer models, `cad/out/fitout_fab.step` and `cad/out/summary.json`, and generates the BOM CSVs |
 | `cad/clash.py` | Interference check between all solid parts (travel + camp states) |
 | `bom/weight-budget-<ver>.csv` | Mass of every part (fit-out vs example payload) |
@@ -46,7 +47,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 python3 -m venv .venv && .venv/bin/pip install -r cad/requirements.txt
 cd cad && ../.venv/bin/python build.py      # model -> GLB + STEP + summary + BOM CSVs
 ../.venv/bin/python clash.py                 # interference check
-cd ../tools/render && npm install && node render.mjs shots_v0.5.json ../../renders/v0.5
+cd ../tools/render && npm install && node render.mjs shots_v0.6.json ../../renders/v0.6
 ```
 
 Change a number in `cad/params.py`, rebuild, re-check and re-render. Every part, cable length and weight follows.

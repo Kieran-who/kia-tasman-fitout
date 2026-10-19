@@ -30,22 +30,39 @@ def carriage_extent(side):
     return ya + m, yb - m
 
 
-def _receivers(nm, g, x0, x1, y0, y1, yc, top, skip=None):
-    pitch = P.RECEIVER_PITCH
-    ny = int((y1 - y0 - 80) // pitch)
-    nx = int((x1 - x0 - 80) // pitch)
-    gx0 = x0 + ((x1 - x0) - nx * pitch) / 2
-    recs, bores = [], []
-    for i in range(nx + 1):
-        for j in range(ny + 1):
-            x = gx0 + i * pitch
-            y = yc - ny * pitch / 2 + j * pitch
-            if abs(y - yc) < 45 or (skip and skip[0][0] - 20 < x < skip[0][1] + 20 and skip[1][0] - 20 < y < skip[1][1] + 20):
-                continue
-            recs.append(ring(P.RECEIVER_D / 2, 4.2, 2.2, (x, y, top - 1)))
-            bores.append(cyl(4.2, 2.4, (x, y, top - 1)))
-    return [part(f"{nm}_receivers", g, union_all(recs), "receiver", kg=0.03 * len(recs), n_receivers=len(recs)),
-            part(f"{nm}_receiver_bores", g, union_all(bores), "hole")]
+def grid_positions(cx0, cx1, ya, yb, power):
+    """Ball-lock receiver positions.
+    Y: edge rows over the moving side members (37.6 mm in from each edge, the pin tip sits inside the RHS) +
+       interior rows at 100 mm pitch centred on the L-track (same on both slides, so modules swap sides).
+    X: front/rear edge rows over the end cross members + 100 mm pitch between them."""
+    yc = (ya + yb) / 2
+    e = P.SIDE_PLATE_T + P.RUNNER_T + 1 + 12.5
+    ys = [ya + e, yb - e]
+    k = 0
+    while True:
+        d = 50 + 100 * k
+        if d > (yb - ya) / 2 - e - 60:
+            break
+        ys += [yc - d, yc + d]
+        k += 1
+    x_first = cx0 + (P.BULKHEAD_D + 65 if power else P.RECEIVER_EDGE_X)
+    x_last = cx1 - P.RECEIVER_EDGE_X
+    xs = []
+    x = x_first
+    while x < x_last - 60:
+        xs.append(x)
+        x += P.RECEIVER_PITCH
+    xs.append(x_last)
+    return [(x, y) for x in xs for y in sorted(ys)]
+
+
+def _receiver_parts(name, g, pts, top):
+    recs = [ring(P.RECEIVER_D / 2, 4.2, 2.2, (x, y, top - 1)) for x, y in pts]
+    bores = [cyl(4.2, 2.4, (x, y, top - 1)) for x, y in pts]
+    if not recs:
+        return []
+    return [part(f"{name}_receivers", g, union_all(recs), "receiver", kg=0.03 * len(recs), n_receivers=len(recs)),
+            part(f"{name}_receiver_bores", g, union_all(bores), "hole")]
 
 
 def slide(side: str, ext: float, power: bool):
@@ -113,8 +130,12 @@ def slide(side: str, ext: float, power: bool):
     parts.append(part(f"{nm}_ltrack", g, track, "ltrack", fab=True, mat="L-track HD"))
     holes = union_all(cyl(6, 3, (tx0 + 30 + i * 25.4, yc, top - 0.5)) for i in range(int((cx1 - tx0 - 60) / 25.4)))
     parts.append(part(f"{nm}_ltrack_pockets", g, holes, "hole"))
-    rx0 = cx0 + (P.BULKHEAD_D if power else 0)
-    parts += _receivers(nm, g, rx0, cx1, ya, yb, yc, top, skip=well)
+    pts = grid_positions(cx0, cx1, ya, yb, power)
+    if well:
+        (wx0, wx1), (wy0, wy1) = well
+        in_well = [(x, y) for x, y in pts if wx0 < x < wx1 and wy0 < y < wy1]
+        pts = [q for q in pts if q not in in_well]
+    parts += _receiver_parts(nm, g, pts, top)
     if power:
         (wx0, wx1), (wy0, wy1) = well
         zf = P.FRIDGE_WELL_Z
@@ -127,6 +148,18 @@ def slide(side: str, ext: float, power: bool):
         for yy in (wy0 + 20, wy1 - 50):      # tie-down L-track on the pan floor for the fridge straps
             parts.append(part(f"{nm}_well_track_{int(yy)}", g, box(wx0 + 30, wx1 - 30, yy, yy + 30, zf, zf + 10), "ltrack",
                               fab=True, mat="L-track HD"))
+        # removable well filler: 15 mm ply panel on two 18 mm ply risers that stud into the pan L-tracks,
+        # flush with the deck and carrying the same receiver grid + L-track (fridge out = full flat slide)
+        fg = "well_filler"
+        fz0 = zf + 10                                    # top of the pan L-tracks
+        parts.append(part(f"{nm}_filler_panel", fg, box(wx0 + 4, wx1 - 4, wy0 + 4, wy1 - 4, zb, top).cut(
+            box(wx0, wx1, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top + 1)), "ply", fab=True, mat="Ply 15 marine"))
+        for k, yy in enumerate((wy0 + 26, wy1 - 44)):
+            parts.append(part(f"{nm}_filler_riser_{k}", fg, box(wx0 + 30, wx1 - 30, yy, yy + 18, fz0, zb), "ply_edge", fab=True, mat="Ply 18 marine"))
+        ftrack = box(wx0 + 15, wx1 - 15, yc - P.LTRACK_W / 2, yc + P.LTRACK_W / 2, top - P.LTRACK_H, top).cut(
+            box(wx0 + 10, wx1 - 10, yc - 6, yc + 6, top - 6, top + 1))
+        parts.append(part(f"{nm}_filler_ltrack", fg, ftrack, "ltrack", fab=True, mat="L-track HD"))
+        parts += _receiver_parts(f"{nm}_filler", fg, in_well, top)
         # power pod at the very front: sockets face UP so plugs never foul the fridge
         pw0, pw1 = ya + 20, yb - 20
         pz = top + 150

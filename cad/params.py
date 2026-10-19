@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.5"
+VERSION = "v0.6"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -128,7 +128,8 @@ DECK_BOT_Z = BASE_T + RUNNER_H + DECK_CLEAR + LIP_T   # 87.2
 DECK_TOP_Z = DECK_BOT_Z + DECK_T                      # ~102
 SLIDE_EXT = RUNNER_LEN
 LTRACK_W, LTRACK_H = 35, 13                 # [PUB] heavy-duty airline track
-RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid
+RECEIVER_PITCH = 100                        # [DES] ball-lock receiver grid (interior)
+RECEIVER_EDGE_X = 35                        # [DES] front/rear edge rows over the end cross members
 RECEIVER_D = 22                             # [DES] flanged stainless bush OD (8 mm ball-lock pin)
 LEG_INSET = 45                              # removable pin-in legs (stored in the lower utility drawer)
 MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)

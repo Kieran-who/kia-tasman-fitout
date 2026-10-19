@@ -38,7 +38,9 @@ V = P.VERSION
 TO_GL = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1]], dtype=float)
 TO_GL[:3, :3] *= 0.001
 METAL = {"alu", "alu_dark", "runner", "ltrack", "solar_frame", "copper", "receiver"}
-NOT_FITOUT = {"vehicle", "markers", "future", "payload"}
+NOT_FITOUT = {"vehicle", "markers", "future", "payload", "well_filler", "modules"}
+# alternatives modelled for comparison: not counted in the fit-out or payload totals
+OPTIONS = {"well_filler": "option: well filler (no fridge)", "modules": "option: example edge modules"}
 
 
 def material(rgba, metal=False):
@@ -108,7 +110,7 @@ def weight_budget(parts):
         m = p.mass
         if m <= 0:
             continue
-        cls = "payload (example)" if p.group == "payload" else "fit-out"
+        cls = OPTIONS.get(p.group) or ("payload (example)" if p.group == "payload" else "fit-out")
         rows.append([cls, p.group, p.name, p.mat or "purchased", round(m, 2)])
         by_group[(cls, p.group)] += m
     # cable mass from the schedule (approx kg/m by size)
@@ -164,7 +166,7 @@ def axle_loads(parts):
         return m * (1 - r), m * r
     out = defaultdict(lambda: [0.0, 0.0])
     for p in parts:
-        if p.group in ("vehicle", "markers", "future") or p.tube or p.mass <= 0:
+        if p.group in ("vehicle", "markers", "future") or p.group in OPTIONS or p.tube or p.mass <= 0:
             continue
         bb = p.shape.BoundingBox()
         f, r = split(p.mass, (bb.xmin + bb.xmax) / 2)
@@ -193,10 +195,11 @@ if __name__ == "__main__":
     write_csv(f"weight-budget-{V}.csv", ["class", "group", "item", "material", "kg"], rows)
     stock = cut_list(travel)
     fit = sum(v for (c, g), v in by_group.items() if c == "fit-out")
-    pay = sum(v for (c, g), v in by_group.items() if c != "fit-out")
+    pay = sum(v for (c, g), v in by_group.items() if c == "payload (example)")
+    opts = {c: round(sum(v for (c2, g), v in by_group.items() if c2 == c), 1) for c in OPTIONS.values()}
     summary = dict(
         version=V,
-        fitout_kg=round(fit, 1), example_payload_kg=round(pay, 1),
+        fitout_kg=round(fit, 1), example_payload_kg=round(pay, 1), options_kg=opts,
         by_group_kg={g: round(v, 1) for (c, g), v in sorted(by_group.items())},
         slide_deck_top_z=round(P.DECK_TOP_Z, 1), clear_above_deck=round(P.UNDER_LID_Z - P.DECK_TOP_Z, 1),
         deck_widths=[round(abs(b - a), 1) for a, b in (slide_extent('p'), slide_extent('d'))], slide_length=P.SLIDE_L, slide_travel=P.SLIDE_EXT,

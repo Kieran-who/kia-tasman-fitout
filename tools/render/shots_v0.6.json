@@ -1,0 +1,105 @@
+[
+ {
+  "name": "01_hero_camp",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "title": "v0.6: camp mode (fridge installed)",
+   "labels": "tent_shell:Panther Horizon 1600:0:-40;pc_door:Rear control panel:-170:10;fridge:Fridge in the well:0:-20;ud_pass_box:Upper drawer:0:-30"
+  }
+ },
+ {
+  "name": "02_tub_iso_empty",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "title": "v0.6: receiver grid now runs to the deck edges (fridge well empty)",
+   "labels": "slide_driver_receivers:Edge rows 37.6 mm in|over the side members:0:-20;slide_power_fridge_well_pan:Fridge well:0:0;slide_power_cable_chain:Chain lane:0:-20"
+  }
+ },
+ {
+  "name": "03_tub_iso_filler",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "show": "well_filler",
+   "title": "v0.6: well filler fitted (no fridge) - one flush surface",
+   "labels": "slide_power_filler_panel:Removable well filler|15 mm ply, same grid:0:-20;slide_driver_deck:Driver deck:0:0"
+  }
+ },
+ {
+  "name": "04_tub_iso_fences",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload",
+   "show": "well_filler,modules",
+   "title": "v0.6: example flush edge fences + cross dividers",
+   "labels": "d_fence_out_wall:Edge fence|flush with the deck edge:0:-30;d_divider_wall:Cross divider:0:-20;p_fence_in_wall:Fences on the filler:0:-30"
+  }
+ },
+ {
+  "name": "05_plan_empty",
+  "params": {
+   "view": "plan",
+   "state": "travel",
+   "title": "v0.6 plan, stowed, empty: edge rows on both decks (front at top, driver side right)",
+   "labels": "slide_power_fridge_well_pan:Fridge well:0:0;slide_driver_ltrack:L-track:40:0"
+  }
+ },
+ {
+  "name": "06_plan_filler_fences",
+  "params": {
+   "view": "plan",
+   "state": "travel",
+   "show": "well_filler,modules",
+   "title": "v0.6 plan: filler + edge fences",
+   "labels": "slide_power_filler_panel:Well filler:0:0;d_divider_wall:Cross divider:0:-14;p_divider_wall:Cross divider:0:-14"
+  }
+ },
+ {
+  "name": "07_edge_closeup",
+  "params": {
+   "view": "tub_iso",
+   "state": "camp",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,bay_cover,tent_harness,payload,utility",
+   "show": "modules",
+   "cam": "2.75,0.42,-0.95,2.15,0.1,-0.45,30",
+   "title": "v0.6 close-up: fence wall flush with the deck edge, foot pins in the edge row",
+   "labels": "d_fence_out_wall:12 mm ply wall|flush with the edge:0:-30;d_fence_out_foot:60 x 6 foot|pins at 37.6 mm:0:20;slide_driver_receivers:Receivers:0:30"
+  }
+ },
+ {
+  "name": "08_section",
+  "params": {
+   "view": "section",
+   "state": "travel",
+   "clipx": "0.765",
+   "show": "well_filler,modules",
+   "title": "v0.6 section: edge pins land inside the side members; filler sits on risers in the well",
+   "labels": "slide_power_filler_riser_0:18 mm risers|on the well L-tracks:-40:40;slide_power_filler_panel:Filler panel:0:-30;d_fence_out_wall:Edge fence:-40:-60"
+  }
+ },
+ {
+  "name": "08b_section_edge",
+  "params": {
+   "view": "section",
+   "state": "travel",
+   "clipx": "0.765",
+   "show": "well_filler,modules",
+   "cam": "1.25,0.21,-0.34,0.765,0.1,-0.53,30",
+   "title": "v0.6 section close-up: edge fence (wall flush with the deck edge, 60 x 6 foot) pinned into the RHS side member",
+   "labels": "d_fence_out_pin_2:8 mm ball-lock pin|through deck + L-angle, balls lock under the RHS top wall:-230:-30"
+  }
+ },
+ {
+  "name": "09_slides_loaded",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "title": "v0.6 slides, example load"
+  }
+ }
+]

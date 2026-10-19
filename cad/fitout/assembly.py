@@ -22,6 +22,7 @@ def build(state="camp"):
     parts += side_bays.driver(drawer_out=420 if camp else 0, upper_out=P.UPPER_DRAWER_TRAVEL * 0.6 if camp else 0)
     parts += roof.roof()
     parts += modules.payload(ext_p, ext_d)
+    parts += modules.edge_modules(ext_p, ext_d)
     wparts, cables = wiring.build()
     parts += wparts
     return parts, cables

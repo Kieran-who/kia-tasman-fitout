@@ -63,8 +63,10 @@ const GROUP_NAMES = {
   batteries:'Batteries', electrical:'Electrical components', wiring:'Wiring (vehicle)', tent_harness:'Wiring (tent, detachable)',
   slide_p:'Slide – power side', slide_d:'Slide – driver side', power_cabinet:'Power cabinet + charging board',
   utility:'Utility storage (driver side)', payload:'Example payload', roof:'Roof platform', solar:'Solar panels',
-  cargo:'Cargo bars', markers:'Markers'
+  cargo:'Cargo bars', markers:'Markers', well_filler:'Fridge-well filler (no fridge)', modules:'Example modules (edge dividers)'
 };
+// groups that start hidden (alternatives to what is shown by default)
+const DEFAULT_OFF = ['well_filler', 'modules'];
 
 // camera presets: [position], [target], options  (GL frame: x = rearward, y = up, z = passenger side)
 const VIEWS = {
@@ -153,8 +155,8 @@ function setView(key) {
   camera.position.set(...v.pos); controls.target.set(...v.tgt);
   camera.updateProjectionMatrix(); controls.update();
   setGhost(v.ghost || []);
-  if (v.hide) { for (const g in groups) groups[g] = !v.hide.includes(g); applyVisibility(); syncLayerUI(); }
-  else { for (const g in groups) groups[g] = true; applyVisibility(); syncLayerUI(); }
+  for (const g in groups) groups[g] = !(v.hide || []).includes(g) && (!DEFAULT_OFF.includes(g) || (v.show || []).includes(g));
+  applyVisibility(); syncLayerUI();
 }
 
 function setGhost(list) {
@@ -177,7 +179,7 @@ function buildUI(root) {
   root.traverse(o => { if (o.name && o.name.includes('__')) seen.add(groupOf(o.name)); });
   const layers = document.getElementById('layers'); layers.innerHTML = '';
   for (const g of Object.keys(GROUP_NAMES).filter(g => seen.has(g))) {
-    if (!(g in groups)) groups[g] = true;
+    if (!(g in groups)) groups[g] = !DEFAULT_OFF.includes(g);
     const l = document.createElement('label');
     l.innerHTML = `<input type="checkbox" data-g="${g}" ${groups[g] ? 'checked' : ''}> ${GROUP_NAMES[g]}`;
     l.querySelector('input').onchange = e => { groups[g] = e.target.checked; applyVisibility(); };
@@ -226,6 +228,10 @@ addEventListener('resize', resize);
   buildUI(root);
   resize();
   setView(q.get('view') || 'hero');
+  // custom camera: ?cam=px,py,pz,tx,ty,tz[,fov]  (GL metres)
+  if (q.get('cam')) { const c = q.get('cam').split(',').map(Number);
+    camera.position.set(c[0], c[1], c[2]); controls.target.set(c[3], c[4], c[5]); if (c[6]) camera.fov = c[6];
+    camera.updateProjectionMatrix(); controls.update(); }
   if (q.get('hide')) { for (const g of q.get('hide').split(',')) groups[g] = false; applyVisibility(); syncLayerUI(); }
   if (q.get('clipx')) { renderer.clippingPlanes = [new THREE.Plane(new THREE.Vector3(-1, 0, 0), +q.get('clipx'))];
     root.traverse(o => { if (o.isMesh) o.material.side = THREE.DoubleSide; }); }
