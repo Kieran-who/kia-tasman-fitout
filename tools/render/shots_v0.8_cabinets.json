@@ -1,0 +1,46 @@
+[
+ {
+  "name": "cabinets_01_panel_shut",
+  "params": {
+   "view": "rear_panel",
+   "state": "camp",
+   "hide": "payload,future,slide_p,wiring",
+   "cam": "1.88,0.20,0.52,1.41,0.15,0.69,36",
+   "title": "v0.8 rear control panel (shut): GX Touch 50, guarded Contura II rockers, IP66 double GPO, 2 x dual USB-C, 2 x SB50, 12 V; quarter-turn latch top left, piano hinge on the inboard edge"
+  }
+ },
+ {
+  "name": "cabinets_02_behind_panel",
+  "params": {
+   "view": "rear_panel",
+   "state": "camp",
+   "hide": "payload,future,slide_p,vehicle,wiring,markers,bay,batteries",
+   "clipx": "1.35",
+   "cam": "1.72,0.30,1.20,1.18,0.15,0.68,36",
+   "title": "v0.8 behind the panel (section at the door, tub wall + cables hidden): Cerbo GX MK2, Blue Sea 5026, IP66 RCBO enclosure",
+   "labels": "dc_fuse_block:Blue Sea 5026|12 x ATO + negative bus;pc_rcbo_modules:IP66 enclosure, clear lid|3 x RCBO 1P+N + blank;pc_wire_duct:Slotted wiring duct;pc_gland_low:Gland to the slide harness"
+  }
+ },
+ {
+  "name": "cabinets_03_upper_drawer",
+  "params": {
+   "view": "drawers",
+   "state": "camp",
+   "hide": "payload,future",
+   "cam": "2.75,0.95,0.20,2.0,0.38,0.68,34",
+   "title": "v0.8 passenger upper drawer out: 48 in 3-member runners, flush lockable paddle latch, U-channel slots at 120 mm, lift-out dividers",
+   "labels": "ud_pass_divider_1:Lift-out divider|finger hole;ud_pass_runner_1:48 in full-extension runner"
+  }
+ },
+ {
+  "name": "cabinets_04_utility_drawer",
+  "params": {
+   "view": "utility",
+   "state": "camp",
+   "hide": "future,markers",
+   "clipx": "1.885",
+   "cam": "2.30,0.33,-0.56,1.65,0.10,-0.70,36",
+   "title": "v0.8 driver utility drawer (section just inside its front): finger-jointed ply box, D-ring tie-downs + strap, divider in U-channels, 22 in runners"
+  }
+ }
+]
