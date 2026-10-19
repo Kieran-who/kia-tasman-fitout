@@ -3,6 +3,7 @@ Build the fit-out model and export:
     ../viewer/models/fitout_<state>.glb   coloured meshes for the web viewer + renders (Y-up, metres)
     out/fitout_fab.step                   fabricated parts only, stowed (travel) state
     out/summary.json                      key derived numbers
+    out/cables.json                       routed cable polylines + anchors (wiring route map)
     ../bom/weight-budget-<ver>.csv        mass of every part (fixed fit-out vs payload)
     ../bom/cut-list-<ver>.csv             fabricated parts grouped by material
     ../bom/cable-schedule-<ver>.csv       every cable: from/to, size, protection, modelled length
@@ -190,6 +191,13 @@ if __name__ == "__main__":
     export_step(travel)
     rows, by_group = weight_budget(travel)
     cable_kg = cable_outputs(cables)
+    # routed cable polylines (travel state) for the wiring route map in docs/wiring
+    from fitout.core import ANCHORS
+    open(os.path.join(OUT, "cables.json"), "w").write(json.dumps(dict(
+        version=V, cables=[dict(id=c.cid, circuit=c.circuit, frm=c.frm, to=c.to, size=c.size, spec=c.spec, protection=c.protection,
+                                side=c.side, colour=c.colour, length_m=c.length_m(), notes=c.notes,
+                                points=[[round(v, 1) for v in q] for q in c.points(k)]) for k, c in enumerate(cables)],
+        anchors={k: [round(float(v), 1) for v in xyz] for k, xyz in ANCHORS.items()}), indent=0))
     rows.append(["fit-out", "wiring", "all cables (from schedule)", "cable", round(cable_kg, 1)])
     by_group[("fit-out", "wiring")] += cable_kg
     write_csv(f"weight-budget-{V}.csv", ["class", "group", "item", "material", "kg"], rows)

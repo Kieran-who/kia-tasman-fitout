@@ -130,7 +130,7 @@ def cables():
                    ["bus_sys_neg", (A["inv_dc_neg"][0], A["bus_sys_neg"][1] + 5, A["inv_dc_neg"][2]), "inv_dc_neg"]))
     # ------------------------------------------------ charging board (front wall) <-> system busbars (short, inside the bay)
     for cid, src, size, spec, prot in (("ORO", "orion_xs_50a", "16", "16 mm2 twin", "MIDI 70 A"),
-                                       ("MPR", "mppt_roof_100_30", "16", "16 mm2 twin", "MIDI 60 A"),
+                                       ("MPR", "mppt_roof_100_30", "16", "16 mm2 twin", "MIDI 40 A"),
                                        ("MPT", "mppt_tent_75_15", "6", "6 mm2 twin", "MIDI 20 A")):
         L.append(Cable(cid, "Charging output", src.replace("_", " "), "System +/- busbars (MIDI fuse)", size, spec, prot, "w_pos",
                        [src, (A[src][0] + 30, A[src][1], 150), (220, A["midi_fuses"][1] + 30, 150), "midi_fuses"]))
@@ -147,40 +147,64 @@ def cables():
     L.append(Cable("AC4", "Tent heater GPO", "RCBO 3", "Gap junction -> tent services box GPO", "2.5x3", "2.5 mm2 3-core flex, UV rated",
                    "RCBO 10 A 30 mA", "w_ac", ["rcbo", "cab_in", "drop_gland"] + to_gap, notes="detaches at the gap junction (IP66 inline plug)"))
     L.append(Cable("AC5", "Shore inlet", "Gap junction (from tent 15 A inlet)", "MultiPlus-II AC-in", "2.5x3", "2.5 mm2 3-core flex (15 A)",
-                   "Inlet + MultiPlus input current limit", "w_ac", from_gap + GLAND_TO_BAY + ["dist_top", "inv_ac"]))
+                   "RCBO 16 A 30 mA in the services box + MultiPlus AC-in limit 15 A", "w_ac", from_gap + GLAND_TO_BAY + ["dist_top", "inv_ac"]))
     # ------------------------------------------------ DC outlets from the rear fuse block
-    L.append(Cable("DO1", "Rear panel DC", "DC fuse block", "Rear panel Anderson x2 / USB-C / 12 V", "6", "6 mm2 twin", "30 A + 15 A + 10 A",
-                   "w_12v", ["dc_fuse_block", "pc_anderson_1"]))
-    L.append(Cable("DO2", "Slide DC", "DC fuse block", "Power-slide pod Anderson / 12 V / USB-C", "6", "6 mm2 twin high-flex", "30 A", "w_12v",
+    for cid, circ, to, size, spec, prot in (("DO1A", "Rear Anderson 1", "pc_anderson_1", "6", "6 mm2 twin", "ATC 30 A"),
+                                            ("DO1B", "Rear Anderson 2", "pc_anderson_2", "6", "6 mm2 twin", "ATC 30 A"),
+                                            ("DO1C", "Rear USB-C x2", "pc_usbc_1", "2.5x3", "2.5 mm2 twin", "ATC 10 A"),
+                                            ("DO1D", "Rear 12 V socket", "pc_12v", "4", "4 mm2 twin", "ATC 15 A")):
+        L.append(Cable(cid, circ, "DC fuse block", f"Rear panel {circ.split('Rear ')[1]}", size, spec, prot, "w_12v",
+                       ["dc_fuse_block", to], notes="USB-C sockets daisy-chained at the panel" if cid == "DO1C" else ""))
+    L.append(Cable("DO2", "Slide DC", "DC fuse block", "Power-slide pod Anderson / 12 V / USB-C", "6", "6 mm2 twin high-flex", "ATC 30 A (+ inline 15 A / 10 A in the pod)", "w_12v",
                    ["dc_fuse_block", "cab_floor", "under_slide", "chain_fixed", "chain_moving", "slide_bulkhead"], extra_mm=600,
                    notes="runs through the cable chain"))
-    L.append(Cable("DO3", "Cabin outlets", "DC fuse block", "Under-rear-seat box (Anderson, USB-C, 12 V)", "6", "6 mm2 twin", "30 A", "w_12v",
+    L.append(Cable("DO3", "Cabin outlets", "DC fuse block", "Under-rear-seat box (Anderson, USB-C, 12 V)", "6", "6 mm2 twin", "ATC 30 A (+ inline 15 A / 10 A in the box)", "w_12v",
                    ["dc_fuse_block", "cab_in", "drop_gland"] + OUT + ["chassis_cabin", "cabin_grommet", "cabin_outlets"]))
-    L.append(Cable("DO4", "Starlink Mini", "DC fuse block", "Starlink Mini (roof)", "4", "4 mm2 twin + DC barrel lead", "10 A", "w_12v",
+    L.append(Cable("DO4", "Starlink Mini", "DC fuse block", "Starlink Mini (roof)", "4", "4 mm2 twin + DC barrel lead", "ATC 10 A", "w_12v",
                    ["dc_fuse_block", "cab_in", "drop_gland"] + to_gap + ["junction_top", "gap_high", "roof_drop", "starlink"]))
-    L.append(Cable("DO5", "Tent 12 V", "DC fuse block", "Gap junction -> tent (Anderson SB50)", "6", "6 mm2 twin", "30 A", "w_12v",
+    L.append(Cable("DO5", "Tent 12 V", "DC fuse block", "Gap junction -> tent (Anderson SB50)", "6", "6 mm2 twin", "ATC 30 A", "w_12v",
                    ["dc_fuse_block", "cab_in", "drop_gland"] + to_gap, notes="detaches at the gap junction"))
     # ------------------------------------------------ charging inputs (enter via the gland, run to the front-wall board)
     L.append(Cable("ALT", "Alternator charge", "Start battery (60 A MIDI)", "Orion XS input", "25", "25 mm2 twin (+/-), tinned", "60 A at start battery",
                    "w_pos", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY + [_up("orion_xs_50a"), "orion_xs_50a"],
                    notes="Orion XS input limit 25-30 A until the alternator rating is known"))
-    L.append(Cable("PVR", "Roof PV", "Roof panels (series)", "MPPT 100/30 PV in", "6", "6 mm2 solar twin (UV)", "PV breaker 20 A", "w_pv",
+    L.append(Cable("PVR", "Roof PV", "Roof panels (parallel, MC4 Y-branch)", "MPPT 100/30 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
                    ["roof_pv", "roof_drop", "gap_high", "junction_top", "junction_bot", "gap_low", "chassis_gap"] + IN + GLAND_TO_BAY +
                    [_up("mppt_roof_100_30"), "mppt_roof_100_30"]))
-    L.append(Cable("PVT", "Tent PV", "Gap junction (from tent panels)", "MPPT 75/15 PV in", "6", "6 mm2 solar twin (UV)", "PV breaker 15 A", "w_pv",
+    L.append(Cable("PVT", "Tent PV", "Gap junction (from tent panels)", "MPPT 75/15 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
                    from_gap + GLAND_TO_BAY + [_up("mppt_tent_75_15"), "mppt_tent_75_15"], notes="detaches at the gap junction"))
     # ------------------------------------------------ control + comms (rear panel <-> bay)
-    L.append(Cable("SW1", "Battery switch control", "Rear panel switch", "ML-RBS remote battery switch", "data", "3-core 1.0 mm2", "2 A", "w_data",
-                   ["pc_sw_battery", "cab_in"] + CAB_TO_BAY + ["rbs_in"]))
+    L.append(Cable("SW1", "Battery switch control", "Rear panel ML-RBS switch (Blue Sea 2155)", "ML-RBS control harness", "data",
+                   "4-core 1.0 mm2 (+12 V feed, control, LED, ground)", "2 A inline at bank + (RBF)", "w_data",
+                   ["pc_sw_battery", "cab_in"] + CAB_TO_BAY + [A.get("rbs_ctrl", A["rbs_in"])],
+                   notes="switch feed taken from the battery side so the RBS can be closed again"))
+    L.append(Cable("RBF", "Battery switch control", "Bank + busbar", "ML-RBS control feed (inline 2 A)", "data", "1.0 mm2 red", "ATC 2 A inline",
+                   "w_data", ["bus_bank_pos", A.get("rbs_ctrl", A["rbs_in"])]))
+    L.append(Cable("SHV", "Shunt sense", "Bank + busbar", "SmartShunt Vbatt+", "data", "0.75 mm2 red (supplied lead)", "1 A inline (supplied)",
+                   "w_data", ["bus_bank_pos", A.get("shunt_vbatt", A["shunt"])]))
+    L.append(Cable("FAN", "Inverter fan", "System + busbar", "92 mm thermostatic fan", "2.5x3", "1.5 mm2 twin", "ATC 5 A inline", "w_12v",
+                   ["bus_sys_pos", A.get("inv_fan", (P.INVERTER[1] / 2 + 4, -P.BAY_W / 2 + 2 + P.INVERTER[0] / 2, 10 + P.INVERTER[2] + 40))]))
+    L.append(Cable("CGX", "Cerbo GX power", "DC fuse block", "Cerbo GX power in", "data", "0.75 mm2 twin", "ATC 2 A", "w_12v",
+                   ["dc_fuse_block", "cerbo"]))
+    L.append(Cable("IGN", "Orion ignition sense", "Engine-bay fuse box (add-a-fuse, ignition)", "Orion XS remote H", "data", "1.0 mm2 single",
+                   "ATC 2 A add-a-fuse", "w_data", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY +
+                   [_up("orion_xs_50a", 12), A.get("orion_remote", A["orion_xs_50a"])],
+                   notes="engine-run signal; avoids relying on voltage detection with a smart alternator"))
+    L.append(Cable("PE1", "Inverter case earth", "MultiPlus-II chassis earth stud", "System - busbar", "50", "50 mm2 green/yellow", "-", "w_pe",
+                   [A.get("inv_chassis_earth", A["inv_dc_neg"]), "bus_sys_neg"], notes="Victron: same size as the DC negative"))
+    L.append(Cable("CHB", "Chassis bond", "System - busbar", "Chassis rail bond point", "25", "25 mm2 black", "-", "w_neg",
+                   ["bus_sys_neg", "dist_top"] + list(reversed(GLAND_TO_BAY)) + OUT, notes="single DC-negative / PE bond to the vehicle chassis"))
     L.append(Cable("SW2", "Inverter remote on/off", "Rear panel switch", "MultiPlus-II remote terminals", "data", "2-core 0.75 mm2", "-", "w_data",
                    ["pc_sw_inverter", "cab_in"] + CAB_TO_BAY + ["inv_comms"]))
     L.append(Cable("D1", "VE.Bus", "Cerbo GX", "MultiPlus-II", "data", "RJ45 VE.Bus cable", "-", "w_data", ["cerbo"] + CAB_TO_BAY + ["inv_comms"]))
-    L.append(Cable("D2", "VE.Direct", "Cerbo GX", "SmartShunt / MPPTs / Orion XS", "data", "VE.Direct cables x4", "-", "w_data",
+    L.append(Cable("D2", "VE.Direct", "Cerbo GX VE.Direct 1-3", "SmartShunt / MPPT 100/30 / MPPT 75/15", "data", "VE.Direct cables x3", "-", "w_data",
                    ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_30", 8), "mppt_roof_100_30"]))
-    L.append(Cable("D3", "Display", "Cerbo GX", "GX Touch 50", "data", "GX Touch cable", "-", "w_data", ["cerbo", "pc_gx_touch_50"]))
+    L.append(Cable("D4", "VE.Direct", "Cerbo GX USB", "Orion XS VE.Direct", "data", "VE.Direct to USB interface", "-", "w_data",
+                   ["cerbo"] + CAB_TO_BAY + [_up("orion_xs_50a", 8), "orion_xs_50a"], notes="Cerbo GX MK2 has only 3 VE.Direct ports"))
+    L.append(Cable("D3", "Display", "Cerbo GX (HDMI + USB)", "GX Touch 50", "data", "GX Touch cable (HDMI + USB)", "-", "w_data", ["cerbo", "pc_gx_touch_50"]))
     # ------------------------------------------------ detachable tent harness (tent side)
     L.append(Cable("T1", "Tent harness", "Tent services box", "Gap junction plugs (240 V out, 240 V in, 12 V)", "2.5x3",
-                   "2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle", "-", "w_tent",
+                   "2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle", "RCBO 16 A 30 mA (AC-in, in the services box)", "w_tent",
                    ["tent_services", (P.TENT_X0 + 30, A["tent_services"][1], A["tent_services"][2]),
                     (P.TENT_X0 + 30, -515, A["tent_services"][2]), "lid_front", "junction_top"], side="tent",
                    notes="stays with the tent; check clearance at the lid hinge"))
