@@ -174,7 +174,8 @@ def sheet_dc_main():
                           "  house − are common through ALT (sheet E4)."], title="Earthing")
     s.note(1248, y0, 386, ["- F3: Class-T 400 A, Blue Sea 5502 holder.",
                            "- CT1 / INVP / INVN: 2 × 50 mm² per pole.",
-                           "- Keep INVP/INVN together, ≤ 1 m each.",
+                           "- Keep INVP/INVN together, ≤ 1 m each; they pass",
+                           "  the cable window in the board (v0.9).",
                            "- MIDI F4–F6 and MEGA F7 on the BB3 studs."], title="Victron MultiPlus-II 12/3000")
     return s
 

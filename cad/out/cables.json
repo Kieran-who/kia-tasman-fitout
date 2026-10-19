@@ -1,5 +1,5 @@
 {
-"version": "v0.8",
+"version": "v0.9",
 "cables": [
 {
 "id": "B1P",
@@ -280,7 +280,7 @@ null,
 "protection": "-",
 "side": "vehicle",
 "colour": "w_neg",
-"length_m": 0.51,
+"length_m": 0.54,
 "notes": "",
 "via": [
 "shunt_sys",
@@ -296,12 +296,12 @@ null,
 [
 78.0,
 58.0,
-77.5
+43.5
 ],
 [
 129.9,
-5.5,
-65.5
+7.5,
+31.5
 ]
 ]
 },
@@ -395,12 +395,12 @@ null,
 "points": [
 [
 129.9,
-5.5,
-65.5
+7.5,
+31.5
 ],
 [
 70.0,
-17.5,
+19.5,
 50.0
 ],
 [
@@ -702,7 +702,7 @@ null
 "protection": "RCBO 10 A 30 mA",
 "side": "vehicle",
 "colour": "w_ac",
-"length_m": 2.12,
+"length_m": 2.13,
 "notes": "runs through the cable chain",
 "via": [
 "rcbo",
@@ -730,13 +730,13 @@ null
 ],
 [
 1040.2,
--543.0,
-28.0
+-542.0,
+22.0
 ],
 [
 1624.4,
--543.0,
-154.0
+-542.0,
+172.0
 ],
 [
 1523.4,
@@ -1044,7 +1044,7 @@ null
 "protection": "ATC 30 A (+ inline 15 A / 10 A in the pod)",
 "side": "vehicle",
 "colour": "w_12v",
-"length_m": 1.99,
+"length_m": 2.0,
 "notes": "runs through the cable chain",
 "via": [
 "dc_fuse_block",
@@ -1072,13 +1072,13 @@ null
 ],
 [
 1034.2,
--557.0,
-40.0
+-556.0,
+34.0
 ],
 [
 1618.4,
--557.0,
-166.0
+-556.0,
+184.0
 ],
 [
 1523.4,
@@ -1968,8 +1968,8 @@ null,
 ],
 [
 129.9,
-5.5,
-65.5
+7.5,
+31.5
 ]
 ]
 },
@@ -1983,7 +1983,7 @@ null,
 "protection": "-",
 "side": "vehicle",
 "colour": "w_neg",
-"length_m": 3.98,
+"length_m": 4.02,
 "notes": "single DC-negative / PE bond to the vehicle chassis",
 "via": [
 "bus_sys_neg",
@@ -2001,8 +2001,8 @@ null,
 "points": [
 [
 129.9,
-5.5,
-65.5
+7.5,
+31.5
 ],
 [
 212.0,
@@ -2612,13 +2612,13 @@ null,
 ],
 "bus_sys_neg": [
 129.9,
-5.5,
-65.5
+7.5,
+31.5
 ],
 "bus_sys_neg_studs": [
 167.9,
-5.5,
-65.5
+7.5,
+31.5
 ],
 "rbs_out": [
 128.5,
@@ -2697,13 +2697,13 @@ null,
 ],
 "chain_fixed": [
 1034.2,
--557.0,
-16.0
+-556.0,
+10.0
 ],
 "chain_moving": [
 1618.4,
--557.0,
-142.0
+-556.0,
+160.0
 ],
 "pc_gx_touch_50": [
 1377.0,

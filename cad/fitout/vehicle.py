@@ -32,7 +32,8 @@ SK = BODY_HW            # outer skin of the tub sides
 SKIN_T = 25             # [EST] visual outer skin thickness (cavity between it and the liner wall carries the cables)
 
 # lid gas struts (Ute Master hinges at the FRONT): modelled lying in a channel in the top of each tub side wall so they
-# never enter the fit-out space. [CONFIRM] where the real struts mount - if they sit inside the tub they matter.
+# never enter the fit-out space. Owner (v0.9): the lid comes off with a few bolts, so the struts are taken to be
+# outside the tub, not mounted inside it. [EST] exact position - photograph on the vehicle.
 LID_STRUT = dict(x0=60, x1=560, z0=470, z1=522, dy=22, r_body=11, r_rod=5, body_l=290)
 
 # colours (RGBA) used only here

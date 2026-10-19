@@ -93,8 +93,10 @@ CLEAR = (215, 220, 225, 80)         # clear fuse-holder covers
 CONN_COVER = (0, 92, 170, 70)       # MultiPlus connection-area cover, shown see-through
 GUARD = (110, 115, 120, 150)        # slotted rear guard
 
+DIST_WINDOW_Z = 108       # [DES] top of the cable window in the distribution board (clears the MultiPlus entries)
+
 # intra-component contacts (sub-parts sit on / in their own body) and genuine mounting contacts
-CLASH_ALLOW = [
+CLASH_ALLOW = [("dist_board_window_trim", "dist_board"), ("busbar_sys_neg", "bay_base_tray"),
     ("inverter_charger_multiplus2_3000", "inverter_charger_multiplus2_3000"),
     ("orion_xs_50a", "orion_xs_50a"), ("mppt_roof_100_30", "mppt_roof_100_30"), ("mppt_tent_75_15", "mppt_tent_75_15"),
     ("busbar_bank_pos", "busbar_bank_pos"), ("busbar_bank_neg", "busbar_bank_neg"),
@@ -621,7 +623,15 @@ def bay():
             parts.append(part(f"battery_{n}_strap_{zz}_buckle", g, grp(bk), STEEL))
     # ---- distribution column between the inverter and battery 1 (components on a board, facing +Y)
     yd0 = yq1 + 8
-    parts.append(part("dist_board", g, box(30, d - 34, yd0, yd0 + 6, z0, P.BAY_H - 10), "alu", fab=True, mat="Plate 6 5052"))
+    # the MultiPlus cable entries (DC at z ~50, AC glands at z ~90) face the board 8 mm away: the board gets a cable
+    # window in its lower edge so the 2 x 50 mm2 DC and the AC/comms cables pass straight through and bend in the
+    # ~115 mm gap between the board and battery 1 (v0.9; saves re-spacing the bay)
+    win = (36, 276, DIST_WINDOW_Z)
+    board = box(30, d - 34, yd0, yd0 + 6, z0, P.BAY_H - 10).cut(box(win[0], win[1], yd0 - 1, yd0 + 7, z0 - 1, win[2]))
+    parts.append(part("dist_board", g, board, "alu", fab=True, mat="Plate 6 5052"))
+    trim = grp(box(win[0], win[1], yd0 - 2, yd0 + 8, win[2] - 3, win[2] + 3),
+               box(win[0] - 3, win[0] + 3, yd0 - 2, yd0 + 8, z0, win[2]), box(win[1] - 3, win[1] + 3, yd0 - 2, yd0 + 8, z0, win[2]))
+    parts.append(part("dist_board_window_trim", g, trim, CAP_BLACK))      # rubber edge grommet strip
     yf = yd0 + 6
     V = ("Z", "X", "Y")                                          # vertical parts: a = up, b = across (X), c = off the board
     # bank - busbar (stud 1: SH1 to the shunt, studs 2/3: battery negatives)
@@ -642,10 +652,11 @@ def bay():
     anchor("bus_sys_pos", st[3])
     anchor("bus_sys_pos_studs", st[1])
     sys_pos_link = st[0]
-    # system - busbar, horizontal (stud 1: SH2 from the shunt, stud 2: inverter -, stud 3: charger negatives)
-    st = powerbar(parts, Frame((60, yf, 40), ("X", "Z", "Y")), "busbar_sys_neg", 0.5, used=(0, 1))
-    lugs.add(st[0], "+Y", "+Z", "-", ln=0.7)
-    lugs.add(st[1], "+Y", "-Z", "-", ln=0.7)
+    # system - busbar lying flat on the base tray just past the board window, studs up
+    # (stud 1: SH2 from the shunt, stud 2: inverter - straight through the window, stud 3: charger negatives)
+    st = powerbar(parts, Frame((60, yf + 2, z0), ("X", "Y", "Z")), "busbar_sys_neg", 0.5, used=(0, 1))
+    lugs.add(st[0], "+Z", "+Y", "-", ln=0.7)
+    lugs.add(st[1], "+Z", "-Y", "-", ln=0.7)
     anchor("bus_sys_neg", st[1])
     anchor("bus_sys_neg_studs", st[2])
     # ML-RBS remote battery switch, studs down

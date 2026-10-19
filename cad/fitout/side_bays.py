@@ -380,23 +380,25 @@ def _passenger_specs():
         face_anchor(n, swy, z)
     dp("pc_sw_guards", _comp(guards), K["black"])
 
-    # IP66 double GPO (Clipsal 56-series style, grey) with two smoked flip lids
+    # flush double GPO (Clipsal Iconic horizontal double, 120 x 78 skin, as on the power pod) under one clear
+    # weatherproof flip cover. v0.9: an IP66 twin (~146 x 117) doesn't fit the panel; the panel sits recessed
+    # 105 mm behind the tailgate and under the lid, so a flush GPO + cover is used to keep the panel size.
     py_, pz = yo + 70, 127
-    gpo = [_chamfer(_cb(XF, XF + 6, py_, pz, 120, 86), ">X", 1.2), _cb(BF - 45, BF, py_, pz, 78, 70)]
-    slots = []
+    gpo = [_chamfer(_cb(XF, XF + 6, py_, pz, 120, 78), ">X", 1.2), _cb(BF - 45, BF, py_, pz, 100, 64)]
+    slots, rockers = [], []
     for dyy in (-30, 30):
         cy_ = py_ + dyy
-        gpo.append(_cx(21, XF + 6, XF + 10, cy_, pz - 4))
         # AS/NZS 3112 face: two flat pins at +-30 deg (inverted V) above a vertical earth pin
-        slots += [_cb(XF + 10, XF + 10.4, cy_ + dy_, pz + 2, 1.8, 7).rotate((0, cy_ + dy_, pz + 2), (1, cy_ + dy_, pz + 2), ang)
+        slots += [_cb(XF + 6, XF + 6.4, cy_ + dy_, pz - 4, 1.8, 7).rotate((0, cy_ + dy_, pz - 4), (1, cy_ + dy_, pz - 4), ang)
                   for dy_, ang in ((-7, 30), (7, -30))]
-        slots.append(_cb(XF + 10, XF + 10.4, cy_, pz - 12, 1.8, 8))
-    gpo += [_pcyl(2.4, 1, (XF + 6.5, py_ + a, pz + b), "X") for a in (-56, 56) for b in (-38, 38)]
-    dp("pc_gpo_double", _comp(gpo), K["grey"], kg=0.5)
-    dp("pc_gpo_double_slots", _comp(slots), K["black"])
-    cut.append(_cb(xr - 1, XF + 1, py_, pz, 78, 70))
-    lids = [_cb(XF + 10, XF + 24, py_ + d, pz - 2, 54, 76) for d in (-30, 30)]          # smoked, top-hinged flip lids
-    lids += [_cb(XF + 10, XF + 27, py_ + d, pz - 39, 14, 3) for d in (-30, 30)]          # thumb tabs
+        slots.append(_cb(XF + 6, XF + 6.4, cy_, pz - 18, 1.8, 8))
+        rockers.append(_cb(XF + 6, XF + 9, cy_, pz + 24, 16, 10))                      # Iconic rocker switch
+    dp("pc_gpo_double", _comp(gpo), K["white"], kg=0.4)
+    dp("pc_gpo_double_slots", _comp(slots + rockers), K["black"])
+    cut.append(_cb(xr - 1, XF + 1, py_, pz, 100, 64))
+    lids = [_cb(XF + 10, XF + 13, py_, pz, 118, 82),                                    # clear top-hinged cover
+            _cb(XF + 6, XF + 13, py_, pz + 40, 118, 3),                                 # hinge rail
+            _cb(XF + 10, XF + 22, py_, pz - 42, 20, 3)]                                 # thumb tab
     dp("pc_gpo_double_lids", _comp(lids), K["smoke"])
     face_anchor("pc_gpo_double", py_, pz)
 

@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.8"
+VERSION = "v0.9"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -142,7 +142,7 @@ MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allo
 BULKHEAD_D = 85                             # [DES] power pod: sockets face UP so plugs never foul the fridge; 85 fits a Clipsal Iconic 120x78 double GPO (v0.8)
 FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 751 -> fridge <= ~741 long (Dometic CFX3 45 is 694)
 FRIDGE_WELL_Z = 12                          # [DES] pan top surface -> ~536 under the lid
-CHAIN_R, CHAIN_H, CHAIN_W = 63, 32, 40      # [EST] igus E2.26-class, R63 suits chain-rated 2.5 / 6 mm2 cable
+CHAIN_R, CHAIN_H, CHAIN_W = 75, 20, 38      # [PUB] igus E2.15.30 (30 mm inner, 37.8 outer wide, 19.3 high) fits the 50 mm lane; R75 for chain-rated 2.5 / 6 mm2 cable (confirm the R75 option)
 
 # ================================================================ side bays
 # Each side: LOWER cabinet/drawer behind the arch (floor -> arch height) + UPPER long drawer over the arch that

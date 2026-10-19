@@ -2,14 +2,14 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.8.** See [`docs/v0.8-concept.md`](docs/v0.8-concept.md) (detailed model of every component, full wiring diagram). **Wiring diagram: [`docs/wiring/`](docs/wiring)** (8 A3 sheets as HTML/PDF/SVG + schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.9.** See [`docs/v0.9-concept.md`](docs/v0.9-concept.md) (v0.8 layout decisions resolved for minimum space). v0.8 ([`docs/v0.8-concept.md`](docs/v0.8-concept.md)) added detail to every component and the full wiring diagram. **Wiring diagram: [`docs/wiring/`](docs/wiring)** (8 A3 sheets as HTML/PDF/SVG + schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.8/01_hero_camp.png)
+![Camp mode](renders/v0.9/01_hero_camp.png)
 
 | | |
 |---|---|
-| ![Battery bay](renders/v0.8/bay_01_overview.png) | ![Rear control panel](renders/v0.8/cabinets_01_panel_shut.png) |
-| ![Power pod](renders/v0.8/slides_02_power_pod.png) | ![Fold-out legs](renders/v0.8/slides_04_legs.png) |
+| ![Battery bay](renders/v0.9/bay_01_overview.png) | ![Rear control panel](renders/v0.9/cabinets_01_panel_shut.png) |
+| ![Power pod](renders/v0.9/slides_02_power_pod.png) | ![Fold-out legs](renders/v0.9/slides_04_legs.png) |
 | ![Wiring sheet E2](docs/wiring/sheets/E2-dc-main.svg) | ![Wiring sheet E1](docs/wiring/sheets/E1-overview.svg) |
 | ![Receiver grid to the edges](renders/v0.6/02_tub_iso_empty.png) | ![Well filler fitted](renders/v0.6/03_tub_iso_filler.png) |
 | ![Flush edge fences](renders/v0.6/04_tub_iso_fences.png) | ![Edge pin section](renders/v0.6/08b_section_edge.png) |
@@ -20,7 +20,8 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.8-concept.md` | Current: detail pass on every component, real-product corrections, layout issues to decide, wiring changes |
+| `docs/v0.9-concept.md` | Current: cable window in the distribution board, flush rear GPO, narrower chain, owner confirmations |
+| `docs/v0.8-concept.md` | Detail pass on every component, real-product corrections, layout issues to decide, wiring changes |
 | `docs/wiring/` | **Wiring diagram** E1–E8 (HTML, PDF, SVG) with cable / protection / fuse-way / component schedules |
 | `docs/v0.7-concept.md` | Fold-out telescopic legs under the slides; arch hooks removed (still current) |
 | `docs/v0.6-concept.md` | Receiver grid to the deck edges, removable fridge-well filler, flush edge fences (still current) |
@@ -54,7 +55,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 python3 -m venv .venv && .venv/bin/pip install -r cad/requirements.txt
 cd cad && ../.venv/bin/python build.py      # model -> GLB + STEP + summary + BOM CSVs
 ../.venv/bin/python clash.py                 # interference check
-cd ../tools/render && npm install && node render.mjs shots_v0.8.json ../../renders/v0.8
+cd ../tools/render && npm install && node render.mjs shots_v0.9.json ../../renders/v0.9
 cd ../.. && python3 tools/wiring/diagram.py   # wiring sheets + page (after build.py)
 ```
 

@@ -1,6 +1,6 @@
 {
-  "version": "v0.8",
-  "fitout_kg": 496.7,
+  "version": "v0.9",
+  "fitout_kg": 496.2,
   "example_payload_kg": 108.2,
   "options_kg": {
     "option: well filler (no fridge)": 4.7,
@@ -8,21 +8,21 @@
   },
   "by_group_kg": {
     "batteries": 76.0,
-    "bay": 13.8,
+    "bay": 13.4,
     "bay_cover": 1.3,
     "cargo": 8.4,
     "electrical": 30.6,
     "lid": 68.0,
-    "power_cabinet": 19.1,
+    "power_cabinet": 19.0,
     "rack": 13.8,
     "roof": 36.7,
     "slide_d": 35.2,
-    "slide_p": 33.8,
+    "slide_p": 33.7,
     "solar": 27.2,
     "tent": 84.0,
     "tent_services": 2.5,
     "utility": 23.5,
-    "wiring": 22.7,
+    "wiring": 22.8,
     "modules": 12.0,
     "well_filler": 4.7,
     "payload": 108.2
@@ -38,7 +38,7 @@
   "tent_gap": 163.4,
   "solar_w": 520,
   "cable_count": 46,
-  "cable_total_m": 104.9,
+  "cable_total_m": 105.0,
   "material_need": {
     "ACM 3": 1.25,
     "Plate 6 5052": 1.29,
@@ -65,7 +65,7 @@
   "axle_added_kg_front_rear": {
     "fit-out": [
       3.2,
-      470.7
+      470.2
     ],
     "payload (example)": [
       -14.9,

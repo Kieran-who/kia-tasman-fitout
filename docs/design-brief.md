@@ -8,7 +8,7 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.8) |
+| # | Requirement | Where it lives (v0.9) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
 | R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
@@ -68,3 +68,5 @@
 | 2026-10-19 | v0.8 | Detail pass on every component from published drawings; real sizes where they differ (iTech terminals both at the top, MultiPlus DC toward the front wall, ML-RBS, PowerBar, Class-T, fuse block, SmartSolar 100/30); power pod deepened to 85 mm for a real Iconic double GPO | Owner: increase detail in all components |
 | 2026-10-19 | v0.8 | Full wiring diagram E1–E8 generated from the cable model; VE.Direct-USB for the Orion (Cerbo has 3 VE.Direct ports), bank-side 2 A feed for the ML-RBS control, ignition sense for the Orion, separate fuses per rear outlet, roof panels in parallel, PV isolators, keyed tent connectors (J1 10 A socket / J2 15 A inlet, SB50 red 12 V / grey PV), shore RCBO in the tent box | Owner: full wiring diagram |
 | 2026-10-19 | v0.8 | Cable chain re-anchored at mid-travel (was 69 mm short at full extension); rear control panel hinges on its inboard edge | Found during the detail pass |
+| 2026-10-19 | v0.9 | Cable window in the distribution board + system − busbar flat on the base tray (MultiPlus cables pass straight through); flush Iconic double GPO under a clear cover on the rear panel; igus E2.15.30 chain (37.8 mm wide) in the 50 mm lane | Owner: "whatever saves the most space" |
+| 2026-10-19 | v0.9 | Tent folds open on the driver side (confirmed); Load-Lid struts outside the tub (lid removable with bolts) | Owner confirmation |
