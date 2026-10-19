@@ -208,11 +208,13 @@ function addLabels(root, spec) {
     if (!target) continue;
     const box = new THREE.Box3().setFromObject(target);
     const c = box.getCenter(new THREE.Vector3());
+    // CSS2DRenderer overwrites the element's own transform, so the pixel offset goes on an inner element
     const div = document.createElement('div'); div.className = 'lbl';
     const [main, sub] = decodeURIComponent(text).split('|');
     div.innerHTML = main + (sub ? `<small>${sub}</small>` : '');
     div.style.transform = `translate(${dx}px, ${dy}px)`;
-    const obj = new CSS2DObject(div); obj.position.copy(c); scene.add(obj);
+    const holder = document.createElement('div'); holder.appendChild(div);
+    const obj = new CSS2DObject(holder); obj.position.copy(c); scene.add(obj);
   }
 }
 
