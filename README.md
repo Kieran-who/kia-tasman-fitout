@@ -27,6 +27,41 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 ## Cost (parts only)
 
 <!-- cost:start -->
+**Parts total (v0.11): A$27,474** inc GST. Of that, A$14,577 (53%) is real prices from a named retailer or maker page and A$12,898 is estimates.
+
+| Area | A$ inc GST | of which real prices |
+|---|---:|---:|
+| Energy storage | 4,198 | 4,198 |
+| Slides | 3,694 | 0 |
+| Raw material for fabricated parts | 3,319 | 0 |
+| Roof | 3,183 | 2,564 |
+| Visor | 1,973 | 428 |
+| Cable (from the cable schedule) | 1,806 | 0 |
+| Inverter/charger | 1,687 | 1,687 |
+| Protection | 1,253 | 831 |
+| Solar | 1,117 | 1,117 |
+| Under-tent | 940 | 370 |
+| Distribution | 938 | 930 |
+| Monitoring | 902 | 902 |
+| DC | 756 | 448 |
+| AC | 667 | 637 |
+| DC charging | 465 | 465 |
+| Storage | 436 | 0 |
+| Wiring | 140 | 0 |
+| **Total** | **27,474** | **14,577** |
+
+- Batteries are A$4,198 of the total (A$23,276 without them).
+- Real prices were checked on the date in the product list; many are current sale prices, so expect some to rise.
+- Not counted (already owned): Rhino-Rack Vortex bars + raised brackets, Folding table; also the tent, Load-Lid and Destroyer rails.
+- Not included: labour, the licensed electrician for the 230 V work, freight, tools, a fridge, Starlink hardware.
+
+**Running total by version**
+
+| Version | Parts total A$ | Real prices |
+|---|---:|---:|
+| v0.11 | 27,474 | 53% |
+
+Line by line, with the source for every price: [`bom/cost-summary-v0.11.csv`](bom/cost-summary-v0.11.csv). Prices are in [`bom/product-list-v0.11.csv`](bom/product-list-v0.11.csv) and [`bom/cost-rates.csv`](bom/cost-rates.csv). Regenerate with `python3 tools/costing.py`.
 <!-- cost:end -->
 
 ## Repository layout
@@ -47,6 +82,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | `docs/research-notes.md` | Sourced dimensions and specs |
 | `cad/params.py` | **Every dimension in one place.** Each is flagged `[PUB]` (published), `[EST]` (estimate, measure it), `[DES]` (design choice) or `[CONFIRM]` |
 | `tools/wiring/` | Wiring diagram generator (reads the cable schedule + routed cables) |
+| `tools/costing.py` | Parts cost: prices the product list, cable and raw material, updates the cost section above |
 | `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `lid_storage` (under-tent storage), `modules` (example payload + example edge fences), `wiring` (routed cables + schedule) |
 | `cad/build.py` | Builds both states. Exports the GLB viewer models, `cad/out/fitout_fab.step` and `cad/out/summary.json`, and generates the BOM CSVs |
 | `cad/clash.py` | Interference check between all solid parts (travel + camp states) |
@@ -54,7 +90,10 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | `bom/cut-list-<ver>.csv` | Fabricated parts grouped by material and cut size (preliminary) |
 | `bom/cable-schedule-<ver>.csv` | Every cable: from/to, size, protection, **length measured along its modelled route** |
 | `bom/cable-totals-<ver>.csv` | Cable purchase quantities |
-| `bom/product-list-<ver>.csv` | Purchased components |
+| `bom/product-list-<ver>.csv` | Purchased components, with unit price, real price or estimate, and source (from v0.11) |
+| `bom/cost-rates.csv` | Estimated per-metre / per-sheet rates for cable and raw material |
+| `bom/cost-summary-<ver>.csv` | Every cost line (products, cable, material) with its source |
+| `bom/cost-history.csv` | Parts total per version |
 | `viewer/index.html` | Interactive 3D viewer (three.js): orbit, toggle layers, camp/travel states, preset views |
 | `renders/<version>/` | Rendered images per version |
 | `reference/` | Owner photos and the 23Zero tent drawing |

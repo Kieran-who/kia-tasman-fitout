@@ -98,10 +98,12 @@ def readme_block(rows, total, actual, history):
              "| Area | A$ inc GST | of which real prices |",
              "|---|---:|---:|"]
     for k, (v, a) in sorted(by.items(), key=lambda x: -x[1][0]):
-        lines.append(f"| {k} | {money(v)} | {money(a)} |")
+        if v:
+            lines.append(f"| {k[0].upper() + k[1:]} | {money(v)} | {money(a)} |")
     lines += [f"| **Total** | **{money(total)}** | **{money(actual)}** |",
               "",
               f"- Batteries are A${money(bat)} of the total (A${money(total - bat)} without them).",
+              "- Real prices were checked on the date in the product list; many are current sale prices, so expect some to rise.",
               f"- Not counted (already owned): {', '.join(owned)}; also the tent, Load-Lid and Destroyer rails.",
               "- Not included: labour, the licensed electrician for the 230 V work, freight, tools, a fridge, Starlink hardware.",
               "",
