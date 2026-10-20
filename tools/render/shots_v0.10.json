@@ -1,0 +1,61 @@
+[
+ {
+  "name": "01_under_tent_travel",
+  "params": {
+   "view": "under_tent",
+   "state": "travel",
+   "title": "v0.10 under-tent storage (tent hidden): 30 L water, rear-loading drawer, diesel pack, extinguisher, rivnut cross-bars",
+   "labels": "uts_water_30l:30 L water|captive, fill + draw in place:0:-20;uts_cassette_top:Rear-loading drawer|table + flat gear:0:-30;uts_diesel_rotopax:RotopaX 1 gal diesel:30:-20;uts_exting_2kg:2 kg extinguisher|quick-release:-20:20;tent_mount_clamp_1080_1:Tent bolts:0:-20;tent_services_box:Services box:0:-20"
+  }
+ },
+ {
+  "name": "02_under_tent_camp_drawer",
+  "params": {
+   "view": "under_tent",
+   "state": "camp",
+   "cam": "2.95,1.05,1.0,1.55,0.62,0.0,34",
+   "title": "v0.10 drawer pulled out the back (650 mm shown): folded table 800 x 600 x 40",
+   "labels": "uts_table_folded:Wanderer table|800 x 600 x 40:0:-20;uts_drawer_face:Lockable drawer face:0:20"
+  }
+ },
+ {
+  "name": "03_lid_plan",
+  "params": {
+   "view": "under_tent",
+   "state": "travel",
+   "cam": "0.78,3.9,0.12,0.78,0.6,0.0,30",
+   "hide": "tent,solar,roof,cargo,tent_harness,wiring",
+   "title": "v0.10 lid plan (front at left, passenger side toward the viewer)",
+   "labels": "uts_water_30l:30 L water:0:0;uts_cassette_top:Drawer cassette:0:0;uts_diesel_rotopax:Diesel:0:0;uts_exting_2kg:Extinguisher:0:0;tent_services_box:Services box:0:0"
+  }
+ },
+ {
+  "name": "04_side_gap",
+  "params": {
+   "view": "tent_side",
+   "state": "travel",
+   "cam": "0.85,0.78,-2.3,0.85,0.68,0.0,26",
+   "hide": "roof,solar,cargo",
+   "title": "v0.10 the 163 mm gap from the driver side, tent on"
+  }
+ },
+ {
+  "name": "05_rear_access",
+  "params": {
+   "view": "rear",
+   "state": "travel",
+   "cam": "2.85,1.05,0.55,1.45,0.66,-0.05,30",
+   "hide": "roof,cargo",
+   "title": "v0.10 rear access, tent on: drawer face, extinguisher (passenger) and diesel pack (driver) at the rear edge",
+   "labels": "uts_exting_head:Extinguisher|pull to release:0:-20;uts_diesel_rotopax:Diesel pack:0:-20;uts_drawer_handle:Drawer:0:20"
+  }
+ },
+ {
+  "name": "06_hero_camp",
+  "params": {
+   "view": "hero",
+   "state": "camp",
+   "title": "v0.10 camp mode"
+  }
+ }
+]

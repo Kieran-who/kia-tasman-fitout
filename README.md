@@ -2,9 +2,13 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.9.** See [`docs/v0.9-concept.md`](docs/v0.9-concept.md) (v0.8 layout decisions resolved for minimum space). v0.8 ([`docs/v0.8-concept.md`](docs/v0.8-concept.md)) added detail to every component and the full wiring diagram. **Wiring diagram: [`docs/wiring/`](docs/wiring)** (8 A3 sheets as HTML/PDF/SVG + schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.10.** See [`docs/v0.10-concept.md`](docs/v0.10-concept.md) (storage under the tent: 30 L water, rear-loading drawer with the table, diesel pack, extinguisher, rivnut cross-bars). [`v0.9`](docs/v0.9-concept.md): v0.8 layout decisions resolved for minimum space. v0.8 ([`docs/v0.8-concept.md`](docs/v0.8-concept.md)) added detail to every component and the full wiring diagram. **Wiring diagram: [`docs/wiring/`](docs/wiring)** (8 A3 sheets as HTML/PDF/SVG + schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Camp mode](renders/v0.9/01_hero_camp.png)
+![Camp mode](renders/v0.10/06_hero_camp.png)
+
+| | |
+|---|---|
+| ![Under-tent storage](renders/v0.10/01_under_tent_travel.png) | ![Lid plan](renders/v0.10/03_lid_plan.png) |
 
 | | |
 |---|---|
@@ -20,7 +24,8 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | Path | What |
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
-| `docs/v0.9-concept.md` | Current: cable window in the distribution board, flush rear GPO, narrower chain, owner confirmations |
+| `docs/v0.10-concept.md` | Current: storage under the tent (drawer, water, diesel, extinguisher, cross-bars), lid load check |
+| `docs/v0.9-concept.md` | cable window in the distribution board, flush rear GPO, narrower chain, owner confirmations |
 | `docs/v0.8-concept.md` | Detail pass on every component, real-product corrections, layout issues to decide, wiring changes |
 | `docs/wiring/` | **Wiring diagram** E1–E8 (HTML, PDF, SVG) with cable / protection / fuse-way / component schedules |
 | `docs/v0.7-concept.md` | Fold-out telescopic legs under the slides; arch hooks removed (still current) |
@@ -31,7 +36,7 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | `docs/research-notes.md` | Sourced dimensions and specs |
 | `cad/params.py` | **Every dimension in one place.** Each is flagged `[PUB]` (published), `[EST]` (estimate, measure it), `[DES]` (design choice) or `[CONFIRM]` |
 | `tools/wiring/` | Wiring diagram generator (reads the cable schedule + routed cables) |
-| `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `modules` (example payload + example edge fences), `wiring` (routed cables + schedule) |
+| `cad/fitout/` | Parametric CadQuery model, one module per subsystem: `vehicle`, `lid_tent`, `bay`, `slides`, `side_bays`, `roof`, `lid_storage` (under-tent storage), `modules` (example payload + example edge fences), `wiring` (routed cables + schedule) |
 | `cad/build.py` | Builds both states. Exports the GLB viewer models, `cad/out/fitout_fab.step` and `cad/out/summary.json`, and generates the BOM CSVs |
 | `cad/clash.py` | Interference check between all solid parts (travel + camp states) |
 | `bom/weight-budget-<ver>.csv` | Mass of every part (fit-out vs example payload) |

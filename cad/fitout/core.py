@@ -43,6 +43,7 @@ MAT = {
     "Angle 50x50x5 6060": dict(kind="linear", kgm=1.28, stock="6.5 m length"),
     "Angle 30x30x3 6060": dict(kind="linear", kgm=0.47, stock="6.5 m length"),
     "Angle 60x40x3 6060": dict(kind="linear", kgm=0.79, stock="6.5 m length"),
+    "Flat 40x5 6060": dict(kind="linear", kgm=0.54, stock="6.5 m length"),
     "Flat 50x6 6060": dict(kind="linear", kgm=0.81, stock="6.5 m length"),
     "Flat 60x6 6060": dict(kind="linear", kgm=0.97, stock="6.5 m length"),
     "Plate 3 5052": dict(kind="sheet", kgm2=8.1, stock="2400x1200 sheet"),

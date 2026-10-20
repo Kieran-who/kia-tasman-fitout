@@ -8,7 +8,7 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.9) |
+| # | Requirement | Where it lives (v0.10) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
 | R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
@@ -70,3 +70,4 @@
 | 2026-10-19 | v0.8 | Cable chain re-anchored at mid-travel (was 69 mm short at full extension); rear control panel hinges on its inboard edge | Found during the detail pass |
 | 2026-10-19 | v0.9 | Cable window in the distribution board + system − busbar flat on the base tray (MultiPlus cables pass straight through); flush Iconic double GPO under a clear cover on the rear panel; igus E2.15.30 chain (37.8 mm wide) in the 50 mm lane | Owner: "whatever saves the most space" |
 | 2026-10-19 | v0.9 | Tent folds open on the driver side (confirmed); Load-Lid struts outside the tub (lid removable with bolts) | Owner confirmation |
+| 2026-10-20 | v0.10 | Under-tent storage: rivnut cross-bars clamped to the Destroyer rails, captive 30 L water (fill in place), rear-loading drawer between the tent-bolt lines holding the folding table, RotopaX 1 gal diesel (heater), 2 kg extinguisher on a quick release at the rear edge; lid load 171 of 200 kg | Owner: jerry cans + platform/closed storage under the tent; drawer preferred; small diesel; extinguisher access; table |

@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.9"
+VERSION = "v0.10"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -80,6 +80,17 @@ TENT_SLOPE_L = 380     # [EST] the shell slopes down over this length at the fro
 TENT_BAR_CC = 1040     # [EST] top bars c/c
 TENT_BAR_L = 890       # [EST]
 TENT_UNDER_RAILS_CC = 800    # [PUB] underside mounting rails c/c (run along X, 1440 long)
+TENT_BOLT_DROP = 60    # [EST][CONFIRM] tent mount bolt tails below the clamp plates under the Vortex bars (owner: "extend pretty far down")
+TENT_BOLT_CLAMP = (100, 50, 6)   # [EST] clamp plate under each bar where a tent under-rail crosses it (X x Y x Z)
+LID_DYNAMIC_KG = 200   # [PUB] Ute Master Load-Lid dynamic rating (Altapac listing); tent + rack + storage must stay under it
+
+# under-tent storage (v0.10): rivnut cross-bars on the lid, rear-loading drawer, 30 L water, diesel pack, extinguisher, table
+UT_XBARS = (300, 520, 700, 1000, 1440)       # [DES] 40 x 5 flat-bar cross members, M8 rivnuts at 100 mm, clamped to the rail T-track
+UT_DRAWER = dict(x0=600, x1=1570, hw=340, h=112, travel=650)   # [DES] cassette between the tent-bolt lines; passes under the rear bar
+UT_WATER = dict(x0=240, y0=-785, L=860, W=340, H=150, kg=33.5)  # [PUB] OnTrack slimline 30 L lying across the vehicle (captive)
+UT_DIESEL = dict(x0=1310, y0=440, L=340, W=240, H=76, kg=4.2)   # [PUB] RotopaX 1 gal (3.8 L) diesel pack, rear driver corner
+UT_EXTING = dict(xc=1495, y0=-790, L=430, r=55, kg=3.6)         # [EST] 2 kg ABE dry powder, quick-release bracket, rear passenger corner
+UT_TABLE = (800, 600, 40, 4.6)                                  # [PUB] Wanderer Lightweight Steel Folding Table II, packed + kg
 TENT_SERVICES = dict(x=240, inset=170, w=260, d=150, h=95)   # [DES] under-tent box near the front, inset
 
 # ================================================================ batteries + electrical bay

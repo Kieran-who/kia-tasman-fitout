@@ -111,7 +111,7 @@ def weight_budget(parts):
         m = p.mass
         if m <= 0:
             continue
-        cls = OPTIONS.get(p.group) or ("payload (example)" if p.group == "payload" else "fit-out")
+        cls = OPTIONS.get(p.group) or ("payload (example)" if p.group in ("payload", "lid_cargo") else "fit-out")
         rows.append([cls, p.group, p.name, p.mat or "purchased", round(m, 2)])
         by_group[(cls, p.group)] += m
     # cable mass from the schedule (approx kg/m by size)
@@ -171,7 +171,7 @@ def axle_loads(parts):
             continue
         bb = p.shape.BoundingBox()
         f, r = split(p.mass, (bb.xmin + bb.xmax) / 2)
-        key = "payload (example)" if p.group == "payload" else "fit-out"
+        key = "payload (example)" if p.group in ("payload", "lid_cargo") else "fit-out"
         out[key][0] += f
         out[key][1] += r
     # occupants + accessories (estimates, for the GVM / axle check)
@@ -215,6 +215,9 @@ if __name__ == "__main__":
         tent_gap=P.TENT_GAP, solar_w=sum(p.meta.get("watts", 0) for p in travel),
         cable_count=len(cables), cable_total_m=round(sum(c.length_m() for c in cables), 1),
         material_need=stock,
+        lid_load_kg=round(sum(p.mass for p in travel if p.group in ("tent", "rack", "tent_services", "lid_storage", "lid_cargo")
+                              or p.name.startswith("tent_solar")), 1),
+        lid_dynamic_rating_kg=P.LID_DYNAMIC_KG,
         axle_added_kg_front_rear=axle_loads(travel),   # driving: slides stowed
     )
     with open(os.path.join(OUT, "summary.json"), "w") as f:

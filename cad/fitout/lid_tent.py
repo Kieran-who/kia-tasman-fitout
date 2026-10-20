@@ -123,10 +123,16 @@ def rack_and_tent():
         for s in (1, -1):
             cap = cq.Workplane("XZ", origin=(0, max(s * L2, s * (L2 - 12)), 0)).polyline(prof).close().offset2D(1.5, "intersection").extrude(12)
             parts.append(part(f"rack_bar_endcap_{xc}_{s}", "rack", cap, "trim"))
-    # future storage volume between lid and tent (slim jerry cans etc. - to be measured)
-    fx0, fx1 = P.RACK_BAR_X[0] + bar_w / 2 + 10, P.RACK_BAR_X[1] - bar_w / 2 - 10
-    parts.append(part("under_tent_storage_volume", "future",
-                      box(fx0, fx1, -P.LID_RAIL_Y + 40, P.LID_RAIL_Y - 40, P.LID_TOP_Z + 2, bar_z1 - 5), "ghost"))
+    # tent mounting: a clamp plate under each bar where a tent under-rail crosses it, two bolts whose tails hang
+    # well below the bar [EST] - the under-tent storage keeps clear of these four spots
+    cl, cw, ct = P.TENT_BOLT_CLAMP
+    for xc in P.RACK_BAR_X:
+        for s in (1, -1):
+            yc = s * P.TENT_UNDER_RAILS_CC / 2
+            plate = box(xc - cl / 2, xc + cl / 2, yc - cw / 2, yc + cw / 2, bar_z0 - ct, bar_z0)
+            bolts = [cyl(5, P.TENT_BOLT_DROP, (xc + dx, yc, bar_z0 - ct - P.TENT_BOLT_DROP / 2)) for dx in (-cl / 2 + 12, cl / 2 - 12)]
+            nuts = [cyl(9, 8, (xc + dx, yc, bar_z0 - ct - 4)) for dx in (-cl / 2 + 12, cl / 2 - 12)]
+            parts.append(part(f"tent_mount_clamp_{xc}_{s}", "rack", comp([plate] + bolts + nuts), "rack", kg=0.4))
     # ---- tent (closed)
     x0, x1 = P.TENT_X0, P.TENT_X0 + P.TENT_L
     hw = P.TENT_W / 2

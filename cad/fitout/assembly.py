@@ -1,7 +1,7 @@
 """Assemble the whole vehicle for a given state."""
 import params as P
 
-from . import bay, lid_tent, modules, roof, side_bays, slides, vehicle, wiring
+from . import bay, lid_storage, lid_tent, modules, roof, side_bays, slides, vehicle, wiring
 from .core import ANCHORS
 
 
@@ -16,6 +16,7 @@ def build(state="camp"):
     parts += vehicle.body_context()
     parts += lid_tent.lid()
     parts += lid_tent.rack_and_tent()
+    parts += lid_storage.lid_storage(state)
     parts += bay.bay()
     parts += slides.slides(ext_p, ext_d)
     parts += side_bays.passenger(drawer_out=P.UPPER_DRAWER_TRAVEL * 0.9 if camp else 0)

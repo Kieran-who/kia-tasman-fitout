@@ -1,7 +1,7 @@
 {
-  "version": "v0.9",
-  "fitout_kg": 496.2,
-  "example_payload_kg": 108.2,
+  "version": "v0.10",
+  "fitout_kg": 511.2,
+  "example_payload_kg": 154.1,
   "options_kg": {
     "option: well filler (no fridge)": 4.7,
     "option: example edge modules": 12.0
@@ -13,8 +13,9 @@
     "cargo": 8.4,
     "electrical": 30.6,
     "lid": 68.0,
+    "lid_storage": 13.4,
     "power_cabinet": 19.0,
-    "rack": 13.8,
+    "rack": 15.4,
     "roof": 36.7,
     "slide_d": 35.2,
     "slide_p": 33.7,
@@ -25,6 +26,7 @@
     "wiring": 22.8,
     "modules": 12.0,
     "well_filler": 4.7,
+    "lid_cargo": 45.9,
     "payload": 108.2
   },
   "slide_deck_top_z": 102.2,
@@ -41,12 +43,13 @@
   "cable_total_m": 105.0,
   "material_need": {
     "ACM 3": 1.25,
+    "Flat 40x5 6060": 8.06,
+    "Sheet 1.6 5005": 2.4,
+    "Plate 3 5052": 1.0,
     "Plate 6 5052": 1.29,
     "SHS 30x30x2 6060": 2.16,
     "Plate 4 5052": 0.29,
-    "Plate 3 5052": 0.92,
     "Flat 50x6 6060": 3.59,
-    "Sheet 1.6 5005": 0.38,
     "UHMW 10": 0.06,
     "RHS 75x25x2 6060": 4.7,
     "Angle 60x40x3 6060": 4.7,
@@ -62,14 +65,16 @@
     "Ply 9 marine": 3.49,
     "Flat 60x6 6060": 5.36
   },
+  "lid_load_kg": 170.9,
+  "lid_dynamic_rating_kg": 200,
   "axle_added_kg_front_rear": {
     "fit-out": [
-      3.2,
-      470.2
+      0.7,
+      487.8
     ],
     "payload (example)": [
-      -14.9,
-      123.1
+      -18.0,
+      172.1
     ],
     "4 adults (2 front, 2 rear)": [
       198.7,
