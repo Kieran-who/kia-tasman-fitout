@@ -86,6 +86,8 @@ Parts only, inc GST: products, plus the cable and raw material each stage uses. 
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
 | `docs/build-stages.md` | Build sequence in seven stages to spread the cost |
+| `docs/measurements/` | **Measurement sheet** to print and fill in (PDF/HTML, diagrams, CSV): every dimension the model still estimates |
+| `tools/measure/` | Generator for the measurement sheet (reads `cad/params.py`) |
 | `docs/v0.11-concept.md` | Current: motorised windscreen solar visor (mechanism, clearances, controls and safety, roof load) |
 | `docs/v0.10-concept.md` | Storage under the tent (drawer, water, diesel, extinguisher, cross-bars), lid load check |
 | `docs/v0.9-concept.md` | cable window in the distribution board, flush rear GPO, narrower chain, owner confirmations |
