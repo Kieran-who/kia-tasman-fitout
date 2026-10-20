@@ -86,6 +86,7 @@ Parts only, inc GST: products, plus the cable and raw material each stage uses. 
 |---|---|
 | `docs/design-brief.md` | Requirements and decision log |
 | `docs/build-stages.md` | Build sequence in seven stages to spread the cost |
+| `docs/smart-ute-research.md` | Smart ute hardware research: mini PC (HA + Frigate), STARVIS cameras, thermal + dash screen, tablet, network, power budget, costs |
 | `docs/measurements/` | **Measurement sheet** to print and fill in (PDF/HTML, diagrams, CSV): every dimension the model still estimates |
 | `tools/measure/` | Generator for the measurement sheet (reads `cad/params.py`) |
 | `docs/v0.11-concept.md` | Current: motorised windscreen solar visor (mechanism, clearances, controls and safety, roof load) |
