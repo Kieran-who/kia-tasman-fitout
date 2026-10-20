@@ -1,0 +1,61 @@
+kind,key,unit,sheet_m2,aud_inc_gst,price,source
+cable,0.75 mm2 red (supplied lead),m,,0,included,supplied with the SmartShunt
+cable,0.75 mm2 twin,m,,1.5,estimate,AU auto-cable retail ~A$1-2/m
+cable,1.0 mm2 red,m,,1.0,estimate,AU auto-cable retail
+cable,1.0 mm2 single,m,,1.0,estimate,AU auto-cable retail
+cable,1.5 mm2 twin,m,,2.5,estimate,AU auto-cable retail
+cable,16 mm2 twin,m,,20,estimate,6 B&S twin ~A$18-22/m
+cable,"2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle",m,,16,estimate,two 2.5 mm2 flexes + 6 mm2 twin in sheathing
+cable,"2 x 50 mm2 tinned, black",m,,25,estimate,tinned 50 mm2 (1 B&S) single ~A$22-28/m
+cable,"2 x 50 mm2 tinned, red",m,,25,estimate,tinned 50 mm2 (1 B&S) single ~A$22-28/m
+cable,2-core 0.75 mm2,m,,1.5,estimate,AU auto-cable retail
+cable,2.5 mm2 3-core flex,m,,4.5,estimate,AU electrical wholesale
+cable,2.5 mm2 3-core flex (15 A),m,,4.5,estimate,AU electrical wholesale
+cable,2.5 mm2 3-core flex (TPS-flex),m,,4.5,estimate,AU electrical wholesale
+cable,"2.5 mm2 3-core flex, UV rated",m,,5.5,estimate,AU electrical wholesale
+cable,2.5 mm2 3-core high-flex (chain rated),m,,9,estimate,chain-rated flex (igus chainflex class) ~A$8-10/m
+cable,2.5 mm2 twin,m,,3.5,estimate,AU auto-cable retail
+cable,25 mm2 black,m,,12,estimate,25 mm2 (4 B&S) single ~A$10-14/m
+cable,"25 mm2 twin (+/-), tinned",m,,26,estimate,tinned 25 mm2 x2
+cable,25 mm2 twin (red/black),m,,24,estimate,25 mm2 x2
+cable,"3-core 0.75 mm2 (deploy, stow, LED)",m,,2.5,estimate,AU auto-cable retail
+cable,"4 mm2 solar twin, high-flex (chain rated)",m,,8,estimate,high-flex solar / chain-rated
+cable,4 mm2 twin,m,,5,estimate,AU auto-cable retail
+cable,4 mm2 twin + DC barrel lead,m,,5,estimate,AU auto-cable retail (barrel lead comes with the Starlink Mini)
+cable,"4-core 1.0 mm2 (+12 V feed, control, LED, ground)",m,,3.5,estimate,AU auto-cable retail
+cable,50 mm2 green/yellow,m,,22,estimate,50 mm2 earth
+cable,6 mm2 solar twin (UV),m,,7,estimate,6 mm2 twin-core solar cable ~A$6-8/m
+cable,6 mm2 twin,m,,7,estimate,6 mm2 (6 B&S equiv.) twin ~A$6-8/m
+cable,6 mm2 twin high-flex,m,,10,estimate,high-flex twin
+cable,"70 mm2 tinned, black",m,,35,estimate,tinned 70 mm2 (2/0) single ~A$30-40/m
+cable,"70 mm2 tinned, red",m,,35,estimate,tinned 70 mm2 (2/0) single ~A$30-40/m
+cable,GX Touch cable (HDMI + USB),m,,0,included,supplied with the GX Touch 50
+cable,RJ45 VE.Bus cable,m,,0,in products,product list (VE.Bus cable)
+cable,VE.Direct cables x3,m,,0,in products,product list (VE.Direct cables)
+cable,VE.Direct to USB interface,m,,0,in products,product list (VE.Direct to USB)
+lump,Cable terminations,lot,,350,estimate,"lugs, heat-shrink, ferrules, loom, P-clips, cable ties"
+material,Flat 40x5 6060,m,,9,estimate,cut-to-length aluminium retail ~A$8-10/m
+material,Flat 50x6 6060,m,,13,estimate,cut-to-length aluminium retail
+material,Flat 60x6 6060,m,,15,estimate,cut-to-length aluminium retail
+material,RHS 75x25x2 6060,m,,18,estimate,cut-to-length aluminium retail
+material,RHS 50x25x2 6060,m,,13,estimate,cut-to-length aluminium retail
+material,SHS 30x30x2 6060,m,,11,estimate,cut-to-length aluminium retail
+material,SHS 32x32x2 6060,m,,12,estimate,cut-to-length aluminium retail
+material,SHS 25x25x2 6060,m,,10,estimate,cut-to-length aluminium retail
+material,SHS 19x19x1.6 6060,m,,7,estimate,cut-to-length aluminium retail
+material,SHS 40x40x2 6060,m,,14,estimate,cut-to-length aluminium retail
+material,Angle 30x30x3 6060,m,,9,estimate,cut-to-length aluminium retail
+material,Angle 60x40x3 6060,m,,14,estimate,cut-to-length aluminium retail
+material,Angle 50x50x5 6060,m,,18,estimate,cut-to-length aluminium retail
+material,L-track HD,m,,0,in products,product list (L-track heavy duty)
+material,Sheet 1.6 5005,sheet,2.88,130,estimate,2400x1200 sheet
+material,Plate 3 5052,sheet,2.88,260,estimate,2400x1200 sheet
+material,Plate 4 5052,sheet,2.88,340,estimate,2400x1200 sheet
+material,Plate 6 5052,sheet,2.88,500,estimate,2400x1200 sheet
+material,Ply 9 marine,sheet,2.88,115,estimate,2400x1200 marine ply (AS/NZS 2272)
+material,Ply 12 marine,sheet,2.88,140,estimate,2400x1200 marine ply
+material,Ply 15 marine,sheet,2.88,165,estimate,2400x1200 marine ply
+material,Ply 18 marine,sheet,2.88,185,estimate,2400x1200 marine ply
+material,ACM 3,sheet,2.98,90,estimate,2440x1220 ACM sheet
+material,UHMW 10,sheet,0.5,80,estimate,1000x500 UHMW-PE sheet
+lump,Fasteners and consumables,lot,,450,estimate,"bolts, screws, rivets, adhesive, sealant, edge trim, finish"

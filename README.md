@@ -24,6 +24,11 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 | ![Flush edge fences](renders/v0.6/04_tub_iso_fences.png) | ![Edge pin section](renders/v0.6/08b_section_edge.png) |
 | ![Rear control panel](renders/v0.5/08_rear_panel.png) | ![Drawers with removable dividers](renders/v0.5/09_drawers.png) |
 
+## Cost (parts only)
+
+<!-- cost:start -->
+<!-- cost:end -->
+
 ## Repository layout
 
 | Path | What |
