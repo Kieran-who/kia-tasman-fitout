@@ -23,8 +23,8 @@ ALLOW = [("_deck", "_ltrack"), ("_deck", "_receiver"), ("bulkhead", "_gpo"), ("b
 
 
 # each fitout module may declare its own intentional contacts as CLASH_ALLOW = [("name_a", "name_b"), ...]
-from fitout import bay, lid_storage, lid_tent, modules, roof, side_bays, slides, vehicle, wiring  # noqa: E402
-for _m in (bay, lid_storage, lid_tent, modules, roof, side_bays, slides, vehicle, wiring):
+from fitout import bay, lid_storage, lid_tent, modules, roof, side_bays, slides, vehicle, visor, wiring  # noqa: E402
+for _m in (bay, lid_storage, lid_tent, modules, roof, side_bays, slides, vehicle, visor, wiring):
     ALLOW += getattr(_m, "CLASH_ALLOW", [])
 
 

@@ -218,6 +218,9 @@ if __name__ == "__main__":
         lid_load_kg=round(sum(p.mass for p in travel if p.group in ("tent", "rack", "tent_services", "lid_storage", "lid_cargo")
                               or p.name.startswith("tent_solar")), 1),
         lid_dynamic_rating_kg=P.LID_DYNAMIC_KG,
+        roof_load_kg=round(sum(p.mass for p in travel if p.group in ("roof", "cargo", "visor")
+                               or (p.group == "solar" and not p.name.startswith("tent_solar"))), 1),
+        roof_dynamic_rating_kg=P.ROOF_DYNAMIC_KG,
         axle_added_kg_front_rear=axle_loads(travel),   # driving: slides stowed
     )
     with open(os.path.join(OUT, "summary.json"), "w") as f:

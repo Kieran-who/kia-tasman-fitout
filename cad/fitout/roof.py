@@ -91,7 +91,7 @@ def roof(cargo=True):
     # Wedgetail recessed solar brackets under the panels (spine -> side rail), clear of the roof mounts
     br = []
     for xb, side in ((x0 + 400, 1), (x0 + 1150, 1), (x0 + 400, -1), (x0 + 900, -1)):
-        ya, yb = sorted((side * 15, side * (hw - e)))
+        ya, yb = sorted((side * 15, side * 525))          # v0.11: stop inside the visor guide rails
         br.append(box(xb, xb + 40, ya, yb, zp - 18, zp))
     parts.append(part("plat_solar_brackets", g, comp(br), "trim"))
     # slats in the uncovered passenger bay between panel B and the Starlink pocket

@@ -8,10 +8,10 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.10) |
+| # | Requirement | Where it lives (v0.11) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
-| R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 + 75/15 |
+| R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 (roof + visor) + 75/15 (tent) |
 | R3 | Inverter ~2400 W (kettle or microwave, one at a time) | MultiPlus-II 12/3000 (v0.3) |
 | R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
 | R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
@@ -23,7 +23,7 @@
 | R11 | ~~Driver side: drinking-water tank~~ → always-in-the-car utility storage (straps, odd gear) | Utility drawer + over-arch tray (v0.2) |
 | R12 | Clever use of the space above the arches; **lid can't open with the tent on, so all storage slides out the back** | Full-length upper drawers both sides (v0.3) |
 | R13 | Quality components; Home Assistant monitoring preferred | Victron + Cerbo GX |
-| R14 | Roof platform over the full roof, mostly solar, still carries light cargo above the panels | Wedgetail 1600 × 1450 + removable cargo bars |
+| R14 | Roof platform over the full roof, mostly solar, still carries light cargo above the panels | Wedgetail 1600 × 1450 + removable cargo bars; motorised slide-out windscreen visor panel underneath (v0.11) |
 | R15 | Flush light bar at the front of the platform (nice to have) | Platform front plate |
 | R16 | Starlink Mini permanently on the roof, powered, never over the tent (it opens sideways) | Inside the platform frame (v0.2) |
 | R17 | Tent-top solar, 20 kg limit | 2 × 100 W flexible on an ACM sheet (about 10 kg) |
@@ -71,3 +71,4 @@
 | 2026-10-19 | v0.9 | Cable window in the distribution board + system − busbar flat on the base tray (MultiPlus cables pass straight through); flush Iconic double GPO under a clear cover on the rear panel; igus E2.15.30 chain (37.8 mm wide) in the 50 mm lane | Owner: "whatever saves the most space" |
 | 2026-10-19 | v0.9 | Tent folds open on the driver side (confirmed); Load-Lid struts outside the tub (lid removable with bolts) | Owner confirmation |
 | 2026-10-20 | v0.10 | Under-tent storage: rivnut cross-bars clamped to the Destroyer rails, captive 30 L water (fill in place), rear-loading drawer between the tent-bolt lines holding the folding table, RotopaX 1 gal diesel (heater), 2 kg extinguisher on a quick release at the rear edge; lid load 171 of 200 kg | Owner: jerry cans + platform/closed storage under the tent; drawer preferred; small diesel; extinguisher access; table |
+| 2026-10-20 | v0.11 | Windscreen solar visor: ~250 W panel stowed under the platform, slides out on two rails (one worm gearmotor, cross shaft + belts), tilts to 20° on two self-locking worm drives, hard stop 22°, spring-locked latches (fail locked), limit switches, ignition interlock, dead-man button S3; MPPT 100/30 → 100/50; roof load 85 of ~100 kg | Owner: slide out a large panel in front of the windscreen when parked; strong, locked for travel, motorised one-button |

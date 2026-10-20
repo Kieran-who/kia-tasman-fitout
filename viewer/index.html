@@ -63,7 +63,7 @@ const GROUP_NAMES = {
   batteries:'Batteries', electrical:'Electrical components', wiring:'Wiring (vehicle)', tent_harness:'Wiring (tent, detachable)',
   slide_p:'Slide – power side', slide_d:'Slide – driver side', power_cabinet:'Power cabinet + charging board',
   utility:'Utility storage (driver side)', payload:'Example payload', roof:'Roof platform', solar:'Solar panels',
-  cargo:'Cargo bars', markers:'Markers', lid_storage:'Under-tent storage (drawer, cross-bars)', lid_cargo:'Under-tent cargo (water, diesel, extinguisher, table)', well_filler:'Fridge-well filler (no fridge)', modules:'Example modules (edge dividers)'
+  cargo:'Cargo bars', markers:'Markers', visor:'Windscreen visor mechanism', lid_storage:'Under-tent storage (drawer, cross-bars)', lid_cargo:'Under-tent cargo (water, diesel, extinguisher, table)', well_filler:'Fridge-well filler (no fridge)', modules:'Example modules (edge dividers)'
 };
 // groups that start hidden (alternatives to what is shown by default)
 const DEFAULT_OFF = ['well_filler', 'modules'];
@@ -77,6 +77,7 @@ const VIEWS = {
   bay:      { pos:[1.25, 1.05, 0.55], tgt:[0.15, 0.25, -0.05], fov:36, hide:['lid','rack','tent','tent_services','future','roof','solar','cargo','bay_cover','payload','tent_harness'] },
   wiring:   { pos:[2.2, 2.6, 3.4],  tgt:[-0.4, 0.0, -0.2], fov:38, hide:['lid','rack','tent','future','roof','solar','cargo','bay_cover','payload','slide_d','utility','tent_services'], ghost:['vehicle'] },
   under_tent:{ pos:[2.35, 1.0, 1.35], tgt:[1.1, 0.66, -0.05], fov:34, hide:['tent','solar','roof','cargo','tent_harness'] },
+  visor:    { pos:[-1.2, 1.55, 3.0], tgt:[-2.6, 0.75, 0], fov:34, hide:['tent_harness'] },
   tent_side:{ pos:[0.55, 0.95, -5.4], tgt:[0.55, 0.6, 0], fov:24, hide:['roof','solar','cargo'] },
   side_d:   { pos:[-0.8, 0.6, -8.5], tgt:[-0.8, 0.3, 0],  fov:34 },
   roof:     { pos:[1.2, 2.9, 2.6],  tgt:[-0.9, 1.0, 0],  fov:34 },

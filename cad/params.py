@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.10"
+VERSION = "v0.11"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -110,7 +110,7 @@ BUSBAR = (200, 50, 45)        # [EST] Blue Sea PowerBar 600 A (bank +, system +,
 RBS = (110, 95, 100)          # [EST] Blue Sea ML-RBS 7713 remote battery switch 500 A (switched from the rear panel)
 # charging board on the FRONT WALL above the inverter (vertical, terminals down): (along Y, thickness, height)
 DCDC = (123, 40, 137)         # [PUB] Orion XS 12/12-50A x1, input current limit 1-50 A: start at 25-30 A
-MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/30 (320 W roof array ~23 A; same case as 100/50)
+MPPT_ROOF = (130, 70, 186)    # [PUB] SmartSolar 100/50 (v0.11: roof 320 W + visor 250 W ~44 A; same case as the 100/30, part names kept)
 MPPT_TENT = (113, 40, 100)    # [PUB] SmartSolar 75/15
 CHARGE_BOARD_Z = 290          # [DES] bottom of the board: ~140 mm air gap above the inverter
 # rear control cabinet (passenger, behind the arch): reached by opening the tailgate only
@@ -176,6 +176,13 @@ PLAT_W = 1450          # [PUB]
 PLAT_Z = ROOF_Z + 70   # [PUB]
 PLAT_T = 40
 PLAT_X0 = CAB_REAR_X - 40 - PLAT_L
+# windscreen "visor" panel (v0.11): slides forward on rails under the platform, then tilts down over the windscreen
+VISOR = dict(L=1300, W=1000, T=25, kg=8.5, watts=250,          # [EST] ~250 W semi-flex cells bonded to a 20 mm alu honeycomb panel
+             rail_y=560, rail_w=43, rail_h=20,                  # [EST] 2 x aluminium profile guide rails hung under the platform
+             car_l=120, arm=235,                                # carriage length; hinge arm reaches ahead of the carriage centre
+             tilt=20, tilt_max=22,                              # [DES] working tilt and the hard stop (bonnet clearance > 100 mm)
+             hinge_z=1000)                                      # [EST] panel top / hinge axis height (tub frame)
+ROOF_DYNAMIC_KG = 100  # [PUB-ish] Kia roof rack dynamic limit (owner's manual page, likely generic) / aftermarket Tasman racks 100 kg
 ROOF_PANEL_A = (1485, 668, 30)   # [PUB] Victron BlueSolar 190 W (driver half)
 ROOF_PANEL_B = (1020, 668, 30)   # [PUB] Victron BlueSolar 130 W, 7.1 kg (no quality ~1200 mm panel exists)
 PANEL_T = 30

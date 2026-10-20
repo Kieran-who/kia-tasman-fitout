@@ -2,7 +2,7 @@
 Wiring diagram generator.
 
 Reads the routed cable schedule (bom/cable-schedule-<ver>.csv) and cad/out/cables.json written by
-cad/build.py, draws the electrical sheets E1-E8 as SVG, and writes:
+cad/build.py, draws the electrical sheets E1-E9 as SVG, and writes:
     docs/wiring/sheets/E<n>-<key>.svg
     docs/wiring/wiring-diagram-<ver>.html   (standalone page: all sheets + schedules)
     docs/wiring/artifact.html               (same content without the html/head/body skeleton)
@@ -25,9 +25,9 @@ sys.path.insert(0, str(ROOT / "cad"))
 import params as P  # noqa: E402
 
 V = P.VERSION
-DATE = "2026-10-19"
+DATE = "2026-10-20"
 META = dict(version=V, date=DATE)
-TOTAL = 8
+TOTAL = 9
 
 SCHED = {r["id"]: r for r in csv.DictReader(open(ROOT / f"bom/cable-schedule-{V}.csv"))}
 ROUTES = json.load(open(ROOT / "cad/out/cables.json"))
@@ -129,7 +129,7 @@ def sheet_dc_main():
     s.motor(1268, 400, "M1", "fan 92 mm")
     s.wire([(1268, 416), (1268, yn)], "neg", "1.5", tag=T("FAN"), tag_at=(1268, 470))
     # ---------------- charger outputs (twin: + leg to BB3 via MIDI, − leg to BB4)
-    for k, (cid, ref, rating, src) in enumerate((("ORO", "F4", "MIDI 70 A", "U2 Orion XS"), ("MPR", "F5", "MIDI 40 A", "U3 MPPT 100/30"),
+    for k, (cid, ref, rating, src) in enumerate((("ORO", "F4", "MIDI 70 A", "U2 Orion XS"), ("MPR", "F5", "MIDI 60 A", "U3 MPPT 100/50"),
                                                  ("MPT", "F6", "MIDI 20 A", "U4 MPPT 75/15"))):
         x = 1330 + k * 30
         sz = size_of(cid)
@@ -185,7 +185,7 @@ FB1_WAYS = [  # way, circuit, fuse, cable, destination
     (1, "Rear Anderson 1", "30 A", "DO1A"), (2, "Rear Anderson 2", "30 A", "DO1B"), (3, "Rear USB-C ×2", "10 A", "DO1C"),
     (4, "Rear 12 V socket", "15 A", "DO1D"), (5, "Power slide pod", "30 A", "DO2"), (6, "Cabin outlets", "30 A", "DO3"),
     (7, "Starlink Mini", "10 A", "DO4"), (8, "Tent 12 V", "30 A", "DO5"), (9, "Cerbo GX", "2 A", "CGX"),
-    (10, "spare", "–", ""), (11, "spare", "–", ""), (12, "spare", "–", "")]
+    (10, "Visor drive", "20 A", "VIS"), (11, "spare", "–", ""), (12, "spare", "–", "")]
 
 
 def _twin_lr(s, x0, y, x1, size, tag=None, tag_x=None):
@@ -201,22 +201,23 @@ def sheet_dc_dist():
     s.zone(600, 116, 530, 200, "Rear panel", "hinged door, faces the tailgate", bottom=True)
     s.zone(1160, 318, 470, 172, "Power slide pod", "sockets face up", bottom=True, lx=180)
     s.zone(1160, 500, 470, 165, "Cabin", "box under the rear seat", bottom=True, lx=180)
-    s.zone(1160, 672, 130, 186, "Gap junction", "cab–tub gap", bottom=True)
+    s.zone(1160, 672, 130, 280, "Gap junction", "cab–tub gap", bottom=True)
+    s.zone(1310, 866, 320, 86, "Roof platform", "visor drive", bottom=True, lx=12)
     s.zone(1310, 672, 320, 54, "Roof platform", bottom=True)
     s.zone(1310, 740, 320, 118, "Tent services box", "detaches with the tent", bottom=True, lx=110)
-    ways = {1: 150, 2: 190, 3: 230, 4: 270, 5: 360, 6: 520, 7: 690, 8: 780, 9: 880}
-    terms = [("in", "L", 60, "+IN"), ("neg", "L", 780, "−BUS")]
+    ways = {1: 150, 2: 190, 3: 230, 4: 270, 5: 360, 6: 520, 7: 690, 8: 780, 9: 840, 10: 885}
+    terms = [("in", "L", 60, "+IN"), ("neg", "L", 795, "−BUS")]
     for w, circ, fuse, cid in FB1_WAYS:
         if w in ways:
             terms.append((f"w{w}", "R", ways[w] - 110, f"{w}·{fuse}"))
     fb = s.block("FB1", 330, 110, 190, 800, "Fuse block",
-                 ["Blue Sea 5026 (12-way ATC)", "with negative bus", "", "ways 10–12 spare", "", "feed: DCF 25 mm² twin",
+                 ["Blue Sea 5026 (12-way ATC)", "with negative bus", "", "ways 11–12 spare", "", "feed: DCF 25 mm² twin",
                   "from F7 MEGA 100 A"], cat="prot", terms=terms)
     s.wire([(250, 170), fb.t("in")], "pos", "25")
     s.offsheet(250, 170, "l", "DCF+ ← F7", "BB3 · sheet E2")
     USED.add("DCF")
-    s.wire([(250, 890), fb.t("neg")], "neg", "25")
-    s.offsheet(250, 890, "l", "DCF− ← BB4", "sheet E2")
+    s.wire([(250, 905), fb.t("neg")], "neg", "25")
+    s.offsheet(250, 905, "l", "DCF− ← BB4", "sheet E2")
     xo = fb.x + fb.w
     # ---- rear panel (ways 1-4)
     blk = {}
@@ -259,6 +260,11 @@ def sheet_dc_dist():
     y = ways[9]
     s.block("U5", 660, y - 15, 220, 30, "Cerbo GX power in", cat="victron", terms=[("i", "L", 15, "")])
     _twin_lr(s, xo, y, 660, "0.75", tag=T("CGX"), tag_x=590)
+    # ---- visor drive (way 10, v0.11)
+    y = ways[10]
+    _twin_lr(s, xo, y, 1340, "6", tag=T("VIS"), tag_x=760)
+    s.gland(1225, y + 3.5, "")
+    s.block("U11", 1340, y - 15, 270, 30, "Visor controller (detail E9)", cat="gen", terms=[("i", "L", 15, "")])
     # ---- way table + notes (left column)
     rows = [(w, c, f, cid or "–") for w, c, f, cid in FB1_WAYS]
     s.table(46, 330, ["Way", "Circuit", "ATC", "Cable"], rows, [34, 112, 40, 46], size=10, rh=17, title="FB1 ways")
@@ -307,20 +313,23 @@ def sheet_charging():
     s.wire([(x, y), (660, y), (660, u2.t("h")[1]), u2.t("h")], "sig", "1")
     s.fuse(500, y, "h", "F9", "2 A")
     s.tag(560, y, T("IGN"))
-    # ---------------- roof array: two panels in parallel
-    pv1 = _panel(s, "PV1", 80, 430, "190 W", "BlueSolar 190 W")
-    pv2 = _panel(s, "PV2", 260, 430, "130 W", "BlueSolar 130 W")
+    # ---------------- roof array: two fixed panels + the slide-out visor panel, all in parallel
+    pv1 = _panel(s, "PV1", 62, 430, "190 W", "BlueSolar", w=112)
+    pv2 = _panel(s, "PV2", 192, 430, "130 W", "BlueSolar", w=112)
+    pv5 = _panel(s, "PV5", 322, 430, "250 W", "visor (E9)", w=112)
     yp_, yn_ = 405, 545
-    for pv in (pv1, pv2):
+    for pv in (pv1, pv2, pv5):
         x, y = pv.t("p")
         s.wire([(x, y), (x, yp_)], "pvp", "6")
         x, y = pv.t("n")
         s.wire([(x, y), (x, yn_)], "pvn", "6")
-    s.dot(pv2.t("p")[0], yp_, "pvp")
-    s.dot(pv2.t("n")[0], yn_, "pvn")
-    s.text(255, 585, "parallel via MC4 Y-branch (Vmp within ~1 V)", size=10, italic=True, anchor="middle", fill="#495057")
+    for pv in (pv2, pv5):
+        s.dot(pv.t("p")[0], yp_, "pvp")
+        s.dot(pv.t("n")[0], yn_, "pvn")
+    s.tag(378, 585, T("PVV", "visor 4 mm² high-flex"))
+    s.text(240, 600, "parallel via MC4 3-way branch", size=10, italic=True, anchor="middle", fill="#495057")
     u3 = s.block("U3", 760, 410, 260, 170, "MPPT roof",
-                 ["Victron SmartSolar MPPT 100/30", "PV ≤ 100 V Voc, 30 A out", "~320 W array", "VE.Direct 2 → Cerbo (E6)"],
+                 ["Victron SmartSolar MPPT 100/50", "PV ≤ 100 V Voc, 50 A out", "~570 W (320 fixed + 250 visor)", "VE.Direct 2 → Cerbo (E6)"],
                  cat="victron", terms=[("pp", "L", 50, "PV+"), ("pn", "L", 120, "PV−"), ("op", "R", 50, "BAT+"), ("on", "R", 90, "BAT−")])
     s.wire([(pv1.t("p")[0], yp_), (600, yp_), (600, u3.t("pp")[1]), u3.t("pp")], "pvp", "6")
     s.wire([(pv1.t("n")[0], yn_), (600, yn_), (600, u3.t("pn")[1]), u3.t("pn")], "pvn", "6")
@@ -328,7 +337,7 @@ def sheet_charging():
     s.gland(575, yn_, "", side=1)
     s.switch(690, u3.t("pp")[1], "h", "QP1", "PV isolator", side=1)
     s.switch(690, u3.t("pn")[1], "h", "", "", side=-1)
-    s.tag(470, yp_, T("PVR"))
+    s.tag(500, yp_ - 22, T("PVR"))
     # ---------------- tent array: two flexible panels in series
     pv3 = _panel(s, "PV3", 80, 720, "100 W flex", "Sunman eArc")
     pv4 = _panel(s, "PV4", 260, 720, "100 W flex", "Sunman eArc")
@@ -350,7 +359,7 @@ def sheet_charging():
     s.switch(690, u4.t("pp")[1], "h", "QP2", "PV isolator", side=1)
     s.switch(690, u4.t("pn")[1], "h", "", "", side=-1)
     # ---------------- outputs to the system busbars
-    for u, cid, ref, rating in ((u2, "ORO", "F4", "MIDI 70 A"), (u3, "MPR", "F5", "MIDI 40 A"), (u4, "MPT", "F6", "MIDI 20 A")):
+    for u, cid, ref, rating in ((u2, "ORO", "F4", "MIDI 70 A"), (u3, "MPR", "F5", "MIDI 60 A"), (u4, "MPT", "F6", "MIDI 20 A")):
         sz = size_of(cid)
         x, y = u.t("op")
         s.wire([(x, y), (1320, y)], "pos", sz)
@@ -467,7 +476,7 @@ def sheet_control():
     s = Sheet(6, "control", "Control and communications",
               "Cerbo GX gathers every Victron device for the GX Touch, Home Assistant and VRM. Hard-wired switches at the rear panel.", TOTAL)
     s.zone(46, 92, 1588, 520, "Monitoring", "Cerbo GX in the rear cabinet")
-    s.zone(46, 628, 1588, 300, "Control circuits", "switches on the rear panel")
+    s.zone(46, 628, 1588, 400, "Control circuits", "switches on the rear panel", bottom=True, lx=700)
     u5 = s.block("U5", 600, 170, 300, 400, "Cerbo GX MK2",
                  ["Victron GX device, Venus OS ≥ 3.20", "3 × VE.Direct, 2 × VE.Bus (RJ45)", "3 × USB, HDMI, Ethernet, Wi-Fi, BLE",
                   "VE.Can 1/2, relays, tank / temp /", "digital inputs: unused", "", "power: FB1 way 9, 2 A (CGX)"],
@@ -484,7 +493,7 @@ def sheet_control():
     s.wire([(400, y), (x, y)], "pos", "0.75")
     s.offsheet(400, y, "l", "CGX ← FB1 way 9 (2 A)", "sheet E3")
     devs = [("vb", "U1", "MultiPlus-II", "VE.Bus", "D1"), ("vd1", "P1", "SmartShunt 500 A", "VE.Direct", "D2"),
-            ("vd2", "U3", "MPPT 100/30 (roof)", "VE.Direct", "D2"), ("vd3", "U4", "MPPT 75/15 (tent)", "VE.Direct", "D2"),
+            ("vd2", "U3", "MPPT 100/50 (roof)", "VE.Direct", "D2"), ("vd3", "U4", "MPPT 75/15 (tent)", "VE.Direct", "D2"),
             ("usb1", "U2", "Orion XS 12/12-50A", "VE.Direct", "D4")]
     for port, ref, name, dport, cid in devs:
         a = u5.t(port)
@@ -525,13 +534,25 @@ def sheet_control():
     s.wire([s2.t("a"), rm.t("L")], "ctrl", "1")
     s.wire([s2.t("b"), rm.t("H")], "ctrl", "1")
     s.tag(520, 875, T("SW2"))
+    # ---- visor button S3 (v0.11) -> visor controller (E9)
+    s3 = s.block("S3", 90, 940, 240, 64, "Visor deploy / stow", ["momentary rocker + LED, rear panel"], cat="prot",
+                 terms=[("d", "R", 20, "DEP"), ("s", "R", 36, "STOW"), ("l", "R", 52, "LED")])
+    for k, kind in (("d", "ctrl"), ("s", "ctrl"), ("l", "sig")):
+        x, y = s3.t(k)
+        s.wire([(x, y), (640, y)], kind, "1")
+    s.offsheet(640, 972, "r", "VSW → U11 visor controller", "roof · sheet E9")
+    s.tag(500, 960, T("VSW"))
     # ---- Orion ignition sense
     ig = s.block("U2", 1340, 700, 260, 64, "Orion XS remote on/off", ["H ← ignition 12 V (IGN)", "remove the L–H bridge"], cat="victron",
                  terms=[("H", "L", 25, "H")])
     s.wire([(1300, 725), ig.t("H")], "sig", "1")
     s.offsheet(1300, 725, "l", "IGN ← F9 2 A (E4)")
     USED.add("IGN")
-    s.note(1180, 800, 450, ["- S1 drives QS1 open/closed; QS1 latches, so S1 position is",
+    s.wire([(1315, 725), (1315, 790), (1340, 790)], "sig", "0.75")
+    s.dot(1315, 725, "sig", r=3.2)
+    s.offsheet(1340, 790, "r", "VIG: ignition → U11 visor interlock", "sheet E9")
+    USED.add("VIG")
+    s.note(1180, 840, 450, ["- S1 drives QS1 open/closed; QS1 latches, so S1 position is",
                             "  the command and the LED confirms the contacts.",
                             "- S2 open = MultiPlus fully off (inverter and charger).",
                             "  Modes (on / charger only) are also on the GX Touch."], size=10, lh=14)
@@ -734,19 +755,21 @@ def bundles():
             add(("JUNCTION", "TENT"), cid)
     for v in edges.values():
         on_edge.update(v)
-    internal = {"BAY": [], "CABINET": []}
+    internal = {"BAY": [], "CABINET": [], "ROOF": []}
     for c in ROUTES["cables"]:
         if c["id"] not in on_edge:
-            internal["BAY" if c["points"][0][0] < P.BAY_D + 120 else "CABINET"].append(c["id"])
+            p0 = c["points"][0]
+            key = "ROOF" if p0[2] > P.ROOF_Z - 100 else ("BAY" if p0[0] < P.BAY_D + 120 else "CABINET")
+            internal[key].append(c["id"])
     return edges, internal
 
 
 def sheet_overview():
     s = Sheet(1, "overview", "System overview: locations and cable bundles",
-              "Where each part lives and which cables share each run. Bundles are worked out from the routed 3D model. Circuits on sheets E2–E7.", TOTAL)
+              "Where each part lives and which cables share each run. Bundles are worked out from the routed 3D model. Circuits on sheets E2–E7 and E9.", TOTAL)
     edges, internal = bundles()
     N = {   # node: (x, y, w, h, title, lines, cat)
-        "ROOF": (430, 112, 300, 86, "Roof platform", ["PV1 190 W + PV2 130 W (parallel)", "ST1 Starlink Mini (inside the frame)"], "pv"),
+        "ROOF": (430, 112, 300, 86, "Roof platform", ["PV1 190 W + PV2 130 W + PV5 visor 250 W", "ST1 Starlink, U11 visor drive (E9)"], "pv"),
         "TENT": (950, 112, 360, 86, "Tent (detachable)", ["services box: XI1 inlet, Q4 RCBO, XS3 outlet, X5", "PV3 + PV4 2 × 100 W flexible (series)"], "ac"),
         "JUNCTION": (640, 270, 300, 86, "Gap junction box", ["J1–J4 keyed connectors (tent)", "glands for the roof cables"], "conn"),
         "ENGINE": (60, 270, 270, 86, "Engine bay", ["BT0 start battery + F8 60 A MIDI", "FBX fuse box: F9 2 A add-a-fuse (IGN)"], "vehicle"),
@@ -801,7 +824,7 @@ def sheet_overview():
         return [pa, pb]
     tag_pos = {("CH_ENGINE", "CH_CABIN"): (315, 510), ("CH_CABIN", "CH_GAP"): (612, 505), ("CH_GAP", "CH_REAR"): (1045, 520),
                ("ENGINE", "CH_ENGINE"): (100, 410), ("CABIN", "CH_CABIN"): (482, 560), ("CH_GAP", "JUNCTION"): (690, 400),
-               ("JUNCTION", "ROOF"): (560, 230), ("JUNCTION", "TENT"): (1000, 255), ("CH_REAR", "GLAND"): (1440, 470),
+               ("JUNCTION", "ROOF"): (560, 236), ("JUNCTION", "TENT"): (1000, 255), ("CH_REAR", "GLAND"): (1440, 470),
                ("GLAND", "TRAY"): (1440, 610), ("TRAY", "BAY"): (880, 700), ("TRAY", "CABINET"): (1440, 760),
                ("CABINET", "POD"): (1580, 930)}
     for (a, b), ids in sorted(edges.items()):
@@ -853,7 +876,101 @@ def sheet_overview():
     return s
 
 
-SHEETS = [sheet_overview, sheet_dc_main, sheet_dc_dist, sheet_charging, sheet_ac, sheet_control, sheet_tent, sheet_routes]
+# ======================================================================================= E9
+def sheet_visor():
+    s = Sheet(9, "visor", "Visor drive: slide, tilt and locking",
+              "The windscreen visor panel (PV5) slides out on two rails and tilts to 20°. One button at the rear panel; every motion is interlocked.", TOTAL)
+    s.zone(46, 92, 300, 610, "Feeds", "rear cabinet · E3, E6")
+    s.zone(380, 92, 560, 610, "Roof platform", "visor controller, front cross-member", bottom=True)
+    s.zone(980, 92, 654, 610, "Visor mechanism", "rails, carriages, hinge beam", bottom=True)
+    u11 = s.block("U11", 520, 140, 300, 520, "Visor controller",
+                  ["IP66 enclosure, platform front", "12 V logic (PLC / µC) + 2 × dual", "H-bridge drivers, current sense",
+                   "3 motor channels: M2, M3, M4", "latch driver: Y1 + Y2", "4 limit inputs: B1–B4",
+                   "BZ1 buzzer on the lid", "", "motion only while the button", "is held (dead-man), 1 s to start",
+                   "timeout 25 s per step → fault", "", "manual override: 8 mm hex on", "M2 shaft end and both tilt drives"],
+                  cat="gen", terms=[("p", "L", 40, "+12V"), ("n", "L", 80, "GND"), ("dep", "L", 160, "DEP"), ("stow", "L", 190, "STOW"),
+                                    ("led", "L", 220, "LED"), ("ign", "L", 300, "IGN"),
+                                    ("m2p", "R", 40, "M2+"), ("m2n", "R", 64, "M2−"), ("m3p", "R", 130, "M3+"), ("m3n", "R", 154, "M3−"),
+                                    ("m4p", "R", 210, "M4+"), ("m4n", "R", 234, "M4−"), ("yp", "R", 300, "Y+"), ("yn", "R", 324, "Y−"),
+                                    ("b1", "R", 380, "IN1"), ("b2", "R", 410, "IN2"), ("b3", "R", 440, "IN3"), ("b4", "R", 470, "IN4"),
+                                    ("com", "B", 250, "COM")])
+    # ---- feeds from the rear cabinet
+    for key, kind, txt, sub in (("p", "pos", "VIS+ ← FB1 way 10, ATC 20 A", "sheet E3"), ("n", "neg", "VIS− ← FB1 neg bus", "sheet E3")):
+        x, y = u11.t(key)
+        s.wire([(330, y), (x, y)], kind, "6")
+        s.offsheet(330, y, "l", txt, sub)
+    s.tag(430, 101 + 59, T("VIS"))
+    for key, kind, txt in (("dep", "ctrl", "DEP ← S3"), ("stow", "ctrl", "STOW ← S3"), ("led", "sig", "LED → S3")):
+        x, y = u11.t(key)
+        s.wire([(330, y), (x, y)], kind, "0.75")
+        s.offsheet(330, y, "l", txt)
+    s.text(84, 395, "S3 at the rear panel, sheet E6", size=10, italic=True, fill="#495057")
+    s.tag(430, 390, T("VSW"))
+    x, y = u11.t("ign")
+    s.wire([(330, y), (x, y)], "sig", "0.75")
+    s.offsheet(330, y, "l", "VIG ← Orion H (ignition)", "sheet E6")
+    s.tag(430, 470, T("VIG"))
+    s.note(60, 520, 272, ["S3 switches DEP / STOW to ground;", "U11 pulls the inputs up.", "LED: flashing = moving,",
+                          "solid = not stowed, off = locked.", "IGN high = engine on."], title="Inputs", size=10, lh=14)
+    # ---- motors, latches, limit switches
+    def drive(ref, y, title, lines, kp, kn, size, tag):
+        b = s.block(ref, 1120, y, 330, 76, title, lines, cat="gen", terms=[("p", "L", 26, "+"), ("n", "L", 50, "−")])
+        for k, kind in ((kp, "pos"), (kn, "neg")):
+            a = u11.t(k)
+            yy = b.t("p" if kind == "pos" else "n")[1]
+            s.wire([a, (960, a[1]), (960, yy), (1120, yy)], kind, size)
+        s.tag(1040, y + 64, tag)
+        return b
+    drive("M2", 110, "Slide gearmotor", ["12 V worm gearmotor, self-locking", "cross shaft → 2 × HTD belts"], "m2p", "m2n", "2.5", "local · 2.5 mm²")
+    drive("M3", 216, "Tilt drive, driver side", ["12 V worm rotary actuator", "at the hinge beam end"], "m3p", "m3n", "1.5", "1.5 mm² in chain")
+    drive("M4", 322, "Tilt drive, passenger side", ["12 V worm rotary actuator", "runs in step with M3"], "m4p", "m4n", "1.5", "1.5 mm² in chain")
+    y1 = s.block("Y1/Y2", 1120, 418, 330, 76, "Front latches (×2, parallel)", ["spring-locked, 12 V to release", "power lost = locked"],
+                 cat="prot", terms=[("p", "L", 26, "+"), ("n", "L", 50, "−")])
+    for k, t_, kind in (("yp", "p", "pos"), ("yn", "n", "neg")):
+        a, b = u11.t(k), y1.t(t_)
+        s.wire([a, (940 + (t_ == "n") * 6, a[1]), (940 + (t_ == "n") * 6, b[1]), b], kind, "1")
+    lim = (("b1", "B1", "carriages home (stowed)"), ("b2", "B2", "carriages out (deployed)"),
+           ("b3", "B3", "tilt at 0° (flat)"), ("b4", "B4", "tilt at 21° (stop at 22°)"))
+    for i, (k, ref, txt) in enumerate(lim):
+        yb = 520 + i * 36
+        b = s.block(ref, 1120, yb, 330, 28, f"limit · {txt}", cat="vehicle", terms=[("i", "L", 14, ""), ("c", "R", 14, "")])
+        a = u11.t(k)
+        s.wire([a, (900 + i * 12, a[1]), (900 + i * 12, yb + 14), b.t("i")], "sig", "0.75")
+        x, y = b.t("c")
+        s.wire([(x, y), (1490, y)], "sig", "0.75")
+    s.wire([(1490, 534), (1490, 680), (770, 680), u11.t("com")], "sig", "0.75")
+    s.text(1500, 610, "COM", size=10, family=MONO, fill="#0b7285")
+    s.text(1132, 513, "IP67 roller-lever switches, NO; B4 is set 1° before the hard stop", size=9.5, italic=True, fill="#495057")
+    # ---- panel PV (energy chain to the roof branch)
+    s.zone(46, 724, 400, 200, "Visor panel", "moves with the carriages", bottom=True)
+    pv5 = _panel(s, "PV5", 80, 760, "250 W visor", "semi-flex on honeycomb", w=170)
+    x, y = pv5.t("p")
+    s.wire([(x, y), (x, 744), (330, 744), (330, 800), (520, 800)], "pvp", "4")
+    x, y = pv5.t("n")
+    s.wire([(x, y), (x, 868), (330, 868), (330, 812), (520, 812)], "pvn", "4")
+    s.offsheet(520, 806, "r", "PVV → MC4 3-way → PVR → U3", "MPPT 100/50 · sheet E4")
+    s.tag(400, 846, T("PVV"))
+    s.text(530, 840, "high-flex, runs in an igus chain beside the left rail", size=9.5, italic=True, fill="#495057")
+    # ---- sequence
+    rows = [("1", "check IGN off, B1 + B3 closed", "allowed any time (IGN on too)"),
+            ("2", "Y1/Y2 energise (pins out)", "M3 + M4 tilt down until B3"),
+            ("3", "M2 extends until B2", "Y1/Y2 energise; M2 retracts to B1"),
+            ("4", "M3 + M4 tilt up to 20°, B4 = limit", "Y1/Y2 off: springs lock the pins"),
+            ("5", "Y1/Y2 off; worms hold the panel", "LED off = locked for travel")]
+    s.table(470, 880, ["Step", "Deploy (hold DEP)", "Stow (hold STOW)"], rows, [40, 260, 260], title="Sequence")
+    s.note(1090, 724, 544, ["- No deploy with the ignition on. Engine on while not stowed →",
+                            "  BZ1 sounds, LED flashes; nothing moves without the button.",
+                            "- M2 runs only with B3 closed: the panel slides flat, then tilts.",
+                            "- Over-current on any channel → stop and back off 2 mm (pinch).",
+                            "- Mechanical stop at 22° keeps ≥ 87 mm to the glass even if",
+                            "  B4 fails; worm drives cannot be back-driven by wind or load.",
+                            "- Latches fail locked. Stow when gusts exceed ~40 km/h.",
+                            "- U11 draws < 20 mA idle; isolate with FB1 way 10."],
+           title="Interlocks and safety", size=10.5, lh=15)
+    return s
+
+
+SHEETS = [sheet_overview, sheet_dc_main, sheet_dc_dist, sheet_charging, sheet_ac, sheet_control, sheet_tent, sheet_routes, sheet_visor]
 
 
 # ======================================================================================= schedules
@@ -862,7 +979,7 @@ PROTECTION = [  # ref, device, rating, location, protects
     ("F2", "MRBF terminal fuse (Blue Sea 5191)", "300 A", "Battery 2 + stud", "B2P"),
     ("F3", "Class-T fuse + holder (Blue Sea 5502)", "400 A", "BB3 system + bus", "CT1, INVP (MultiPlus DC)"),
     ("F4", "MIDI fuse", "70 A", "BB3 stud", "ORO (Orion XS output)"),
-    ("F5", "MIDI fuse", "40 A", "BB3 stud", "MPR (MPPT 100/30 output)"),
+    ("F5", "MIDI fuse", "60 A", "BB3 stud", "MPR (MPPT 100/50 output)"),
     ("F6", "MIDI fuse", "20 A", "BB3 stud", "MPT (MPPT 75/15 output)"),
     ("F7", "MEGA fuse", "100 A", "BB3 stud", "DCF (feed to FB1)"),
     ("F8", "MIDI fuse + holder", "60 A", "Start battery +, engine bay", "ALT"),
@@ -870,7 +987,7 @@ PROTECTION = [  # ref, device, rating, location, protects
     ("F10", "Inline ATC holder", "2 A", "BB1 bank + bus", "RBF, SW1 (ML-RBS control)"),
     ("F11", "Inline fuse (supplied with SmartShunt)", "1 A", "BB1 bank + bus", "SHV"),
     ("F12", "Inline ATC holder", "5 A", "BB3 stud", "FAN"),
-    ("FB1 1–9", "ATC blade fuses in FB1 (Blue Sea 5026)", "see E3", "Rear control cabinet", "DO1A–DO5, CGX"),
+    ("FB1 1–10", "ATC blade fuses in FB1 (Blue Sea 5026)", "see E3", "Rear control cabinet", "DO1A–DO5, CGX, VIS (way 10, 20 A)"),
     ("F13 / F14", "ATC in FB2", "15 A / 10 A", "Power slide pod", "pod 12 V socket / USB-C"),
     ("F15 / F16", "ATC in FB3", "15 A / 10 A", "Cabin box", "cabin 12 V socket / USB-C"),
     ("Q1–Q3", "RCBO 1P+N, 30 mA", "10 A", "RCBO enclosure, rear cabinet", "AC2, AC3, AC4"),
@@ -886,7 +1003,7 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("P1", "Battery monitor", "Victron SmartShunt 500 A", "Front bay", "E2, E6"),
     ("U1", "Inverter/charger", "Victron MultiPlus-II 12/3000/120-32 230 V", "Front bay, lying flat", "E2, E5, E6"),
     ("U2", "DC-DC charger", "Victron Orion XS 12/12-50A", "Charging board", "E4, E6"),
-    ("U3", "Solar charger, roof", "Victron SmartSolar MPPT 100/30", "Charging board", "E4, E6"),
+    ("U3", "Solar charger, roof", "Victron SmartSolar MPPT 100/50", "Charging board", "E4, E6"),
     ("U4", "Solar charger, tent", "Victron SmartSolar MPPT 75/15", "Charging board", "E4, E6"),
     ("M1", "Inverter fan", "92 mm 12 V thermostatic", "Above the inverter", "E2"),
     ("FB1", "Fuse block 12-way + neg bus", "Blue Sea 5026", "Rear control cabinet", "E3"),
@@ -895,6 +1012,7 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("U6", "Display", "Victron GX Touch 50", "Rear panel", "E6"),
     ("S1", "Battery isolate switch", "Blue Sea 2155 Contura SPDT with LED", "Rear panel", "E6"),
     ("S2", "Inverter on/off switch", "SPST rocker", "Rear panel", "E6"),
+    ("S3", "Visor deploy / stow button", "momentary ON-OFF-ON rocker with LED", "Rear panel", "E6, E9"),
     ("RCBO", "RCBO enclosure, Q1–Q3", "IP66 DIN enclosure, 3 × RCBO 10 A 30 mA", "Rear control cabinet", "E5"),
     ("XS1", "Rear double GPO", "IP66 10 A (Clipsal 56 series)", "Rear panel", "E5"),
     ("XS2", "Pod GPO", "Flush 10 A, faces up", "Power slide pod", "E5"),
@@ -908,6 +1026,13 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("J3", "12 V tent connector", "Anderson SB50 red", "Gap junction box", "E3, E7"),
     ("J4", "Tent PV connector", "Anderson SB50 grey", "Gap junction box", "E4, E7"),
     ("PV1, PV2", "Roof panels 190 W + 130 W", "Victron BlueSolar (parallel)", "Roof platform", "E4"),
+    ("PV5", "Visor panel ~250 W", "semi-flexible on honeycomb backing (parallel with PV1/PV2)", "Slide-out visor", "E4, E9"),
+    ("U11", "Visor controller", "12 V PLC / µC + 2 × dual H-bridge, IP66 box", "Roof platform, front", "E3, E9"),
+    ("M2", "Slide gearmotor", "12 V worm gearmotor, self-locking", "Roof platform, rear cross-member", "E9"),
+    ("M3, M4", "Tilt drives", "12 V worm rotary actuators", "Hinge beam ends", "E9"),
+    ("Y1, Y2", "Front latches", "12 V solenoid, spring-locked (fail-locked)", "Platform front", "E9"),
+    ("B1–B4", "Limit switches", "IP67 roller-lever, NO", "Rails and hinge beam", "E9"),
+    ("BZ1", "Not-stowed buzzer", "12 V piezo", "Visor controller lid", "E9"),
     ("PV3, PV4", "Tent panels 2 × 100 W", "Sunman eArc flexible (series)", "Tent roof", "E4"),
     ("ST1", "Satellite internet", "Starlink Mini", "Roof platform, inside the frame", "E3, E6"),
     ("BT0, G1, FBX", "Vehicle start battery, alternator, fuse box", "factory", "Engine bay", "E4"),
@@ -1001,10 +1126,10 @@ footer {{ margin-top: 40px; color: var(--muted); font-size: 13px; }}
   <div class="intro">
     <p class="mono" style="color:var(--accent);margin:0 0 6px;font-weight:600">KIA TASMAN X-PRO · ELECTRICAL · {escape(V)}</p>
     <h1>Fit-out wiring diagram</h1>
-    <p class="lede">Eight drawing sheets and the full schedules for the 12 V and 230 V systems: battery bank, isolation and protection,
-    DC distribution, alternator and solar charging, the inverter's AC side, control and monitoring, and the detachable tent harness.
+    <p class="lede">Nine drawing sheets and the full schedules for the 12 V and 230 V systems: battery bank, isolation and protection,
+    DC distribution, alternator and solar charging, the inverter's AC side, control and monitoring, the detachable tent harness and the windscreen visor drive.
     Cable IDs match the routed 3D model and <span class="mono">bom/cable-schedule-{escape(V)}.csv</span>.</p>
-    <div class="meta"><span class="chip">{len(SCHED)} cables</span><span class="chip">{total_m:.1f} m routed</span><span class="chip">8 sheets, A3</span>
+    <div class="meta"><span class="chip">{len(SCHED)} cables</span><span class="chip">{total_m:.1f} m routed</span><span class="chip">9 sheets, A3</span>
       <span class="chip">rev {escape(V)} · {escape(DATE)}</span></div>
     <div class="warn"><strong>230 V:</strong> the inverter output, shore inlet, RCBOs and outlets must be installed and certified by a licensed
     electrician (AS/NZS 3000, AS/NZS 3001.2). These drawings are a design for review, not a certified installation. Check every

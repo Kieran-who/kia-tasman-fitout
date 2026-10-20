@@ -1,6 +1,6 @@
 {
-  "version": "v0.10",
-  "fitout_kg": 511.2,
+  "version": "v0.11",
+  "fitout_kg": 535.4,
   "example_payload_kg": 154.1,
   "options_kg": {
     "option: well filler (no fridge)": 4.7,
@@ -19,11 +19,12 @@
     "roof": 36.7,
     "slide_d": 35.2,
     "slide_p": 33.7,
-    "solar": 27.2,
+    "solar": 35.7,
     "tent": 84.0,
     "tent_services": 2.5,
     "utility": 23.5,
-    "wiring": 22.8,
+    "visor": 14.2,
+    "wiring": 24.3,
     "modules": 12.0,
     "well_filler": 4.7,
     "lid_cargo": 45.9,
@@ -38,12 +39,12 @@
   "slide_length": 1174,
   "slide_travel": 1168.4,
   "tent_gap": 163.4,
-  "solar_w": 520,
-  "cable_count": 46,
-  "cable_total_m": 105.0,
+  "solar_w": 770,
+  "cable_count": 50,
+  "cable_total_m": 125.3,
   "material_need": {
     "ACM 3": 1.25,
-    "Flat 40x5 6060": 8.06,
+    "Flat 40x5 6060": 9.65,
     "Sheet 1.6 5005": 2.4,
     "Plate 3 5052": 1.0,
     "Plate 6 5052": 1.29,
@@ -53,7 +54,7 @@
     "UHMW 10": 0.06,
     "RHS 75x25x2 6060": 4.7,
     "Angle 60x40x3 6060": 4.7,
-    "RHS 50x25x2 6060": 3.63,
+    "RHS 50x25x2 6060": 4.8,
     "Ply 15 marine": 1.61,
     "Angle 30x30x3 6060": 2.61,
     "L-track HD": 3.55,
@@ -67,10 +68,12 @@
   },
   "lid_load_kg": 170.9,
   "lid_dynamic_rating_kg": 200,
+  "roof_load_kg": 85.4,
+  "roof_dynamic_rating_kg": 100,
   "axle_added_kg_front_rear": {
     "fit-out": [
-      0.7,
-      487.8
+      9.2,
+      501.9
     ],
     "payload (example)": [
       -18.0,

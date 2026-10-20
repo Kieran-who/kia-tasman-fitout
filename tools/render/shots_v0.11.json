@@ -1,0 +1,54 @@
+[
+ {
+  "name": "01_visor_deployed",
+  "params": {
+   "view": "visor",
+   "state": "camp",
+   "cam": "-4.6,1.95,2.5,-2.2,0.85,0.0,34",
+   "title": "v0.11 windscreen visor deployed: slid out under the light bar, tilted 20 deg (hard stop 22 deg)",
+   "labels": "visor_panel:Visor panel|~250 W, 1300 x 1000:0:-20;visor_tilt_drive_-1:Worm-drive tilt|self-locking:0:20"
+  }
+ },
+ {
+  "name": "02_visor_stowed",
+  "params": {
+   "view": "visor",
+   "state": "travel",
+   "cam": "-4.6,1.95,2.5,-2.2,0.85,0.0,34",
+   "title": "v0.11 travel: visor stowed under the platform, latched"
+  }
+ },
+ {
+  "name": "03_visor_side",
+  "params": {
+   "view": "visor",
+   "state": "camp",
+   "cam": "-2.35,0.9,5.2,-2.35,0.78,0.0,28",
+   "hide": "tent,tent_services,future,cargo",
+   "title": "v0.11 side view: >= 87 mm to the cab and glass, front edge 149 mm above the bonnet at 20 deg (105 mm at the 22 deg stop)"
+  }
+ },
+ {
+  "name": "04_visor_mechanism",
+  "params": {
+   "view": "visor",
+   "state": "camp",
+   "cam": "-1.05,1.42,1.5,-1.85,0.98,0.25,36",
+   "hide": "roof,cargo,tent_harness",
+   "title": "v0.11 mechanism (platform hidden): guide rails, carriage + hinge arms, tilt drives, belt drive at the rear",
+   "labels": "visor_carriage_-1:Carriage on guide rail:0:-20;visor_hinge_beam:Hinge beam + arms:0:20;visor_drive_motor:Worm gearmotor + cross shaft:0:-20"
+  }
+ },
+ {
+  "name": "05_visor_stowed_section",
+  "params": {
+   "view": "visor",
+   "state": "travel",
+   "clipx": "-1.0",
+   "cam": "0.35,1.12,0.75,-1.0,1.0,0.0,24",
+   "hide": "tent,tent_services,lid,rack,future,cargo,tent_harness,wiring,lid_storage,lid_cargo",
+   "title": "v0.11 section at the platform middle (travel): fixed panels on top, visor panel stowed in the ~70 mm layer above the roof, guide rails each side",
+   "labels": "visor_panel:Visor panel (stowed):0:30;visor_rail_-1:Guide rail:0:-20;plat_side_-725:Platform:0:-25"
+  }
+ }
+]

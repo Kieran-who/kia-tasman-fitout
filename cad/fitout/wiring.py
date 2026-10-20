@@ -130,7 +130,7 @@ def cables():
                    ["bus_sys_neg", (A["inv_dc_neg"][0], A["bus_sys_neg"][1] + 5, A["inv_dc_neg"][2]), "inv_dc_neg"]))
     # ------------------------------------------------ charging board (front wall) <-> system busbars (short, inside the bay)
     for cid, src, term, fuse, size, spec, prot in (("ORO", "orion_xs_50a", "orion_out", "midi_orion", "16", "16 mm2 twin", "MIDI 70 A"),
-                                                   ("MPR", "mppt_roof_100_30", "mppt_roof_bat", "midi_mppt_roof", "16", "16 mm2 twin", "MIDI 40 A"),
+                                                   ("MPR", "mppt_roof_100_30", "mppt_roof_bat", "midi_mppt_roof", "16", "16 mm2 twin", "MIDI 60 A"),
                                                    ("MPT", "mppt_tent_75_15", "mppt_tent_bat", "midi_mppt_tent", "6", "6 mm2 twin", "MIDI 20 A")):
         t = A.get(term, A[src])
         f = A.get(fuse, A["midi_fuses"])
@@ -170,7 +170,7 @@ def cables():
     L.append(Cable("ALT", "Alternator charge", "Start battery (60 A MIDI)", "Orion XS input", "25", "25 mm2 twin (+/-), tinned", "60 A at start battery",
                    "w_pos", ["start_battery", "engine_up", "chassis_engine", "chassis_gap"] + IN + GLAND_TO_BAY + [_up("orion_xs_50a"), A.get("orion_in", A["orion_xs_50a"])],
                    notes="Orion XS input limit 25-30 A until the alternator rating is known"))
-    L.append(Cable("PVR", "Roof PV", "Roof panels (parallel, MC4 Y-branch)", "MPPT 100/30 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
+    L.append(Cable("PVR", "Roof PV", "Roof panels + visor (parallel, MC4 3-way branch)", "MPPT 100/50 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
                    ["roof_pv", "roof_drop", "gap_high", "junction_top", "junction_bot", "gap_low", "chassis_gap"] + IN + GLAND_TO_BAY +
                    [_up("mppt_roof_100_30"), A.get("mppt_roof_pv", A["mppt_roof_100_30"])]))
     L.append(Cable("PVT", "Tent PV", "Gap junction (from tent panels)", "MPPT 75/15 PV in", "6", "6 mm2 solar twin (UV)", "2-pole DC PV isolator 32 A", "w_pv",
@@ -199,11 +199,25 @@ def cables():
     L.append(Cable("SW2", "Inverter remote on/off", "Rear panel switch", "MultiPlus-II remote terminals", "data", "2-core 0.75 mm2", "-", "w_data",
                    ["pc_sw_inverter", "cab_in"] + CAB_TO_BAY + [A.get("inv_remote", A["inv_comms"])]))
     L.append(Cable("D1", "VE.Bus", "Cerbo GX", "MultiPlus-II", "data", "RJ45 VE.Bus cable", "-", "w_data", ["cerbo"] + CAB_TO_BAY + ["inv_comms"]))
-    L.append(Cable("D2", "VE.Direct", "Cerbo GX VE.Direct 1-3", "SmartShunt / MPPT 100/30 / MPPT 75/15", "data", "VE.Direct cables x3", "-", "w_data",
+    L.append(Cable("D2", "VE.Direct", "Cerbo GX VE.Direct 1-3", "SmartShunt / MPPT 100/50 / MPPT 75/15", "data", "VE.Direct cables x3", "-", "w_data",
                    ["cerbo"] + CAB_TO_BAY + [_up("mppt_roof_100_30", 8), "mppt_roof_100_30", A.get("shunt_vedirect", A["shunt"])]))
     L.append(Cable("D4", "VE.Direct", "Cerbo GX USB", "Orion XS VE.Direct", "data", "VE.Direct to USB interface", "-", "w_data",
                    ["cerbo"] + CAB_TO_BAY + [_up("orion_xs_50a", 8), "orion_xs_50a"], notes="Cerbo GX MK2 has only 3 VE.Direct ports"))
     L.append(Cable("D3", "Display", "Cerbo GX (HDMI + USB)", "GX Touch 50", "data", "GX Touch cable (HDMI + USB)", "-", "w_data", ["cerbo", "pc_gx_touch_50"]))
+    # ------------------------------------------------ windscreen visor panel (v0.11)
+    roof_up = to_gap + ["junction_top", "gap_high", "roof_drop"]
+    L.append(Cable("PVV", "Visor PV", "Visor panel (moving)", "Roof PV branch (parallel with PV1/PV2)", "4", "4 mm2 solar twin, high-flex (chain rated)",
+                   "-", "w_pv", ["visor_pv", (A["visor_pv"][0], -P.VISOR["rail_y"] + 40, A["visor_pv"][2]),
+                                 (A["visor_ctrl"][0], -P.VISOR["rail_y"] + 40, A["visor_ctrl"][2]), "roof_pv"],
+                   extra_mm=1600, notes="runs in a small cable chain beside the passenger guide rail"))
+    L.append(Cable("VIS", "Visor drive power", "DC fuse block (way 10)", "Visor controller (roof)", "6", "6 mm2 twin", "ATC 20 A", "w_12v",
+                   ["dc_fuse_block", "cab_in", "drop_gland"] + roof_up + ["visor_ctrl"], notes="gearmotor + 2 tilt drives + latches"))
+    L.append(Cable("VSW", "Visor control", "Rear panel visor button (S3)", "Visor controller (roof)", "data", "3-core 0.75 mm2 (deploy, stow, LED)",
+                   "-", "w_data", ["pc_sw_inverter", "cab_in", "drop_gland"] + roof_up + ["visor_ctrl"]))
+    L.append(Cable("VIG", "Visor interlock", "Orion XS remote H (ignition, F9)", "Visor controller interlock input", "data", "1.0 mm2 single",
+                   "F9 2 A (shared)", "w_data", [A.get("orion_remote", A["orion_xs_50a"]), _up("orion_xs_50a", 16)] + list(reversed(GLAND_TO_BAY))
+                   + OUT + ["chassis_gap", "gap_low", "junction_bot"] + ["junction_top", "gap_high", "roof_drop", "visor_ctrl"],
+                   notes="ignition on = deploy inhibited, warning if not stowed"))
     # ------------------------------------------------ detachable tent harness (tent side)
     L.append(Cable("T1", "Tent harness", "Tent services box", "Gap junction plugs (240 V out, 240 V in, 12 V)", "2.5x3",
                    "2 x 2.5 mm2 3-core + 6 mm2 twin, sheathed bundle", "RCBO 16 A 30 mA (AC-in, in the services box)", "w_tent",
