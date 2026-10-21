@@ -648,7 +648,7 @@ SECTIONS = [
         ("E7", "Dash switch blanks", "Free switch blanks on the dash (optional visor stow switch)", "–", "-", N(1), "7"),
     ]),
     ("9", "Equipment and vehicle details", [], [
-        ("Q1", "Fridge", "Make and model; length × width × height with handles; which way the lid opens", "CFX3 45", "-",
+        ("Q1", "Fridge", "Make and model; length × width × height with handles; which way the lid opens. Must be ≤ about 490 mm tall and 740 mm long to fit the well (v0.12)", "CFX3 45", "-",
          ["Model", "L", "W", "H", "Lid"], "3"),
         ("Q2", "Accessories fitted", "Tow bar (ball weight), bull bar, side steps, snorkel, anything else", "–", "-", N(2), "-"),
         ("Q3", "Compliance plate", "GVM, GCM, rear axle rating", "GVM 3250", "-", ["GVM", "GCM", "Rear axle"], "-"),

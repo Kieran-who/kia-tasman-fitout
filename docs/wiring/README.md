@@ -2,8 +2,8 @@
 
 | File | What |
 |---|---|
-| `wiring-diagram-v0.11.html` | All nine sheets plus the cable, protection, fuse-way and component schedules. Open it in a browser. |
-| `wiring-diagram-v0.11.pdf` | The same, printed: A3 landscape, one sheet per page, then the schedules. |
+| `wiring-diagram-v0.12.html` | All nine sheets plus the cable, protection, fuse-way and component schedules. Open it in a browser. |
+| `wiring-diagram-v0.12.pdf` | The same, printed: A3 landscape, one sheet per page, then the schedules. |
 | `sheets/E1…E9-*.svg` | The individual sheets as SVG. |
 | `artifact.html` | The page body used for the published claude.ai artifact. |
 
@@ -24,7 +24,7 @@
 ```bash
 cd cad && ../.venv/bin/python build.py          # writes bom/cable-schedule-<ver>.csv and cad/out/cables.json
 cd .. && python3 tools/wiring/diagram.py         # writes the sheets and the HTML page
-cd tools/render && node wiring_pdf.mjs ../../docs/wiring/wiring-diagram-v0.11.html ../../docs/wiring/wiring-diagram-v0.11.pdf
+cd tools/render && node wiring_pdf.mjs ../../docs/wiring/wiring-diagram-v0.12.html ../../docs/wiring/wiring-diagram-v0.12.pdf
 ```
 
 The generator stops with an error if any cable in the schedule isn't drawn on a sheet, so new circuits added in `cad/fitout/wiring.py` can't be left out of the drawings.

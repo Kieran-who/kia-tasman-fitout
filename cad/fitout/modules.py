@@ -72,7 +72,7 @@ def _fridge(cx0, yc):
     fl, fw, fh = FRIDGE
     fx0 = cx0 + P.BULKHEAD_D + 10
     fx1 = fx0 + fl
-    zf = P.FRIDGE_WELL_Z + 10      # stands on the two L-tracks in the well pan
+    zf = P.FRIDGE_WELL_Z           # v0.12: stands on the pan (no floor tracks: the chain runs under the pan)
     y0, y1 = yc - fw / 2, yc + fw / 2
     zl = zf + fh - FRIDGE_LID_H     # lid underside
     xc = fx1 - FRIDGE_COMP_L        # cabinet / compressor split
@@ -101,7 +101,7 @@ def _fridge(cx0, yc):
     keys = [_bx(fx1 + 1, fx1 + 2.2, yc + d - 7, yc + d + 7, zc - 55, zc - 45) for d in (-60, -35, 35, 60)]
     keys.append(_bx(fx1 + 1, fx1 + 1.6, yc - 22, yc + 22, zc - 62, zc - 26))               # display
     parts.append(part("fridge_display", "payload", _cmp(keys), DISPLAY))
-    # straps over the lid down to the well tracks, cam buckles on the inboard side
+    # straps over the lid down to flush anchors on the pan floor, cam buckles on the inboard side
     for k, x in enumerate((fx0 + 150, xc - 85)):                 # both over the lid
         parts.append(part(f"fridge_strap_{k}", "payload", box(x, x + 25, y0 - 4, y1 + 4, zf + fh, zf + fh + 3).union(
             box(x, x + 25, y0 - 4, y0, zf, zf + fh)).union(box(x, x + 25, y1, y1 + 4, zf, zf + fh)), "strap"))

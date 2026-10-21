@@ -8,7 +8,7 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.11) |
+| # | Requirement | Where it lives (v0.12) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
 | R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 (roof + visor) + 75/15 (tent) |
@@ -16,8 +16,8 @@
 | R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
 | R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
 | R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2) |
-| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 side-mount per slide under a covered ply deck (L-angles over the runners), UHMW stops, fold-out telescopic legs stowed under each deck (v0.7) |
-| R8 | Power-side slide has integrated cable management and outlets | Upright chain in an outboard lane + up-facing power pod + fridge well with a removable flush filler (v0.6) |
+| R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 side-mount per slide under a covered ply deck (L-angles over the runners), UHMW stops, fold-out telescopic legs stowed under each deck (v0.7); both decks 579 mm wide (v0.12) |
+| R8 | Power-side slide has integrated cable management and outlets | Cable chain lying flat under the power deck on a glide tray (v0.12) + up-facing power pod (Anderson, 12 V, 230 V; fed from the battery bay) + raised fridge well with a removable flush filler |
 | R9 | Modular slides: centre tie-down track + quick-release module mounting | L-track + 100 mm receiver grid running to 37.6 mm from each deck edge; flush edge fences pin into the edge rows (v0.6) |
 | R10 | Passenger rear pocket: power management + 240 V, Anderson, USB-C outlets; **all switches (incl. battery isolation) at the back of the tub** | Lower control cabinet with hinged rear control panel (v0.3) |
 | R11 | ~~Driver side: drinking-water tank~~ → always-in-the-car utility storage (straps, odd gear) | Utility drawer + over-arch tray (v0.2) |
@@ -72,3 +72,5 @@
 | 2026-10-19 | v0.9 | Tent folds open on the driver side (confirmed); Load-Lid struts outside the tub (lid removable with bolts) | Owner confirmation |
 | 2026-10-20 | v0.10 | Under-tent storage: rivnut cross-bars clamped to the Destroyer rails, captive 30 L water (fill in place), rear-loading drawer between the tent-bolt lines holding the folding table, RotopaX 1 gal diesel (heater), 2 kg extinguisher on a quick release at the rear edge; lid load 171 of 200 kg | Owner: jerry cans + platform/closed storage under the tent; drawer preferred; small diesel; extinguisher access; table |
 | 2026-10-20 | v0.11 | Windscreen solar visor: ~250 W panel stowed under the platform, slides out on two rails (one worm gearmotor, cross shaft + belts), tilts to 20° on two self-locking worm drives, hard stop 22°, spring-locked latches (fail locked), limit switches, ignition interlock, dead-man button S3; MPPT 100/30 → 100/50; roof load 85 of ~100 kg | Owner: slide out a large panel in front of the windscreen when parked; strong, locked for travel, motorised one-button |
+| 2026-10-21 | v0.11 | Rear USB-C = 2 × Treklo dual 120 W (100 W PD + 20 W) on 4 mm² / 25 A; pod loses its USB-C; cabin outlets replaced by a 15 A compute feed (SB50 inlet, under-seat compute box); tablet on the Tasman's own USB-C; S6–S8 stay always on | Owner |
+| 2026-10-21 | v0.12 | igus chain laid on its side under the power deck on a 3 mm glide tray (bends in plan); outboard lane removed so the power deck widens 529 → 579 mm; fridge-well pan raised to 54 mm (tallest fridge ~490 mm), L-tracks → flush tie-down rings; pod fed from the bay through an MRBF 30 A (F17) on the system + busbar, down behind the inverter into the slide front; FB1 way 5 spare | Owner: run the cable under the slide so the deck can be wider |

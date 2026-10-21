@@ -4,8 +4,8 @@ Slide-out platforms (v0.5 layout, v0.8 detail): side-mount locking runners with 
 Each slide = fixed cassette (base plates, cross ties, vertical runner plates) + moving carriage
 (RHS side members on the runners, cross members, aluminium L-angles whose top leg reaches out over the
 runners). A 15 mm ply deck sits on top and covers the full slide width, so the two decks meet in the
-middle with a 6 mm gap: one continuous surface except the power slide's fridge well. The upright cable
-chain runs in a lane on the power slide's outboard side.
+middle with a 6 mm gap: one continuous surface except the power slide's fridge well. v0.12: the cable chain lies
+on its side under the power deck (on a glide tray below the raised fridge-well pan), so both decks are full width.
 
 v0.8 adds geometric detail only (no layout change): the real 3-member DZ9308 cross-section with ball
 races and the front lock lever, countersunk floor bolts, deck screw lines, the L-track profile with its
@@ -178,7 +178,7 @@ def slide_extent(side):
     gap = P.SLIDE_GAP_MID / 2
     edge = P.ARCH_GAP / 2 - 3
     if side == "p":
-        return -(edge - P.CHAIN_LANE), -gap
+        return -edge, -gap
     return gap, edge
 
 
@@ -389,8 +389,7 @@ def slide(side: str, ext: float, power: bool):
     parts.append(part(f"{nm}_edge_cap", g, cap_a.union(cap_b), "alu", fab=True, mat="Angle 30x30x3 6060"))
     zm = (zlip + top) / 2
     for x in [cx0 + 60 + 200 * k for k in range(int((P.SLIDE_L - 100) / 200) + 1)]:
-        if not (power and x < cx0 + 175):                       # chain bracket on the power slide's outboard edge
-            screws.append(_cyly(3.4, ya - 2.3, ya - 2, x, zm, n=8))
+        screws.append(_cyly(3.4, ya - 2.3, ya - 2, x, zm, n=8))
         screws.append(_cyly(3.4, yb + 2, yb + 2.3, x, zm, n=8))
     parts.append(part(f"{nm}_deck_screws", g, _cmp(screws), "receiver"))
     # L-track in the deck channel (behind the fridge well on the power slide)
@@ -413,13 +412,14 @@ def slide(side: str, ext: float, power: bool):
                .union(box(wx0, wx1, wy1 - 3, wy1, zf - 3, zb)))
         pan = _cut(pan, [_cylz(5, zf - 4, zf + 1, x, y) for x in (wx0 + 14, wx1 - 14) for y in (wy0 + 12, wy1 - 12)])   # drains
         parts.append(part(f"{nm}_fridge_well_pan", g, pan, "alu", fab=True, mat="Plate 3 5052"))
-        for yy in (wy0 + 20, wy1 - 50):      # tie-down L-track on the pan floor for the fridge straps
-            wt, _ = _ltrack(wx0 + 30, wx1 - 30, yy + 15, zf + 10, w=30, h=10, pockets=[])   # under the fridge: profile only
-            parts.append(part(f"{nm}_well_track_{int(yy)}", g, wt, "ltrack", fab=True, mat="L-track HD"))
-        # removable well filler: 15 mm ply panel on two 18 mm ply risers that stud into the pan L-tracks,
+        # v0.12: no floor L-tracks (they'd cost 10 mm of fridge height); 4 flush strap anchors riveted to the pan floor
+        anchors_ = [box(x, x + 30, y, y + 12, zf, zf + 3) for x in (wx0 + 155, wx1 - 260) for y in (wy0 + 6, wy1 - 18)]
+        parts.append(part(f"{nm}_well_strap_anchors", g, _cmp(anchors_), "alu_dark", kg=0.2,
+                          note="flush folding tie-down rings (4) for the fridge straps"))
+        # removable well filler: 15 mm ply panel on two 18 mm ply risers standing on the pan (walls locate it),
         # flush with the deck and carrying the same receiver grid + L-track (fridge out = full flat slide)
         fg = "well_filler"
-        fz0 = zf + 10                                    # top of the pan L-tracks
+        fz0 = zf                                         # risers stand on the pan floor, located by the well walls
         xs_w = sorted({x for x, _ in in_w})
         finger = [((xs_w[0] + xs_w[1]) / 2 if len(xs_w) > 1 else wx0 + 60, yc + s * 100) for s in (-1, 1)] + \
                  [((xs_w[-1] + xs_w[-2]) / 2 if len(xs_w) > 1 else wx1 - 60, yc + s * 100) for s in (-1, 1)]
@@ -452,7 +452,7 @@ def slide(side: str, ext: float, power: bool):
         parts.append(Part(f"{nm}_release_cable_{lab}", g, color=BLACK, tube=pts_c, tube_r=2.2))
     parts += fold_legs(nm, g, cx0, cx1, cy0, cy1, ext)
     if power:
-        parts += cable_chain(x0, cx0, ya)
+        parts += cable_chain(x0, cx0, cy0, cy1, top)
     return parts
 
 
@@ -509,7 +509,6 @@ def _power_pod(nm, g, cx0, ya, yb, top, camp):
                 _cylz(10.5, pz, pz + 0.6, xc, sy, n=14), _cylz(2.4, pz + 0.6, pz + 2.5, xc, sy, n=8), cap(xc, sy, 16.5, pz + 3)])
     parts.append(part(f"{nm}_12v", g, s12, "usb", kg=0.05, product="Narva HD flush accessory socket, 29 mm hole"))
     # (v0.11: no USB-C on the pod - owner: Anderson, 12 V and 230 V only; USB-C lives on the rear panel and in the cabin box)
-    anchor("slide_bulkhead", (cx0 + 25, ya + 10, top + 20))
     return parts
 
 
@@ -613,65 +612,79 @@ def fold_legs(nm, g, cx0, cx1, cy0, cy1, ext):
     return parts
 
 
-def _chain_link(p, h, w, y0, odd):
-    """One igus E2-style link at the origin, along +X: cranked side plates (stadium), outer + inner crossbars, pin bosses.
-    Local +Z = outer radius side."""
+def _chain_link_flat(p, h, w, z0, odd):
+    """One igus E2-style link lying on its side at the origin, along +X: the two stadium side plates are horizontal
+    (bottom and top), crossbars stand vertical at the inner and outer radius (local +/-Y). Bends in the X-Y plane."""
     t = CHAIN_PLATE_T
     ins = 1.0 if odd else 0.0
-    sol = []
-    for ya_, yb_ in ((y0 + ins, y0 + ins + t), (y0 + w - ins - t, y0 + w - ins)):
-        pl = cq.Workplane("XZ", origin=(0, yb_, 0)).slot2D(p + 6, h).extrude(yb_ - ya_).val()
-        sol.append(pl)
-    sol += [_bx(-p / 2 + 7, p / 2 - 7, y0 + t, y0 + w - t, h / 2 - 3.5, h / 2), _bx(-p / 2 + 7, p / 2 - 7, y0 + t, y0 + w - t, -h / 2, -h / 2 + 3.5)]
+    sol = [cq.Workplane("XY", origin=(0, 0, za)).slot2D(p + 6, h).extrude(t).val()
+           for za in (z0 + ins, z0 + w - ins - t)]
+    sol += [_bx(-p / 2 + 7, p / 2 - 7, s0, s1, z0 + t, z0 + w - t) for s0, s1 in ((h / 2 - 3.5, h / 2), (-h / 2, -h / 2 + 3.5))]
     return sol
 
 
-def cable_chain(x0, cx0, ya):
-    """Upright chain in the lane on the power slide's outboard side; upper run fixed to the deck edge.
-    v0.8: the fixed end sits at the CENTRE of the moving end's travel and the chain is travel/2 + pi R long. (v0.5-v0.7 had
-    it at x0 + travel/2 + 40 with the length set by the stowed state, which left it 69 mm short at full extension.)"""
+def cable_chain(x0, cx0, cy0, cy1, top):
+    """v0.12: chain lying on its side under the power deck, both runs side by side on a glide tray (bends in plan).
+    Fixed end at the centre of the moving end's travel, length = travel/2 + pi R (as v0.8). Moving end: bracket hung from
+    the front cross member, reaching back under the raised well pan. The trunk from the bay enters the front of the cassette
+    and runs along the tray outboard of the fixed run."""
     R, h, w = P.CHAIN_R, P.CHAIN_H, P.CHAIN_W
-    xm = cx0 + 120                                      # moving end (bracket on the deck edge)
-    xf = P.SLIDE_X0 + 120 + P.SLIDE_EXT / 2             # fixed end: centre of the moving end's travel
-    straight = P.SLIDE_EXT / 2                           # lower + upper run, constant
+    yc = (cy0 + cy1) / 2                                # band centre under the deck
+    yfix, ymov = yc - R, yc + R                         # fixed (outboard) run, moving (inboard) run
+    zt = P.BASE_T + P.CHAIN_TRAY_T                      # tray top
+    xm = cx0 + P.CHAIN_MOVE_DX                          # moving end
+    xf = P.SLIDE_X0 + P.CHAIN_MOVE_DX + P.SLIDE_EXT / 2  # fixed end: centre of the moving end's travel
+    straight = P.SLIDE_EXT / 2
     lc = straight + math.pi * R
     xb = (xf + xm - straight) / 2                        # bend; stowed: at the moving end, extended: at the fixed end
     assert xb - R - h / 2 >= x0 + 30 - 1e-6, "chain bend fouls the bay"
-    yl1 = ya - 5
-    yl0 = yl1 - w
-    zc = 3 + R + h / 2
+    assert zt + w + 4 <= P.FRIDGE_WELL_Z - 3 + 1e-6, "chain fouls the well pan"
     la = xf - xb
     n = max(2, round(lc / CHAIN_PITCH))
     step = lc / n
-    links = [_chain_link(step, h, w, yl0, False), _chain_link(step, h, w, yl0, True)]
+    links = [_chain_link_flat(step, h, w, zt, False), _chain_link_flat(step, h, w, zt, True)]
     sols = []
     for i in range(n):
         s = (i + 0.5) * step
         if s < la:
-            px, pz, tx, tz = xf - s, zc - R, -1.0, 0.0
+            px, py, tx, ty = xf - s, yfix, -1.0, 0.0
         elif s < la + math.pi * R:
             ph = (s - la) / R
-            px, pz, tx, tz = xb - R * math.sin(ph), zc - R * math.cos(ph), -math.cos(ph), math.sin(ph)
+            px, py, tx, ty = xb - R * math.sin(ph), yc - R * math.cos(ph), -math.cos(ph), math.sin(ph)
         else:
-            px, pz, tx, tz = xb + (s - la - math.pi * R), zc + R, 1.0, 0.0
-        ang = math.degrees(math.atan2(-tz, tx))
-        sols += [sh.rotate(_v(0, 0, 0), _v(0, 1, 0), ang).translate(_v(px, 0, pz)) for sh in links[i % 2]]
+            px, py, tx, ty = xb + (s - la - math.pi * R), ymov, 1.0, 0.0
+        ang = math.degrees(math.atan2(ty, tx))
+        sols += [sh.rotate(_v(0, 0, 0), _v(0, 0, 1), ang).translate(_v(px, py, 0)) for sh in links[i % 2]]
     parts = [part("slide_power_cable_chain", "slide_p", _cmp(sols), "chain", kg=1.4, chain_length_mm=round(lc), links=n,
-                  product="igus E2 class, 40 wide, R63 (see report: E2.26 Bi38 is 55 wide)")]
-    # moving end: 3 mm bracket screwed to the deck edge cap + end tab the last link bolts to
-    zt0, zt1 = 3 + 2 * R, 3 + 2 * R + h
-    mb = box(xm - 30, xm + 30, ya - 5, ya - 2, P.DECK_BOT_Z, zt1 + 8).union(box(xm, xm + 3, yl0, ya - 5, zt0 - 4, zt1 + 8)).union(
-        box(xm - 30, xm + 3, yl0, ya - 5, zt1 + 5, zt1 + 8))
-    mb = _cut(mb, [_cyly(2.75, ya - 6, ya - 1, xm + dx, P.DECK_BOT_Z + 8) for dx in (-20, 20)])
-    parts.append(part("slide_power_chain_bracket", "slide_p", mb, "alu_dark", fab=True, mat="Plate 3 5052", kg=0.06))
-    # fixed end: bracket on the trough, bolted through to the floor
-    fb = box(xf - 4, xf + 40, yl0, yl1, 3, 6).union(box(xf - 4, xf - 1, yl0, yl1, 6, 3 + h + 4))
+                  product="igus E2.15 (R75) lying on its side, 38 mm tall")]
+    # moving end: 4 mm plate hung from the front cross member (flange under it), reaching back under the well pan
+    yb0 = ymov + h / 2 + 1
+    zx = P.DECK_BOT_Z - 25                               # cross member underside
+    mb = (box(cx0 + 20, xm + 15, yb0, yb0 + 4, zt + 3, zt + w)
+          .union(box(cx0 + 20, cx0 + 60, yb0, yb0 + 4, zt + 3, zx))
+          .union(box(cx0 + 15, cx0 + 60, yb0 - 16, yb0 + 4, zx - 3, zx)))
+    parts.append(part("slide_power_chain_bracket", "slide_p", mb, "alu_dark", fab=True, mat="Plate 4 5052", kg=0.12))
+    # fixed end: bracket bolted through the tray to a base cross tie
+    fb = box(xf - 4, xf + 40, yfix - h / 2 - 6, yfix + h / 2 + 6, zt, zt + 3).union(
+        box(xf - 4, xf - 1, yfix - h / 2 - 6, yfix + h / 2 + 6, zt + 3, zt + w))
     parts.append(part("slide_power_chain_bracket_fixed", "slide_p", fb, "alu_dark", fab=True, mat="Plate 3 5052", kg=0.05))
-    parts.append(part("slide_power_chain_bracket_bolts", "slide_p", _cmp([_cylz(4.5, 6, 9, xf + 26, (yl0 + yl1) / 2 + s * 10) for s in (-1, 1)]),
+    parts.append(part("slide_power_chain_bracket_bolts", "slide_p", _cmp([_cylz(4.5, zt + 3, zt + 6, xf + 26, yfix + s * 10) for s in (-1, 1)]),
                       "receiver"))
-    parts.append(part("slide_power_chain_trough", "slide_p", box(x0 + 10, xf + 40, yl0 - 3, yl1 + 2, 0, 3), "uhmw", fab=True, mat="UHMW 10"))
-    anchor("chain_fixed", (xf, (yl0 + yl1) / 2, h / 2))
-    anchor("chain_moving", (xm, (yl0 + yl1) / 2, 2 * R + h / 2))
+    # glide tray: 3 mm aluminium on the base cross ties, low lips on both edges (stay under the stowed legs)
+    ty_ = yfix - h / 2 - 34                              # trunk lane (outboard of the fixed run)
+    y_lo, y_hi = ty_ - 14, ymov + h / 2 + 12
+    tray = box(x0 + 8, x0 + P.SLIDE_L - 4, y_lo, y_hi, P.BASE_T, zt)
+    lips = [box(x0 + 8, x0 + P.SLIDE_L - 4, yy, yy + 3, zt, zt + 6) for yy in (y_lo, y_hi - 3)]
+    parts.append(part("slide_power_chain_tray", "slide_p", tray.union(_cmp(lips)), "alu", fab=True, mat="Plate 3 5052",
+                      kg=1.4, note="glide tray + 6 mm lips; the fixed run and loop are open to inspect with the slide fully out"))
+    anchor("slide_entry", (x0 + 12, ty_, zt + 8))
+    anchor("chain_trunk_end", (xf - 30, ty_, zt + 8))
+    anchor("chain_fixed", (xf, yfix, zt + w / 2))
+    anchor("chain_bend_fixed", (xb, yfix, zt + w / 2))              # cables follow the chain round its loop
+    anchor("chain_bend_tip", (xb - R, yc, zt + w / 2))
+    anchor("chain_moving", (xm, ymov, zt + w / 2))
+    anchor("pod_cable_in", (cx0 + 72, ymov, zt + w / 2))
+    anchor("slide_bulkhead", (cx0 + 72, ymov, top + 20))
     return parts
 
 

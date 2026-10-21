@@ -313,7 +313,6 @@ def _passenger_specs():
     xr = P.REAR_PANEL_X
     zt = P.LOWER_TOP_Z
     gl = (P.FACTORY_OUTLET[0] + 30, yo + 11)             # trunk drop: wall channel -> cabinet (wiring 'cab_in')
-    lowg = (x0 + 200, 20)                                 # slide harness exit through the inner wall ('cab_floor')
 
     def fx(name, w, col, grp=g, **kw):
         sp.append((FIX, name, grp, S(w) if isinstance(w, cq.Workplane) else w, col, kw))
@@ -326,7 +325,6 @@ def _passenger_specs():
 
     # ---- carcass (floor -> arch height). Top sits in a 6 mm rebate on the inner wall; front/bottom butt-jointed.
     iw = box(x0, xr, yi, yi - T, 0, zt).cut(box(x0 - 1, xr + 1, yi - 6, yi - T - 1, zt - T, zt + 1))
-    iw = iw.cut(cyl(12.5, 40, (lowg[0], yi - T / 2, lowg[1]), "Y"))
     fx("pc_inner_wall", iw, "ply", fab=True, mat="Ply 12 marine")
     fx("pc_front", box(x0, x0 + T, yo, yi - T, 0, zt - T), "ply", fab=True, mat="Ply 12 marine")
     fx("pc_top", box(x0, xr, yo, yi - 6, zt - T, zt).cut(cyl(10.5, 40, (gl[0], gl[1], zt - 6))), "ply", fab=True,
@@ -537,8 +535,7 @@ def _passenger_specs():
     zf = P.UPPER_Z0 + T9
     fx("pc_gland_top", _comp([_pcyl(10, zf - (zt - T), (gl[0], gl[1], (zt - T + zf) / 2), n=12),
                               _pcyl(11, 6, (gl[0], gl[1], zf + 3), n=6), _pcyl(11, 6, (gl[0], gl[1], zt - T - 3), n=6)]), K["black"])
-    fx("pc_gland_low", _comp([_pcyl(12, T, (lowg[0], yi - T / 2, lowg[1]), "Y", 12), _pcyl(15, 3, (lowg[0], yi + 1.5, lowg[1]), "Y", 12),
-                              _pcyl(15, 3, (lowg[0], yi - T - 1.5, lowg[1]), "Y", 12)]), K["black"])
+    # (v0.12: no low gland to the slide - the power slide is now fed from the bay through the front of the cassette)
     fx("pc_plug_zone", box(XF + 1, P.TUB_L - 4, yo + 2, yi, T, zt - T), "ghost", grp="future")
     tray = box(20, 1400, yo, yo + 90, P.UPPER_Z1 + 2, P.UPPER_Z1 + 5).union(
         box(20, 1400, yo + 87, yo + 90, P.UPPER_Z1 + 2, P.UPPER_Z1 + 25))

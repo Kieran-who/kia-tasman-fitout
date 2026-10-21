@@ -651,6 +651,11 @@ def bay():
     lugs.add(st[3], "+Y", "-X", "+")
     anchor("bus_sys_pos", st[3])
     anchor("bus_sys_pos_studs", st[1])
+    # v0.12: stud 2 carries an MRBF terminal fuse (30 A) for the power-slide feed DO2 (pod moved off FB1 way 5)
+    sx, sy, sz = st[1]
+    mrbf = soft(box(sx - 20, sx + 20, sy, sy + 14, sz - 17.5, sz + 17.5), "|Y", 3)
+    parts.append(part("mrbf_slide_30a", "electrical", mrbf, CAP_BLACK, kg=0.05, product="Blue Sea 5191 MRBF block + 30 A MRBF fuse"))
+    lugs.add((sx, sy + 14, sz), "+Y", "-X", "+", size=0.6, ln=0.5)
     sys_pos_link = st[0]
     # system - busbar lying flat on the base tray just past the board window, studs up
     # (stud 1: SH2 from the shunt, stud 2: inverter - straight through the window, stud 3: charger negatives)

@@ -13,7 +13,7 @@ Status flags in comments:
     [CONFIRM]  assumption the owner needs to confirm
 """
 
-VERSION = "v0.11"
+VERSION = "v0.12"
 
 # ================================================================ vehicle / tub
 TUB_L = 1512           # [PUB] floor length, front wall -> closed tailgate (liner grades)
@@ -126,7 +126,6 @@ GX_TOUCH = (128, 13, 87)      # [PUB] GX Touch 50
 SLIDE_X0 = BAY_D + 10
 SLIDE_L = TUB_L - SLIDE_X0 - 8              # 1174
 SLIDE_GAP_MID = 6                           # [DES] decks almost touch
-CHAIN_LANE = 50                             # [DES] power slide outboard lane for the upright cable chain
 RUNNER_T, RUNNER_H = 19.1, 76.2             # [PUB] Accuride DZ9308 (lock in + lock out)
 RUNNER_LEN = 1168.4                         # [PUB] 46"
 BASE_T = 6                                  # [DES] 6 mm base plates under the runners
@@ -152,8 +151,11 @@ LEG_X_FROM_REAR = (110, 220)                # [DES] leg centres from the deck re
 MICROWAVE_D = 332                           # [PUB] NCE 20 L depth (largest allowed)
 BULKHEAD_D = 85                             # [DES] power pod: sockets face UP so plugs never foul the fridge; 85 fits a Clipsal Iconic 120x78 double GPO (v0.8)
 FRIDGE_WELL_L = SLIDE_L - BULKHEAD_D - MICROWAVE_D - 6   # 751 -> fridge <= ~741 long (Dometic CFX3 45 is 694)
-FRIDGE_WELL_Z = 12                          # [DES] pan top surface -> ~536 under the lid
-CHAIN_R, CHAIN_H, CHAIN_W = 75, 20, 38      # [PUB] igus E2.15.30 (30 mm inner, 37.8 outer wide, 19.3 high) fits the 50 mm lane; R75 for chain-rated 2.5 / 6 mm2 cable (confirm the R75 option)
+FRIDGE_WELL_Z = 54                          # [DES] v0.12: pan raised so the flat chain passes under it (tray 6-9, chain 9-47,
+                                            #   4 mm gap, 3 mm pan) -> a CFX3 45 (476) tops out at 530, 18 mm under the lid
+CHAIN_R, CHAIN_H, CHAIN_W = 75, 20, 38      # [PUB] igus E2.15.30 (30 mm inner, 37.8 outer wide, 19.3 high), v0.12: lying on its side under the deck; R75 for chain-rated 2.5 / 6 mm2 cable (confirm the R75 option)
+CHAIN_TRAY_T = 3                            # [DES] v0.12: 3 mm aluminium glide tray on the base cross ties (Z 6-9)
+CHAIN_MOVE_DX = 115                         # [DES] moving end behind the carriage front (loop outer edge 30 mm clear of the bay)
 
 # ================================================================ side bays
 # Each side: LOWER cabinet/drawer behind the arch (floor -> arch height) + UPPER long drawer over the arch that

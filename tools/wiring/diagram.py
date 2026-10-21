@@ -141,6 +141,13 @@ def sheet_dc_main():
         yy2 = 690 + k * 30
         s.wire([(x, yn), (x, yy2), (1440, yy2)], "neg", sz)
         s.offsheet(1440, yy2, "r", f"{cid}− ← {src} (E4)")
+    # ---------------- power-slide pod feed (v0.12: from the BB3 spare stud, MRBF 30 A)
+    s.wire([(1100, yp), (1100, 160), (1150, 160)], "pos", "6")
+    s.fuse(1100, 205, "v", "F17", "MRBF 30 A", side=-1)
+    s.offsheet(1150, 160, "r", "DO2+ → power-slide pod", "6 mm² high-flex · chain · sheet E3")
+    s.wire([(1090, yn), (1090, 728)], "neg", "6")
+    s.offsheet(1090, 728, "l", "DO2− → power-slide pod", "sheet E3")
+    USED.add("DO2")
     # ---------------- DC distribution feed
     s.wire([(1440, yp), (1500, yp)], "pos", "25")
     s.fuse(1472, yp, "h", "F7", "MEGA 100 A", side=-1)
@@ -183,7 +190,7 @@ def sheet_dc_main():
 # ======================================================================================= E3
 FB1_WAYS = [  # way, circuit, fuse, cable, destination
     (1, "Rear Anderson 1", "30 A", "DO1A"), (2, "Rear Anderson 2", "30 A", "DO1B"), (3, "Rear USB-C ×2", "25 A", "DO1C"),
-    (4, "Rear 12 V socket", "15 A", "DO1D"), (5, "Power slide pod", "30 A", "DO2"), (6, "Cabin compute feed", "15 A", "DO3"),
+    (4, "Rear 12 V socket", "15 A", "DO1D"), (5, "spare (pod moved to the bay)", "–", ""), (6, "Cabin compute feed", "15 A", "DO3"),
     (7, "Starlink Mini", "10 A", "DO4"), (8, "Tent 12 V", "30 A", "DO5"), (9, "Cerbo GX", "2 A", "CGX"),
     (10, "Visor drive", "20 A", "VIS"), (11, "spare", "–", ""), (12, "spare", "–", "")]
 
@@ -211,7 +218,7 @@ def sheet_dc_dist():
         if w in ways:
             terms.append((f"w{w}", "R", ways[w] - 110, f"{w}·{fuse}"))
     fb = s.block("FB1", 330, 110, 190, 800, "Fuse block",
-                 ["Blue Sea 5026 (12-way ATC)", "with negative bus", "", "ways 11–12 spare", "", "feed: DCF 25 mm² twin",
+                 ["Blue Sea 5026 (12-way ATC)", "with negative bus", "", "ways 5, 11, 12 spare", "", "feed: DCF 25 mm² twin",
                   "from F7 MEGA 100 A"], cat="prot", terms=terms)
     s.wire([(250, 170), fb.t("in")], "pos", "25")
     s.offsheet(250, 170, "l", "DCF+ ← F7", "BB3 · sheet E2")
@@ -231,12 +238,13 @@ def sheet_dc_dist():
     _twin_lr(s, 880, ways[3], 920, "2.5")
     # ---- power slide pod (way 5): twin trunk → local fuse block → outlets
     for w, cid, fbref, zone_txt, outs in (
-            (5, "DO2", "FB2", "via the cable chain (high-flex)", (("X3", "Anderson SB50 (pod)", "direct"), ("X7", "12 V socket (pod)", "F13 15 A"))),):
+            (5, "DO2", "FB2", "slide front → chain under the deck", (("X3", "Anderson SB50 (pod)", "direct"), ("X7", "12 V socket (pod)", "F13 15 A"))),):
         y = ways[w]
         lf = s.block(fbref, 1180, y - 20, 140, 130, "Local fuses", ["ATC holder ×2", "+ / − studs"], cat="prot",
                      terms=[("i", "L", 20, "")] + [(f"o{k + 1}", "R", off, "") for k, off in enumerate((20, 65, 105)[:len(outs)])])
-        _twin_lr(s, xo, y, 1180, "6", tag=T(cid), tag_x=760)
-        s.text(980, y - 10, zone_txt, size=10, italic=True, anchor="middle", fill="#495057")
+        _twin_lr(s, 820, y, 1180, "6", tag=T(cid), tag_x=960)
+        s.offsheet(820, y + 3.5, "l", "DO2 ← BB3 MRBF 30 A (F17)", "front bay · sheet E2")
+        s.text(1000, y - 10, zone_txt, size=10, italic=True, anchor="middle", fill="#495057")
         for k, (ref, title, fz) in enumerate(outs):
             oy = lf.t(f"o{k + 1}")[1]
             s.block(ref, 1420, oy - 15, 200, 30, title, cat="outlet", terms=[("i", "L", 15, "")])
@@ -714,7 +722,7 @@ def sheet_routes():
     for title, lst in (("Through the factory-outlet gland", ids(("CH_REAR", "GLAND"))),
                        ("Along the passenger chassis rail", ids(("CH_GAP", "CH_REAR"), ("CH_CABIN", "CH_GAP"), ("CH_ENGINE", "CH_CABIN"))),
                        ("Up the cab–tub gap to the junction box", ids(("CH_GAP", "JUNCTION"))),
-                       ("In the power-slide cable chain", ids(("CABINET", "POD"))),
+                       ("In the power-slide cable chain (under the deck)", ids(("BAY", "POD"))),
                        ("Detachable tent harness", ids(("JUNCTION", "TENT")))):
         lines, cur = [], ""
         for cid in lst:
@@ -755,7 +763,7 @@ def bundles():
         for key, e in (("engine_up", ("ENGINE", "CH_ENGINE")), ("cabin_grommet", ("CABIN", "CH_CABIN")),
                        ("junction_bot", ("CH_GAP", "JUNCTION")), ("gap_high", ("JUNCTION", "ROOF")), ("wall_out", ("CH_REAR", "GLAND")),
                        ("gland_in", ("GLAND", "TRAY")), ("tray_front", ("TRAY", "BAY")), ("cab_in", ("TRAY", "CABINET")),
-                       ("chain_fixed", ("CABINET", "POD"))):
+                       ("chain_fixed", ("BAY", "POD"))):
             if visits(c, key) and not (key == "junction_bot" and c["side"] == "tent"):
                 add(e, cid)
         if c["side"] == "tent":
@@ -783,7 +791,7 @@ def sheet_overview():
         "CABIN": (300, 600, 270, 86, "Cabin, under the rear seat", ["X4 SB50 inlet → U12 compute box", "HA PC, router, PoE switch"], "outlet"),
         "GLAND": (1180, 500, 240, 72, "Factory-outlet gland", ["passenger rear tub wall"], "gen"),
         "TRAY": (1180, 640, 240, 72, "Wall drop + tray", ["drop beside the gland; tray under the lid"], "gen"),
-        "BAY": (690, 800, 380, 100, "Front bay", ["BT1/BT2, F1/F2, BB1–BB4, QS1, P1, F3", "U1 MultiPlus-II, U2 Orion XS, U3/U4 MPPTs", "F4–F7 MIDI/MEGA, M1 fan"], "battery"),
+        "BAY": (690, 800, 380, 100, "Front bay", ["BT1/BT2, F1/F2, BB1–BB4, QS1, P1, F3", "U1 MultiPlus-II, U2 Orion XS, U3/U4 MPPTs", "F4–F7 MIDI/MEGA, F17 MRBF (pod), M1 fan"], "battery"),
         "CABINET": (1250, 800, 370, 100, "Rear control cabinet", ["FB1 fuse block, RCBO enclosure (Q1–Q3)", "U5 Cerbo GX, rear panel: U6, S1, S2,", "XS1 GPO, X1/X2, U7/U8, X6"], "prot"),
         "POD": (1250, 950, 370, 72, "Power slide pod", ["FB2, XS2 GPO, X3 Anderson, X7 12 V"], "outlet"),
     }
@@ -826,14 +834,14 @@ def sheet_overview():
             return [(blocks[a].x, blocks[a].y + 36), (880, blocks[a].y + 36), (880, blocks[b].y)]
         if a == "TRAY" and b == "CABINET":
             return [(1380, blocks[a].y + blocks[a].h), (1380, blocks[b].y)]
-        if a == "CABINET" and b == "POD":
-            return [(1500, blocks[a].y + blocks[a].h), (1500, blocks[b].y)]
+        if a == "BAY" and b == "POD":
+            return [(1000, blocks[a].y + blocks[a].h), (1000, 986), (blocks[b].x, 986)]
         return [pa, pb]
     tag_pos = {("CH_ENGINE", "CH_CABIN"): (315, 510), ("CH_CABIN", "CH_GAP"): (612, 505), ("CH_GAP", "CH_REAR"): (1045, 520),
                ("ENGINE", "CH_ENGINE"): (100, 410), ("CABIN", "CH_CABIN"): (482, 560), ("CH_GAP", "JUNCTION"): (690, 400),
                ("JUNCTION", "ROOF"): (560, 236), ("JUNCTION", "TENT"): (1000, 255), ("CH_REAR", "GLAND"): (1440, 470),
                ("GLAND", "TRAY"): (1440, 610), ("TRAY", "BAY"): (880, 700), ("TRAY", "CABINET"): (1440, 760),
-               ("CABINET", "POD"): (1580, 930)}
+               ("BAY", "POD"): (1125, 986)}
     for (a, b), ids in sorted(edges.items()):
         a2, b2 = (b, a) if (b, a) in tag_pos else (a, b)
         pts = edge_pts(a2, b2) if (a2, b2) in tag_pos else edge_pts(a, b)
@@ -996,6 +1004,7 @@ PROTECTION = [  # ref, device, rating, location, protects
     ("F12", "Inline ATC holder", "5 A", "BB3 stud", "FAN"),
     ("FB1 1–10", "ATC blade fuses in FB1 (Blue Sea 5026)", "see E3", "Rear control cabinet", "DO1A–DO5, CGX, VIS (way 10, 20 A)"),
     ("F13", "ATC in FB2", "15 A", "Power slide pod", "pod 12 V socket"),
+    ("F17", "MRBF terminal fuse (Blue Sea 5191)", "30 A", "BB3 system + busbar, spare stud", "DO2 (power-slide pod)"),
     ("FB3", "ATC fuse block behind a Smart BatteryProtect", "per device", "Compute box, under the rear seat", "HA PC, router, PoE switch, fan"),
     ("Q1–Q3", "RCBO 1P+N, 30 mA", "10 A", "RCBO enclosure, rear cabinet", "AC2, AC3, AC4"),
     ("Q4", "RCBO 1P+N, 30 mA", "16 A", "Tent services box", "shore inlet → AC-in (T1, AC5)"),

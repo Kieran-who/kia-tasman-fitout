@@ -1,5 +1,5 @@
 {
-"version": "v0.11",
+"version": "v0.12",
 "cables": [
 {
 "id": "B1P",
@@ -702,14 +702,25 @@ null
 "protection": "RCBO 10 A 30 mA",
 "side": "vehicle",
 "colour": "w_ac",
-"length_m": 2.13,
-"notes": "runs through the cable chain",
+"length_m": 5.99,
+"notes": "v0.12: back to the bay with AC1, down behind the inverter, into the slide front, then the chain under the deck",
 "via": [
 "rcbo",
-"cab_floor",
-"under_slide",
+"cab_in",
+"drop_gland",
+"tray_rear",
+"tray_front",
+"bay_top",
+"dist_top",
+"bay_rear_high",
+"bay_rear_low",
+"slide_entry",
+"chain_trunk_end",
 "chain_fixed",
+"chain_bend_fixed",
+"chain_bend_tip",
 "chain_moving",
+"pod_cable_in",
 "slide_bulkhead"
 ],
 "points": [
@@ -719,28 +730,78 @@ null
 200.0
 ],
 [
-1071.0,
--605.0,
-37.0
+1366.0,
+-761.0,
+272.0
 ],
 [
-1071.0,
--555.0,
-20.0
+1366.0,
+-761.0,
+432.0
 ],
 [
-1040.2,
--542.0,
-22.0
+1366.0,
+-742.0,
+536.0
 ],
 [
-1624.4,
--542.0,
-172.0
+286.0,
+-742.0,
+536.0
 ],
 [
-1523.4,
--522.0,
+286.0,
+-528.0,
+532.0
+],
+[
+206.0,
+29.5,
+532.0
+],
+[
+306.0,
+29.5,
+532.0
+],
+[
+311.0,
+-397.5,
+32.0
+],
+[
+348.0,
+-397.5,
+29.0
+],
+[
+1005.2,
+-397.5,
+29.0
+],
+[
+1035.2,
+-353.5,
+40.0
+],
+[
+960.2,
+-278.5,
+40.0
+],
+[
+1619.4,
+-203.5,
+40.0
+],
+[
+1576.4,
+-203.5,
+40.0
+],
+[
+1570.4,
+-217.5,
 122.2
 ]
 ]
@@ -1037,52 +1098,77 @@ null
 {
 "id": "DO2",
 "circuit": "Slide DC",
-"frm": "DC fuse block",
+"frm": "System + busbar spare stud (MRBF 30 A); - to the system - busbar",
 "to": "Power-slide pod Anderson / 12 V",
 "size": "6",
 "spec": "6 mm2 twin high-flex",
-"protection": "ATC 30 A (+ inline 15 A in the pod)",
+"protection": "MRBF 30 A (+ inline 15 A in the pod)",
 "side": "vehicle",
 "colour": "w_12v",
-"length_m": 2.0,
-"notes": "runs through the cable chain",
+"length_m": 3.25,
+"notes": "v0.12: fed in the bay (was FB1 way 5); trunk into the slide front, chain under the deck",
 "via": [
-"dc_fuse_block",
-"cab_floor",
-"under_slide",
+"bus_sys_pos_studs",
+null,
+"bay_rear_low",
+"slide_entry",
+"chain_trunk_end",
 "chain_fixed",
+"chain_bend_fixed",
+"chain_bend_tip",
 "chain_moving",
+"pod_cable_in",
 "slide_bulkhead"
 ],
 "points": [
 [
-1140.5,
--646.0,
-210.0
+257.5,
+5.5,
+189.9
 ],
 [
-1065.0,
--619.0,
-49.0
+287.5,
+5.5,
+213.9
 ],
 [
-1065.0,
--569.0,
-32.0
+305.0,
+-411.5,
+44.0
 ],
 [
-1034.2,
--556.0,
-34.0
+342.0,
+-411.5,
+41.0
 ],
 [
-1618.4,
--556.0,
-184.0
+999.2,
+-411.5,
+41.0
 ],
 [
-1523.4,
--522.0,
+1029.2,
+-367.5,
+52.0
+],
+[
+954.2,
+-292.5,
+52.0
+],
+[
+1613.4,
+-217.5,
+52.0
+],
+[
+1570.4,
+-217.5,
+52.0
+],
+[
+1570.4,
+-217.5,
 122.2
 ]
 ]
@@ -3053,20 +3139,45 @@ null,
 14.5,
 124.0
 ],
-"slide_bulkhead": [
-1523.4,
--522.0,
-122.2
+"slide_entry": [
+342.0,
+-411.5,
+17.0
+],
+"chain_trunk_end": [
+999.2,
+-411.5,
+17.0
 ],
 "chain_fixed": [
-1034.2,
--556.0,
-10.0
+1029.2,
+-367.5,
+28.0
+],
+"chain_bend_fixed": [
+1029.2,
+-367.5,
+28.0
+],
+"chain_bend_tip": [
+954.2,
+-292.5,
+28.0
 ],
 "chain_moving": [
-1618.4,
--556.0,
-160.0
+1613.4,
+-217.5,
+28.0
+],
+"pod_cable_in": [
+1570.4,
+-217.5,
+28.0
+],
+"slide_bulkhead": [
+1570.4,
+-217.5,
+122.2
 ],
 "pc_gx_touch_50": [
 1377.0,
@@ -3163,6 +3274,16 @@ null,
 15.5,
 520.0
 ],
+"bay_rear_high": [
+300.0,
+15.5,
+520.0
+],
+"bay_rear_low": [
+305.0,
+-411.5,
+20.0
+],
 "tray_front": [
 280.0,
 -756.0,
@@ -3187,16 +3308,6 @@ null,
 1360.0,
 -775.0,
 260.0
-],
-"cab_floor": [
-1065.0,
--619.0,
-25.0
-],
-"under_slide": [
-1065.0,
--569.0,
-8.0
 ],
 "wall_out": [
 1330.0,

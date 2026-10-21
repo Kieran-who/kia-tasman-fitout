@@ -59,13 +59,13 @@ def trunks():
     w = dict(
         bay_top=(P.BAY_D - 40, -P.BAY_W / 2 + 40, P.BAY_H - 15),
         dist_top=(200, ANCHORS["bus_sys_pos"][1] + 10, P.BAY_H - 15),
+        bay_rear_high=(P.BAY_D - 20, ANCHORS["bus_sys_pos"][1] + 10, P.BAY_H - 15),     # behind the dist board's rear edge
+        bay_rear_low=(P.BAY_D - 15, ANCHORS["slide_entry"][1], 20),                       # gap behind the inverter, at the floor
         tray_front=(P.BAY_D - 40, yt, zt),
         tray_rear=(fx + 30, yt, zt),
         drop_gland=(fx + 30, -hw + 11, fz + 20),
         gland_in=(fx, -hw + 8, fz),
         cab_in=(fx + 30, -hw + 11, P.LOWER_TOP_Z - 30),
-        cab_floor=(P.POCKET_X0 + 200, -P.POCKET_Y_IN - 30, 25),
-        under_slide=(P.POCKET_X0 + 200, -P.POCKET_Y_IN + 20, 8),
         wall_out=(fx, -ow - 12, fz),
         wall_low=(fx, -ow - 12, -60),
         chassis_rear=(fx, -(P.CHASSIS_RAIL_Y + 45), P.CHASSIS_Z - 20),
@@ -96,6 +96,8 @@ IN = list(reversed(OUT))
 BAY_TO_CAB = ["dist_top", "bay_top", "tray_front", "tray_rear", "drop_gland", "cab_in"]
 CAB_TO_BAY = list(reversed(BAY_TO_CAB))
 GLAND_TO_BAY = ["gland_in", "drop_gland", "tray_rear", "tray_front", "bay_top"]
+BAY_TO_SLIDE = ["bay_rear_high", "bay_rear_low", "slide_entry", "chain_trunk_end"]      # v0.12: down behind the inverter
+SLIDE_CHAIN = ["chain_fixed", "chain_bend_fixed", "chain_bend_tip", "chain_moving", "pod_cable_in", "slide_bulkhead"]
 
 
 def cables():
@@ -144,8 +146,8 @@ def cables():
     L.append(Cable("AC2", "Rear GPO", "RCBO 1", "Rear panel double GPO", "2.5x3", "2.5 mm2 3-core flex", "RCBO 10 A 30 mA", "w_ac",
                    ["rcbo", "pc_gpo_double"]))
     L.append(Cable("AC3", "Slide GPO", "RCBO 2", "Power-slide pod GPO", "2.5x3", "2.5 mm2 3-core high-flex (chain rated)", "RCBO 10 A 30 mA", "w_ac",
-                   ["rcbo", "cab_floor", "under_slide", "chain_fixed", "chain_moving", "slide_bulkhead"], extra_mm=600,
-                   notes="runs through the cable chain"))
+                   ["rcbo"] + CAB_TO_BAY + BAY_TO_SLIDE + SLIDE_CHAIN, extra_mm=600,
+                   notes="v0.12: back to the bay with AC1, down behind the inverter, into the slide front, then the chain under the deck"))
     L.append(Cable("AC4", "Tent heater GPO", "RCBO 3", "Gap junction -> tent services box GPO", "2.5x3", "2.5 mm2 3-core flex, UV rated",
                    "RCBO 10 A 30 mA", "w_ac", ["rcbo", "cab_in", "drop_gland"] + to_gap, notes="detaches at the gap junction (IP66 inline plug)"))
     L.append(Cable("AC5", "Shore inlet", "Gap junction (from tent 15 A inlet)", "MultiPlus-II AC-in", "2.5x3", "2.5 mm2 3-core flex (15 A)",
@@ -158,9 +160,11 @@ def cables():
         L.append(Cable(cid, circ, "DC fuse block", f"Rear panel {circ.split('Rear ')[1]}", size, spec, prot, "w_12v",
                        ["dc_fuse_block", to], notes=("2 x Treklo dual USB-C 120 W (100 W PD + 20 W each), daisy-chained at the panel: "
                               "up to ~22 A at 12 V with both flat out") if cid == "DO1C" else ""))
-    L.append(Cable("DO2", "Slide DC", "DC fuse block", "Power-slide pod Anderson / 12 V", "6", "6 mm2 twin high-flex", "ATC 30 A (+ inline 15 A in the pod)", "w_12v",
-                   ["dc_fuse_block", "cab_floor", "under_slide", "chain_fixed", "chain_moving", "slide_bulkhead"], extra_mm=600,
-                   notes="runs through the cable chain"))
+    sp = A["bus_sys_pos_studs"]
+    L.append(Cable("DO2", "Slide DC", "System + busbar spare stud (MRBF 30 A); - to the system - busbar", "Power-slide pod Anderson / 12 V", "6",
+                   "6 mm2 twin high-flex", "MRBF 30 A (+ inline 15 A in the pod)", "w_12v",
+                   ["bus_sys_pos_studs", (sp[0] + 30, sp[1], sp[2])] + BAY_TO_SLIDE[1:] + SLIDE_CHAIN, extra_mm=600,
+                   notes="v0.12: fed in the bay (was FB1 way 5); trunk into the slide front, chain under the deck"))
     L.append(Cable("DO3", "Cabin compute feed", "DC fuse block", "Under-rear-seat compute box (SB50 inlet)", "6", "6 mm2 twin",
                    "ATC 15 A (+ BatteryProtect and per-device fuses in the box)", "w_12v",
                    ["dc_fuse_block", "cab_in", "drop_gland"] + OUT + ["chassis_cabin", "cabin_grommet", "cabin_compute"],

@@ -1,0 +1,35 @@
+[
+ {
+  "name": "01_section_chain_fridge",
+  "params": {
+   "view": "slides",
+   "state": "travel",
+   "clipx": "0.90",
+   "cam": "2.25,0.30,0.16,0.9,0.18,0.16,34",
+   "hide": "rack,tent,tent_services,future,tent_harness,roof,solar,cargo,visor,lid_storage,lid_cargo",
+   "title": "v0.12 section at X 900 (travel): cable chain lying on its side under the raised fridge-well pan; both decks 579 mm; fridge 18 mm under the lid",
+   "labels": "slide_power_cable_chain:Cable chain on its side|igus E2.15, R75:40:40;slide_power_fridge_well_pan:Raised well pan|floor 54 mm up:-70:-30;fridge_lid:Fridge top|18 mm under the lid:0:-40"
+  }
+ },
+ {
+  "name": "02_power_slide_out_chain",
+  "params": {
+   "view": "slides",
+   "state": "camp",
+   "cam": "2.15,1.25,1.05,0.95,0.0,0.3,40",
+   "hide": "lid,rack,tent,tent_services,future,tent_harness,roof,solar,cargo,visor,lid_storage,lid_cargo,payload,modules",
+   "title": "v0.12 camp: power slide out - the chain, its glide tray and both brackets are open for inspection",
+   "labels": "slide_power_chain_tray:Glide tray|3 mm, low lips:0:30;slide_power_chain_bracket_fixed:Fixed end|mid-travel:0:-30"
+  }
+ },
+ {
+  "name": "03_decks_plan",
+  "params": {
+   "view": "slides",
+   "state": "travel",
+   "cam": "0.95,2.9,0.02,0.95,0.0,0.0,36",
+   "hide": "lid,rack,tent,tent_services,future,tent_harness,roof,solar,cargo,visor,lid_storage,lid_cargo,payload,modules",
+   "title": "v0.12 plan (travel): power deck widened to 579 mm (the 50 mm chain lane is gone); fridge well 473 mm wide"
+  }
+ }
+]
