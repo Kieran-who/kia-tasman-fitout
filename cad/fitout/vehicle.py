@@ -374,7 +374,7 @@ def body_context():
             c = (x, s * tr / 2, WHEEL_ZC)
             parts.append(part(f"wheel_{int(x)}_{s}", "vehicle", tyre.translate(c), "tyre"))
             parts.append(part(f"wheel_{int(x)}_{s}_rim", "vehicle", rim.translate(c), RIM))
-    # ---- context markers: start battery + under-seat outlet box
+    # ---- context markers: start battery + under-seat compute box
     bx, by, bz = P.ENGINE_BAY_BATT
     batt = _fillet(box(bx - 130, bx + 130, by - 90, by + 90, bz - 100, bz + 92), "|Z", 6)
     batt = batt.union(box(bx - 120, bx + 120, by - 80, by + 80, bz + 92, bz + 100))
@@ -383,11 +383,11 @@ def body_context():
                       "copper"))
     anchor("start_battery", (bx, by, bz + 100))
     cx, cy, cz = P.CABIN_SEAT_BOX
-    parts.append(part("cabin_outlet_box", "markers", _fillet(box(cx - 60, cx + 60, cy - 110, cy + 110, cz - 50, cz + 50), "|X", 8),
+    # v0.11: the cabin feed powers the smart-ute compute box (HA PC, router, PoE switch) - no outlets in the cabin.
+    # Envelope is a placeholder until the under-seat space is measured.
+    parts.append(part("cabin_compute_box", "markers", _fillet(box(cx - 60, cx + 60, cy - 110, cy + 110, cz - 50, cz + 50), "|X", 8),
                       "victron_dark"))
-    face = [box(cx - 64, cx - 60, cy - 95, cy - 25, cz - 30, cz + 30),             # Anderson SB50 housing
-            box(cx - 64, cx - 60, cy + 10, cy + 40, cz - 15, cz + 15),             # USB-C dual
-            box(cx - 64, cx - 60, cy + 55, cy + 95, cz - 20, cz + 20)]             # 12 V socket
-    parts.append(part("cabin_outlet_face", "markers", comp(face), "anderson_grey"))
-    anchor("cabin_outlets", (cx, cy, cz - 50))
+    parts.append(part("cabin_compute_inlet", "markers", box(cx - 64, cx - 60, cy - 95, cy - 25, cz - 30, cz + 30),   # SB50 flush inlet
+                      "anderson_grey"))
+    anchor("cabin_compute", (cx, cy, cz - 50))
     return parts

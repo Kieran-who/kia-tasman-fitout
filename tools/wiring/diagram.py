@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT / "cad"))
 import params as P  # noqa: E402
 
 V = P.VERSION
-DATE = "2026-10-20"
+DATE = "2026-10-21"
 META = dict(version=V, date=DATE)
 TOTAL = 9
 
@@ -182,8 +182,8 @@ def sheet_dc_main():
 
 # ======================================================================================= E3
 FB1_WAYS = [  # way, circuit, fuse, cable, destination
-    (1, "Rear Anderson 1", "30 A", "DO1A"), (2, "Rear Anderson 2", "30 A", "DO1B"), (3, "Rear USB-C ×2", "10 A", "DO1C"),
-    (4, "Rear 12 V socket", "15 A", "DO1D"), (5, "Power slide pod", "30 A", "DO2"), (6, "Cabin outlets", "30 A", "DO3"),
+    (1, "Rear Anderson 1", "30 A", "DO1A"), (2, "Rear Anderson 2", "30 A", "DO1B"), (3, "Rear USB-C ×2", "25 A", "DO1C"),
+    (4, "Rear 12 V socket", "15 A", "DO1D"), (5, "Power slide pod", "30 A", "DO2"), (6, "Cabin compute feed", "15 A", "DO3"),
     (7, "Starlink Mini", "10 A", "DO4"), (8, "Tent 12 V", "30 A", "DO5"), (9, "Cerbo GX", "2 A", "CGX"),
     (10, "Visor drive", "20 A", "VIS"), (11, "spare", "–", ""), (12, "spare", "–", "")]
 
@@ -200,7 +200,7 @@ def sheet_dc_dist():
     s.zone(285, 92, 860, 860, "Rear control cabinet", "passenger side, behind the arch", bottom=True)
     s.zone(600, 116, 530, 200, "Rear panel", "hinged door, faces the tailgate", bottom=True)
     s.zone(1160, 318, 470, 172, "Power slide pod", "sockets face up", bottom=True, lx=180)
-    s.zone(1160, 500, 470, 165, "Cabin", "box under the rear seat", bottom=True, lx=180)
+    s.zone(1160, 500, 470, 165, "Cabin", "compute box under the rear seat", bottom=True, lx=180)
     s.zone(1160, 672, 130, 280, "Gap junction", "cab–tub gap", bottom=True)
     s.zone(1310, 866, 320, 86, "Roof platform", "visor drive", bottom=True, lx=12)
     s.zone(1310, 672, 320, 54, "Roof platform", bottom=True)
@@ -221,23 +221,20 @@ def sheet_dc_dist():
     xo = fb.x + fb.w
     # ---- rear panel (ways 1-4)
     blk = {}
-    for w, ref, title in ((1, "X1", "Anderson SB50 (rear 1)"), (2, "X2", "Anderson SB50 (rear 2)"), (3, "U7", "USB-C PD dual (rear 1)"),
+    for w, ref, title in ((1, "X1", "Anderson SB50 (rear 1)"), (2, "X2", "Anderson SB50 (rear 2)"), (3, "U7", "USB-C 100 W + 20 W (rear 1)"),
                           (4, "X6", "12 V socket (rear)")):
         y = ways[w]
         blk[w] = s.block(ref, 660, y - 15, 220, 30, title, cat="outlet", terms=[("i", "L", 15, "")])
         cid = FB1_WAYS[w - 1][3]
         _twin_lr(s, xo, y, 660, size_of(cid), tag=T(cid), tag_x=590)
-    u8 = s.block("U8", 920, ways[3] - 15, 200, 30, "USB-C PD dual (rear 2)", cat="outlet", terms=[("i", "L", 15, "")])
+    u8 = s.block("U8", 920, ways[3] - 15, 200, 30, "USB-C 100 W + 20 W (rear 2)", cat="outlet", terms=[("i", "L", 15, "")])
     _twin_lr(s, 880, ways[3], 920, "2.5")
-    # ---- power slide pod (way 5) and cabin (way 6): twin trunk → local fuse block → outlets
+    # ---- power slide pod (way 5): twin trunk → local fuse block → outlets
     for w, cid, fbref, zone_txt, outs in (
-            (5, "DO2", "FB2", "via the cable chain (high-flex)", (("X3", "Anderson SB50 (pod)", "direct"), ("X7", "12 V socket (pod)", "F13 15 A"),
-                                                                    ("U9", "USB-C PD dual (pod)", "F14 10 A"))),
-            (6, "DO3", "FB3", "via gland → chassis rail → cabin grommet", (("X4", "Anderson SB50 (cabin)", "direct"), ("X8", "12 V socket (cabin)", "F15 15 A"),
-                                                                            ("U10", "USB-C PD dual (cabin)", "F16 10 A")))):
+            (5, "DO2", "FB2", "via the cable chain (high-flex)", (("X3", "Anderson SB50 (pod)", "direct"), ("X7", "12 V socket (pod)", "F13 15 A"))),):
         y = ways[w]
         lf = s.block(fbref, 1180, y - 20, 140, 130, "Local fuses", ["ATC holder ×2", "+ / − studs"], cat="prot",
-                     terms=[("i", "L", 20, ""), ("o1", "R", 20, ""), ("o2", "R", 65, ""), ("o3", "R", 105, "")])
+                     terms=[("i", "L", 20, "")] + [(f"o{k + 1}", "R", off, "") for k, off in enumerate((20, 65, 105)[:len(outs)])])
         _twin_lr(s, xo, y, 1180, "6", tag=T(cid), tag_x=760)
         s.text(980, y - 10, zone_txt, size=10, italic=True, anchor="middle", fill="#495057")
         for k, (ref, title, fz) in enumerate(outs):
@@ -245,6 +242,14 @@ def sheet_dc_dist():
             s.block(ref, 1420, oy - 15, 200, 30, title, cat="outlet", terms=[("i", "L", 15, "")])
             _twin_lr(s, 1320, oy, 1420, "6" if k == 0 else "2.5")
             s.text(1370, oy - 9, fz, size=9.5, anchor="middle", weight="600", fill="#8a4500")
+    # ---- cabin compute feed (way 6): SB50 inlet → compute box (BatteryProtect + per-device fuses)
+    y = ways[6]
+    _twin_lr(s, xo, y, 1340, "6", tag=T("DO3"), tag_x=760)
+    s.text(980, y - 10, "via gland → chassis rail → cabin grommet", size=10, italic=True, anchor="middle", fill="#495057")
+    s.conn(1225, y + 3.5, "h", "X4", "SB50 inlet", side=1)
+    s.block("U12", 1340, y - 15, 270, 110, "Compute box (under the seat)",
+            ["Smart BatteryProtect (low-V cut)", "FB3: PC · router · PoE switch · fan", "smart-ute system: see", "docs/smart-ute-research.md"],
+            cat="gen", terms=[("i", "L", 15, "")])
     # ---- Starlink (way 7) and tent 12 V (way 8)
     y = ways[7]
     _twin_lr(s, xo, y, 1340, "4", tag=T("DO4"), tag_x=760)
@@ -272,11 +277,13 @@ def sheet_dc_dist():
                           "  way label and in the lid.",
                           "- Size each fuse to protect its",
                           "  cable, not the device.",
-                          "- Pod / cabin boxes: one 30 A",
-                          "  feed, local 15 A + 10 A fuses",
-                          "  for the 12 V and USB-C sockets.",
-                          "- USB-C: check the 12 V PD rating",
-                          "  (many derate at 12 V)."], title="Notes", size=10, lh=14)
+                          "- Pod: one 30 A feed; local 15 A",
+                          "  for the 12 V socket (no USB-C).",
+                          "- Cabin: SB50 inlet to the",
+                          "  compute box (PC + network).",
+                          "- USB-C sockets: 100 W PD +",
+                          "  20 W each (Treklo, 120 W);",
+                          "  rear pair ~22 A at 12 V."], title="Notes", size=10, lh=14)
     return s
 
 
@@ -773,12 +780,12 @@ def sheet_overview():
         "TENT": (950, 112, 360, 86, "Tent (detachable)", ["services box: XI1 inlet, Q4 RCBO, XS3 outlet, X5", "PV3 + PV4 2 × 100 W flexible (series)"], "ac"),
         "JUNCTION": (640, 270, 300, 86, "Gap junction box", ["J1–J4 keyed connectors (tent)", "glands for the roof cables"], "conn"),
         "ENGINE": (60, 270, 270, 86, "Engine bay", ["BT0 start battery + F8 60 A MIDI", "FBX fuse box: F9 2 A add-a-fuse (IGN)"], "vehicle"),
-        "CABIN": (300, 600, 270, 86, "Cabin, under the rear seat", ["FB3 local fuses", "X4 Anderson, X8 12 V, U10 USB-C"], "outlet"),
+        "CABIN": (300, 600, 270, 86, "Cabin, under the rear seat", ["X4 SB50 inlet → U12 compute box", "HA PC, router, PoE switch"], "outlet"),
         "GLAND": (1180, 500, 240, 72, "Factory-outlet gland", ["passenger rear tub wall"], "gen"),
         "TRAY": (1180, 640, 240, 72, "Wall drop + tray", ["drop beside the gland; tray under the lid"], "gen"),
         "BAY": (690, 800, 380, 100, "Front bay", ["BT1/BT2, F1/F2, BB1–BB4, QS1, P1, F3", "U1 MultiPlus-II, U2 Orion XS, U3/U4 MPPTs", "F4–F7 MIDI/MEGA, M1 fan"], "battery"),
         "CABINET": (1250, 800, 370, 100, "Rear control cabinet", ["FB1 fuse block, RCBO enclosure (Q1–Q3)", "U5 Cerbo GX, rear panel: U6, S1, S2,", "XS1 GPO, X1/X2, U7/U8, X6"], "prot"),
-        "POD": (1250, 950, 370, 72, "Power slide pod", ["FB2, XS2 GPO, X3, X7, U9"], "outlet"),
+        "POD": (1250, 950, 370, 72, "Power slide pod", ["FB2, XS2 GPO, X3 Anderson, X7 12 V"], "outlet"),
     }
     spine_y = 470
     A = ROUTES["anchors"]
@@ -988,8 +995,8 @@ PROTECTION = [  # ref, device, rating, location, protects
     ("F11", "Inline fuse (supplied with SmartShunt)", "1 A", "BB1 bank + bus", "SHV"),
     ("F12", "Inline ATC holder", "5 A", "BB3 stud", "FAN"),
     ("FB1 1–10", "ATC blade fuses in FB1 (Blue Sea 5026)", "see E3", "Rear control cabinet", "DO1A–DO5, CGX, VIS (way 10, 20 A)"),
-    ("F13 / F14", "ATC in FB2", "15 A / 10 A", "Power slide pod", "pod 12 V socket / USB-C"),
-    ("F15 / F16", "ATC in FB3", "15 A / 10 A", "Cabin box", "cabin 12 V socket / USB-C"),
+    ("F13", "ATC in FB2", "15 A", "Power slide pod", "pod 12 V socket"),
+    ("FB3", "ATC fuse block behind a Smart BatteryProtect", "per device", "Compute box, under the rear seat", "HA PC, router, PoE switch, fan"),
     ("Q1–Q3", "RCBO 1P+N, 30 mA", "10 A", "RCBO enclosure, rear cabinet", "AC2, AC3, AC4"),
     ("Q4", "RCBO 1P+N, 30 mA", "16 A", "Tent services box", "shore inlet → AC-in (T1, AC5)"),
     ("QS1", "ML-RBS remote battery switch (Blue Sea 7713)", "500 A", "Front bay", "isolation, bank + → system +"),
@@ -1007,7 +1014,8 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("U4", "Solar charger, tent", "Victron SmartSolar MPPT 75/15", "Charging board", "E4, E6"),
     ("M1", "Inverter fan", "92 mm 12 V thermostatic", "Above the inverter", "E2"),
     ("FB1", "Fuse block 12-way + neg bus", "Blue Sea 5026", "Rear control cabinet", "E3"),
-    ("FB2, FB3", "Local fuse holders + studs", "2-way ATC", "Power slide pod / cabin box", "E3"),
+    ("FB2", "Local fuse holder + studs", "2-way ATC", "Power slide pod", "E3"),
+    ("U12, FB3", "Compute box: BatteryProtect + 6-way ATC block", "Victron SBP-65, Blue Sea 5025-class", "Under the rear seat", "E3"),
     ("U5", "GX device", "Victron Cerbo GX MK2", "Rear control cabinet", "E3, E6"),
     ("U6", "Display", "Victron GX Touch 50", "Rear panel", "E6"),
     ("S1", "Battery isolate switch", "Blue Sea 2155 Contura SPDT with LED", "Rear panel", "E6"),
@@ -1018,9 +1026,9 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("XS2", "Pod GPO", "Flush 10 A, faces up", "Power slide pod", "E5"),
     ("XS3", "Tent heater outlet", "Clipsal 56SO310A IP66 10 A", "Tent services box", "E5, E7"),
     ("XI1, Q4", "Shore inlet + RCBO", "Clipsal 56AI315 15 A + RCBO 16 A 30 mA", "Tent services box", "E5, E7"),
-    ("X1–X5", "Anderson SB50 sockets", "Anderson SB50 red + flush housing", "Rear panel ×2, pod, cabin, tent box", "E3"),
-    ("X6–X8", "12 V sockets", "Narva / Blue Sea", "Rear panel, pod, cabin", "E3"),
-    ("U7–U10", "Dual USB-C PD sockets", "check the 12 V PD rating", "Rear panel ×2, pod, cabin", "E3"),
+    ("X1–X5", "Anderson SB50 sockets", "Anderson SB50 red + flush housing", "Rear panel ×2, pod, compute-box inlet, tent box", "E3"),
+    ("X6, X7", "12 V sockets", "Narva / Blue Sea", "Rear panel, pod", "E3"),
+    ("U7, U8", "Dual USB-C sockets, 100 W PD + 20 W each", "Treklo dual USB-C 120 W, 12–24 V", "Rear panel ×2", "E3"),
     ("J1", "230 V out connector", "IP66 10 A socket (vehicle) / plug (tent)", "Gap junction box", "E5, E7"),
     ("J2", "230 V in connector", "IP66 15 A inlet (vehicle) / extension socket (tent)", "Gap junction box", "E5, E7"),
     ("J3", "12 V tent connector", "Anderson SB50 red", "Gap junction box", "E3, E7"),

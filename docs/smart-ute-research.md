@@ -35,15 +35,15 @@ Status: **research, 2026-10-20 (updated the same day: thermal camera and dash sc
 ## 3. System architecture
 
 ```
-House bank 12.8 V ── FB1 way 11 (new "SMT" feed, 15 A, via chassis route) ── BatteryProtect 65 A (hard LVD) ── under-seat box
-   under-seat box (vented, thermostatic fan, temp sensor):
+House bank 12.8 V ── FB1 way 6 (DO3, the cabin feed, ATC 15 A, 6 mm² via the chassis route) ── SB50 inlet ── Smart BatteryProtect 65 A (hard LVD) ── FB3 fuses
+   under-seat compute box (vented, thermostatic fan, temp sensor):
      ├─ Neousys POC-751VTC (8–35 V direct, ignition input from an ACC tap) ── 4 × PoE+: front, rear, 2 side cams
      │     ├─ LAN 1 → TSW101 uplink   (camera network: no internet, the PC is the only host)
      │     └─ LAN 2 → RUTM10 LAN      (home network: HA, Frigate UI, tablet, phones)
      ├─ TSW101 PoE switch (12 V via a relay ← HA, off in deep sentry) ── 2 side cams, 2 spare PoE ports
      ├─ Teltonika RUTM10 ── WAN: Starlink Mini (bypass, Mini Ethernet cable) · Wi-Fi AP → tablet, phones
      └─ Cat6 from the RUTM10 to the tub rear cabinet → Cerbo GX (HA "Victron GX" integration, MQTT)
-   dash/console: tablet on a RAM X-Grip (12" cradle for 12.1" tablets), 30 W USB-C PD supply on an ACC-switched feed
+   dash/console: tablet on a RAM X-Grip (12" cradle for 12.1" tablets), powered from the Tasman's own USB-C
    roof: Starlink Mini (existing DO4 feed) switched by relay K1 ← Cerbo relay 1 (HA), side camera pairs on the platform rear corners
    front: camera on the bull bar (outside the glass, clear of the Tasman's front radar) · rear: camera on the tailgate/lid
 Frigate records to a wide-temperature SSD in the PC.
@@ -119,13 +119,13 @@ Using measured or datasheet figures where they exist.
 | 2 × CU86 + 4 × CU22 | 18.7 | e-con datasheets (3.78 / 2.78 W). 13.1 W on the PC's ports, 5.6 W on the TSW101 |
 | TSW101 own draw | 3 | [est] |
 | RUTM10 | 4 | 3.2 W idle, 7.6 W load at 12 V (Teltonika wiki) |
-| Tablet (screen on, charging) | 6 | [est] |
+| Tablet | – | on the Tasman's own USB-C, not the house bank |
 | Starlink Mini | 28 | 25–30 W reported |
 
 | Mode | What's on | W | Wh/day | Bank (10.2 kWh) |
 |---|---|---|---|---|
-| Driving | Everything | about 75 | covered by the alternator and solar | – |
-| Camped | PC, 6 cams, switch, router 24 h; Starlink 12 h; tablet 6 h | about 41 + extras | about **1,350** | about 13% |
+| Driving | Everything | about 69 | covered by the alternator and solar | – |
+| Camped | PC, 6 cams, switch, router 24 h; Starlink 12 h | about 41 + Starlink | about **1,310** | about 13% |
 | Sentry, offline | PC, 6 cams, switch. Router and Starlink off; records locally, no phone alerts | about 37 | about **880** | about 9 days on 80% |
 | Sentry with alerts | Same, plus router and Starlink so alerts reach your phone | about 69 | about **1,650** | about 5 days |
 | Deep sentry | PC + its 4 cameras; TSW101 off | about 28 | about **675** | about 12 days |
@@ -140,9 +140,9 @@ The roof (570 W with the visor) and tent (200 W) solar covers the camped figure 
 | 6 × RouteCAM (US$2,074) incl. GST, shipping [est] | 3,500–3,800 | 3,500–3,800 (no cheaper STARVIS-confirmed option was found) |
 | PoE: TSW101 (A$125–147) | 125–147 | 250–294 (2 × TSW101: the Protectli has no PoE) |
 | Router: RUTM10 | 214–250 | 214–250 |
-| Tablet: Redmi Pad 2 Pro + Fully Kiosk PLUS + RAM X-Grip (12") + 30 W USB-C PD | about 690–820 [mount est] | about 690–820 |
+| Tablet: Redmi Pad 2 Pro + Fully Kiosk PLUS + RAM X-Grip (12") | about 660–790 [mount est] | about 660–790 |
 | BatteryProtect, relays, outdoor Cat6, IP67 glands, brackets, fuses | about 500 [est] | about 500 [est] |
-| **Total** | **about A$7,400–8,700** | **about A$6,350–7,050** |
+| **Total** | **about A$7,400–8,700** | **about A$6,300–7,050** |
 
 **Compared with the first version:**
 - **Removed:** the thermal camera and its screen (A$3,600–5,100 before), and the 4G router.
@@ -161,9 +161,8 @@ The roof (570 W with the visor) and tent (200 W) solar covers the camped figure 
   - Fit a 12 V thermostatic fan venting to the footwell, a temperature sensor, and reflective lining.
   - HA throttles detection or shuts down above about 75 °C in the box [est].
 - **Tablet:**
-  - Power it from an ACC-switched supply so it doesn't charge while heat-soaking.
+  - It runs from the Tasman's own USB-C ports. Check they switch off with the ignition, so it doesn't charge while heat-soaking.
   - Turn on the 80% charge limit, and use Fully Kiosk "Sleep on power disconnect".
-  - Add an HA cut-off if the cabin goes above about 40 °C.
   - Mount it low and out of the sun, and pull it on heatwave days.
 - **Cameras:** sun shields, white housings, an air gap from the roof skin.
 

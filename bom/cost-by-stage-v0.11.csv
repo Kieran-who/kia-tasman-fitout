@@ -1,8 +1,8 @@
 stage,name,products AUD,cable AUD,materials AUD,stage total AUD,real prices AUD,running total AUD
-1,Power core,6971,916,781,8667,6524,8667
-2,Roof platform and solar,3126,221,234,3580,2927,12247
-3,Slides and storage,4297,71,1782,6150,120,18397
-4,230 V and monitoring,3543,411,0,3954,3136,22352
-5,Tent solar and cabin outlets,885,128,104,1117,764,23468
-6,Under-tent storage,826,0,377,1202,370,24671
-7,Visor and roof extras,2703,60,41,2804,737,27474
+1,Power core,6971,917,781,8669,6524,8669
+2,Roof platform and solar,3126,221,234,3580,2927,12249
+3,Slides and storage,4209,71,1782,6062,32,18311
+4,230 V and monitoring,3543,411,0,3954,3136,22265
+5,Tent solar and cabin compute feed,753,128,104,985,644,23250
+6,Under-tent storage,826,0,377,1202,370,24452
+7,Visor and roof extras,2703,60,41,2804,737,27256

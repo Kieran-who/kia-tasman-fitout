@@ -109,8 +109,6 @@ fit-out,slide_p,slide_power_power_pod,Plate 3 5052,0.59
 fit-out,slide_p,slide_power_gpo,purchased,0.4
 fit-out,slide_p,slide_power_anderson,purchased,0.1
 fit-out,slide_p,slide_power_12v,purchased,0.05
-fit-out,slide_p,slide_power_usbc,purchased,0.05
-fit-out,slide_p,slide_power_usbc_2,purchased,0.05
 fit-out,slide_p,slide_power_rear_plate,Plate 3 5052,0.32
 fit-out,slide_p,slide_power_handle,purchased,0.3
 fit-out,slide_p,slide_power_leg_clevis_0,Plate 6 5052,0.01

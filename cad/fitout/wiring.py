@@ -153,15 +153,18 @@ def cables():
     # ------------------------------------------------ DC outlets from the rear fuse block
     for cid, circ, to, size, spec, prot in (("DO1A", "Rear Anderson 1", "pc_anderson_1", "6", "6 mm2 twin", "ATC 30 A"),
                                             ("DO1B", "Rear Anderson 2", "pc_anderson_2", "6", "6 mm2 twin", "ATC 30 A"),
-                                            ("DO1C", "Rear USB-C x2", "pc_usbc_1", "2.5x3", "2.5 mm2 twin", "ATC 10 A"),
+                                            ("DO1C", "Rear USB-C x2", "pc_usbc_1", "4", "4 mm2 twin", "ATC 25 A"),
                                             ("DO1D", "Rear 12 V socket", "pc_12v", "4", "4 mm2 twin", "ATC 15 A")):
         L.append(Cable(cid, circ, "DC fuse block", f"Rear panel {circ.split('Rear ')[1]}", size, spec, prot, "w_12v",
-                       ["dc_fuse_block", to], notes="USB-C sockets daisy-chained at the panel" if cid == "DO1C" else ""))
-    L.append(Cable("DO2", "Slide DC", "DC fuse block", "Power-slide pod Anderson / 12 V / USB-C", "6", "6 mm2 twin high-flex", "ATC 30 A (+ inline 15 A / 10 A in the pod)", "w_12v",
+                       ["dc_fuse_block", to], notes=("2 x Treklo dual USB-C 120 W (100 W PD + 20 W each), daisy-chained at the panel: "
+                              "up to ~22 A at 12 V with both flat out") if cid == "DO1C" else ""))
+    L.append(Cable("DO2", "Slide DC", "DC fuse block", "Power-slide pod Anderson / 12 V", "6", "6 mm2 twin high-flex", "ATC 30 A (+ inline 15 A in the pod)", "w_12v",
                    ["dc_fuse_block", "cab_floor", "under_slide", "chain_fixed", "chain_moving", "slide_bulkhead"], extra_mm=600,
                    notes="runs through the cable chain"))
-    L.append(Cable("DO3", "Cabin outlets", "DC fuse block", "Under-rear-seat box (Anderson, USB-C, 12 V)", "6", "6 mm2 twin", "ATC 30 A (+ inline 15 A / 10 A in the box)", "w_12v",
-                   ["dc_fuse_block", "cab_in", "drop_gland"] + OUT + ["chassis_cabin", "cabin_grommet", "cabin_outlets"]))
+    L.append(Cable("DO3", "Cabin compute feed", "DC fuse block", "Under-rear-seat compute box (SB50 inlet)", "6", "6 mm2 twin",
+                   "ATC 15 A (+ BatteryProtect and per-device fuses in the box)", "w_12v",
+                   ["dc_fuse_block", "cab_in", "drop_gland"] + OUT + ["chassis_cabin", "cabin_grommet", "cabin_compute"],
+                   notes="HA PC, router, PoE switch (docs/smart-ute-research.md); no outlets in the cabin"))
     L.append(Cable("DO4", "Starlink Mini", "DC fuse block", "Starlink Mini (roof)", "4", "4 mm2 twin + DC barrel lead", "ATC 10 A", "w_12v",
                    ["dc_fuse_block", "cab_in", "drop_gland"] + to_gap + ["junction_top", "gap_high", "roof_drop", "starlink"]))
     L.append(Cable("DO5", "Tent 12 V", "DC fuse block", "Gap junction -> tent (Anderson SB50)", "6", "6 mm2 twin", "ATC 30 A", "w_12v",

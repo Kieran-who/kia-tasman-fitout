@@ -21,10 +21,10 @@ AC4,Tent heater GPO,vehicle,RCBO 3,Gap junction -> tent services box GPO,"2.5 mm
 AC5,Shore inlet,vehicle,Gap junction (from tent 15 A inlet),MultiPlus-II AC-in,2.5 mm2 3-core flex (15 A),RCBO 16 A 30 mA in the services box + MultiPlus AC-in limit 15 A,6.15,
 DO1A,Rear Anderson 1,vehicle,DC fuse block,Rear panel Anderson 1,6 mm2 twin,ATC 30 A,0.63,
 DO1B,Rear Anderson 2,vehicle,DC fuse block,Rear panel Anderson 2,6 mm2 twin,ATC 30 A,0.62,
-DO1C,Rear USB-C x2,vehicle,DC fuse block,Rear panel USB-C x2,2.5 mm2 twin,ATC 10 A,0.57,USB-C sockets daisy-chained at the panel
+DO1C,Rear USB-C x2,vehicle,DC fuse block,Rear panel USB-C x2,4 mm2 twin,ATC 25 A,0.57,"2 x Treklo dual USB-C 120 W (100 W PD + 20 W each), daisy-chained at the panel: up to ~22 A at 12 V with both flat out"
 DO1D,Rear 12 V socket,vehicle,DC fuse block,Rear panel 12 V socket,4 mm2 twin,ATC 15 A,0.61,
-DO2,Slide DC,vehicle,DC fuse block,Power-slide pod Anderson / 12 V / USB-C,6 mm2 twin high-flex,ATC 30 A (+ inline 15 A / 10 A in the pod),2.0,runs through the cable chain
-DO3,Cabin outlets,vehicle,DC fuse block,"Under-rear-seat box (Anderson, USB-C, 12 V)",6 mm2 twin,ATC 30 A (+ inline 15 A / 10 A in the box),4.18,
+DO2,Slide DC,vehicle,DC fuse block,Power-slide pod Anderson / 12 V,6 mm2 twin high-flex,ATC 30 A (+ inline 15 A in the pod),2.0,runs through the cable chain
+DO3,Cabin compute feed,vehicle,DC fuse block,Under-rear-seat compute box (SB50 inlet),6 mm2 twin,ATC 15 A (+ BatteryProtect and per-device fuses in the box),4.18,"HA PC, router, PoE switch (docs/smart-ute-research.md); no outlets in the cabin"
 DO4,Starlink Mini,vehicle,DC fuse block,Starlink Mini (roof),4 mm2 twin + DC barrel lead,ATC 10 A,5.0,
 DO5,Tent 12 V,vehicle,DC fuse block,Gap junction -> tent (Anderson SB50),6 mm2 twin,ATC 30 A,3.98,detaches at the gap junction
 ALT,Alternator charge,vehicle,Start battery (60 A MIDI),Orion XS input,"25 mm2 twin (+/-), tinned",60 A at start battery,8.62,Orion XS input limit 25-30 A until the alternator rating is known

@@ -1,6 +1,6 @@
 {
   "version": "v0.11",
-  "fitout_kg": 535.4,
+  "fitout_kg": 535.3,
   "example_payload_kg": 154.1,
   "options_kg": {
     "option: well filler (no fridge)": 4.7,
@@ -18,7 +18,7 @@
     "rack": 15.4,
     "roof": 36.7,
     "slide_d": 35.2,
-    "slide_p": 33.7,
+    "slide_p": 33.6,
     "solar": 35.7,
     "tent": 84.0,
     "tent_services": 2.5,
@@ -73,7 +73,7 @@
   "axle_added_kg_front_rear": {
     "fit-out": [
       9.2,
-      501.9
+      501.8
     ],
     "payload (example)": [
       -18.0,

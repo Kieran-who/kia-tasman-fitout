@@ -9,8 +9,8 @@ chain runs in a lane on the power slide's outboard side.
 
 v0.8 adds geometric detail only (no layout change): the real 3-member DZ9308 cross-section with ball
 races and the front lock lever, countersunk floor bolts, deck screw lines, the L-track profile with its
-round pockets, flanged receiver bushes, the power-pod outlets (Iconic GPO, SB50 flush housing, 12 V and
-dual USB-C sockets), an igus-style link chain with end brackets, and the leg clevis / pins / foot / clip.
+round pockets, flanged receiver bushes, the power-pod outlets (Iconic GPO, SB50 flush housing, 12 V socket;
+the pod's dual USB-C was removed in v0.11), an igus-style link chain with end brackets, and the leg clevis / pins / foot / clip.
 """
 import math
 
@@ -50,8 +50,6 @@ GPO_PLATE = (120, 78)          # [PUB] Clipsal Iconic 3025 horizontal double swi
 SB50_BEZEL = (62, 56)          # [EST] SB50 flush housing with spring lid (Altronics P7862 / Trailer Vision class), X x Y
 SB50_OPEN = (24, 40)           # [PUB] 40 x 25 cut-out of the Trailer Vision slimline SB50 housing (X x Y here)
 SOCKET_12V_FLANGE_R = 20       # [EST] Narva heavy-duty flush accessory socket: 29 mm hole [PUB], ~40 mm flange
-USBC_BEZEL_R = 18              # [EST] dual USB-C PD socket, 29 mm cut-out [BOM], ~36 mm bezel
-USBC_SLOT = (8.4, 2.6)         # [PUB] USB Type-C receptacle opening
 
 # colours (RGBA) for purchased / decorative bits
 BLACK = (30, 30, 32, 255)
@@ -510,15 +508,7 @@ def _power_pod(nm, g, cx0, ya, yb, top, camp):
     s12 = _cmp([_ringz(SOCKET_12V_FLANGE_R, 10.6, pz - 1, pz + 3, xc, sy, n=20, ni=14),
                 _cylz(10.5, pz, pz + 0.6, xc, sy, n=14), _cylz(2.4, pz + 0.6, pz + 2.5, xc, sy, n=8), cap(xc, sy, 16.5, pz + 3)])
     parts.append(part(f"{nm}_12v", g, s12, "usb", kg=0.05, product="Narva HD flush accessory socket, 29 mm hole"))
-    # --- dual USB-C PD sockets: alu bezel, black face with two Type-C openings, rubber cap (open in camp)
-    for suf, uy in (("", pw0 + 300), ("_2", pw0 + 345)):
-        face = _cylz(14.5, pz - 1, pz + 2, xc, uy, n=18)
-        face = _cut(face, [cq.Workplane("XY").slot2D(USBC_SLOT[0], USBC_SLOT[1]).extrude(8).translate((xc + dx, uy, pz - 5)).val()
-                           for dx in (-5.5, 5.5)])
-        tongues = [_bx(xc + dx - 0.35, xc + dx + 0.35, uy - 3.3, uy + 3.3, pz - 4, pz + 0.5) for dx in (-5.5, 5.5)]
-        parts.append(part(f"{nm}_usbc{suf}", g, _cmp([face] + tongues + [cap(xc, uy, 16.5, pz + 2.5)]), "usb", kg=0.05,
-                          product="dual USB-C PD (2 ports), 29 mm hole"))
-        parts.append(part(f"{nm}_usbc{suf}_bezel", g, _ringz(USBC_BEZEL_R, 14.6, pz - 1, pz + 2.5, xc, uy, n=20, ni=18), "alu"))
+    # (v0.11: no USB-C on the pod - owner: Anderson, 12 V and 230 V only; USB-C lives on the rear panel and in the cabin box)
     anchor("slide_bulkhead", (cx0 + 25, ya + 10, top + 20))
     return parts
 

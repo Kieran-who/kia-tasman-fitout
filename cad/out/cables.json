@@ -981,13 +981,13 @@ null
 "circuit": "Rear USB-C x2",
 "frm": "DC fuse block",
 "to": "Rear panel USB-C x2",
-"size": "2.5x3",
-"spec": "2.5 mm2 twin",
-"protection": "ATC 10 A",
+"size": "4",
+"spec": "4 mm2 twin",
+"protection": "ATC 25 A",
 "side": "vehicle",
 "colour": "w_12v",
 "length_m": 0.57,
-"notes": "USB-C sockets daisy-chained at the panel",
+"notes": "2 x Treklo dual USB-C 120 W (100 W PD + 20 W each), daisy-chained at the panel: up to ~22 A at 12 V with both flat out",
 "via": [
 "dc_fuse_block",
 "pc_usbc_1"
@@ -1038,10 +1038,10 @@ null
 "id": "DO2",
 "circuit": "Slide DC",
 "frm": "DC fuse block",
-"to": "Power-slide pod Anderson / 12 V / USB-C",
+"to": "Power-slide pod Anderson / 12 V",
 "size": "6",
 "spec": "6 mm2 twin high-flex",
-"protection": "ATC 30 A (+ inline 15 A / 10 A in the pod)",
+"protection": "ATC 30 A (+ inline 15 A in the pod)",
 "side": "vehicle",
 "colour": "w_12v",
 "length_m": 2.0,
@@ -1089,16 +1089,16 @@ null
 },
 {
 "id": "DO3",
-"circuit": "Cabin outlets",
+"circuit": "Cabin compute feed",
 "frm": "DC fuse block",
-"to": "Under-rear-seat box (Anderson, USB-C, 12 V)",
+"to": "Under-rear-seat compute box (SB50 inlet)",
 "size": "6",
 "spec": "6 mm2 twin",
-"protection": "ATC 30 A (+ inline 15 A / 10 A in the box)",
+"protection": "ATC 15 A (+ BatteryProtect and per-device fuses in the box)",
 "side": "vehicle",
 "colour": "w_12v",
 "length_m": 4.18,
-"notes": "",
+"notes": "HA PC, router, PoE switch (docs/smart-ute-research.md); no outlets in the cabin",
 "via": [
 "dc_fuse_block",
 "cab_in",
@@ -1109,7 +1109,7 @@ null
 "chassis_rear",
 "chassis_cabin",
 "cabin_grommet",
-"cabin_outlets"
+"cabin_compute"
 ],
 "points": [
 [
@@ -2833,7 +2833,7 @@ null,
 -520.0,
 220.0
 ],
-"cabin_outlets": [
+"cabin_compute": [
 -650.0,
 -380.0,
 -30.0

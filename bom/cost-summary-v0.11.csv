@@ -16,7 +16,7 @@ products,AC,Flush double GPO (slide pod top),1.0,ea,8.53,8.53,actual,"https://ww
 products,AC,IP66 inlet 15A (shore),1.0,ea,135.04,135.04,actual,https://www.sparkydirect.com.au/p/CLIPSAL-56AI315-Appliance-Inlet-3-Flat-Pin-15Amp-IP66-56-SERIES (Sparky Direct; A$122.76 ex GST; Clipsal RRP A$290)
 products,AC,Gap junction 230 V connectors,1.0,ea,289.68,289.68,actual,Sparky Direct: 56C310-GY A$71.54 + 56P310-EO plug A$25.34 (https://www.sparkydirect.com.au/p/CLIPSAL-56P310-EO-3-Pin-Flat-10Amp-Straight-Plug-IP66-56-Series) + 56AI315 A$135.04 + 56CSC315-EO extension socket A$57.76 (https://www.sparkydirect.com.au/p/CLIPSAL-56CSC315-EO-Extension-Socket-3-Flat-Pin-15Amp-IP66-56-series-Orange) (Sparky Direct; sum of four listed prices)
 products,DC,Anderson SB50 + flush housings,6.0,ea,35.0,210.0,estimate,Altronics P7862 flush housing A$23.25 inc GST + genuine SB50 red ~A$12 (Altronics)
-products,DC,12V socket,3.0,ea,31.99,95.97,actual,https://autopro.com.au/ap/Autopro-Category/Brands/Narva/Narva-Heavy-Duty-Accessory-Socket/p/EL01840 (Autopro; Narva 81026BL)
+products,DC,12V socket,2.0,ea,31.99,63.98,actual,https://autopro.com.au/ap/Autopro-Category/Brands/Narva/Narva-Heavy-Duty-Accessory-Socket/p/EL01840 (Autopro; Narva 81026BL)
 products,wiring,IP66 junction box,1.0,ea,55.0,55.0,estimate,IP66 polycarbonate box ~200x150x100 ~A$40-50 + 3-4 IP68 glands (RS PRO IP66 120x200x75 is A$63 inc GST)
 products,wiring,Cable gland plate / split cable entry,1.0,ea,85.0,85.0,estimate,icotek KEL-ER split frame ~GBP35 ex VAT at RS UK (~A$80 inc GST) + grommets (RS Components; generic split entry plates ~A$20-30)
 products,wiring,Cables,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
@@ -48,7 +48,7 @@ products,slides,Fold-out telescopic legs (fabricated),4.0,ea,0.0,0.0,in material
 products,slides,Leg clevis + pivot,4.0,ea,30.0,120.0,estimate,2 small 6 mm aluminium plates (laser cut) ~A$8-10 each + M10 stainless shoulder bolt ~A$8-10 + nyloc
 products,slides,Swivel levelling foot M10,4.0,ea,6.0,24.0,estimate,M10 swivel levelling foot 40 mm pad ~A$4-8
 products,slides,Leg stow clip,4.0,ea,6.0,24.0,estimate,32 mm spring tool clip ~A$1.50 + UHMW block offcut ~A$4
-products,DC,Dual USB-C PD socket (2 ports),4.0,ea,88.0,352.0,actual,https://campervanbuilders.com.au/products/dual-usb-c-120w-socket-flush-mount-waterproof (Campervan Builders; showed sold out)
+products,DC,Dual USB-C socket (100 W PD + 20 W),2.0,ea,88.0,176.0,actual,https://campervanbuilders.com.au/products/dual-usb-c-120w-socket-flush-mount-waterproof (Campervan Builders; showed sold out)
 products,storage,Aluminium U-channel for divider slots,40.0,ea,3.5,140.0,estimate,"small aluminium channel ~A$10/m at Bunnings (Metal Mate 16x12x1.6 1 m A$10.38), per 300 mm piece (Bunnings / metal supplier; 12.7x8x1.2 is not a Bunnings size)"
 products,storage,Lift-out dividers,6.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
 products,slides,Deck carrier L-angle,4.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
@@ -65,7 +65,7 @@ products,protection,RCBO 16 A 30 mA (shore in),1.0,ea,32.62,32.62,actual,"https:
 products,protection,2-pole DC PV isolator 32 A,2.0,ea,36.78,73.56,actual,https://sparkydirect.com.au/p/NHP-NL432PV-Enclosed-DC-Isolating-Switch-32A-1500V-IP66-4-Pole (Sparky Direct; NHP NL432PV enclosed 4-pole (wire as 2-pole); unusually low price)
 products,solar,MC4 Y-branch pair,1.0,ea,8.8,8.8,actual,https://solarshop.baywa-re.com.au/MC4-compatible-Y-branch-socket-Pair (BayWa r.e. Solar Shop; A$8.00 ex GST)
 products,DC,Anderson SB50 grey (PV),2.0,ea,37.0,74.0,estimate,Altronics P7862 housing ~A$23.25 + genuine SB50 grey ~A$13-14
-products,DC,Local fuse holders (pod / cabin),2.0,ea,12.0,24.0,estimate,2-way ATC holder ~A$10-15 (Jaycar SZ2044 single A$10.25)
+products,DC,Local fuse holder (pod),1.0,ea,12.0,12.0,estimate,2-way ATC holder ~A$10-15 (Jaycar SZ2044 single A$10.25)
 products,wiring,Earth conductor,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
 products,wiring,Chassis bond,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
 products,distribution,Edge grommet strip,1.0,ea,8.0,8.0,estimate,rubber U-section edge trim ~A$5-15/m
@@ -105,13 +105,12 @@ cable,cable,2.5 mm2 3-core flex (15 A),8.0,m,4.5,36.0,estimate,AU electrical who
 cable,cable,2.5 mm2 3-core flex (TPS-flex),4.0,m,4.5,18.0,estimate,AU electrical wholesale
 cable,cable,"2.5 mm2 3-core flex, UV rated",5.0,m,5.5,27.5,estimate,AU electrical wholesale
 cable,cable,2.5 mm2 3-core high-flex (chain rated),3.0,m,9.0,27.0,estimate,chain-rated flex (igus chainflex class) ~A$8-10/m
-cable,cable,2.5 mm2 twin,1.0,m,3.5,3.5,estimate,AU auto-cable retail
 cable,cable,25 mm2 black,5.0,m,12.0,60.0,estimate,25 mm2 (4 B&S) single ~A$10-14/m
 cable,cable,"25 mm2 twin (+/-), tinned",10.0,m,26.0,260.0,estimate,tinned 25 mm2 x2
 cable,cable,25 mm2 twin (red/black),4.0,m,24.0,96.0,estimate,25 mm2 x2
 cable,cable,"3-core 0.75 mm2 (deploy, stow, LED)",6.0,m,2.5,15.0,estimate,AU auto-cable retail
 cable,cable,"4 mm2 solar twin, high-flex (chain rated)",6.0,m,8.0,48.0,estimate,high-flex solar / chain-rated
-cable,cable,4 mm2 twin,1.0,m,5.0,5.0,estimate,AU auto-cable retail
+cable,cable,4 mm2 twin,2.0,m,5.0,10.0,estimate,AU auto-cable retail
 cable,cable,4 mm2 twin + DC barrel lead,6.0,m,5.0,30.0,estimate,AU auto-cable retail (barrel lead comes with the Starlink Mini)
 cable,cable,"4-core 1.0 mm2 (+12 V feed, control, LED, ground)",4.0,m,3.5,14.0,estimate,AU auto-cable retail
 cable,cable,50 mm2 green/yellow,1.0,m,22.0,22.0,estimate,50 mm2 earth
@@ -148,4 +147,4 @@ materials,materials,SHS 32x32x2 6060,1.8,m,12.0,21.6,estimate,cut-to-length alum
 materials,materials,Sheet 1.6 5005,2,sheet,130.0,260.0,estimate,2400x1200 sheet
 materials,materials,UHMW 10,1,sheet,80.0,80.0,estimate,1000x500 UHMW-PE sheet
 materials,materials,Fasteners and consumables,1,lot,450.0,450.0,estimate,"bolts, screws, rivets, adhesive, sealant, edge trim, finish"
-total,,,,,,27474.5,,actual 14577 / estimate 12898
+total,,,,,,27256.01,,actual 14369 / estimate 12887
