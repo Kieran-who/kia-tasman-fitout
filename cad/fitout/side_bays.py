@@ -64,6 +64,9 @@ _CACHE = {}
 FIX, MOVE, HALF, DOOR, ANCHOR = range(5)
 
 
+ELV_SLOT = (1270, 1372)      # [DES] v0.13: 12 V cable slot into the cabinet (x range; clears the door stile at 1377)
+LV_GLAND_X = 1215            # [DES] v0.13: 230 V gland into the cabinet, outboard of the RCBO enclosure
+
 def _memo(key, fn):
     if key not in _CACHE:
         _CACHE[key] = fn()
@@ -246,7 +249,8 @@ def _upper_drawer_specs(yo, yi, gap, gland):
     floor = box(x0, x1, yo, yi, z0, z0 + T9).cut(_comp([box(x0 - 1, x1 + 1, yi, yi + s * T, z0 + T9 - 4, z0 + T9 + 1),
                                                         box(x0 - 1, x1 + 1, yp, yp - s * T9, z0 + T9 - 4, z0 + T9 + 1)]))
     if gland:
-        floor = floor.cut(cyl(10.5, 40, (gland[0], gland[1], z0 + 4)))
+        # v0.13: 12 V entry is a 100 x 22 slot (split grommet) across the wall channel; 230 V gets its own 28 mm hole
+        floor = floor.cut(box(ELV_SLOT[0], ELV_SLOT[1], yo - s * 1, yp, z0 - 1, z0 + T9 + 1)).cut(cyl(14, 40, (LV_GLAND_X, gland[1], z0 + 4)))
     sp.append((FIX, f"{nm}_floor", g, S(floor), "ply", dict(fab=True, mat="Ply 9 marine")))
     sp.append((FIX, f"{nm}_inner_wall", g, S(box(x0, x1, yi, yi + s * T, z0 + T9 - 4, z1)), "ply", dict(fab=True, mat="Ply 12 marine")))
     sp.append((FIX, f"{nm}_runner_panel", g, S(box(x0, x1, yp, yp - s * T9, z0 + T9 - 4, z1)), "ply", dict(fab=True, mat="Ply 9 marine")))
@@ -327,8 +331,8 @@ def _passenger_specs():
     iw = box(x0, xr, yi, yi - T, 0, zt).cut(box(x0 - 1, xr + 1, yi - 6, yi - T - 1, zt - T, zt + 1))
     fx("pc_inner_wall", iw, "ply", fab=True, mat="Ply 12 marine")
     fx("pc_front", box(x0, x0 + T, yo, yi - T, 0, zt - T), "ply", fab=True, mat="Ply 12 marine")
-    fx("pc_top", box(x0, xr, yo, yi - 6, zt - T, zt).cut(cyl(10.5, 40, (gl[0], gl[1], zt - 6))), "ply", fab=True,
-       mat="Ply 12 marine")
+    fx("pc_top", box(x0, xr, yo, yi - 6, zt - T, zt).cut(box(ELV_SLOT[0], ELV_SLOT[1], yo - 1, yo + 22, zt - T - 1, zt + 1)).cut(
+        cyl(14, 40, (LV_GLAND_X, gl[1], zt - 6))), "ply", fab=True, mat="Ply 12 marine")
     fx("pc_bottom", box(x0 + T, xr, yo, yi - T, 0, T), "ply", fab=True, mat="Ply 12 marine")
     # door stile on the tub-wall side (there is no outboard ply wall): carries the gasket face and the latch keeper
     fx("pc_door_stile", box(xr - 30, xr, yo, yo + 3, T, zt - T).union(box(xr - 3, xr, yo, yo + 30, T, zt - T)), "alu",
@@ -533,14 +537,20 @@ def _passenger_specs():
         _comp(box(x - 3, x + 3, yi - T - 4, yi - T - 36, 237, 242) for x in range(x0 + 32, int(ex0) - 12, 12)))
     fx("pc_wire_duct", duct, K["duct"], kg=0.15)
     zf = P.UPPER_Z0 + T9
-    fx("pc_gland_top", _comp([_pcyl(10, zf - (zt - T), (gl[0], gl[1], (zt - T + zf) / 2), n=12),
-                              _pcyl(11, 6, (gl[0], gl[1], zf + 3), n=6), _pcyl(11, 6, (gl[0], gl[1], zt - T - 3), n=6)]), K["black"])
+    # split cable-entry grommet frames (icotek KEL-type) top and bottom of the 12 V slot
+    fr = lambda z: box(ELV_SLOT[0] - 4, ELV_SLOT[1] + 4, yo, yo + 21, z, z + 4).cut(box(ELV_SLOT[0], ELV_SLOT[1], yo + 3, yo + 18, z - 1, z + 5))  # noqa: E731
+    fx("pc_gland_top", _comp([fr(zf), fr(zt - T - 4)]), K["black"])
     # (v0.12: no low gland to the slide - the power slide is now fed from the bay through the front of the cassette)
     fx("pc_plug_zone", box(XF + 1, P.TUB_L - 4, yo + 2, yi, T, zt - T), "ghost", grp="future")
-    tray = box(20, 1400, yo, yo + 90, P.UPPER_Z1 + 2, P.UPPER_Z1 + 5).union(
-        box(20, 1400, yo + 87, yo + 90, P.UPPER_Z1 + 2, P.UPPER_Z1 + 25))
-    tray = tray.cut(_comp(box(x, x + 4, yo + 86, yo + 91, P.UPPER_Z1 + 12, P.UPPER_Z1 + 18) for x in range(80, 1400, 120)))
+    # v0.13: tray widened to 120 mm with a full-length divider: 230 V outboard (against the wall), 12 V inboard
+    tw_ = 120
+    tray = box(20, 1400, yo, yo + tw_, P.UPPER_Z1 + 2, P.UPPER_Z1 + 5).union(
+        box(20, 1400, yo + tw_ - 3, yo + tw_, P.UPPER_Z1 + 2, P.UPPER_Z1 + 25)).union(
+        box(170, 1300, yo + 32, yo + 35, P.UPPER_Z1 + 5, P.UPPER_Z1 + 25))                      # LV / ELV divider
+    tray = tray.cut(_comp(box(x, x + 4, yo + tw_ - 4, yo + tw_ + 1, P.UPPER_Z1 + 12, P.UPPER_Z1 + 18) for x in range(80, 1400, 120)))
     fx("cable_tray", tray, "alu", fab=True, mat="Plate 3 5052")
+    # 230 V gland into the cabinet top, outboard of the RCBO enclosure (12 V cables use pc_gland_top)
+    fx("pc_gland_lv", _comp([_pcyl(16, 6, (LV_GLAND_X, gl[1], zf + 3), n=12), _pcyl(16, 6, (LV_GLAND_X, gl[1], zt - T - 3), n=12)]), K["black"])
     return sp, (BF + 1.5, yi - 5), gl
 
 

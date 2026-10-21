@@ -1,0 +1,60 @@
+[
+ {
+  "name": "01_wiring_overall",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "title": "v0.13: every cable routed through named runs - 12 V in black split conduit, 230 V in orange conduit, P-clips every 300 mm"
+  }
+ },
+ {
+  "name": "02_bay_wiring",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "cam": "0.85,0.95,0.55,0.12,0.25,0.15,42",
+   "hide": "lid,lid_cargo,lid_storage,rack,tent,tent_services,tent_harness,future,roof,solar,cargo,bay_cover,payload,slide_d,utility,visor,modules,well_filler,slide_p,power_cabinet",
+   "title": "v0.13 front bay: riser behind the busbars, rear channel, charging-board loom, exit over the inverter (twins as red + / black - cores)"
+  }
+ },
+ {
+  "name": "03_cabinet_wiring",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "cam": "1.05,0.50,0.05,1.25,0.25,0.72,46",
+   "hide": "lid,lid_cargo,lid_storage,rack,tent,tent_services,tent_harness,future,roof,solar,cargo,bay_cover,payload,slide_d,utility,visor,modules,well_filler,slide_p,power_cabinet",
+   "title": "v0.13 rear cabinet: 12 V slot and 230 V gland from the wall channel, gland-plate rows out to the wall cavity"
+  }
+ },
+ {
+  "name": "04_fridge_handle_straps",
+  "params": {
+   "view": "slides",
+   "state": "travel",
+   "cam": "1.45,1.05,-0.45,0.80,0.25,0.28,36",
+   "hide": "lid,lid_cargo,lid_storage,rack,tent,tent_services,tent_harness,future,roof,solar,cargo,visor,modules,well_filler,power_cabinet,wiring,routing,slide_d,utility",
+   "title": "v0.13: CFX3 45 centred in the well, strapped by its handles to four corner rings - nothing over the lid"
+  }
+ },
+ {
+  "name": "05_underbody_conduits",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "cam": "0.2,-1.3,2.4,-0.6,-0.15,0.5,40",
+   "hide": "lid,rack,tent,tent_services,future,roof,solar,cargo,payload,slide_d,utility",
+   "title": "v0.13 outside: wall cavity, rail conduits (12 V above 230 V), cabin and engine-bay branches"
+  }
+ },
+ {
+  "name": "06_gap_roof",
+  "params": {
+   "view": "wiring",
+   "state": "travel",
+   "cam": "0.9,1.5,1.9,-0.25,0.75,0.6,40",
+   "hide": "lid,rack,tent,future,solar,cargo,payload,slide_d,utility",
+   "title": "v0.13: gap risers to the junction box, cab-back conduit to the platform end member, tent harnesses T1A / T1D"
+  }
+ }
+]

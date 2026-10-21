@@ -7,8 +7,8 @@ ball-lock pin heads (the divider walls are notched over each pin).
 """
 import params as P
 
-from .core import box, cyl, part
-from .slides import _bx, _cmp, _cut, _cylx, _cyly, _cylz, _try_fillet
+from .core import C, Part, box, cyl, part
+from .slides import _bx, _cmp, _cut, _cylx, _cyly, _cylz, _try_fillet, carriage_extent
 
 FRIDGE = (694, 398, 476)       # [PUB] Dometic CFX3 45: 694 x 398 x 476 (dometic.com / retailers); v0.7 used 716 [EST]
 FRIDGE_LID_H = 56              # [EST] lid thickness at the top
@@ -70,7 +70,7 @@ def _fridge(cx0, yc):
     and vents at the slide-out end, folding end handles, two lid hinges (outboard) and a latch (inboard)."""
     parts = []
     fl, fw, fh = FRIDGE
-    fx0 = cx0 + P.BULKHEAD_D + 10
+    fx0 = cx0 + P.BULKHEAD_D + (P.FRIDGE_WELL_L - fl) / 2      # v0.13: centred in the well (28 mm each end for the tie-down rings)
     fx1 = fx0 + fl
     zf = P.FRIDGE_WELL_Z           # v0.12: stands on the pan (no floor tracks: the chain runs under the pan)
     y0, y1 = yc - fw / 2, yc + fw / 2
@@ -101,11 +101,20 @@ def _fridge(cx0, yc):
     keys = [_bx(fx1 + 1, fx1 + 2.2, yc + d - 7, yc + d + 7, zc - 55, zc - 45) for d in (-60, -35, 35, 60)]
     keys.append(_bx(fx1 + 1, fx1 + 1.6, yc - 22, yc + 22, zc - 62, zc - 26))               # display
     parts.append(part("fridge_display", "payload", _cmp(keys), DISPLAY))
-    # straps over the lid down to flush anchors on the pan floor, cam buckles on the inboard side
-    for k, x in enumerate((fx0 + 150, xc - 85)):                 # both over the lid
-        parts.append(part(f"fridge_strap_{k}", "payload", box(x, x + 25, y0 - 4, y1 + 4, zf + fh, zf + fh + 3).union(
-            box(x, x + 25, y0 - 4, y0, zf, zf + fh)).union(box(x, x + 25, y1, y1 + 4, zf, zf + fh)), "strap"))
-        parts.append(part(f"fridge_strap_{k}_buckle", "payload", _cmp(_buckle(x, y1 + 4, 1, zf + 230)), STEEL))
+    # v0.13 (owner): tied down by the handles, nothing over the lid. One short cam strap from each end of each folding
+    # handle down to the flush folding ring in the nearest well corner (pulls down and outward, so it also stops sliding);
+    # the lid opens with the straps on and the fridge top stays 18 mm under the load lid
+    wx0 = cx0 + P.BULKHEAD_D
+    wx1 = wx0 + P.FRIDGE_WELL_L
+    cy0, cy1 = carriage_extent("p")
+    wy0, wy1 = cy0 + 28, cy1 - 28                      # well walls (as slides.py)
+    for k, (xf, s, zh) in enumerate(((fx0, -1, zl - 50), (fx1, 1, zc - 130))):
+        xr = wx0 + 14 if s < 0 else wx1 - 14
+        for j, (yh, yr) in enumerate(((yc - 140, wy0 + 18), (yc + 140, wy1 - 18))):
+            pts = [(xf + s * 6, yh, zh + 6), (xf + s * 8, yh + (yr - yh) * 0.35, zh - 60), (xr, yr, zf + 6)]
+            parts.append(Part(f"fridge_strap_{k}{j}", "payload", color=C["strap"], tube=pts, tube_r=3.0))
+            b = (pts[1][0], pts[1][1], pts[1][2])
+            parts.append(part(f"fridge_strap_{k}{j}_buckle", "payload", _bx(b[0] - 5, b[0] + 5, b[1] - 16, b[1] + 16, b[2] - 20, b[2] + 20), STEEL))
     return parts
 
 

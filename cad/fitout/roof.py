@@ -108,8 +108,8 @@ def roof(cargo=True):
     except Exception:
         pass
     parts.append(part("starlink_mini", g, dish, "starlink", kg=1.16))
-    anchor("starlink", (sx0 + sw / 2, yc, z0 + 8))
-    anchor("roof_pv", (x1 - e - 20, 0, z0 + 10))
+    anchor("starlink", (sx0 + sw, yc, z0 + 8 + 15))                   # cable port on the dish's rear edge
+    anchor("roof_pv", (x1 - e - 20, 30, z0 + 15))                      # MC4 Y-branch (PV1 + PV2) beside the spine
     anchor("roof_drop", (P.CAB_REAR_X + 5, -560, P.ROOF_Z - 40))
     if cargo:
         for xx in (x0 + 260, x0 + 1050):

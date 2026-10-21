@@ -382,6 +382,8 @@ def body_context():
     parts.append(part("start_battery_terminals", "markers", comp([cyl(9, 18, (bx + s * 95, by + 55, bz + 109)) for s in (1, -1)]),
                       "copper"))
     anchor("start_battery", (bx, by, bz + 100))
+    anchor("start_battery_pos", (bx + 95, by + 55, bz + 118))
+    anchor("engine_fusebox", (bx - 230, by + 80, bz + 140))             # [EST] under-bonnet fuse box (add-a-fuse F9)
     cx, cy, cz = P.CABIN_SEAT_BOX
     # v0.11: the cabin feed powers the smart-ute compute box (HA PC, router, PoE switch) - no outlets in the cabin.
     # Envelope is a placeholder until the under-seat space is measured.
@@ -390,4 +392,5 @@ def body_context():
     parts.append(part("cabin_compute_inlet", "markers", box(cx - 64, cx - 60, cy - 95, cy - 25, cz - 30, cz + 30),   # SB50 flush inlet
                       "anderson_grey"))
     anchor("cabin_compute", (cx, cy, cz - 50))
+    anchor("cabin_compute_in", (cx - 64, cy - 60, cz + 20))
     return parts

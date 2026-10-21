@@ -327,6 +327,7 @@ def fan(parts, fx, fy, fz):
     sh += [pring(23, 21.5, 1.5, (fx, fy, zg), "Z", 20), pring(37, 35.5, 1.5, (fx, fy, zg), "Z", 28),
            box(fx - 45, fx + 45, fy - 0.8, fy + 0.8, zg - 0.75, zg + 0.75), box(fx - 0.8, fx + 0.8, fy - 45, fy + 45, zg - 0.75, zg + 0.75)]
     parts.append(part("inverter_fan", "electrical", grp(sh), CAP_BLACK, kg=0.3))
+    anchor("inv_fan", (fx + 30, fy + 30, fz + t / 2 + 3))
     zt = fz + t / 2
     plate = box(0, fx + h + 4, fy - h, fy + h, zt, zt + 3).cut(pcyl(44, 10, (fx, fy, zt), n=32))
     for dx in (-41.25, 41.25):
@@ -413,6 +414,21 @@ def mppt_75_15(parts, y0, zb):
     anchor(nm, F.pt(56.5, T, 0))
     anchor("mppt_tent_bat", F.pt((tpos[0] + tpos[1]) / 2, 19, 0))
     anchor("mppt_tent_pv", F.pt((tpos[2] + tpos[3]) / 2, 19, 0))
+
+
+def mppt_100_20(parts, x0, yface, zb):
+    """v0.13 visor charger U13: SmartSolar MPPT 100/20 (case as the 75/15 family) on the passenger face of the
+    distribution board above the inverter, terminals down. Long side along X, depth toward -Y."""
+    W, T, Hh = MPPT_75_15
+    nm = "mppt_visor_100_20"
+    body = soft(box(x0 + 7, x0 + W - 7, yface - T, yface, zb + 12, zb + Hh), "|Z and <Y", 6)
+    parts.append(part(nm, "electrical", body, BLUE, kg=0.6, product="Victron SmartSolar MPPT 100/20"))
+    tpos = [x0 + 30.25 + 10.5 * i for i in range(6)]
+    parts.append(part(f"{nm}_terminals", "electrical", box(x0 + 24, x0 + 89, yface - 30, yface - 8, zb, zb + 12), TERM_GREEN))
+    parts.append(part(f"{nm}_stripe", "electrical", box(x0 + 14, x0 + W - 14, yface - T - 0.6, yface - T, zb + 62, zb + 66), ORANGE))
+    anchor("mppt_visor", (x0 + W / 2, yface - T / 2, zb))
+    anchor("mppt_visor_bat", ((tpos[0] + tpos[1]) / 2, yface - 19, zb))
+    anchor("mppt_visor_pv", ((tpos[2] + tpos[3]) / 2, yface - 19, zb))
 
 
 def battery(parts, n, bx0, ya, z0, lugs):
@@ -610,6 +626,8 @@ def bay():
     mppt_100_30(parts, yb, zc + 15)
     yb += MPPT_100_30[0] + CHARGE_GAP
     mppt_75_15(parts, yb, zc + 15)
+    # v0.13: visor MPPT on the passenger face of the distribution board (y = board face), above the inverter and fan
+    mppt_100_20(parts, 150, yq1 + 8, 380)
     # ---- batteries on end, driver side, lids/terminals facing the rear (+X), terminals at the top end
     for i, ya in enumerate(ybs):
         n = i + 1

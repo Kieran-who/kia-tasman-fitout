@@ -31,7 +31,7 @@ KIND_LABEL = {
     "ctrl": "Control (12 V switched)", "sig": "Signal / sense", "fact": "Factory vehicle wiring", "wifi": "Wireless (Wi-Fi / BLE)",
 }
 # conductor size -> stroke width
-SIZE_W = {"70": 5.2, "50": 4.6, "25": 3.8, "16": 3.3, "10": 3.0, "6": 2.7, "4": 2.4, "2.5": 2.2, "1.5": 1.9, "1": 1.7, "0.75": 1.5}
+SIZE_W = {"120": 6.0, "70": 5.2, "35": 4.2, "50": 4.6, "25": 3.8, "16": 3.3, "10": 3.0, "6": 2.7, "4": 2.4, "2.5": 2.2, "1.5": 1.9, "1": 1.7, "0.75": 1.5}
 
 CAT = {   # block header colours
     "victron": "#1f5fa8", "battery": "#2f6f3e", "prot": "#b35c00", "ac": "#7c5b1e", "outlet": "#495057",

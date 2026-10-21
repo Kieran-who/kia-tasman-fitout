@@ -51,7 +51,6 @@ cable,D1,4
 cable,D2,4
 cable,D3,4
 cable,D4,4
-cable,T1,4
 cable,DO5,4
 cable,MPT,5
 cable,PVT,5
@@ -61,3 +60,10 @@ cable,PVV,7
 cable,VIS,2
 cable,VSW,2
 cable,VIG,2
+cable,T1A,4
+cable,T1D,4
+cable,MPV,7
+cable,PVS,7
+cable,D5,7
+cable,PE2,4
+cable,DO1E,1

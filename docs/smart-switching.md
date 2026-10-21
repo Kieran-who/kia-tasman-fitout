@@ -38,12 +38,17 @@ Standby for the whole switching layer is about **1 W [est]**: three SBPs at abou
 
 ```
 FB1 way ──[ATC]── SBP IN ═══ SBP OUT ── load
-                   SBP H ←─┬─ rocker "ON":   +12 V (from the SBP IN side)
-                           └─ rocker "AUTO": +12 V through the Cerbo relay contact
+                   │
+                   └─[2 A inline]─ control feed (v0.13: own fuse - the way fuse is 10-20 A)
+                   SBP H ←─┬─ rocker "ON":   control feed
+                           └─ rocker "AUTO": control feed through the Cerbo relay contact
                               rocker centre = OFF (H floating)
 rocker LED ← SBP OUT (shows the real output state, whoever switched it)
-Cerbo digital input ← rocker AUTO leg (so HA knows the rocker is in AUTO)
+Cerbo digital input ← second pole of the rocker in AUTO, switching to GROUND (dry contact)
 ```
+
+- **Control feed fuse (v0.13):** tap the rocker / relay feed through its own 2 A inline fuse. Otherwise only the 10–20 A way fuse protects the thin control wire.
+- **Cerbo digital input (v0.13):** the inputs are low-voltage logic inputs, not 12 V inputs. Wire the AUTO indication as a dry contact to ground: use the rocker's second pole, or an opto-isolator. Never feed 12 V into the input.
 
 - Use Contura **ON-OFF-ON** 3-position rockers with an LED (same family as S1 and S2).
 - **SBP settings:**

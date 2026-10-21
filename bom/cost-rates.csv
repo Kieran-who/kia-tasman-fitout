@@ -59,3 +59,15 @@ material,Ply 18 marine,sheet,2.88,185,estimate,2400x1200 marine ply
 material,ACM 3,sheet,2.98,90,estimate,2440x1220 ACM sheet
 material,UHMW 10,sheet,0.5,80,estimate,1000x500 UHMW-PE sheet
 lump,Fasteners and consumables,lot,,450,estimate,"bolts, screws, rivets, adhesive, sealant, edge trim, finish"
+cable,10 mm2 solar pair (UV),m,,12,estimate,2 x 10 mm2 single-core PV cable ~A$5-7/m each
+cable,10 mm2 twin,m,,13,estimate,10 mm2 (8 B&S equiv.) twin ~A$11-15/m
+cable,"10 mm2 twin (12 V) + 6 mm2 solar pair (PV), sheathed together",m,,26,estimate,10 mm2 twin + 2 x 6 mm2 PV in a sheath
+cable,"120 mm2 tinned, black",m,,55,estimate,tinned 120 mm2 (4/0) single ~A$50-60/m
+cable,"120 mm2 tinned, red",m,,55,estimate,tinned 120 mm2 (4/0) single ~A$50-60/m
+cable,"2 x 2.5 mm2 3-core flex, sheathed together, UV rated",m,,13,estimate,two UV-rated 2.5 mm2 flexes in a sheath
+cable,35 mm2 twin (red/black),m,,32,estimate,35 mm2 (2 B&S) x2 ~A$15-17/m each
+cable,4 mm2 3-core flex (TPS-flex),m,,7,estimate,AU electrical wholesale
+cable,"4 mm2 solar pair, high-flex (chain rated)",m,,8,estimate,high-flex solar / chain-rated
+cable,"4-core 0.75 mm2 (deploy, stow, LED, common)",m,,3,estimate,AU auto-cable retail
+cable,6 mm2 green/yellow,m,,3.5,estimate,AU electrical wholesale
+cable,6 mm2 solar pair (UV),m,,7,estimate,2 x 6 mm2 single-core PV cable ~A$3-4/m each

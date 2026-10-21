@@ -210,8 +210,11 @@ def rack_and_tent():
                  for k in range(1, ny)]
         lines += [box(sx0 + k * pl / nx - 1.2, sx0 + k * pl / nx + 1.2, ya + 8, yb - 8, zt + 31, zt + 31.5) for k in range(1, nx)]
         parts.append(part(f"tent_solar_{i+1}_grid", "solar", comp(lines), GRID))
-    parts.append(part("tent_solar_jbox", "solar", box(sx0 + 20, sx0 + 75, -pw + 20, -pw + 60, zt + 31, zt + 41), MC4))
-    anchor("tent_pv_jbox", (sx0 + 40, -pw + 40, zt + 28))
+    # v0.13: junction box at the front corner on the HINGE (fold-out) side, so T2 crosses to the base at the front hinge
+    # and never stretches when the shell opens
+    parts.append(part("tent_solar_jbox", "solar", box(sx0 + 20, sx0 + 75, sf * (pw - 60), sf * (pw - 20), zt + 31, zt + 41), MC4))
+    anchor("tent_pv_jbox", (sx0 + 75, sf * (pw - 40), zt + 36))
+    anchor("tent_hinge_front", (x1 - TENT_HW_X[1], sf * (hw + 8), zb1))
     # ---- tent services box: under the tent base, toward the front, inset from the fold-out side
     sv = P.TENT_SERVICES
     s = sf
@@ -248,4 +251,7 @@ def rack_and_tent():
     parts.append(part("tent_services_pv", "tent_services", pv, MC4))
     anchor("tent_services", (sx + 10, (yi + yo) / 2, zb0 - 10))
     anchor("tent_front_drop", (x0 + 15, -hw + 120, zb0 - 10))
+    anchor("tent_services_pv", (sx + 268, yo + s * 6, zb0 - 92))
+    anchor("tent_services_a", (sx, 260, zb0 - 71))                      # harness glands on the box's front face
+    anchor("tent_services_d", (sx, 330, zb0 - 41))
     return parts

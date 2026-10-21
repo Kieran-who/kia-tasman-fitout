@@ -2,13 +2,15 @@
 
 DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute Master Load-Lid and a 23Zero Panther Horizon 1600 rooftop tent (on Rhino-Rack bars).
 
-**Current version: v0.12.** See [`docs/v0.12-concept.md`](docs/v0.12-concept.md) (power-slide cable chain lying flat under the deck, so both decks are 579 mm wide; raised fridge well; pod fed from the battery bay; pod outlets cut to Anderson, 12 V and 230 V; 100 W + 20 W rear USB-C; cabin compute feed). [`v0.11`](docs/v0.11-concept.md): motorised slide-out windscreen solar visor: one-button deploy/stow, self-locking drives, fail-locked latches, 22° hard stop, ignition interlock; MPPT 100/50). [`v0.10`](docs/v0.10-concept.md): storage under the tent (30 L water, rear-loading drawer with the table, diesel pack, extinguisher, rivnut cross-bars). [`v0.9`](docs/v0.9-concept.md): v0.8 layout decisions resolved for minimum space. v0.8 ([`docs/v0.8-concept.md`](docs/v0.8-concept.md)) added detail to every component and the full wiring diagram. **Wiring diagram: [`docs/wiring/`](docs/wiring)** (9 A3 sheets as HTML/PDF/SVG + schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
+**Current version: v0.13.** See [`docs/v0.13-concept.md`](docs/v0.13-concept.md) (every cable routed through 33 named runs with conduit, clips, grommets and 230 V / 12 V segregation, checked against every part; six new to-scale route sheets; electrical corrections from a design audit: visor on its own MPPT, 120 mm² main path, 2-pole shore RCBO, inverter main switch, cable upsizes; CFX3 45 confirmed and tied down by its handles). [`v0.12`](docs/v0.12-concept.md): power-slide cable chain lying flat under the deck, so both decks are 579 mm wide; raised fridge well; pod fed from the battery bay; pod outlets cut to Anderson, 12 V and 230 V; 100 W + 20 W rear USB-C; cabin compute feed). [`v0.11`](docs/v0.11-concept.md): motorised slide-out windscreen solar visor: one-button deploy/stow, self-locking drives, fail-locked latches, 22° hard stop, ignition interlock; MPPT 100/50). [`v0.10`](docs/v0.10-concept.md): storage under the tent (30 L water, rear-loading drawer with the table, diesel pack, extinguisher, rivnut cross-bars). [`v0.9`](docs/v0.9-concept.md): v0.8 layout decisions resolved for minimum space. v0.8 ([`docs/v0.8-concept.md`](docs/v0.8-concept.md)) added detail to every component and the full wiring diagram. **Wiring diagram: [`docs/wiring/`](docs/wiring)** (15 A3 sheets as HTML/PDF/SVG + cable and route schedules). Earlier versions: [`v0.7`](docs/v0.7-concept.md) (fold-out legs), [`v0.6`](docs/v0.6-concept.md) (edge-to-edge receiver grid, fridge-well filler, flush edge fences), [`v0.5`](docs/v0.5-concept.md) (covered deck), [`v0.4`](docs/v0.4-concept.md) (charging rationale, USB-C, dividers), [`v0.3`](docs/v0.3-concept.md), [`v0.2`](docs/v0.2-concept.md), [`v0.1`](docs/v0.1-concept.md). [`docs/weight-options.md`](docs/weight-options.md) covers weight trade-offs.
 
-![Chain under the power deck](renders/v0.12/02_power_slide_out_chain.png)
+![Routed wiring](renders/v0.13/01_wiring_overall.png)
 
 | | |
 |---|---|
-| ![Section through the chain and fridge well](renders/v0.12/01_section_chain_fridge.png) | ![Decks plan](renders/v0.12/03_decks_plan.png) |
+| ![Front bay wiring](renders/v0.13/02_bay_wiring.png) | ![Route map E8](docs/wiring/sheets/E8-routes.svg) |
+| ![Fridge strapped by its handles](renders/v0.13/04_fridge_handle_straps.png) | ![Bundle sections E15](docs/wiring/sheets/E15-sections.svg) |
+| ![Chain under the power deck](renders/v0.12/02_power_slide_out_chain.png) | ![Decks plan](renders/v0.12/03_decks_plan.png) |
 | ![Visor deployed](renders/v0.11/01_visor_deployed.png) | ![Wiring sheet E3](docs/wiring/sheets/E3-dc-dist.svg) |
 
 | | |
@@ -32,30 +34,30 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 ## Cost (parts only)
 
 <!-- cost:start -->
-**Parts total (v0.12): A$27,350** inc GST. Of that, A$14,369 (53%) is real prices from a named retailer or maker page and A$12,982 is estimates.
+**Parts total (v0.13): A$28,705** inc GST. Of that, A$14,160 (49%) is real prices from a named retailer or maker page and A$14,545 is estimates.
 
 | Area | A$ inc GST | of which real prices |
 |---|---:|---:|
 | Energy storage | 4,198 | 4,198 |
-| Slides | 3,672 | 0 |
+| Slides | 3,688 | 0 |
 | Raw material for fabricated parts | 3,324 | 0 |
 | Roof | 3,183 | 2,564 |
+| Cable (from the cable schedule) | 2,527 | 0 |
 | Visor | 1,973 | 428 |
-| Cable (from the cable schedule) | 1,853 | 0 |
 | Inverter/charger | 1,687 | 1,687 |
-| Protection | 1,318 | 831 |
-| Solar | 1,117 | 1,117 |
+| Protection | 1,417 | 835 |
+| Solar | 1,229 | 865 |
+| Monitoring | 942 | 942 |
 | Under-tent | 940 | 370 |
 | Distribution | 938 | 930 |
-| Monitoring | 902 | 902 |
-| AC | 667 | 637 |
+| AC | 697 | 637 |
 | DC | 536 | 240 |
+| Wiring | 524 | 0 |
 | DC charging | 465 | 465 |
 | Storage | 436 | 0 |
-| Wiring | 140 | 0 |
-| **Total** | **27,350** | **14,369** |
+| **Total** | **28,705** | **14,160** |
 
-- Batteries are A$4,198 of the total (A$23,152 without them).
+- Batteries are A$4,198 of the total (A$24,507 without them).
 - Real prices were checked on the date in the product list; many are current sale prices, so expect some to rise.
 - Not counted (already owned): Rhino-Rack Vortex bars + raised brackets, Folding table; also the tent, Load-Lid and Destroyer rails.
 - Not included: labour, the licensed electrician for the 230 V work, freight, tools, a fridge, Starlink hardware.
@@ -66,8 +68,9 @@ DIY tub, electrical and roof fit-out for a Kia Tasman X-Pro dual cab with a Ute 
 |---|---:|---:|
 | v0.11 | 27,256 | 53% |
 | v0.12 | 27,350 | 52% |
+| v0.13 | 28,705 | 49% |
 
-Line by line, with the source for every price: [`bom/cost-summary-v0.12.csv`](bom/cost-summary-v0.12.csv). Prices are in [`bom/product-list-v0.12.csv`](bom/product-list-v0.12.csv) and [`bom/cost-rates.csv`](bom/cost-rates.csv). Regenerate with `python3 tools/costing.py`.
+Line by line, with the source for every price: [`bom/cost-summary-v0.13.csv`](bom/cost-summary-v0.13.csv). Prices are in [`bom/product-list-v0.13.csv`](bom/product-list-v0.13.csv) and [`bom/cost-rates.csv`](bom/cost-rates.csv). Regenerate with `python3 tools/costing.py`.
 <!-- cost:end -->
 
 **Build in stages** ([`docs/build-stages.md`](docs/build-stages.md)): the order, what each stage gives you, and what to prepare for the next one.
@@ -75,13 +78,13 @@ Line by line, with the source for every price: [`bom/cost-summary-v0.12.csv`](bo
 <!-- stages:start -->
 | Stage | What you get | Parts A$ | Running total A$ | Real prices |
 |---|---|---:|---:|---:|
-| **1. Power core** | Dual-battery system charged from the alternator; fridge and 12 V / USB-C outlets at the rear panel; battery isolation, monitoring by Bluetooth | 8,644 | 8,644 | 75% |
-| **2. Roof platform and solar** | Wedgetail platform, 320 W roof solar on the MPPT 100/50, Starlink Mini mount and power: stays charged when parked | 3,574 | 12,218 | 82% |
-| **3. Slides and storage** | Both slides with receiver grid and legs, power pod (12 V side), over-arch and utility drawers | 6,197 | 18,415 | 1% |
-| **4. 230 V and monitoring** | MultiPlus-II inverter/charger, all 230 V outlets, shore power, gap junction and tent harness (one electrician visit), Cerbo GX + GX Touch | 3,952 | 22,367 | 79% |
-| **5. Tent solar and cabin compute feed** | 200 W tent-top solar on its own MPPT, and the 15 A feed to the under-seat compute box (SB50 inlet) ready for the smart-ute system | 984 | 23,351 | 65% |
-| **6. Under-tent storage** | Cross-bars, rear drawer, 30 L water, diesel pack | 1,197 | 24,547 | 31% |
-| **7. Visor and roof extras** | Motorised windscreen visor, light bar, cargo bars | 2,803 | 27,350 | 26% |
+| **1. Power core** | Dual-battery system charged from the alternator; fridge and 12 V / USB-C outlets at the rear panel; battery isolation, monitoring by Bluetooth | 9,264 | 9,264 | 70% |
+| **2. Roof platform and solar** | Wedgetail platform, 320 W roof solar on the MPPT 100/30, Starlink Mini mount and power: stays charged when parked | 3,677 | 12,942 | 73% |
+| **3. Slides and storage** | Both slides with receiver grid and legs, power pod (12 V side), over-arch and utility drawers | 6,210 | 19,152 | 1% |
+| **4. 230 V and monitoring** | MultiPlus-II inverter/charger, all 230 V outlets, shore power, gap junction and tent harness (one electrician visit), Cerbo GX + GX Touch | 4,266 | 23,418 | 73% |
+| **5. Tent solar and cabin compute feed** | 200 W tent-top solar on its own MPPT, and the 15 A feed to the under-seat compute box (SB50 inlet) ready for the smart-ute system | 998 | 24,416 | 65% |
+| **6. Under-tent storage** | Cross-bars, rear drawer, 30 L water, diesel pack | 1,196 | 25,612 | 31% |
+| **7. Visor and roof extras** | Motorised windscreen visor, light bar, cargo bars | 3,093 | 28,705 | 26% |
 
 Parts only, inc GST: products, plus the cable and raw material each stage uses. Generated by `python3 tools/costing.py`.
 <!-- stages:end -->
@@ -96,12 +99,13 @@ Parts only, inc GST: products, plus the cable and raw material each stage uses. 
 | `docs/smart-switching.md` | Smart switching proposal: inverter via VE.Bus, Smart BatteryProtect on Starlink and tent 12 V with ON/OFF/AUTO rockers driven by the Cerbo relays; everything else always on |
 | `docs/measurements/` | **Measurement sheet** to print and fill in (PDF/HTML, diagrams, CSV): every dimension the model still estimates |
 | `tools/measure/` | Generator for the measurement sheet (reads `cad/params.py`) |
-| `docs/v0.12-concept.md` | Current: cable chain flat under the power deck, full-width decks, raised fridge well, pod fed from the bay (F17), outlet changes |
+| `docs/v0.13-concept.md` | Current: routed wiring (33 runs, containment, segregation, route check), route sheets E8 + E10–E15, electrical audit corrections, fridge handle tie-downs |
+| `docs/v0.12-concept.md` | Cable chain flat under the power deck, full-width decks, raised fridge well, pod fed from the bay (F17), outlet changes |
 | `docs/v0.11-concept.md` | Motorised windscreen solar visor (mechanism, clearances, controls and safety, roof load) |
 | `docs/v0.10-concept.md` | Storage under the tent (drawer, water, diesel, extinguisher, cross-bars), lid load check |
 | `docs/v0.9-concept.md` | cable window in the distribution board, flush rear GPO, narrower chain, owner confirmations |
 | `docs/v0.8-concept.md` | Detail pass on every component, real-product corrections, layout issues to decide, wiring changes |
-| `docs/wiring/` | **Wiring diagram** E1–E9 (HTML, PDF, SVG) with cable / protection / fuse-way / component schedules |
+| `docs/wiring/` | **Wiring diagram** E1–E15 (HTML, PDF, SVG): circuits, to-scale cable routes, bundle sections; cable / route / protection / fuse-way / component schedules |
 | `docs/v0.7-concept.md` | Fold-out telescopic legs under the slides; arch hooks removed (still current) |
 | `docs/v0.6-concept.md` | Receiver grid to the deck edges, removable fridge-well filler, flush edge fences (still current) |
 | `docs/v0.5-concept.md` | Slides: side-mount runners under a covered continuous deck (still current) |

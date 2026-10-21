@@ -93,5 +93,12 @@ def visor(state="travel"):
     for s in (1, -1):
         parts.append(part(f"visor_latch_{s}", G, box(rx0, rx0 + 40, min(s * (W / 2 - 20), s * (ry - rw / 2)),
                                                           max(s * (W / 2 - 20), s * (ry - rw / 2)), zr0 - 10, zr0), ACT, kg=0.2))
-    anchor("visor_ctrl", (xm - 35, -ry, zr0))
+    # ---- U11 controller: IP66 box between the passenger guide rail and the roof rail, ahead of the rear strap (v0.13).
+    # Cable entries: rear face (feeds from the end-member loom), inboard face (visor chain from the panel)
+    ux0, ux1, uy0, uy1 = x1 - 190, x1 - 55, -ry - 118, -ry - 43
+    parts.append(part("visor_controller_box", G, box(ux0, ux1, uy0, uy1, P.ROOF_Z + 6, zf - 6), "victron_dark", kg=1.2,
+                      note="U11: IP66 box, PLC + 2 x dual H-bridge, per-channel fuses"))
+    anchor("visor_ctrl", (ux1, (uy0 + uy1) / 2, P.ROOF_Z + 40))
+    anchor("visor_ctrl_side", ((ux0 + ux1) / 2, uy1, P.ROOF_Z + 35))
+    anchor("visor_pv_rear", (xh - 30, -W / 2 + 30, zh - T - 7))           # panel junction box, under the rear corner
     return parts

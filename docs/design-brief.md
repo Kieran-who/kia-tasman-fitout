@@ -8,14 +8,14 @@
 - The owner builds everything themselves (welding and all workshop tools available). Aluminium + plywood preferred.
 
 ## Requirements
-| # | Requirement | Where it lives (v0.12) |
+| # | Requirement | Where it lives (v0.13) |
 |---|---|---|
 | R1 | 2 × iTech400X Pro 400 Ah at the very front of the tub | Front bay between the arches |
-| R2 | Solar + alternator charging | Charging board: 1 × Orion XS (25–30 A limit), MPPT 100/50 (roof + visor) + 75/15 (tent) |
+| R2 | Solar + alternator charging | Front bay: 1 × Orion XS (25–30 A limit), MPPT 100/30 (roof), 100/20 (visor, v0.13), 75/15 (tent) |
 | R3 | Inverter ~2400 W (kettle or microwave, one at a time) | MultiPlus-II 12/3000 (v0.3) |
-| R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet → gap junction → Quattro AC-in 1 |
+| R4 | 240 V mains charging, inlet under the tent, detachable | Tent services box inlet (2-pole RCBO) → gap junction → MultiPlus-II AC-in |
 | R5 | 240 V outlet under the tent for a diesel heater, detachable with the tent | Tent services box (under the tent, front, inset) → gap junction plug |
-| R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2) |
+| R6 | Power to the tent and to the cabin under the rear seats. **Nothing through the load lid**: all wiring leaves via the factory outlet; tent circuits detach between cab and tub | Gap junction box at the passenger front corner (v0.2), internal 230 V / 12 V barrier; all routes as named runs R01–R33 (v0.13, wiring sheets E8, E10–E15) |
 | R7 | Two independent slides, each half the width between the arches, heavy loads fully extended | 2 × DZ9308 side-mount per slide under a covered ply deck (L-angles over the runners), UHMW stops, fold-out telescopic legs stowed under each deck (v0.7); both decks 579 mm wide (v0.12) |
 | R8 | Power-side slide has integrated cable management and outlets | Cable chain lying flat under the power deck on a glide tray (v0.12) + up-facing power pod (Anderson, 12 V, 230 V; fed from the battery bay) + raised fridge well with a removable flush filler |
 | R9 | Modular slides: centre tie-down track + quick-release module mounting | L-track + 100 mm receiver grid running to 37.6 mm from each deck edge; flush edge fences pin into the edge rows (v0.6) |
@@ -74,3 +74,6 @@
 | 2026-10-20 | v0.11 | Windscreen solar visor: ~250 W panel stowed under the platform, slides out on two rails (one worm gearmotor, cross shaft + belts), tilts to 20° on two self-locking worm drives, hard stop 22°, spring-locked latches (fail locked), limit switches, ignition interlock, dead-man button S3; MPPT 100/30 → 100/50; roof load 85 of ~100 kg | Owner: slide out a large panel in front of the windscreen when parked; strong, locked for travel, motorised one-button |
 | 2026-10-21 | v0.11 | Rear USB-C = 2 × Treklo dual 120 W (100 W PD + 20 W) on 4 mm² / 25 A; pod loses its USB-C; cabin outlets replaced by a 15 A compute feed (SB50 inlet, under-seat compute box); tablet on the Tasman's own USB-C; S6–S8 stay always on | Owner |
 | 2026-10-21 | v0.12 | igus chain laid on its side under the power deck on a 3 mm glide tray (bends in plan); outboard lane removed so the power deck widens 529 → 579 mm; fridge-well pan raised to 54 mm (tallest fridge ~490 mm), L-tracks → flush tie-down rings; pod fed from the bay through an MRBF 30 A (F17) on the system + busbar, down behind the inverter into the slide front; FB1 way 5 spare | Owner: run the cable under the slide so the deck can be wider |
+| 2026-10-22 | v0.13 | Fridge: Dometic CFX3 45 confirmed, centred in the well, tied down by its handles to 4 corner rings (nothing over the lid) | Owner: tie-downs on the handles, not over the top |
+| 2026-10-22 | v0.13 | Wiring rebuilt as a route network: 33 runs with containment (divided tray, wall channel, gland plate rows, NW48 / orange conduits on P-clips, hollow end member, chain separator), 230 V segregated from 12 V everywhere, tent harness split T1A/T1D, T2 via the front hinge; every cable checked against every part (0); route sheets E8, E10–E15 | Owner: more detail and correctness in the wiring, every run and how it is routed |
+| 2026-10-22 | v0.13 | Design audit fixes: visor on its own MPPT 100/20 (roof back to 100/30), PVR 10 mm², DO5/T1D 10 mm² + 20 A, main path 120 mm², DCF 35 mm², VIS 10 mm² + U11 channel fuses, AC1 4 mm² + Q0 main switch, Q4 2-pole, PE2 AC earth to chassis, DO4 7.5 A, X3 20 A, VSW 4-core, latch duty, QS1 isolation order | Voltage drop, fuse/cable ratings and AS/NZS 3000/3001.2 checks |

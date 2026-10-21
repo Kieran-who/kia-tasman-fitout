@@ -413,9 +413,11 @@ def slide(side: str, ext: float, power: bool):
         pan = _cut(pan, [_cylz(5, zf - 4, zf + 1, x, y) for x in (wx0 + 14, wx1 - 14) for y in (wy0 + 12, wy1 - 12)])   # drains
         parts.append(part(f"{nm}_fridge_well_pan", g, pan, "alu", fab=True, mat="Plate 3 5052"))
         # v0.12: no floor L-tracks (they'd cost 10 mm of fridge height); 4 flush strap anchors riveted to the pan floor
-        anchors_ = [box(x, x + 30, y, y + 12, zf, zf + 3) for x in (wx0 + 155, wx1 - 260) for y in (wy0 + 6, wy1 - 18)]
+        # v0.13: one in each well corner (28 x 37 mm pocket beyond the centred fridge's ends), for the handle straps
+        anchors_ = [box(x - 11, x + 11, y - 14, y + 14, zf, zf + 3) for x in (wx0 + 14, wx1 - 14) for y in (wy0 + 18, wy1 - 18)]
+        anchors_ += [_cylz(4, zf + 3, zf + 7, x, y) for x in (wx0 + 14, wx1 - 14) for y in (wy0 + 18, wy1 - 18)]   # folded ring
         parts.append(part(f"{nm}_well_strap_anchors", g, _cmp(anchors_), "alu_dark", kg=0.2,
-                          note="flush folding tie-down rings (4) for the fridge straps"))
+                          note="flush folding tie-down rings (4), one per well corner, for the fridge handle straps"))
         # removable well filler: 15 mm ply panel on two 18 mm ply risers standing on the pan (walls locate it),
         # flush with the deck and carrying the same receiver grid + L-track (fridge out = full flat slide)
         fg = "well_filler"

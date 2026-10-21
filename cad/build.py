@@ -118,7 +118,8 @@ def weight_budget(parts):
     return rows, by_group
 
 
-CABLE_KGM = {"120": 1.2, "70": 0.70, "50": 0.50, "25": 0.27 * 2, "16": 0.18 * 2, "6": 0.07 * 2, "4": 0.05 * 2, "2.5x3": 0.12, "data": 0.04}
+CABLE_KGM = {"120": 1.25, "70": 0.70, "50": 0.50, "35": 0.36 * 2, "25": 0.27 * 2, "16": 0.18 * 2, "10": 0.11 * 2, "6": 0.07 * 2,
+             "4": 0.05 * 2, "2.5x3": 0.12, "4x3": 0.18, "1.5": 0.02 * 2, "1.0": 0.015, "0.75": 0.012 * 2, "data": 0.04}
 
 
 def cable_outputs(cables):
@@ -127,13 +128,52 @@ def cable_outputs(cables):
     for c in cables:
         L = c.length_m()
         mult = 2 if c.spec.startswith("2 x") else 1
-        rows.append([c.cid, c.circuit, c.side, c.frm, c.to, c.spec, c.protection, L * mult, c.notes])
+        rows.append([c.cid, c.circuit, c.side, c.frm, c.to, c.spec, c.protection, L * mult, " > ".join(c.runs), c.notes])
         totals[c.spec] += L * mult
         kg += CABLE_KGM[c.size] * L * mult
-    write_csv(f"cable-schedule-{V}.csv", ["id", "circuit", "harness", "from", "to", "cable", "protection", "length_m (model +10%)", "notes"], rows)
+    write_csv(f"cable-schedule-{V}.csv", ["id", "circuit", "harness", "from", "to", "cable", "protection", "length_m (model +10%)",
+                                          "route (runs)", "notes"], rows)
+    from fitout import wiring
+    rr = []
+    for r in wiring.RUNS:
+        area, cid, fill = wiring.run_fill(r)
+        L = sum(np.linalg.norm(np.subtract(wiring.NODES[b], wiring.NODES[a])) for a, b in zip(r.nodes[:-1], r.nodes[1:])) / 1000
+        cont = {"conduit": f"split conduit {cid} mm ID", "lv_conduit": f"orange corrugated conduit {cid} mm ID",
+                "loom": f"spiral wrap {cid} mm"}.get(r.kind, r.kind)
+        rr.append([r.code, r.name, r.zone, round(L, 2), len(r.members), round(area), cont, f"{fill:.0%}" if fill and r.kind in
+                   ("conduit", "lv_conduit", "loom") else "", "230 V" if r.lv else "12 V", r.hold, " ".join(c.cid for c in r.members)])
+    write_csv(f"route-schedule-{V}.csv", ["run", "name", "zone", "length_m", "cables", "cable_area_mm2", "containment", "fill",
+                                          "voltage", "fixing", "cable ids"], rr)
     write_csv(f"cable-totals-{V}.csv", ["cable", "total_m (model)", "buy_m (+15%, rounded up)"],
               [[k, round(v, 1), int(np.ceil(v * 1.15))] for k, v in sorted(totals.items())])
     return kg
+
+
+def outlines(parts, groups=None):
+    """Bounding boxes of the solid parts (for the route sheets' context drawing)."""
+    out = {}
+    for p in parts:
+        if p.shape is None or p.tube or (groups and p.group not in groups):
+            continue
+        b = p.shape.BoundingBox()
+        out[p.name] = [p.group] + [round(v) for v in (b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax)]
+    return out
+
+
+def sections():
+    """Each run's packed cross-section on its first segment: axis letters of (u, v) and every cable's (a, b) slot."""
+    from fitout import wiring
+    out = {}
+    for r in wiring.RUNS:
+        if not r.members:
+            continue
+        a, b = max(((wiring.NODES[p], wiring.NODES[q]) for p, q in zip(r.nodes[:-1], r.nodes[1:])),
+                   key=lambda ab: sum((x - y) ** 2 for x, y in zip(*ab)))      # longest segment = the typical section
+        d = wiring._unit(wiring._sub(b, a))
+        u, v, k = wiring._frame(r, d)
+        out[r.code] = dict(u=[round(x, 2) for x in u], v=[round(x, 2) for x in v], d=[round(x, 2) for x in d],
+                           slots={cid: [round(x, 1) for x in ab] for cid, ab in r.slots[k].items()})
+    return out
 
 
 def cut_list(parts):
@@ -186,18 +226,28 @@ def axle_loads(parts):
 
 
 if __name__ == "__main__":
-    travel, cables = export_glb("travel")
-    camp, _ = export_glb("camp")
+    camp, cables_camp = export_glb("camp")
+    camp_slide = dict(cables={c.cid: [[round(v, 1) for v in q] for q in c.pts] for c in cables_camp if {"R29", "R30"} & set(c.runs)},
+                      outlines=outlines(camp, ("slide_p",)))
+    travel, cables = export_glb("travel")          # last, so wiring.RUNS / NODES describe the travel state
     export_step(travel)
     rows, by_group = weight_budget(travel)
     cable_kg = cable_outputs(cables)
     # routed cable polylines (travel state) for the wiring route map in docs/wiring
     from fitout.core import ANCHORS
+    from fitout import wiring
     open(os.path.join(OUT, "cables.json"), "w").write(json.dumps(dict(
         version=V, cables=[dict(id=c.cid, circuit=c.circuit, frm=c.frm, to=c.to, size=c.size, spec=c.spec, protection=c.protection,
-                                side=c.side, colour=c.colour, length_m=c.length_m(), notes=c.notes,
-                                via=[q if isinstance(q, str) else None for q in c.path],
+                                side=c.side, colour=c.colour, length_m=c.length_m(), notes=c.notes, runs=c.runs, od=round(c.d1, 1),
+                                cores=c.cores, lv=c.lv, via=[q if isinstance(q, str) else None for q in c.path],
                                 points=[[round(v, 1) for v in q] for q in c.points(k)]) for k, c in enumerate(cables)],
+        runs=[dict(code=r.code, name=r.name, zone=r.zone, hold=r.hold, kind=r.kind, lv=r.lv, nodes=r.nodes, clip=r.clip,
+                   members=[c.cid for c in r.members], size_mm=round(r.size_mm, 1),
+                   conduit_id=wiring.run_fill(r)[1], fill=round(wiring.run_fill(r)[2] or 0, 2), area=round(wiring.run_fill(r)[0]))
+              for r in wiring.RUNS],
+        nodes={k: [round(float(v), 1) for v in xyz] for k, xyz in wiring.NODES.items()},
+        sections=sections(),
+        outlines=outlines(travel), camp=camp_slide,
         anchors={k: [round(float(v), 1) for v in xyz] for k, xyz in ANCHORS.items()}), indent=0))
     rows.append(["fit-out", "wiring", "all cables (from schedule)", "cable", round(cable_kg, 1)])
     by_group[("fit-out", "wiring")] += cable_kg

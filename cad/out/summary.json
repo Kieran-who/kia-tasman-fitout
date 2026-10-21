@@ -1,6 +1,6 @@
 {
-  "version": "v0.12",
-  "fitout_kg": 537.0,
+  "version": "v0.13",
+  "fitout_kg": 547.8,
   "example_payload_kg": 154.1,
   "options_kg": {
     "option: well filler (no fridge)": 4.6,
@@ -11,7 +11,7 @@
     "bay": 13.4,
     "bay_cover": 1.3,
     "cargo": 8.4,
-    "electrical": 30.7,
+    "electrical": 31.3,
     "lid": 68.0,
     "lid_storage": 13.4,
     "power_cabinet": 19.1,
@@ -23,8 +23,8 @@
     "tent": 84.0,
     "tent_services": 2.5,
     "utility": 23.5,
-    "visor": 14.2,
-    "wiring": 25.0,
+    "visor": 15.4,
+    "wiring": 33.9,
     "modules": 12.1,
     "well_filler": 4.6,
     "lid_cargo": 45.9,
@@ -40,13 +40,13 @@
   "slide_travel": 1168.4,
   "tent_gap": 163.4,
   "solar_w": 770,
-  "cable_count": 50,
-  "cable_total_m": 130.4,
+  "cable_count": 56,
+  "cable_total_m": 162.1,
   "material_need": {
     "ACM 3": 1.25,
     "Flat 40x5 6060": 9.65,
     "Sheet 1.6 5005": 2.4,
-    "Plate 3 5052": 1.31,
+    "Plate 3 5052": 1.35,
     "Plate 6 5052": 1.29,
     "SHS 30x30x2 6060": 2.16,
     "Plate 4 5052": 0.3,
@@ -68,16 +68,16 @@
   },
   "lid_load_kg": 170.9,
   "lid_dynamic_rating_kg": 200,
-  "roof_load_kg": 85.4,
+  "roof_load_kg": 86.6,
   "roof_dynamic_rating_kg": 100,
   "axle_added_kg_front_rear": {
     "fit-out": [
-      9.1,
-      503.0
+      9.4,
+      504.5
     ],
     "payload (example)": [
-      -18.0,
-      172.1
+      -18.3,
+      172.4
     ],
     "4 adults (2 front, 2 rear)": [
       198.7,
