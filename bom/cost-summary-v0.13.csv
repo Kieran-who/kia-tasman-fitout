@@ -1,5 +1,5 @@
 section,group,item,qty,unit,unit AUD inc GST,line AUD inc GST,price,source
-products,energy storage,Lithium battery 12V 400Ah,2.0,ea,2099.0,4198.0,actual,"https://itechworld.com.au/products/12v-400ah-lithium-battery-with-bluetooth-itech400x-pro (iTechworld; sale price, regular A$3,499; has also shown A$2,499)"
+products,energy storage,Lithium battery 12V 400Ah,2.0,ea,1996.0,3992.0,actual,"https://itechworld.com.au/products/12v-400ah-lithium-battery-with-bluetooth-itech400x-pro (iTechworld; sale price A$1,996 on 2026-10-23, regular A$3,499; has also shown A$2,499)"
 products,distribution,MIDI/MEGA fuse holders + fuses,4.0,ea,62.6,250.4,actual,https://www.bluebottlemarine.com/products/blue-sea-systems-fuse-block-ami-or-midi.html + https://bluebottlemarine.com/products/blue-sea-ami-or-midi-fuses.html (Blue Bottle Marine; Blue Sea 7720B AMI/MIDI block A$57.60 + MIDI fuse A$5.00 (both sale); no AU listing for 5151; check the 7720B fuse range)
 products,monitoring,GX device,1.0,ea,337.63,337.63,actual,"https://www.outbackmarine.com.au/victron-cerbo-gx-mk2 (Outback Marine; sale price, RRP A$526)"
 products,monitoring,Touch display,1.0,ea,300.3,300.3,actual,"https://www.outbackmarine.com.au/victron-gx-touch-50-display (Outback Marine; sale price, RRP A$468)"
@@ -165,4 +165,4 @@ materials,materials,SHS 32x32x2 6060,1.8,m,12.0,21.6,estimate,cut-to-length alum
 materials,materials,Sheet 1.6 5005,2,sheet,130.0,260.0,estimate,2400x1200 sheet
 materials,materials,UHMW 10,1,sheet,80.0,80.0,estimate,1000x500 UHMW-PE sheet
 materials,materials,Fasteners and consumables,1,lot,450.0,450.0,estimate,"bolts, screws, rivets, adhesive, sealant, edge trim, finish"
-total,,,,,,28705.19,,actual 14160 / estimate 14545
+total,,,,,,28499.19,,actual 13954 / estimate 14545
