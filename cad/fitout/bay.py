@@ -465,9 +465,48 @@ def battery(parts, n, bx0, ya, z0, lugs):
                           box(xm + mt + 2, xm + mt + 6, yp + 10, yo - 10, zt - 9, zt + 9)), MIDI_FUSE))
     anchor(f"batt{n}_pos", (xm + mt + 7.5, yo, zt))         # lug on the MRBF output stud
     anchor(f"batt{n}_neg", (xf + 7.5, yn, zt))              # lug on the - terminal
+    anchor(f"batt{n}_pos_post", (xf + 8, yp - 28, zt))      # tab of a ring lug under the MRBF (temperature sensor)
     lugs.add((xm + mt + 7.5, yo, zt), "+X", "+Z", "+")
     lugs.add((xf + 7.5, yn, zt), "+X", "+Z", "-")
     return xf
+
+
+FOAM = (172, 178, 184, 255)          # foil-faced closed-cell foam
+HEAT_PAD = (196, 74, 44, 255)        # silicone heater pad
+HEAT_BOX = (70, 74, 80, 255)
+
+
+def battery_heat(parts, bx0, ybs, z0):
+    """v0.14 cold-weather kit (docs/cold-weather.md): foil-faced closed-cell foam on every face the bay leaves room for,
+    two 50 W silicone pads bonded to the batteries' facing sides (in the 14 mm gap between them, between the cage
+    straps), and the thermostat / relay box TH1 behind battery 2's terminals. Nothing above or below the batteries:
+    they stand 539 mm under a 548 mm lid on the base tray."""
+    g, gi = "battery_heat", "battery_insul"
+    y0, y1 = ybs[0] - 2, ybs[1] + P.BATT_W + 2              # 88 .. 582
+    xr = bx0 + P.BATT_H - 15 + 14                           # 242: rear foam, behind the strap buckles
+    gap = (ybs[0] + P.BATT_W, ybs[1])                       # 330 .. 340: between the battery lids
+    rear = box(xr, xr + 20, y0, y1, z0, 440).cut(box(xr - 1, xr + 21, gap[0] - 10, gap[1] + 10, 400, 430))  # notch: pad + probe leads
+    parts.append(part("batt_foam_rear", gi, rear, FOAM, kg=0.25, product="Closed-cell foil-faced foam 20 mm (cut to fit)"))
+    parts.append(part("batt_foam_inboard", gi, box(bx0, xr + 20, ybs[0] - 20, ybs[0] - 5, z0, 440), FOAM, kg=0.12,
+                      product="Closed-cell foil-faced foam 15 mm"))
+    parts.append(part("batt_foam_front", gi, box(1, 5, y0, y1, z0, P.BAY_H), FOAM, kg=0.05, product="Closed-cell foam 4 mm"))
+    parts.append(part("batt_foam_top", gi, box(bx0, xr + 20, y0, y1, 540, 546), FOAM, kg=0.08,
+                      product="Closed-cell foil-faced foam 6 mm (glued to the lid underside)"))
+    parts.append(part("batt_foam_outer", gi, box(bx0, xr + 20, y1 + 2, y1 + 6, 292, P.BAY_H), FOAM, kg=0.03,
+                      product="Closed-cell foam 4 mm (above the wheel arch)"))
+    # heater pads on the facing sides, between the cage straps (z 196 .. 426), clear of the lids (x 208)
+    for nm, ya, yb in (("hp1", gap[0] - 2, gap[0] - 0.4), ("hp2", gap[1] + 0.4, gap[1] + 2)):
+        parts.append(part(f"batt_heat_pad_{nm}", g, box(bx0 + 12, bx0 + 187, ya, yb, 200, 416), HEAT_PAD, kg=0.1,
+                          product="12 V 50 W silicone heater pad 175 x 215, self-adhesive, with 50 C NC cut-out"))
+    # TH1: thermostat + relay in a small IP box on the rear foam's top edge, behind the gap between the batteries
+    parts.append(part("batt_heat_ctrl", g, box(xr + 20, xr + 42, gap[0] - 30, gap[1] + 20, 466, 530), HEAT_BOX, kg=0.25,
+                      product="12 V digital thermostat + 30 A relay in an IP65 box (TH1)"))
+    yc = (gap[0] + gap[1]) / 2
+    anchor("bay_heater_ctrl", (xr + 26, gap[0] - 15, 466))   # HTR in (bottom face)
+    anchor("bay_heater_out", (xr + 31, yc, 466))              # HTP out
+    anchor("bay_heater_probe_out", (xr + 36, gap[1] + 5, 466))
+    anchor("bay_heater_pads", (bx0 + 192, yc, 415))           # pad leads (top rear corner of the pads)
+    anchor("bay_heater_probe", (bx0 + P.BATT_H - 15 + 1, ybs[1] + 120, 300))   # on battery 2's lid, mid-height
 
 
 def powerbar(parts, F, nm, kg, used):
@@ -639,6 +678,7 @@ def bay():
             bk = [box(xf + 3, xf + 11, yc - 22, yc + 22, zz + 4, zz + 36), pcyl(3, 50, (xf + 9, yc, zz + 8), "Y", 8)]
             bk += [hexp(10, 4, (xf + 5, yy, zz + 20), "X") for yy in (ya + 30, ya + bw - 30)]
             parts.append(part(f"battery_{n}_strap_{zz}_buckle", g, grp(bk), STEEL))
+    battery_heat(parts, bx0, ybs, z0)
     # ---- distribution column between the inverter and battery 1 (components on a board, facing +Y)
     yd0 = yq1 + 8
     # the MultiPlus cable entries (DC at z ~50, AC glands at z ~90) face the board 8 mm away: the board gets a cable

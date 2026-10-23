@@ -578,6 +578,10 @@ SECTIONS = [
         ("L11", "Rail T-slot (detail b)", "Slot opening, slot depth, inner width, lip thickness; T-bolt size used", "–", "-",
          ["Opening", "Depth", "Inner w", "Lip", "Bolt"], "6"),
         ("L12", "Lid top surface", "Chequer pattern height; flat or crowned (straight edge across: gap at the centre)", "flat", "-", ["Pattern", "Crown"], "6"),
+        ("L13", "Lid underside over the batteries (v0.14)", "Tub floor → lid underside at the driver front corner (X ≈ 100 and 250, Y ≈ 200 and 500): the battery top foam assumes 9 mm above the handle lugs",
+         r0(UL), "UNDER_LID_Z", ["X100 Y200", "X100 Y500", "X250 Y200", "X250 Y500"], "1"),
+        ("L14", "Space for the water-can jacket (v0.14)", "Lid top → tent base underside over the water can, and lid top → the tent's under-rail; is a 30 mm jacket top possible?",
+         f"{r0(P.TENT_Z0 - LT)}", "TENT_Z0 − LID_TOP_Z", ["To base", "To rail"], "6"),
     ]),
     ("5", "Rack bars and tent", ["d2-tub-side", "d3-tub-section", "d4-lid-plan", "d7-details"], [
         ("R1", "Bar positions", "Centre line of each Vortex bar from the lid front edge (or from the tub front wall, say which)",

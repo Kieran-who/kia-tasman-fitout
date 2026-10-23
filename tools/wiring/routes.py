@@ -287,11 +287,13 @@ def outside_tub_front(q):
     return q[0] < -10 or q[2] > 548
 def cable_list(s, x, y, cabs, runs_of, width=540, title="Cables in this view", max_rows=40, size=9.5):
     rows = []
+    cw = min(178, (width - 46 - 70) / 2)                  # From / To columns (narrow tables keep 70 for the runs)
+    n = int((cw - 8) / (size * 0.56))                     # characters that fit
     for c in cabs[:max_rows]:
         rr = [r for r in c["runs"] if r in runs_of] if runs_of else c["runs"]
-        rows.append((c["id"], (c["frm"][:30] + "…") if len(c["frm"]) > 31 else c["frm"],
-                     (c["to"][:30] + "…") if len(c["to"]) > 31 else c["to"], " ".join(rr) or "local"))
-    return s.table(x, y, ["ID", "From", "To", "Runs here"], rows, [46, 178, 178, width - 402], size=size, rh=15, title=title)
+        rows.append((c["id"], (c["frm"][:n - 1] + "…") if len(c["frm"]) > n else c["frm"],
+                     (c["to"][:n - 1] + "…") if len(c["to"]) > n else c["to"], " ".join(rr) or "local"))
+    return s.table(x, y, ["ID", "From", "To", "Runs here"], rows, [46, cw, cw, width - 46 - 2 * cw], size=size, rh=15, title=title)
 
 
 def legend(s, x, y):
@@ -381,7 +383,7 @@ def build(ctx):
         ve = View(s, 46, 478, 1010, 480, YZ_REAR, (-620, 620, -560, 10), "VIEW FROM THE REAR — looking forward (guard removed)",
                   depth=(0, -60, 420), sc=sc)
         for v in (vp, ve):
-            v.outlines(outl, groups=("bay", "electrical", "batteries", "power_cabinet"))
+            v.outlines(outl, groups=("bay", "electrical", "batteries", "battery_heat", "battery_insul", "power_cabinet"))
             v.run_lines([r for r in runs if r["zone"] in ("bay", "tray", "slide")], nodes, width=3.0, codes=True, clip_ticks=False)
         sel = [c for c in cabs if any(r in by_run and by_run[r]["zone"] == "bay" for r in c["runs"]) or
                (not c["runs"] and c["points"][0][0] < 420 and c["points"][0][2] < 560)]
@@ -473,9 +475,10 @@ def build(ctx):
         for v in (va, vb):
             v.outlines(outl, only=("cab_body", "tub_front_wall", "gap_junction_box", "plat_end_-190", "plat_side_-725", "visor_controller_box",
                                    "starlink_mini", "tent_services_box", "tent_shell", "tent_base", "load_lid", "lid_hinge_-1", "roof_rail_-1",
-                                   "visor_rail_-1", "visor_drive_motor", "tent_solar_jbox", "tent_hinge_1", "chassis_rail_-1"), fill="#f1f3f5")
+                                   "visor_rail_-1", "visor_drive_motor", "tent_solar_jbox", "tent_hinge_1", "chassis_rail_-1",
+                                   "uts_water_jacket"), fill="#f1f3f5")
             v.run_lines([r for r in runs if r["zone"] in ("gap", "roof", "tent", "chassis")], nodes, width=4.0)
-        sel = [c for c in cabs if any(r in by_run and by_run[r]["zone"] in ("gap", "roof", "tent") for r in c["runs"]) or c["id"] in ("T2", "PVV")]
+        sel = [c for c in cabs if any(r in by_run and by_run[r]["zone"] in ("gap", "roof", "tent") for r in c["runs"]) or c["id"] in ("T2", "PVV", "WHT")]
         for v in (va, vb):
             vis = v.cables(sel, width=0.7, keep=outside_tub_front)
             v.label_cables(vis)

@@ -1,0 +1,44 @@
+cable,total_m (model),"buy_m (+15%, rounded up)"
+0.75 mm2 twin,0.7,1
+1.0 mm2 red,0.6,1
+1.0 mm2 single,16.3,19
+1.5 mm2 twin,1.4,2
+1.5 mm2 twin (silicone),0.4,1
+"1.5 mm2 twin (silicone), plug-in",0.5,1
+10 mm2 solar pair (UV),8.0,10
+10 mm2 twin,9.8,12
+"10 mm2 twin (12 V) + 6 mm2 solar pair (PV), sheathed together",1.9,3
+"120 mm2 tinned, black",1.0,2
+"120 mm2 tinned, red",1.2,2
+16 mm2 twin,2.7,4
+"2 x 2.5 mm2 3-core flex, sheathed together, UV rated",3.8,5
+"2 x 50 mm2 tinned, black",1.0,2
+"2 x 50 mm2 tinned, red",2.5,3
+2-core 0.75 mm2,4.0,5
+2.5 mm2 3-core flex,0.5,1
+2.5 mm2 3-core flex (15 A),7.4,9
+"2.5 mm2 3-core flex, UV rated",4.5,6
+2.5 mm2 3-core high-flex (chain rated),5.8,7
+2.5 mm2 twin,0.9,2
+25 mm2 black,4.7,6
+"25 mm2 twin (+/-), tinned",9.1,11
+35 mm2 twin (red/black),4.1,5
+4 mm2 3-core flex (TPS-flex),4.0,5
+"4 mm2 solar pair, high-flex (chain rated)",2.3,3
+4 mm2 twin,2.4,3
+4 mm2 twin + DC barrel lead,5.8,7
+"4-core 0.75 mm2 (deploy, stow, LED, common)",5.2,6
+"4-core 1.0 mm2 (+12 V feed, control, LED, ground)",3.8,5
+50 mm2 green/yellow,0.7,1
+6 mm2 green/yellow,1.9,3
+6 mm2 solar pair (UV),15.4,18
+6 mm2 twin,9.1,11
+6 mm2 twin high-flex,3.6,5
+"70 mm2 tinned, black",2.7,4
+"70 mm2 tinned, red",1.7,2
+GX Touch cable (HDMI + USB),1.0,2
+"NTC probe lead (supplied, 2-core)",0.7,1
+RJ45 VE.Bus cable,4.4,6
+VE.Direct cables x3,3.5,5
+VE.Direct to USB interface,6.8,8
+"Victron temperature sensor lead (2-core, supplied)",0.9,2

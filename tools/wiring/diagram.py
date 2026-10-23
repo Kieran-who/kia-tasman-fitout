@@ -26,9 +26,9 @@ sys.path.insert(0, str(ROOT / "cad"))
 import params as P  # noqa: E402
 
 V = P.VERSION
-DATE = "2026-10-22"
+DATE = "2026-10-23"
 META = dict(version=V, date=DATE)
-TOTAL = 15
+TOTAL = 16
 
 SCHED = {r["id"]: r for r in csv.DictReader(open(ROOT / f"bom/cable-schedule-{V}.csv"))}
 ROUTES = json.load(open(ROOT / "cad/out/cables.json"))
@@ -101,14 +101,21 @@ def sheet_dc_main():
     s.wire([(x, y), (x, y + 40)], "ctrl", "1")
     s.offsheet(x, y + 40, "d", f"{T('SW1')} → S1 rear panel", "sheet E6")
     # ---------------- SmartShunt in the negative
-    sh = s.block("P1", 690, yn - 45, 180, 90, "Battery monitor", ["Victron SmartShunt 500 A", "all − current passes it"],
-                 cat="victron", terms=[("b", "L", 45, "BATT"), ("s", "R", 45, "SYS"), ("v", "T", 30, "V+"), ("vd", "T", 150, "VE.D")])
+    sh = s.block("P1", 690, yn - 45, 180, 90, "Battery monitor", ["Victron SmartShunt 500 A", "all − current passes it",
+                                                                  "Aux = battery temp (TS1)"],
+                 cat="victron", terms=[("b", "L", 45, "BATT"), ("s", "R", 45, "SYS"), ("v", "T", 22, "V+"), ("ax", "T", 62, "AUX"),
+                                       ("vd", "T", 150, "VE.D")])
     s.wire([(600, yn), sh.t("b")], "neg", "120", tag=T("SH1"), tag_at=(645, yn + 24))
     s.bus("BB4", 960, yn, 1440, yn, "neg", "System − busbar", below=True)
     s.wire([sh.t("s"), (960, yn)], "neg", "120", tag=T("SH2"), tag_at=(915, yn + 24))
-    s.dot(575, yp, "pos")
-    s.wire([(575, yp), (575, yn - 120), (720, yn - 120), sh.t("v")], "sig", "0.75", tag=T("SHV"), tag_at=(648, yn - 120))
-    s.fuse(575, yn - 190, "v", "F11", "1 A", side=-1)
+    # v0.14: Victron temperature sensor - ring lug on battery 1's + post (battery side of F1), red to V+, black to AUX
+    s.dot(135, 348, "pos")
+    s.wire([(135, 348), (300, 348), (300, 548), (752, 548), sh.t("ax")], "sig", "0.75", tag=T("TS1", "temp sensor 2-core"),
+           tag_at=(600, 548))
+    s.dot(712, 548, "pos", r=3)
+    s.wire([(712, 548), sh.t("v")], "sig", "0.75")
+    s.fuse(300, 450, "v", "F11", "", side=1)
+    s.text(232, 343, "θ sensor", size=10, fill="#0b7285", weight="600")
     x, y = sh.t("vd")
     s.wire([(x, y), (x, y - 60)], "data")
     s.offsheet(x, y - 60, "u", f"{T('D2', 'VE.Direct')} → U5 Cerbo", "sheet E6")
@@ -149,6 +156,13 @@ def sheet_dc_main():
     s.wire([(1090, yn), (1090, 728)], "neg", "6")
     s.offsheet(1090, 728, "l", "DO2− → power-slide pod", "sheet E3")
     USED.add("DO2")
+    # ---------------- battery heater feed (v0.14, sheet E16): BB3 -> F18 10 A -> TH1; return to BB4
+    s.wire([(1300, yp), (1300, 380), (1330, 380)], "pos", "2.5")
+    s.fuse(1300, 330, "v", "F18", "10 A", side=1)
+    s.offsheet(1330, 380, "r", "HTR+ → TH1 battery heater", "2.5 mm² twin · sheet E16")
+    s.wire([(1300, yn), (1300, 560), (1330, 560)], "neg", "2.5")
+    s.offsheet(1330, 560, "r", "HTR− ← TH1 battery heater", "sheet E16")
+    USED.add("HTR")
     # ---------------- DC distribution feed
     s.wire([(1440, yp), (1500, yp)], "pos", "25")
     s.fuse(1472, yp, "h", "F7", "MEGA 100 A", side=-1)
@@ -173,8 +187,8 @@ def sheet_dc_main():
                           "  from the chargers: open QP1–QP3, S2 off and",
                           "  ignition off BEFORE opening QS1, so no charger",
                           "  runs without the battery.",
-                          "- Only F10 (QS1 control) and F11 (shunt sense)",
-                          "  stay live on the bank side.",
+                          "- Only F10 (QS1 control) and F11 (TS1 sensor",
+                          "  lead) stay live on the bank side.",
                           "- S2 off before closing QS1 (MultiPlus inrush)."], title="Isolation")
     s.note(844, y0, 390, ["- DC: one bond only, BB4 → chassis (CHB 25 mm²).",
                           "- MultiPlus case → BB4 (PE1, Victron: = DC −).",
@@ -641,6 +655,11 @@ def sheet_tent():
         y = ys["J3"] + dy
         s.wire([pt, (440, pt[1]), (440, y), (1060, y)], kind, "10")
     s.conn(xc, ys["J3"], "h", "J3", "12 V · Anderson SB50 red")
+    # v0.14: water-can heater tapped off the box's 12 V (sheet E16)
+    for (pt, kind, xx) in ((x5.t("p"), "pos", 350), (x5.t("n"), "neg", 364)):
+        s.dot(xx, pt[1], kind, r=3.2)
+        s.wire([(xx, pt[1]), (xx, 570), (380, 570)] if kind == "pos" else [(xx, pt[1]), (xx, 586), (380, 586)], kind, "1.5")
+    s.offsheet(380, 578, "r", "WHT → F19 → TH2 → HP3 water pad", "1.5 mm² twin · sheet E16")
     s.offsheet(1060, ys["J3"], "r", "DO5 ← FB1 way 8 (20 A)", "sheet E3")
     USED.add("DO5")
     # J4: tent PV
@@ -705,18 +724,19 @@ def bundles():
         if ids:
             edges[e] = ids
             on_edge.update(ids)
-    internal = {"BAY": [], "CABINET": [], "ROOF": []}
+    internal = {"BAY": [], "CABINET": [], "ROOF": [], "TENT": []}
     for c in ROUTES["cables"]:
         if c["id"] not in on_edge:
             p0 = c["points"][0]
-            key = "ROOF" if p0[2] > P.ROOF_Z - 100 else ("BAY" if p0[0] < P.BAY_D + 120 else "CABINET")
+            key = "TENT" if c["side"] == "tent" else \
+                ("ROOF" if p0[2] > P.ROOF_Z - 100 else ("BAY" if p0[0] < P.BAY_D + 120 else "CABINET"))
             internal[key].append(c["id"])
     return edges, internal
 
 
 def sheet_overview():
     s = Sheet(1, "overview", "System overview: locations and cable bundles",
-              "Where each part lives and which cables share each run (from the model's runs, E8). Circuits on E2–E7 and E9; routes to scale on E8, E10–E15.", TOTAL)
+              "Where each part lives and which cables share each run (from the model's runs, E8). Circuits on E2–E7, E9 and E16; routes to scale on E8, E10–E15.", TOTAL)
     edges, internal = bundles()
     N = {   # node: (x, y, w, h, title, lines, cat)
         "ROOF": (430, 112, 300, 86, "Roof platform", ["PV1 190 W + PV2 130 W, PV5 visor 250 W", "ST1 Starlink, U11 visor controller (E9)"], "pv"),
@@ -726,7 +746,7 @@ def sheet_overview():
         "CABIN": (300, 600, 270, 86, "Cabin, under the rear seat", ["X4 SB50 inlet → U12 compute box", "HA PC, router, PoE switch"], "outlet"),
         "GLAND": (1180, 500, 240, 72, "Factory-outlet gland", ["passenger rear tub wall"], "gen"),
         "TRAY": (1180, 640, 240, 72, "Wall drop + tray", ["drop beside the gland; tray under the lid"], "gen"),
-        "BAY": (690, 800, 380, 100, "Front bay", ["BT1/BT2, F1/F2, BB1–BB4, QS1, P1, F3", "U1 MultiPlus-II, U2 Orion, U3/U4/U13 MPPTs", "F4–F7 MIDI/MEGA, F17 MRBF (pod), M1 fan"], "battery"),
+        "BAY": (690, 800, 380, 100, "Front bay", ["BT1/BT2, F1/F2, BB1–BB4, QS1, P1, F3", "U1 MultiPlus-II, U2 Orion, U3/U4/U13 MPPTs", "F4–F7 MIDI/MEGA, F17 MRBF (pod), M1 fan", "TH1 + HP1/HP2 heaters, F18, foam (E16)"], "battery"),
         "CABINET": (1250, 800, 370, 100, "Rear control cabinet", ["FB1 fuse block, RCBO enclosure (Q0–Q3)", "U5 Cerbo GX, rear panel: U6, S1–S3,", "XS1 GPO, X1/X2, U7/U8, X6"], "prot"),
         "POD": (1250, 950, 370, 72, "Power slide pod", ["FB2, XS2 GPO, X3 Anderson, X7 12 V"], "outlet"),
     }
@@ -813,7 +833,7 @@ def sheet_overview():
             cur += cid + ", "
         lines.append(cur.rstrip(", "))
         for i, l in enumerate(lines):
-            s.text(b.x, b.y + b.h + 16 + 13 * i, l, size=9.5, fill="#495057", family=MONO)
+            s.text(b.x + (80 if k == "TENT" else 0), b.y + b.h + 16 + 13 * i, l, size=9.5, fill="#495057", family=MONO)
         USED.update(ids)
     s.note(46, 740, 560, ["- Every cable that leaves the tub goes out through the factory 240 V",
                           "  outlet hole (passenger rear wall) and along the passenger chassis rail.",
@@ -923,8 +943,120 @@ def sheet_visor():
     return s
 
 
+# ======================================================================================= E16
+def sheet_heat():
+    s = Sheet(16, "heating", "Cold-weather heating: battery bank and water can",
+              "Snow camping (−5 to −15 °C nights): keep the LiFePO₄ bank above 0 °C so it may charge, stop every charger below +3 °C, "
+              "and keep the 30 L can from freezing.", TOTAL)
+    # ---------------- battery heater (front bay)
+    s.zone(46, 92, 800, 480, "Front bay: battery heater", "foam on 5 faces; 2 × 50 W pads between the batteries")
+    s.bus("BB3", 90, 160, 330, 160, "pos", "System + busbar", sub="after QS1 (E2)")
+    s.bus("BB4", 90, 520, 830, 520, "neg", "System − busbar", below=True)
+    th = s.block("TH1", 330, 225, 220, 150, "Battery heater control",
+                 ["12 V digital thermostat", "+ 30 A relay, IP65 box", "ON < +3 °C · OFF > +8 °C", "behind the batteries"],
+                 cat="prot", terms=[("p", "L", 35, "+12"), ("n", "L", 115, "0 V"), ("o", "R", 35, "OUT"), ("r", "R", 115, "0 V"),
+                                    ("s", "B", 110, "PROBE")])
+    s.wire([(150, 160), (150, 260), th.t("p")], "pos", "2.5", tag=T("HTR"), tag_at=(245, 260))
+    s.fuse(150, 210, "v", "F18", "10 A", side=1)
+    s.wire([th.t("n"), (300, 340), (300, 520)], "neg", "2.5")
+    pads = []
+    for k, (ref, yy, txt) in enumerate((("HP1", 170, "battery 1 inner face"), ("HP2", 290, "battery 2 inner face"))):
+        b = s.block(ref, 690, yy, 120, 64, "Pad 50 W", ["silicone, 175 × 215", txt], cat="gen",
+                    terms=[("p", "L", 30, ""), ("n", "R", 30, "")])
+        pads.append(b)
+        y = yy + 30
+        s.wire([(590, 260), (590, y), b.t("p")], "pos", "1.5")
+        s.switch(645, y, "h", f"CO{k + 1}", "50 °C NC")
+        s.wire([b.t("n"), (826, y)], "neg", "1.5")
+    s.wire([th.t("o"), (590, 260)], "pos", "1.5")
+    s.dot(590, 260)
+    s.dot(826, 320, "neg")
+    s.wire([(826, 200), (826, 430), (570, 430), (570, 340), th.t("r")], "neg", "1.5")
+    s.tag(700, 430, T("HTP"))
+    bt2 = s.block("BT2", 380, 450, 210, 46, "Battery 2 (outer)", [], cat="battery", terms=[("t", "T", 60, "")])
+    s.text(386, 488, "NTC probe on the lid face, mid-height", size=10)
+    s.wire([th.t("s"), bt2.t("t")], "sig", "0.75", tag=T("HTS", "probe lead"), tag_at=(500, 412))
+    s.text(60, 404, "Feed after QS1: opening QS1 for", size=10, fill="#495057")
+    s.text(60, 418, "storage also switches the heater off.", size=10, fill="#495057")
+    # ---------------- water can heater (tent services box -> lid storage)
+    s.zone(880, 92, 390, 480, "Tent services box", "stays with the tent · 12 V from J3 (T1D, E7)", bottom=True)
+    s.zone(1300, 92, 334, 480, "Load lid, under the tent", "vehicle side", bottom=True)
+    x5 = s.block("X5", 900, 120, 130, 60, "SB50 12 V", ["from J3 / T1D"], cat="outlet", terms=[("p", "B", 40, "+"), ("n", "B", 110, "−")])
+    t2 = s.block("TH2", 1040, 230, 200, 150, "Water thermostat",
+                 ["12 V thermostat + relay", "ON < +3 °C · OFF > +6 °C", "probe on the can,", "under the jacket"],
+                 cat="prot", terms=[("p", "L", 30, "+12"), ("n", "L", 110, "0 V"), ("o", "R", 60, "OUT"), ("r", "R", 80, ""),
+                                    ("s", "B", 100, "PROBE")])
+    s.wire([x5.t("p"), (940, 260), t2.t("p")], "pos", "1.5")
+    s.fuse(940, 222, "v", "F19", "5 A", side=1)
+    s.wire([x5.t("n"), (1010, 340), t2.t("n")], "neg", "1.5")
+    hp3 = s.block("HP3", 1380, 260, 230, 100, "Water pad 50 W",
+                  ["silicone, 160 × 735", "on 3 mm foam between the", "cross-bars, under the can"], cat="gen",
+                  terms=[("p", "L", 30, ""), ("n", "L", 50, "")])
+    s.wire([t2.t("o"), hp3.t("p")], "pos", "1.5")
+    s.wire([t2.t("r"), hp3.t("n")], "neg", "1.5", tag=T("WHT"), tag_at=(1312, 384))
+    s.switch(1335, 290, "h", "CO3", "45 °C NC")
+    s.conn(1285, 300, "h", "XW", "DT 4-pin", side=-1)
+    can = s.block("CAN", 1380, 420, 230, 70, "Water can 30 L", ["jacket: 30 mm top, 18–20 mm sides", "and end; cap end open"],
+                  cat="gen", terms=[("t", "L", 30, "")])
+    s.wire([t2.t("s"), (1140, 450), can.t("t")], "sig", "0.75")
+    s.conn(1285, 450, "h", "", "", side=-1)
+    s.text(1150, 470, "probe lead (supplied)", size=10, fill="#495057")
+    # ---------------- charge protection (temperature sensing to every charger)
+    s.zone(46, 600, 1588, 200, "Charge protection: no charging below +3 °C", "backstop if a heater fails or the bank is cold at start-up",
+           bottom=True)
+    bt1 = s.block("BT1", 80, 640, 170, 80, "Battery 1", ["+ post: ring lug with", "the temperature sensor"], cat="battery",
+                  terms=[("p", "R", 45, "")])
+    p1 = s.block("P1", 430, 640, 210, 80, "SmartShunt 500 A", ["V+ (red) · AUX (black)", "Aux mode: temperature"], cat="victron",
+                 terms=[("v", "L", 45, ""), ("d", "R", 45, "")])
+    s.wire([bt1.t("p"), p1.t("v")], "sig", "0.75", tag=T("TS1", "temp sensor"), tag_at=(362, 685))
+    s.fuse(275, 685, "h", "F11", "in lead", side=-1)
+    u5 = s.block("U5", 760, 640, 230, 80, "Cerbo GX (DVCC)", ["shared temperature sense: ON", "source: SmartShunt (P1)"], cat="victron",
+                 terms=[("i", "L", 45, ""), ("o", "R", 45, "")])
+    s.wire([p1.t("d"), u5.t("i")], "data", tag=T("D2", "VE.Direct"), tag_at=(700, 685))
+    ch = s.block("U1–U4, U13", 1080, 625, 520, 110, "All chargers",
+                 ["MultiPlus-II · Orion XS · MPPT 100/30 · MPPT 75/15 · MPPT 100/20",
+                  "low-temperature charge cut-off: +3 °C (Victron default 5 °C)",
+                  "each must show the shared battery temperature in VictronConnect;",
+                  "if one doesn't, set its own cut-off and test it (see notes)"], cat="victron", terms=[("i", "L", 60, "")])
+    s.wire([u5.t("o"), ch.t("i")], "data")
+    s.text(994, 678, "VE.Bus / VE.Direct", size=10, fill="#6f42c1")
+    # ---------------- notes
+    y0 = 826
+    s.note(46, y0, 392, ["- TH1: ON below +3 °C, OFF above +8 °C (probe on BT2,",
+                         "  the outer, colder battery).",
+                         "- TH2: ON below +3 °C, OFF above +6 °C.",
+                         "- Victron: DVCC on, shared temperature sense from",
+                         "  P1, every charger's low-temp cut-off +3 °C.",
+                         "- Ask iTechworld whether the BMS blocks charging",
+                         "  below 0 °C; the build doesn't rely on it."], title="Settings")
+    s.note(452, y0, 392, ["- Bank (insulated, 4 W/K): holding +3 °C uses",
+                          "  ~23 Ah on a −5 °C night, ~43–60 Ah at −10 to −15.",
+                          "- Water can (jacketed, ~2.5 W/K): ~5 Ah at −5 °C,",
+                          "  ~15–20 Ah on a hard night.",
+                          "- 2 × 50 W warms a cold bank −10 → +5 °C in ~3–4 h.",
+                          "- Daily winter use is ~210 Ah of 800 Ah: plan",
+                          "  driving or shore power every 2–3 days."], title="Energy per night [est]")
+    s.note(858, y0, 380, ["- Each pad has a normally-closed cut-out bonded",
+                          "  to it, in series: a stuck relay can't overheat",
+                          "  a battery case (50 °C) or the can (45 °C).",
+                          "- Pads only on the batteries' sides, between the",
+                          "  cage straps; never under a battery.",
+                          "- 0.13 W/cm² on the case: confirm with iTechworld",
+                          "  that the case is fine at 50 °C locally."], title="Safety")
+    s.note(1252, y0, 382, ["1. Chill the TS1 lug (ice pack in a bag) below",
+                           "   +3 °C: every charger must stop or show 'low",
+                           "   temperature' (forum reports are mixed).",
+                           "2. Chill each probe: the relay must click on;",
+                           "   each pad draws ~4.2 A (clamp meter).",
+                           "3. Warm each pad's cut-out with a heat gun:",
+                           "   the pad must switch off."], title="Test once, before winter")
+    USED.update(["TS1", "HTR", "HTP", "HTS", "WHT", "D2"])
+    return s
+
+
 _RS = routes.build(dict(ROUTES=ROUTES, USED=USED, TOTAL=TOTAL))
-SHEETS = [sheet_overview, sheet_dc_main, sheet_dc_dist, sheet_charging, sheet_ac, sheet_control, sheet_tent, _RS[0], sheet_visor] + _RS[1:]
+SHEETS = [sheet_overview, sheet_dc_main, sheet_dc_dist, sheet_charging, sheet_ac, sheet_control, sheet_tent, _RS[0], sheet_visor] + _RS[1:] \
+    + [sheet_heat]
 
 
 # ======================================================================================= schedules
@@ -939,12 +1071,15 @@ PROTECTION = [  # ref, device, rating, location, protects
     ("F8", "MIDI fuse + holder", "60 A", "Start battery +, engine bay", "ALT"),
     ("F9", "Add-a-fuse, ignition circuit", "2 A", "Engine-bay fuse box", "IGN"),
     ("F10", "Inline ATC holder", "2 A", "BB1 bank + bus", "RBF, SW1 (ML-RBS control)"),
-    ("F11", "Inline fuse (supplied with SmartShunt)", "1 A", "BB1 bank + bus", "SHV"),
+    ("F11", "Fuse in the Victron temperature sensor lead (supplied)", "–", "Battery 1 + post (lug)", "TS1 (P1 V+ and AUX)"),
     ("F12", "Inline ATC holder", "5 A", "BB3 stud", "FAN"),
     ("FB1 1–10", "ATC blade fuses in FB1 (Blue Sea 5026)", "see E3", "Rear control cabinet", "DO1A–D, DO3–DO5, CGX, VIS (not DO2)"),
     ("F13", "ATC in FB2", "15 A", "Power slide pod", "pod 12 V socket X7"),
     ("F14", "ATC in FB2", "20 A", "Power slide pod", "pod Anderson X3"),
     ("F17", "MRBF terminal fuse (Blue Sea 5191)", "30 A", "BB3 system + busbar, spare stud", "DO2 (power-slide pod)"),
+    ("F18", "Inline ATC holder", "10 A", "BB3 stud 4, front bay", "HTR, HTP (battery heater, 2 × 50 W)"),
+    ("F19", "Inline ATC holder", "5 A", "Tent services box (12 V from X5)", "WHT (water-can pad, 50 W)"),
+    ("CO1–CO3", "Thermal cut-out, normally closed, bonded to each pad", "50 / 50 / 45 °C", "On HP1, HP2, HP3", "pad over-temperature"),
     ("FB3", "ATC fuse block behind a Smart BatteryProtect", "per device", "Compute box, under the rear seat", "HA PC, router, PoE switch, fan"),
     ("Q0", "Main switch, 2-pole isolator (AS/NZS 3001.2)", "32 A", "RCBO enclosure, rear cabinet", "inverter supply AC1"),
     ("Q1–Q3", "RCBO 1P+N, 30 mA", "10 A", "RCBO enclosure, rear cabinet", "AC2, AC3, AC4"),
@@ -965,6 +1100,11 @@ COMPONENTS = [  # ref, item, model, location, sheets
     ("U13", "Solar charger, visor", "Victron SmartSolar MPPT 100/20", "Front bay, passenger face of the distribution board", "E4, E6"),
     ("U4", "Solar charger, tent", "Victron SmartSolar MPPT 75/15", "Charging board", "E4, E6"),
     ("M1", "Inverter fan", "92 mm 12 V thermostatic", "Above the inverter", "E2"),
+    ("TH1", "Battery heater control", "12 V digital thermostat (NTC probe) + 30 A relay, IP65 box", "Behind the batteries, on the rear foam", "E16"),
+    ("HP1, HP2", "Battery heater pads 50 W", "12 V silicone pad 175 × 215, self-adhesive, CO1/CO2 50 °C", "Facing sides of BT1 / BT2", "E16"),
+    ("TT1", "Battery temperature sensor", "Victron temperature sensor (BMV / SmartShunt), lug on BT1 +", "Battery 1 + post", "E2, E16"),
+    ("TH2, HP3", "Water-can thermostat + pad 50 W", "12 V thermostat + relay; silicone pad 160 × 735, CO3 45 °C", "Services box / under the can", "E16"),
+    ("XW", "Water-pad plug", "Deutsch DT 4-pin (pad + probe)", "Beside the tent services box", "E16"),
     ("FB1", "Fuse block 12-way + neg bus", "Blue Sea 5026", "Rear control cabinet", "E3"),
     ("FB2", "Local fuse holder + studs", "2-way ATC", "Power slide pod", "E3"),
     ("U12, FB3", "Compute box: BatteryProtect + 6-way ATC block", "Victron SBP-65, Blue Sea 5025-class", "Under the rear seat", "E3"),
@@ -1095,12 +1235,13 @@ footer {{ margin-top: 40px; color: var(--muted); font-size: 13px; }}
   <div class="intro">
     <p class="mono" style="color:var(--accent);margin:0 0 6px;font-weight:600">KIA TASMAN X-PRO · ELECTRICAL · {escape(V)}</p>
     <h1>Fit-out wiring diagram</h1>
-    <p class="lede">Fifteen drawing sheets and the full schedules for the 12 V and 230 V systems. E1–E7 and E9 are the circuits: battery bank,
-    isolation and protection, DC distribution, charging, the inverter's AC side, control, the detachable tent harnesses and the visor drive.
+    <p class="lede">Sixteen drawing sheets and the full schedules for the 12 V and 230 V systems. E1–E7, E9 and E16 are the circuits: battery bank,
+    isolation and protection, DC distribution, charging, the inverter's AC side, control, the detachable tent harnesses, the visor drive
+    and the cold-weather heating (battery and water heaters, charge cut-off below +3 °C).
     E8 and E10–E15 are the cable routes, drawn to scale from the routed 3D model: every run (R-code) with its containment and fixing,
     every cable labelled in every zone, and every bundle's cross-section and conduit fill.
     Cable IDs match <span class="mono">bom/cable-schedule-{escape(V)}.csv</span>; runs match <span class="mono">bom/route-schedule-{escape(V)}.csv</span>.</p>
-    <div class="meta"><span class="chip">{len(SCHED)} cables</span><span class="chip">{total_m:.1f} m routed</span><span class="chip">{len(rsched)} runs</span><span class="chip">15 sheets, A3</span>
+    <div class="meta"><span class="chip">{len(SCHED)} cables</span><span class="chip">{total_m:.1f} m routed</span><span class="chip">{len(rsched)} runs</span><span class="chip">{TOTAL} sheets, A3</span>
       <span class="chip">rev {escape(V)} · {escape(DATE)}</span></div>
     <div class="warn"><strong>230 V:</strong> the inverter output, shore inlet, RCBOs and outlets must be installed and certified by a licensed
     electrician (AS/NZS 3000, AS/NZS 3001.2). These drawings are a design for review, not a certified installation. Check every

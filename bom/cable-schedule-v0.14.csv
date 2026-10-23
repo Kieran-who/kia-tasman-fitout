@@ -1,0 +1,61 @@
+id,circuit,harness,from,to,cable,protection,length_m (model +10%),route (runs),notes
+B1P,Bank +,vehicle,Battery 1 + (MRBF 300 A),Bank + busbar,"70 mm2 tinned, red",MRBF 300 A on terminal,0.85,,cut B1P and B2P to the same length
+B1N,Bank -,vehicle,Battery 1 -,Bank - busbar,"70 mm2 tinned, black",-,1.35,,cut B1N and B2N to the same length
+B2P,Bank +,vehicle,Battery 2 + (MRBF 300 A),Bank + busbar,"70 mm2 tinned, red",MRBF 300 A on terminal,0.85,,cut B1P and B2P to the same length
+B2N,Bank -,vehicle,Battery 2 -,Bank - busbar,"70 mm2 tinned, black",-,1.35,,cut B1N and B2N to the same length
+RB1,Main +,vehicle,Bank + busbar,Remote battery switch IN,"120 mm2 tinned, red",2 x MRBF 300 A upstream (parallel),0.58,,
+RB2,Main +,vehicle,Remote battery switch OUT,System + busbar,"120 mm2 tinned, red",-,0.65,,
+SH1,Main -,vehicle,Bank - busbar,SmartShunt (battery side),"120 mm2 tinned, black",-,0.42,,
+SH2,Main -,vehicle,SmartShunt (system side),System - busbar,"120 mm2 tinned, black",-,0.59,,
+CT1,Inverter +,vehicle,System + busbar,Class-T 400 A,"2 x 50 mm2 tinned, red",-,1.06,,"Class-T holder on the board next to BB3: link under 200 mm, so it counts as at the source"
+INVP,Inverter +,vehicle,Class-T 400 A,MultiPlus-II DC +,"2 x 50 mm2 tinned, red",Class-T 400 A,1.44,,through the board window; Victron: 2 x 50 mm2 per pole for 0-5 m
+INVN,Inverter -,vehicle,System - busbar,MultiPlus-II DC -,"2 x 50 mm2 tinned, black",-,0.98,,
+ORO,Charging output,vehicle,Orion XS 12/12-50A,System +/- busbars (MIDI fuse),16 mm2 twin,MIDI 70 A,1.46,R06 > R31,
+MPR,Charging output,vehicle,MPPT 100/30 (roof),System +/- busbars (MIDI fuse),16 mm2 twin,MIDI 40 A,1.25,R06 > R31,
+MPT,Charging output,vehicle,MPPT 75/15 (tent),System +/- busbars (MIDI fuse),6 mm2 twin,MIDI 40 A (shared with MPV),1.02,R31,
+MPV,Charging output,vehicle,MPPT 100/20 (visor),System +/- busbars (MIDI fuse),6 mm2 twin,MIDI 40 A (shared with MPT),1.15,R03 > R01,
+DCF,DC distribution,vehicle,System + busbar (MEGA 100 A),Rear DC fuse block,35 mm2 twin (red/black),MEGA 100 A,4.1,R01 > R02 > R05 > R08 > R10 > R12 > R33,v0.13: 35 mm2 (25 mm2 dropped 3.9 % at 100 A)
+AC1,AC out,vehicle,MultiPlus-II AC-out 1,RCBO enclosure (Q0 main switch),4 mm2 3-core flex (TPS-flex),MultiPlus internal limit + 15 A AC-in limit; Q0 2-pole main switch,3.97,R01 > R02 > R05 > R07 > R09 > R11,v0.13: 4 mm2 - with PowerAssist AC-out carries ~25 A (15 A shore + inverter); licensed electrician
+AC2,Rear GPO,vehicle,RCBO Q1,Rear panel double GPO,2.5 mm2 3-core flex,RCBO 10 A 30 mA,0.45,,
+AC3,Slide GPO,vehicle,RCBO Q2,Power-slide pod GPO,2.5 mm2 3-core high-flex (chain rated),RCBO 10 A 30 mA,5.76,R11 > R09 > R07 > R05 > R02 > R04 > R29 > R30,"back to the bay in the tray's 230 V side, down behind the inverter, into the slide front; separator in the chain"
+AC4,Tent heater GPO,vehicle,RCBO Q3,Gap junction J1 -> tent services box outlet,"2.5 mm2 3-core flex, UV rated",RCBO 10 A 30 mA,4.45,R11 > R09 > R14 > R16 > R22,orange conduit; detaches at J1 (IP66)
+AC5,Shore inlet,vehicle,Gap junction J2 (from the tent's 15 A inlet),MultiPlus-II AC-in,2.5 mm2 3-core flex (15 A),RCBO 16 A 30 mA 2-pole in the services box + MultiPlus AC-in limit 15 A,7.36,R22 > R16 > R14 > R09 > R07 > R05 > R02 > R01,
+PE2,AC earth to chassis,vehicle,RCBO enclosure earth bar,"Chassis bond point (passenger rail, near the gland)",6 mm2 green/yellow,-,1.91,R12 > R32 > R15,electrician to confirm against AS/NZS 3001.2; bond point shared with CHB
+DO1A,Rear Anderson 1,vehicle,DC fuse block,Rear panel Anderson 1,6 mm2 twin,ATC 30 A,1.03,R33 > R13,
+DO1B,Rear Anderson 2,vehicle,DC fuse block,Rear panel Anderson 2,6 mm2 twin,ATC 30 A,1.09,R33 > R13,
+DO1C,Rear USB-C x2,vehicle,DC fuse block,Rear panel USB-C x2,4 mm2 twin,ATC 25 A,0.96,R33 > R13,"2 x Treklo dual USB-C 120 W (100 W PD + 20 W), U8 linked from U7 (DO1E)"
+DO1D,Rear 12 V socket,vehicle,DC fuse block,Rear panel 12 V socket,4 mm2 twin,ATC 15 A,1.05,R33 > R13,
+DO1E,Rear USB-C link,vehicle,USB-C U7 terminals,USB-C U8 terminals,4 mm2 twin,ATC 25 A (DO1C),0.42,,"v0.13: short link behind the panel, same size as DO1C"
+DO2,Slide DC,vehicle,System + busbar spare stud (MRBF 30 A); - to the system - busbar,Power-slide pod (FB2),6 mm2 twin high-flex,"MRBF 30 A (F17); FB2: X3 20 A, X7 15 A",3.57,R01 > R04 > R29 > R30,fed in the bay; down the riser and the low rear channel into the slide front; chain under the deck
+DO3,Cabin compute feed,vehicle,DC fuse block,Compute box SB50 inlet (under the rear seat),6 mm2 twin,ATC 15 A (+ BatteryProtect and per-device fuses in the box),4.79,R33 > R12 > R32 > R15 > R17 > R18 > R20,"HA PC, router, PoE switch (docs/smart-ute-research.md); no outlets in the cabin"
+DO4,Starlink Mini,vehicle,DC fuse block,Starlink Mini (roof),4 mm2 twin + DC barrel lead,ATC 7.5 A,5.77,R33 > R12 > R32 > R15 > R17 > R23 > R24 > R25 > R26,v0.13: 7.5 A protects the barrel lead (was 10 A)
+DO5,Tent 12 V,vehicle,DC fuse block,Gap junction J3 -> tent (SB50 red),10 mm2 twin,ATC 20 A,4.46,R33 > R12 > R32 > R15 > R17 > R23,v0.13: 10 mm2 / 20 A (6 mm2 at 30 A dropped 11 % over DO5 + T1D); detaches at J3
+ALT,Alternator charge,vehicle,Start battery + (F8 MIDI 60 A); - to the body earth,Orion XS input,"25 mm2 twin (+/-), tinned",MIDI 60 A at the start battery,9.05,R21 > R19 > R18 > R17 > R15 > R32 > R10 > R08 > R05 > R06,Orion input limit 25-30 A until the alternator rating is known; land the - on the body earth (chassis side of the battery sensor)
+IGN,Orion ignition sense,vehicle,"Engine-bay fuse box (add-a-fuse, ignition)",Orion XS remote H,1.0 mm2 single,ATC 2 A add-a-fuse,9.37,R21 > R19 > R18 > R17 > R15 > R32 > R10 > R08 > R05 > R06,engine-run signal; also feeds the visor interlock (VIG)
+PVR,Roof PV,vehicle,"Roof panels PV1 + PV2 (parallel, MC4 Y-branch)",QP1 -> MPPT 100/30 PV in,10 mm2 solar pair (UV),2-pole DC PV isolator QP1 32 A,7.98,R26 > R25 > R24 > R23 > R17 > R15 > R32 > R10 > R08 > R05 > R06,"v0.13: two panels only (visor has its own MPPT), 10 mm2 for the ~7 m run"
+PVT,Tent PV,vehicle,Gap junction J4 (from the tent panels),QP2 -> MPPT 75/15 PV in,6 mm2 solar pair (UV),2-pole DC PV isolator QP2 32 A,6.46,R23 > R17 > R15 > R32 > R10 > R08 > R05 > R06,detaches at J4
+PVS,Visor PV,vehicle,U11 box (MC4 couplers at the visor chain end),QP3 -> MPPT 100/20 (visor) PV in,6 mm2 solar pair (UV),2-pole DC PV isolator QP3 32 A,7.25,R25 > R24 > R23 > R17 > R15 > R32 > R10 > R08 > R05,v0.13: visor on its own MPPT (panel voltage independent of PV1/PV2)
+SW1,Battery switch control,vehicle,Rear panel ML-RBS switch (Blue Sea 2155),ML-RBS control harness,"4-core 1.0 mm2 (+12 V feed, control, LED, ground)",2 A inline at bank + (RBF),3.75,R13 > R12 > R10 > R08 > R05 > R02 > R01,switch feed taken from the battery side so the RBS can be closed again
+RBF,Battery switch control,vehicle,Bank + busbar,ML-RBS control feed (inline 2 A),1.0 mm2 red,ATC 2 A inline,0.57,,
+TS1,Shunt sense + battery temperature,vehicle,"Battery 1 + post (lug with sensor, under the MRBF)",SmartShunt Vbatt+ and Aux,"Victron temperature sensor lead (2-core, supplied)",fuse in the lead (supplied),0.89,,v0.14: replaces the Vbatt+ lead; chargers' low-temperature cut-off +3 C via DVCC
+HTR,Battery heater feed,vehicle,System + busbar (F18 10 A inline); - to the system - busbar,Heater controller TH1,2.5 mm2 twin,ATC 10 A inline (F18),0.93,R01,"v0.14: after the remote switch, so it is off when the bank is isolated"
+HTP,Battery heater pads,vehicle,Heater controller TH1 (relay out),Heater pads HP1 + HP2 (between the batteries),1.5 mm2 twin (silicone),F18 (upstream); 50 C cut-out on each pad,0.44,,"v0.14: through the notch in the rear foam, down the gap between the batteries' lids"
+HTS,Battery heater probe,vehicle,Heater controller TH1 (sensor in),"NTC probe on battery 2 (lid face, mid-height)","NTC probe lead (supplied, 2-core)",-,0.66,,"v0.14: the outer (colder) battery; behind the rear foam, clear of the pads"
+FAN,Inverter fan,vehicle,System + busbar (inline 5 A),92 mm thermostatic fan,1.5 mm2 twin,ATC 5 A inline,1.35,R01 > R02,
+CGX,Cerbo GX power,vehicle,DC fuse block,Cerbo GX power in,0.75 mm2 twin,ATC 2 A,0.74,R33,
+PE1,Inverter case earth,vehicle,MultiPlus-II chassis earth stud,System - busbar,50 mm2 green/yellow,-,0.68,,"Victron: case to the DC negative, same size as the DC negative; AC earth bar bonds the chassis separately (PE2)"
+CHB,Chassis bond,vehicle,System - busbar,"Chassis bond point (passenger rail, near the gland)",25 mm2 black,-,4.7,R01 > R02 > R05 > R08 > R10 > R32 > R15,"single DC-negative bond to the vehicle chassis, shared stud with PE2"
+SW2,Inverter remote on/off,vehicle,Rear panel switch S2,MultiPlus-II remote terminals,2-core 0.75 mm2,-,3.99,R13 > R12 > R10 > R08 > R05 > R02 > R01,
+D1,VE.Bus,vehicle,Cerbo GX,MultiPlus-II,RJ45 VE.Bus cable,-,4.36,R33 > R12 > R10 > R08 > R05 > R02 > R01,
+D2,VE.Direct,vehicle,Cerbo GX VE.Direct 1-3,SmartShunt / MPPT 100/30 / MPPT 75/15,VE.Direct cables x3,-,3.55,R33 > R12 > R10 > R08 > R05 > R06,"three cables: shunt (branches at the riser), roof MPPT, tent MPPT"
+D4,VE.Direct,vehicle,Cerbo GX USB 1,Orion XS VE.Direct,VE.Direct to USB interface,-,3.29,R33 > R12 > R10 > R08 > R05 > R06,Cerbo GX MK2 has only 3 VE.Direct ports
+D5,VE.Direct,vehicle,Cerbo GX USB 2,MPPT 100/20 (visor) VE.Direct,VE.Direct to USB interface,-,3.56,R33 > R12 > R10 > R08 > R05,v0.13: fourth Victron charger
+D3,Display,vehicle,Cerbo GX (HDMI + USB),GX Touch 50,GX Touch cable (HDMI + USB),-,1.01,R33 > R13,
+PVV,Visor PV (moving),vehicle,Visor panel junction box,U11 box (MC4 couplers),"4 mm2 solar pair, high-flex (chain rated)",-,2.29,,runs in the small igus chain beside the passenger guide rail (1.6 m extra in the chain)
+VIS,Visor drive power,vehicle,DC fuse block (way 10),Visor controller U11 (roof),10 mm2 twin,ATC 20 A,5.3,R33 > R12 > R32 > R15 > R17 > R23 > R24 > R25,v0.13: 10 mm2 (6 mm2 dropped 4.6 %); per-channel fuses inside U11
+VSW,Visor control,vehicle,Rear panel visor button (S3),Visor controller U11 (roof),"4-core 0.75 mm2 (deploy, stow, LED, common)",-,5.17,R13 > R12 > R32 > R15 > R17 > R23 > R24 > R25,v0.13: 4-core (the switch and LED need a common)
+VIG,Visor interlock,vehicle,"Orion XS remote H (ignition, F9)",Visor controller interlock input,1.0 mm2 single,F9 2 A (shared),6.93,R06 > R05 > R08 > R10 > R32 > R15 > R17 > R23 > R24 > R25,"ignition on = deploy inhibited, warning if not stowed"
+T1A,Tent harness 230 V,tent,Tent services box (heater outlet + shore inlet),Gap junction J1 + J2,"2 x 2.5 mm2 3-core flex, sheathed together, UV rated",Q4 2-pole RCBO 16 A (AC-in); Q3 (AC-out),3.82,R27,stays with the tent; 230 V only
+T1D,Tent harness 12 V + PV,tent,Tent services box (SB50 + PV bulkhead),Gap junction J3 + J4,"10 mm2 twin (12 V) + 6 mm2 solar pair (PV), sheathed together",DO5 20 A (12 V),1.92,R28,stays with the tent; 12 V and PV only
+T2,Tent PV harness,tent,Tent-top junction box (PV3 + PV4 in series),Services box PV bulkhead,6 mm2 solar pair (UV),-,1.68,,"v0.13: crosses to the base at the front hinge with a service loop, so opening the shell never pulls on it"
+WHT,Water can heater,tent,Tent services box (F19 5 A + thermostat TH2),Water can pad HP3 (under the can),"1.5 mm2 twin (silicone), plug-in",ATC 5 A (F19) in the services box; 45 C cut-out on the pad,0.54,,v0.14: on the lid top under the jacket's end; nothing passes through the lid

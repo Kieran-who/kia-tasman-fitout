@@ -13,7 +13,7 @@ Group 'lid_storage' = fixed hardware (fit-out mass); 'lid_cargo' = the cans, ext
 """
 import params as P
 
-from .core import box, cyl, part
+from .core import anchor, box, cyl, part
 from .vehicle import _fillet, comp
 
 G, GC = "lid_storage", "lid_cargo"
@@ -26,7 +26,7 @@ STRAP = (40, 40, 44, 255)
 TABLE_TOP = (205, 208, 212, 255)
 SHEET = (176, 182, 188, 255)
 
-CLASH_ALLOW = [("uts_cassette", "uts_drawer"),
+CLASH_ALLOW = [("uts_cassette", "uts_drawer"), ("uts_water_jacket", "uts_water_strap"),
                ("uts_water", "uts_water_strap"), ("uts_diesel", "uts_diesel_mount"), ("uts_exting", "uts_exting_bracket"),
                ("uts_table", "uts_drawer"), ("uts_xbar_end", "lid_destroyer_rail")]
 
@@ -52,6 +52,25 @@ def lid_storage(state="travel"):
         can = can.cut(box(wx0 - 1, wx0 + 40, yy, yy + 110, zb + 30, zb + w["H"] - 30))
     parts.append(part("uts_water_30l", GC, can, WATER_GREEN, kg=w["kg"], note="OnTrack slimline 30 L, full; check food-grade"))
     parts.append(part("uts_water_cap", GC, cyl(22, 18, (wx0 + w["W"] - 60, wy0 - 9, zb + w["H"] - 40), "Y"), "trim"))
+    # v0.14 cold-weather jacket (docs/cold-weather.md): closed-cell foam top (30 mm, grooved over the tent under-rail),
+    # sides 18-20 mm, closed end 20 mm; the cap end stays open for filling and the tap. A 50 W pad (HP3) lies on a
+    # foam strip between the two cross-bars under the can; its lead comes from the tent services box (WHT).
+    zj = zb + w["H"] + 30                             # 778: jacket top, 3 mm under the tent base (27 mm over the straps)
+    top = box(wx0 - 20, wx0 + w["W"] + 18, wy0, wy0 + w["L"] + 20, zb + w["H"] + 3, zj)       # over the can straps
+    top = top.cut(box(wx0 - 21, wx0 + w["W"] + 19, -425, -375, zb + w["H"] + 7, zj + 1))     # tent under-rail (y -420..-380)
+    sides = comp([box(wx0 - 20, wx0, wy0, wy0 + w["L"] + 20, z0, zb + w["H"] + 3)
+                  .cut(box(wx0 - 21, wx0 - 9, -430, -370, z0 - 1, zb + w["H"] + 4)),           # tent mount clamp (y -425..-375)
+                  box(wx0 + w["W"], wx0 + w["W"] + 18, wy0, wy0 + w["L"] + 20, z0, zb + w["H"] + 3),
+                  box(wx0, wx0 + w["W"], wy0 + w["L"], wy0 + w["L"] + 20, zb, zb + w["H"] + 3)
+                  .cut(box(wx0 + 180, wx0 + 220, wy0 + w["L"] - 1, wy0 + w["L"] + 21, zb - 1, zb + 8))])     # pad lead notch
+    parts.append(part("uts_water_jacket", G, comp([top, sides]), (52, 56, 60, 255), kg=0.6,
+                      product="Water can jacket: closed-cell foam, fabric covered (made to fit)"))
+    xp0, xp1 = P.UT_XBARS[0] + XB_W / 2 + 5, P.UT_XBARS[1] - XB_W / 2 - 5        # 325 .. 495: between the bars
+    parts.append(part("uts_water_pad_foam", G, box(xp0, xp1, wy0 + 85, wy0 + w["L"] - 30, z0, zb - 1.5), (172, 178, 184, 255),
+                      kg=0.05, product="Closed-cell foam 3 mm"))
+    parts.append(part("uts_water_heat_pad", G, box(xp0 + 5, xp1 - 5, wy0 + 90, wy0 + w["L"] - 35, zb - 1.5, zb), (196, 74, 44, 255),
+                      kg=0.1, product="12 V 50 W silicone heater pad 160 x 735 with 45 C NC cut-out (HP3)"))
+    anchor("water_heat_pad", (wx0 + 200, wy0 + w["L"] - 35, zb - 2.5))
     straps = [box(x, x + 25, wy0 + 60, wy0 + 64, zb, zb + w["H"] + 3).union(box(x, x + 25, wy0 + 60, wy0 + w["L"] - 60, zb + w["H"], zb + w["H"] + 3))
               .union(box(x, x + 25, wy0 + w["L"] - 64, wy0 + w["L"] - 60, zb, zb + w["H"] + 3)) for x in (wx0 + 60, wx0 + w["W"] - 85)]
     parts.append(part("uts_water_straps", G, comp(straps), STRAP, kg=0.3))

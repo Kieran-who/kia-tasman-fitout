@@ -1,0 +1,180 @@
+section,group,item,qty,unit,unit AUD inc GST,line AUD inc GST,price,source
+products,energy storage,Lithium battery 12V 400Ah,2.0,ea,1996.0,3992.0,actual,"https://itechworld.com.au/products/12v-400ah-lithium-battery-with-bluetooth-itech400x-pro (iTechworld; sale price A$1,996 on 2026-10-23, regular A$3,499; has also shown A$2,499)"
+products,distribution,MIDI/MEGA fuse holders + fuses,4.0,ea,62.6,250.4,actual,https://www.bluebottlemarine.com/products/blue-sea-systems-fuse-block-ami-or-midi.html + https://bluebottlemarine.com/products/blue-sea-ami-or-midi-fuses.html (Blue Bottle Marine; Blue Sea 7720B AMI/MIDI block A$57.60 + MIDI fuse A$5.00 (both sale); no AU listing for 5151; check the 7720B fuse range)
+products,monitoring,GX device,1.0,ea,337.63,337.63,actual,"https://www.outbackmarine.com.au/victron-cerbo-gx-mk2 (Outback Marine; sale price, RRP A$526)"
+products,monitoring,Touch display,1.0,ea,300.3,300.3,actual,"https://www.outbackmarine.com.au/victron-gx-touch-50-display (Outback Marine; sale price, RRP A$468)"
+products,DC charging,DC-DC charger 50A,1.0,ea,465.0,465.0,actual,"https://www.mygenerator.com.au/victron-orion-xs-12-12-50a-dc-dc-battery-charger (MyGenerator; sale price, was A$587)"
+products,solar,MPPT roof array (PV1 + PV2),1.0,ea,199.0,199.0,estimate,estimate: AU sale prices ~A$190-215 (RRP ~A$300); not checked this round
+products,solar,MPPT tent array,1.0,ea,86.59,86.59,actual,"https://www.outbackmarine.com.au/victron-smartsolar-mppt-75-15-retail (Outback Marine; sale price, RRP A$135)"
+products,solar,Roof panel 190W,1.0,ea,180.07,180.07,actual,"https://www.outbackmarine.com.au/victron-solar-panel-190w-39-cells-mono-1485x668x30~211745 (Outback Marine; sale price, RRP A$270; current variant SPM041903904)"
+products,solar,Roof panel 130W,1.0,ea,131.52,131.52,actual,"https://www.outbackmarine.com.au/victron-solar-panel-130w-36-cells-mono-1020x668x30 (Outback Marine; sale price, RRP A$197; SPM041303603)"
+products,solar,Tent flexible panel 100W,2.0,ea,229.0,458.0,actual,https://www.solar4rvs.com.au/products/sunman-earc-100w-flexible-solar-panel (Solar4RVs; Sunman eArc 100 W Narrow SMF100J-2X14UW; MyGenerator A$299)
+products,protection,DC fuse block 12-way + neg bus,1.0,ea,86.35,86.35,actual,"https://www.bluebottlemarine.com/products/blue-sea-st-blade-fuse-block-with-cover-12-circuit-with-negative-bus.html (Blue Bottle Marine; sale price, RRP A$96.75)"
+products,AC,RCBO 10 A 30 mA,3.0,ea,33.1,99.3,actual,https://www.sparkydirect.com.au/p/CLIPSAL-RCBE21030S-10amp-rcbo-1p-ResiMax (Sparky Direct; Clipsal RCBE210/30S; possibly clearance)
+products,AC,IP66 enclosure for RCBOs,1.0,ea,30.0,30.0,estimate,Jaycar SF4158 4-way IP66 breaker enclosure ~A$27-32 (listing unavailable)
+products,AC,Flush double GPO (slide pod top),1.0,ea,8.53,8.53,actual,"https://www.sparkydirect.com.au/p/Clipsal-Iconic-3025VW-Double-Power-Point-10Amp-Vivid-White (Sparky Direct; Iconic 3025-VW, sale to 31 Oct 2026 (was A$9.89))"
+products,AC,IP66 inlet 15A (shore),1.0,ea,135.04,135.04,actual,https://www.sparkydirect.com.au/p/CLIPSAL-56AI315-Appliance-Inlet-3-Flat-Pin-15Amp-IP66-56-SERIES (Sparky Direct; A$122.76 ex GST; Clipsal RRP A$290)
+products,AC,Gap junction 230 V connectors,1.0,ea,289.68,289.68,actual,Sparky Direct: 56C310-GY A$71.54 + 56P310-EO plug A$25.34 (https://www.sparkydirect.com.au/p/CLIPSAL-56P310-EO-3-Pin-Flat-10Amp-Straight-Plug-IP66-56-Series) + 56AI315 A$135.04 + 56CSC315-EO extension socket A$57.76 (https://www.sparkydirect.com.au/p/CLIPSAL-56CSC315-EO-Extension-Socket-3-Flat-Pin-15Amp-IP66-56-series-Orange) (Sparky Direct; sum of four listed prices)
+products,DC,Anderson SB50 + flush housings,6.0,ea,35.0,210.0,estimate,Altronics P7862 flush housing A$23.25 inc GST + genuine SB50 red ~A$12 (Altronics)
+products,DC,12V socket,2.0,ea,31.99,63.98,actual,https://autopro.com.au/ap/Autopro-Category/Brands/Narva/Narva-Heavy-Duty-Accessory-Socket/p/EL01840 (Autopro; Narva 81026BL)
+products,wiring,IP66 junction box,1.0,ea,55.0,55.0,estimate,IP66 polycarbonate box ~200x150x100 ~A$40-50 + 3-4 IP68 glands (RS PRO IP66 120x200x75 is A$63 inc GST)
+products,wiring,Cable gland plate / split cable entry,2.0,ea,85.0,170.0,estimate,icotek KEL-ER split frame ~GBP35 ex VAT at RS UK (~A$80 inc GST) + grommets (RS Components; generic split entry plates ~A$20-30)
+products,wiring,Cables,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
+products,slides,L-track heavy duty,3.0,ea,35.0,105.0,estimate,heavy-duty aluminium L-track in AU ~A$30-45/m (per metre)
+products,slides,Ball-lock receiver (flanged stainless bush 8mm),150.0,ea,1.5,225.0,estimate,8 mm ID flanged stainless sleeve in bulk ~A$0.80-2.00 each (AliExpress / eBay) (AliExpress / eBay AU; locally machined stainless would cost several times more)
+products,slides,Ball-lock pin 8 mm stainless (>= 32 mm grip),52.0,ea,18.0,936.0,estimate,"8 mm stainless ball-lock pin, 32-40 mm grip ~A$15-25 each in AU (bulk price may be lower)"
+products,roof,Roof platform,1.0,ea,2195.0,2195.0,actual,"https://roofrack.com.au/product/kia-tasman-dual-cab-2025-current-wedgetail-adventure-platform/ (Roof Rack Superstore; WT-KT-1614U incl. WTM-KT-1614 Tasman mount kit; pre-order discount seen at A$2,085)"
+products,roof,Recessed solar brackets,1.0,ea,199.0,199.0,estimate,no product page found for Wedgetail recessed solar brackets; standard WTA-SPB pair is A$117 at roofrack.com.au
+products,roof,Light bar ~40in flush,1.0,ea,309.0,309.0,actual,https://frankiesautoelectrics.com.au/products/stedi-ledst3k-40l-st3k-41-5-low-profile-40-led-slim-light-bar (Frankie's Auto Electrics; Stedi ST3K 41.5 in slim bar; may be out of stock; Wedgetail light-bar plate WTA-LBS A$157 extra if needed)
+products,roof,Starlink Mini mount,1.0,ea,60.0,60.0,actual,https://www.dometic.com/en-au/product/starlink-mini-quick-release-mount-rrac352 (Dometic / Front Runner; RRAC352 is made for Front Runner rails and may need adapting; Wedgetail WTA-LSLMM lockable mount is A$300)
+products,roof,Cargo bars + risers,1.0,ea,420.0,420.0,estimate,Wedgetail Sides for 1600 mm platforms WTA-S16 A$360 (https://roofrack.com.au/product/wedgetail-adventure-accessory-sides-for-1600mm-platforms-wta-s16/) + ~A$60 risers/hardware (A$360 if the sides alone do the job)
+products,tent,Rhino-Rack Vortex bars + raised brackets,2.0,ea,560.0,0.0,owned,"already owned, not counted; reference price: Vortex bar ~A$119 each + ~A$300-350 tall legs"
+products,inverter/charger,Inverter/charger 3000 VA (2400 W),1.0,ea,1667.45,1667.45,actual,"https://www.outbackmarine.com.au/multiplus-ii-12-3000-70-32-230v-PMP122305010 (Outback Marine; sale price, RRP A$2,597; PMP122305010)"
+products,inverter/charger,Cooling fan 12V 92mm thermostatic,1.0,ea,19.95,19.95,actual,"https://jaycar-prod.australia-southeast1.gcp.storefrontcloud.io/90mm-12v-dc-2-wire-fan/p/YX2521 (Jaycar; YX2521 92 mm, sale price; plain fan, not thermostatic)"
+products,protection,Terminal fuse 300 A (per battery),2.0,ea,70.55,141.1,estimate,"holder BS-5191B A$40.60 at https://www.bluebottlemarine.com/products/blue-sea-mrbf-terminal-fuse-block-30-to-300a.html + 300 A MRBF fuse ~A$30 (top of the A$23-30 range) (Blue Bottle Marine; holder price real, fuse estimated)"
+products,protection,"Terminal fuse 30 A (power-slide feed, F17)",1.0,ea,65.0,65.0,estimate,block A$40.60 at https://www.bluebottlemarine.com/products/blue-sea-mrbf-terminal-fuse-block-30-to-300a.html + MRBF fuse ~A$23-30
+products,protection,Class-T 400 A (inverter feed),1.0,ea,207.9,207.9,estimate,"5502 holder A$100 at https://www.bluebottlemarine.com/products/blue-sea-class-t-fuse-block-with-insulating-cover-225-to-400a.html + 400 A Class-T fuse ~A$108 (top of the A$73-108 range) (Blue Bottle Marine; holder price real, fuse estimated)"
+products,protection,Remote battery switch 500 A,1.0,ea,478.4,478.4,actual,"https://www.bluebottlemarine.com/products/blue-sea-ml-series-remote-battery-switch-auto-release-500a.html (Blue Bottle Marine; sale price, RRP A$536; control switch not included)"
+products,protection,Switch for ML-RBS + inverter remote,2.0,ea,36.0,72.0,estimate,Carling Contura II illuminated base A$27.35 inc GST at swe-check.com.au + actuator ~A$8-9 (Swe-Check)
+products,distribution,"Busbars 600 A (bank +/-, system +/-)",4.0,ea,169.95,679.8,actual,"https://www.bluebottlemarine.com/products/blue-sea-powerbar-4-terminal-bus-bar-600a.html (Blue Bottle Marine; 2104B 4-stud, sale price, RRP A$190.40)"
+products,monitoring,Battery shunt 500A,1.0,ea,143.39,143.39,actual,"https://www.outbackmarine.com.au/victron-smartshunt-500a-50mv (Outback Marine; sale price, RRP A$223)"
+products,AC,Rear double GPO + weatherproof cover,1.0,ea,33.1,33.1,actual,https://www.sparkydirect.com.au/p/CLIPSAL-Iconic-O3025-XW-Double-Weatherproof-Power-Point-10amp-White-IP54 (Sparky Direct; Iconic Outdoor O3025-XW IP54 with hinged cover (instead of a separate flip cover))
+products,AC,IP66 outlet 10A,1.0,ea,71.54,71.54,actual,https://www.sparkydirect.com.au/p/Clipsal-56C310-GY-3-Pin-10Amp-Switched-Socket-Outlet-IP66-56-Series (Sparky Direct; Clipsal 56C310-GY (no listing for 56SO310))
+products,storage,Full-extension runners 48in light/medium duty,4.0,ea,65.0,260.0,estimate,1219 mm 45-70 kg full-extension runners ~A$110-150 per pair in AU (per runner)
+products,storage,Side-mount runners 22 in (559 mm),2.0,ea,18.0,36.0,estimate,22 in (559 mm) full-extension side-mount runners ~A$30-40 per pair (per runner)
+products,storage,Cable tray / wall channel,1.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,slides,Locking slide 46in (handed L/R),4.0,ea,520.0,2080.0,estimate,"no AU listing for DZ9308 46 in; EU retail DZ9308 ~EUR241 per slide at shorter length, scaled to 46 in ~A$500-550 per runner (per runner; ask RS Australia or Metrol for a quote)"
+products,slides,Cable drag chain,1.0,ea,110.0,110.0,estimate,igus E2.15 ~A$50-70 for 0.8 m + ~A$40 mounting brackets
+products,slides,Fold-out telescopic legs (fabricated),4.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,slides,Leg clevis + pivot,4.0,ea,30.0,120.0,estimate,2 small 6 mm aluminium plates (laser cut) ~A$8-10 each + M10 stainless shoulder bolt ~A$8-10 + nyloc
+products,slides,Swivel levelling foot M10,4.0,ea,6.0,24.0,estimate,M10 swivel levelling foot 40 mm pad ~A$4-8
+products,slides,Leg stow clip,4.0,ea,6.0,24.0,estimate,32 mm spring tool clip ~A$1.50 + UHMW block offcut ~A$4
+products,DC,Dual USB-C socket (100 W PD + 20 W),2.0,ea,88.0,176.0,actual,https://campervanbuilders.com.au/products/dual-usb-c-120w-socket-flush-mount-waterproof (Campervan Builders; showed sold out)
+products,storage,Aluminium U-channel for divider slots,40.0,ea,3.5,140.0,estimate,"small aluminium channel ~A$10/m at Bunnings (Metal Mate 16x12x1.6 1 m A$10.38), per 300 mm piece (Bunnings / metal supplier; 12.7x8x1.2 is not a Bunnings size)"
+products,storage,Lift-out dividers,6.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,slides,Deck carrier L-angle,4.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,slides,Fridge-well filler (fabricated),1.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,slides,Flush folding tie-down rings (fridge straps),4.0,ea,12.0,48.0,estimate,flush folding tie-down ring ~A$8-15 each
+products,slides,Example edge fence / cross divider (fabricated),6.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,monitoring,VE.Direct to USB interface,2.0,ea,39.45,78.9,actual,https://www.solar4rvs.com.au/products/victron-ve-direct-to-usb-interface-cable (Solar4RVs; sale price; Outback Marine A$48.01)
+products,monitoring,VE.Direct cables,3.0,ea,18.79,56.37,actual,"https://www.outbackmarine.com.au/ve.direct-1.8m-cable-victron-ass030530218 (Outback Marine; 1.8 m, sale price)"
+products,monitoring,RJ45 VE.Bus cable,1.0,ea,25.0,25.0,actual,https://www.solar4rvs.com.au/products/victron-cat5e-rj45-utp-ethernet-patch-cable-5m (Solar4RVs; sale price)
+products,protection,ML-RBS remote switch,1.0,ea,50.75,50.75,actual,"https://bluebottlemarine.com/products/blue-sea-contura-remote-control-switch-spdt-on-on.html (Blue Bottle Marine; Blue Sea 2155, sale price, RRP A$56.90)"
+products,protection,Inline ATC fuse holders,4.0,ea,10.14,40.56,actual,https://maxiparts.com.au/ELN5440610-weatherproof-ats-blade-fuse-holder-bulk (Maxiparts; Narva 54406BL single)
+products,protection,Add-a-fuse (ignition sense),1.0,ea,5.95,5.95,actual,https://jaycar.com.au/p/SF5125 (Jaycar; sale price (was A$7.95))
+products,protection,MIDI fuse holder at start battery,1.0,ea,62.6,62.6,actual,https://www.bluebottlemarine.com/products/blue-sea-systems-fuse-block-ami-or-midi.html + https://bluebottlemarine.com/products/blue-sea-ami-or-midi-fuses.html (Blue Bottle Marine; 7720B block A$57.60 + 60 A MIDI fuse A$5.00 (sale))
+products,protection,"RCBO 16 A 30 mA 2-pole (shore in, Q4)",1.0,ea,95.0,95.0,estimate,estimate: 2-pole RCBO 16 A 30 mA ~A$80-110 at AU wholesalers
+products,protection,2-pole DC PV isolator 32 A,3.0,ea,36.78,110.34,actual,https://sparkydirect.com.au/p/NHP-NL432PV-Enclosed-DC-Isolating-Switch-32A-1500V-IP66-4-Pole (Sparky Direct; NHP NL432PV enclosed 4-pole (wire as 2-pole); unusually low price)
+products,solar,MC4 Y-branch pair,1.0,ea,8.8,8.8,actual,https://solarshop.baywa-re.com.au/MC4-compatible-Y-branch-socket-Pair (BayWa r.e. Solar Shop; A$8.00 ex GST)
+products,DC,Anderson SB50 grey (PV),2.0,ea,37.0,74.0,estimate,Altronics P7862 housing ~A$23.25 + genuine SB50 grey ~A$13-14
+products,DC,Local fuse holder (pod),1.0,ea,12.0,12.0,estimate,2-way ATC holder ~A$10-15 (Jaycar SZ2044 single A$10.25)
+products,wiring,Earth conductor,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
+products,wiring,Chassis bond,1.0,ea,0.0,0.0,in cables,priced per metre in the cost summary (cable schedule)
+products,distribution,Edge grommet strip,1.0,ea,8.0,8.0,estimate,rubber U-section edge trim ~A$5-15/m
+products,under-tent,Flat jerry can 30 L (water),1.0,ea,259.9,259.9,actual,https://ontrackoutdoor.com.au/products/jerry-can (OnTrack Outdoor; 30 L army green; yellow/black is A$229.90)
+products,under-tent,Diesel pack 1 gal (3.8 L),1.0,ea,270.0,270.0,estimate,1 gal fuel pack ~A$100-120 (Barrett A$100) + LOX lockable mount A$125-207
+products,under-tent,Fire extinguisher 2 kg ABE dry powder,1.0,ea,55.0,55.0,estimate,2 kg ABE ~A$50-67 in AU (Atom Fireworld snippet A$66.96; FirePro 2.5 kg ~A$46)
+products,under-tent,Quick-release extinguisher bracket,1.0,ea,60.0,60.0,estimate,generic quick-release vehicle extinguisher bracket ~A$40-80
+products,under-tent,Drawer runners 36 in full-extension locking,1.0,ea,120.0,120.0,estimate,Giantz 227 kg locking slides 914-1829 mm ~A$120 per pair (914 mm variant not confirmed) (per pair)
+products,under-tent,Rivnuts M8 aluminium,80.0,ea,1.37,109.6,actual,"https://au.element14.com/laser/3643/riveting-nuts-8mm-pk10/dp/2503743 (element14 Australia; Laser 3643 M8 aluminium rivnut, 10-pack A$13.73 inc GST / 10)"
+products,under-tent,Rail T-track clamps,10.0,ea,5.0,50.0,estimate,M8 T-bolt/T-nut ~A$1-2 + 40x40 angle bracket ~A$2-3 (must match the rail T-slot)
+products,under-tent,Cam-buckle straps 25 mm,2.0,ea,8.0,16.0,estimate,25 mm cam-buckle strap ~A$5-10
+products,under-tent,Folding table,1.0,ea,69.99,0.0,owned,"already owned, not counted; reference price: https://www.bcf.com.au/p/wanderer-lightweight-steel-folding-table-ii/652538.html (BCF; Club BCF A$49.99)"
+products,visor,Visor solar panel ~250 W,1.0,ea,399.0,399.0,actual,https://www.solar4rvs.com.au/products/sunman-earc-230w-flexible-solar-panel (Solar4RVs; nearest match: Sunman eArc 230 W flexible SMF230J-8X8UW-S; size not confirmed; honeycomb backing not included)
+products,visor,Linear guide rail + carriage,2.0,ea,140.0,280.0,estimate,"V-slot 2040 x 1500 mm + 2 gantry plates + 8 wheel kits (Maker Store AU range ~A$147 per profile, gantry plate A$14.65) (Maker Store (AU); igus drylin W rail alone is ~A$280+)"
+products,visor,"Slide gearmotor 12 V worm, self-locking",1.0,ea,65.0,65.0,estimate,5840-class / wiper-style 12 V worm gearmotor ~A$45-80 delivered; no AU stockist of a ~10 Nm self-locking unit found (eBay AU / AliExpress; check rated (not stall) torque)
+products,visor,"HTD 5M belts, pulleys and cross shaft",1.0,ea,200.0,200.0,estimate,"2 x HTD 1500-5M-15 belts ~A$25, 4 x HTD5M 15 mm pulleys 12 mm bore ~A$20-30, 12 mm shaft ~A$30, 2 pillow blocks ~A$10 (Maker Store / Miniature Bearings / AliExpress)"
+products,visor,"Tilt drive, worm rotary actuator 12 V",2.0,ea,140.0,280.0,estimate,"12 V worm rotary actuator / small slewing drive 40-60 Nm ~US$70-110 on AliExpress; no AU listing found (AliExpress; at ~1.52 AUD/USD, plus A$15-30 shipping; industrial slewing drives A$300+)"
+products,visor,"Solenoid latch 12 V, spring-locked",2.0,ea,14.3,28.6,actual,"https://core-electronics.com.au/electric-solenoid-lock.html (Core Electronics; DFRobot FIT0620, A$13.00 ex GST; fail-locked but not IP-rated (needs a boot); max ~5 s energised)"
+products,visor,Limit switches,4.0,ea,15.0,60.0,estimate,IP67 sealed roller-lever micro switch (Omron D2VW / Honeywell class) ~A$10-25 at RS / element14 AU (RS / element14 AU)
+products,visor,Visor controller,1.0,ea,470.0,470.0,estimate,"Controllino MINI ~A$327 inc GST (RS AU listing, page not confirmed) + 2 x Cytron MDD20A ~A$45 + IP66 enclosure ~A$45 + buzzer ~A$5 (RS Australia / Cytron; a cheaper 12 V PLC could save ~A$150)"
+products,visor,Visor deploy / stow button,1.0,ea,40.0,40.0,estimate,"Illuminated momentary (ON)-OFF-(ON) Carling V-series / Blue Sea Contura ~A$35-45 in AU (e.g. Blue Sea 8234 / 7944, Carling VLD2A60B)"
+products,visor,Cable chain for the visor PV and motor leads,1.0,ea,150.0,150.0,estimate,"igus E2.15 ~EUR33/m: 1.4 m + brackets ~A$130, plus 4 m of 4 mm2 high-flex solar cable ~A$25 (igus / TME; at ~1.65 AUD/EUR, plus shipping)"
+products,visor,Visor hardware,1.0,ea,0.0,0.0,in materials,raw material priced in the cost summary (cut list)
+products,protection,ATC 20 A blade (FB1 way 10),1.0,ea,1.5,1.5,estimate,20 A ATC blade fuse ~A$1-2
+products,solar,MPPT visor panel (U13),1.0,ea,165.0,165.0,estimate,estimate: AU sale prices ~A$150-180 (RRP ~A$240)
+products,AC,"Main switch 2-pole 32 A (Q0, inverter supply)",1.0,ea,30.0,30.0,estimate,estimate: 2-pole DIN isolator ~A$20-40
+products,wiring,"Split corrugated conduit NW48 (12 V, outside)",4.0,ea,14.0,56.0,estimate,estimate: ~A$10-18/m
+products,wiring,Split corrugated conduit 25-40 mm (12 V branches),6.0,ea,6.0,36.0,estimate,estimate: ~A$4-8/m
+products,wiring,"Orange corrugated conduit 25 mm (230 V, outside)",4.0,ea,3.5,14.0,estimate,estimate: ~A$2-5/m
+products,wiring,Rubber-lined P-clips + M6 rivnuts,45.0,ea,2.2,99.0,estimate,estimate: ~A$1.5-3 each
+products,wiring,Grommets and tie mounts,1.0,ea,60.0,60.0,estimate,estimate
+products,wiring,"Spiral wrap, UV stable (tent harnesses)",4.0,ea,4.0,16.0,estimate,estimate: ~A$3-5/m
+products,wiring,Stick-on cable clamps (cab back riser),6.0,ea,3.0,18.0,estimate,estimate
+products,slides,Chain separator,4.0,ea,4.0,16.0,estimate,estimate
+products,cold weather,Battery temperature sensor (TT1),1.0,ea,45.2,45.2,actual,"https://www.solar4rvs.com.au/products/victron-temperature-sensor-smart-shunt-bmv-712 (Solar4RVs; sale price, was A$59.40; Frankie's Auto Electrics A$43.19)"
+products,cold weather,Battery heater pads 50 W (HP1/HP2),2.0,ea,35.0,70.0,estimate,made-to-size 12 V silicone pads ~A$25-45 each (UK Wolverine 50 W 3400051 GBP 77 is the branded option)
+products,cold weather,Battery heater control (TH1),1.0,ea,55.0,55.0,estimate,thermostat module ~A$15-25 + relay/base ~A$15 + small IP65 box ~A$15
+products,cold weather,Battery bay insulation,1.0,ea,60.0,60.0,estimate,closed-cell foam / foil-faced XPE sheets ~A$40-70 for the set
+products,cold weather,Inline ATC fuse holders (F18 battery heater 10 A),1.0,ea,11.5,11.5,actual,https://maxiparts.com.au/ELN5440610-weatherproof-ats-blade-fuse-holder-bulk (Maxiparts; Narva 54406BL single) + ATC blade ~A$1.5
+products,cold weather,Water can jacket,1.0,ea,80.0,80.0,estimate,DIY: closed-cell foam ~A$35 + canvas/Cordura cover ~A$45
+products,cold weather,Water can heater pad 50 W (HP3),1.0,ea,45.0,45.0,estimate,made-to-size 12 V silicone pad ~A$35-50 + foam strip
+products,cold weather,Water heater control (TH2 + F19 + XW),1.0,ea,45.0,45.0,estimate,thermostat ~A$20 + ATC holder ~A$11 + DT 4-pin kit ~A$15
+cable,cable,0.75 mm2 twin,1.0,m,1.5,1.5,estimate,AU auto-cable retail ~A$1-2/m
+cable,cable,1.0 mm2 red,1.0,m,1.0,1.0,estimate,AU auto-cable retail
+cable,cable,1.0 mm2 single,19.0,m,1.0,19.0,estimate,AU auto-cable retail
+cable,cable,1.5 mm2 twin,2.0,m,2.5,5.0,estimate,AU auto-cable retail
+cable,cable,1.5 mm2 twin (silicone),1.0,m,4.0,4.0,estimate,silicone-insulated twin ~A$3-5/m (heat-tolerant at the pads)
+cable,cable,"1.5 mm2 twin (silicone), plug-in",1.0,m,4.0,4.0,estimate,silicone-insulated twin ~A$3-5/m
+cable,cable,10 mm2 solar pair (UV),10.0,m,12.0,120.0,estimate,2 x 10 mm2 single-core PV cable ~A$5-7/m each
+cable,cable,10 mm2 twin,12.0,m,13.0,156.0,estimate,10 mm2 (8 B&S equiv.) twin ~A$11-15/m
+cable,cable,"10 mm2 twin (12 V) + 6 mm2 solar pair (PV), sheathed together",3.0,m,26.0,78.0,estimate,10 mm2 twin + 2 x 6 mm2 PV in a sheath
+cable,cable,"120 mm2 tinned, black",2.0,m,55.0,110.0,estimate,tinned 120 mm2 (4/0) single ~A$50-60/m
+cable,cable,"120 mm2 tinned, red",2.0,m,55.0,110.0,estimate,tinned 120 mm2 (4/0) single ~A$50-60/m
+cable,cable,16 mm2 twin,4.0,m,20.0,80.0,estimate,6 B&S twin ~A$18-22/m
+cable,cable,"2 x 2.5 mm2 3-core flex, sheathed together, UV rated",5.0,m,13.0,65.0,estimate,two UV-rated 2.5 mm2 flexes in a sheath
+cable,cable,"2 x 50 mm2 tinned, black",2.0,m,25.0,50.0,estimate,tinned 50 mm2 (1 B&S) single ~A$22-28/m
+cable,cable,"2 x 50 mm2 tinned, red",3.0,m,25.0,75.0,estimate,tinned 50 mm2 (1 B&S) single ~A$22-28/m
+cable,cable,2-core 0.75 mm2,5.0,m,1.5,7.5,estimate,AU auto-cable retail
+cable,cable,2.5 mm2 3-core flex,1.0,m,4.5,4.5,estimate,AU electrical wholesale
+cable,cable,2.5 mm2 3-core flex (15 A),9.0,m,4.5,40.5,estimate,AU electrical wholesale
+cable,cable,"2.5 mm2 3-core flex, UV rated",6.0,m,5.5,33.0,estimate,AU electrical wholesale
+cable,cable,2.5 mm2 3-core high-flex (chain rated),7.0,m,9.0,63.0,estimate,chain-rated flex (igus chainflex class) ~A$8-10/m
+cable,cable,2.5 mm2 twin,2.0,m,3.5,7.0,estimate,AU auto-cable retail
+cable,cable,25 mm2 black,6.0,m,12.0,72.0,estimate,25 mm2 (4 B&S) single ~A$10-14/m
+cable,cable,"25 mm2 twin (+/-), tinned",11.0,m,26.0,286.0,estimate,tinned 25 mm2 x2
+cable,cable,35 mm2 twin (red/black),5.0,m,32.0,160.0,estimate,35 mm2 (2 B&S) x2 ~A$15-17/m each
+cable,cable,4 mm2 3-core flex (TPS-flex),5.0,m,7.0,35.0,estimate,AU electrical wholesale
+cable,cable,"4 mm2 solar pair, high-flex (chain rated)",3.0,m,8.0,24.0,estimate,high-flex solar / chain-rated
+cable,cable,4 mm2 twin,3.0,m,5.0,15.0,estimate,AU auto-cable retail
+cable,cable,4 mm2 twin + DC barrel lead,7.0,m,5.0,35.0,estimate,AU auto-cable retail (barrel lead comes with the Starlink Mini)
+cable,cable,"4-core 0.75 mm2 (deploy, stow, LED, common)",6.0,m,3.0,18.0,estimate,AU auto-cable retail
+cable,cable,"4-core 1.0 mm2 (+12 V feed, control, LED, ground)",5.0,m,3.5,17.5,estimate,AU auto-cable retail
+cable,cable,50 mm2 green/yellow,1.0,m,22.0,22.0,estimate,50 mm2 earth
+cable,cable,6 mm2 green/yellow,3.0,m,3.5,10.5,estimate,AU electrical wholesale
+cable,cable,6 mm2 solar pair (UV),18.0,m,7.0,126.0,estimate,2 x 6 mm2 single-core PV cable ~A$3-4/m each
+cable,cable,6 mm2 twin,11.0,m,7.0,77.0,estimate,6 mm2 (6 B&S equiv.) twin ~A$6-8/m
+cable,cable,6 mm2 twin high-flex,5.0,m,10.0,50.0,estimate,high-flex twin
+cable,cable,"70 mm2 tinned, black",4.0,m,35.0,140.0,estimate,tinned 70 mm2 (2/0) single ~A$30-40/m
+cable,cable,"70 mm2 tinned, red",2.0,m,35.0,70.0,estimate,tinned 70 mm2 (2/0) single ~A$30-40/m
+cable,cable,GX Touch cable (HDMI + USB),2.0,m,0.0,0.0,included,supplied with the GX Touch 50
+cable,cable,"NTC probe lead (supplied, 2-core)",1.0,m,0.0,0.0,included,supplied with the thermostat (TH1)
+cable,cable,RJ45 VE.Bus cable,6.0,m,0.0,0.0,in products,product list (VE.Bus cable)
+cable,cable,VE.Direct cables x3,5.0,m,0.0,0.0,in products,product list (VE.Direct cables)
+cable,cable,VE.Direct to USB interface,8.0,m,0.0,0.0,in products,product list (VE.Direct to USB)
+cable,cable,"Victron temperature sensor lead (2-core, supplied)",2.0,m,0.0,0.0,included,supplied with the Victron temperature sensor (TT1)
+cable,cable,Cable terminations,1,lot,350.0,350.0,estimate,"lugs, heat-shrink, ferrules, loom, P-clips, cable ties"
+materials,materials,ACM 3,1,sheet,90.0,90.0,estimate,2440x1220 ACM sheet
+materials,materials,Angle 30x30x3 6060,3.1,m,9.0,27.9,estimate,cut-to-length aluminium retail
+materials,materials,Angle 60x40x3 6060,5.6,m,14.0,78.4,estimate,cut-to-length aluminium retail
+materials,materials,Flat 40x5 6060,11.6,m,9.0,104.4,estimate,cut-to-length aluminium retail ~A$8-10/m
+materials,materials,Flat 50x6 6060,4.5,m,13.0,58.5,estimate,cut-to-length aluminium retail
+materials,materials,Flat 60x6 6060,6.5,m,15.0,97.5,estimate,cut-to-length aluminium retail
+materials,materials,L-track HD,2.6,m,0.0,0.0,in products,product list (L-track heavy duty)
+materials,materials,Plate 3 5052,1,sheet,260.0,260.0,estimate,2400x1200 sheet
+materials,materials,Plate 4 5052,1,sheet,340.0,340.0,estimate,2400x1200 sheet
+materials,materials,Plate 6 5052,1,sheet,500.0,500.0,estimate,2400x1200 sheet
+materials,materials,Ply 12 marine,1,sheet,140.0,140.0,estimate,2400x1200 marine ply
+materials,materials,Ply 15 marine,1,sheet,165.0,165.0,estimate,2400x1200 marine ply
+materials,materials,Ply 18 marine,1,sheet,185.0,185.0,estimate,2400x1200 marine ply
+materials,materials,Ply 9 marine,2,sheet,115.0,230.0,estimate,2400x1200 marine ply (AS/NZS 2272)
+materials,materials,RHS 50x25x2 6060,5.9,m,13.0,76.7,estimate,cut-to-length aluminium retail
+materials,materials,RHS 75x25x2 6060,5.6,m,18.0,100.8,estimate,cut-to-length aluminium retail
+materials,materials,SHS 19x19x1.6 6060,1.7,m,7.0,11.9,estimate,cut-to-length aluminium retail
+materials,materials,SHS 25x25x2 6060,1.8,m,10.0,18.0,estimate,cut-to-length aluminium retail
+materials,materials,SHS 30x30x2 6060,2.6,m,11.0,28.6,estimate,cut-to-length aluminium retail
+materials,materials,SHS 32x32x2 6060,1.8,m,12.0,21.6,estimate,cut-to-length aluminium retail
+materials,materials,Sheet 1.6 5005,2,sheet,130.0,260.0,estimate,2400x1200 sheet
+materials,materials,UHMW 10,1,sheet,80.0,80.0,estimate,1000x500 UHMW-PE sheet
+materials,materials,Fasteners and consumables,1,lot,450.0,450.0,estimate,"bolts, screws, rivets, adhesive, sealant, edge trim, finish"
+total,,,,,,28925.89,,actual 14011 / estimate 14915

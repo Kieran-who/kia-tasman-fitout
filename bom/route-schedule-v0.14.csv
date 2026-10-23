@@ -1,0 +1,34 @@
+run,name,zone,length_m,cables,cable_area_mm2,containment,fill,voltage,fixing,cable ids
+R01,"Bay riser, busbar side",bay,0.38,11,723,open,,12 V,rear channel behind the busbars (gap to battery 1); cable ties to the rear posts' saddle bar every 150 mm,MPV DCF AC1 AC5 DO2 SW1 HTR FAN CHB SW2 D1
+R02,"Bay rear channel, high",bay,0.58,9,695,open,,12 V,"behind the distribution board edge and the inverter, under the top rail; adhesive tie mounts on the guard frame",DCF AC1 AC3 AC5 SW1 FAN CHB SW2 D1
+R03,"Bay rear channel, cross link",bay,0.11,1,46,open,,12 V,"behind the board edge, visor MPPT output",MPV
+R04,"Bay rear channel, low (to the slide)",bay,0.85,2,132,open,,12 V,"along the base tray behind the inverter, then down from the high channel; P-clips to the base tray",AC3 DO2
+R05,Bay exit over the inverter,bay,0.33,17,1162,open,,12 V,across the top of the inverter compartment and over the passenger drawer carcass; grommet strip on the carcass edge,DCF AC1 AC3 AC5 ALT IGN PVR PVT PVS SW1 CHB SW2 D1 D2 D4 D5 VIG
+R31,Bay front channel (chargers to the MIDI fuses),bay,0.36,3,278,open,,12 V,"between the front wall and the distribution board's front edge, under the charging board; tie mounts on the board edge",ORO MPR MPT
+R06,Charging-board loom,bay,0.67,9,632,open,,12 V,down the front of the inverter compartment and along under the chargers' terminal faces; tie mounts on the board,ORO MPR ALT IGN PVR PVT D2 D4 VIG
+R07,"Tray, 230 V compartment",tray,1.42,3,286,tray,,230 V,"aluminium tray, 230 V side of the divider; ties through the tray slots every 120 mm",AC1 AC3 AC5
+R08,"Tray, 12 V compartment",tray,1.26,14,875,tray,,12 V,"aluminium tray, 12 V side of the divider; ties through the tray slots every 120 mm",DCF ALT IGN PVR PVT PVS SW1 CHB SW2 D1 D2 D4 D5 VIG
+R09,"Wall channel, 230 V drop",wall,0.2,4,373,channel,,230 V,"22 mm channel behind the drawer runner panel, then out through the 230 V grommet row of the gland plate; ties to adhesive mounts",AC1 AC3 AC4 AC5
+R10,"Wall channel, 12 V drop",wall,0.18,14,875,channel,,12 V,22 mm channel behind the drawer runner panel (two layers); ties to adhesive mounts on the tub wall,DCF ALT IGN PVR PVT PVS SW1 CHB SW2 D1 D2 D4 D5 VIG
+R32,"Gland plate, 12 V rows",wall,0.02,13,785,open,,12 V,12 V grommet rows of the gland plate in the old outlet hole,PE2 DO3 DO4 DO5 ALT IGN PVR PVT PVS CHB VIS VSW VIG
+R11,"Cabinet, 230 V entry",cabinet,0.22,3,286,open,,230 V,"LV gland in the cabinet top, down the outboard corridor to the RCBO side gland",AC1 AC3 AC4
+R12,Cabinet entry (12 V slot),cabinet,0.22,13,689,open,,12 V,down the wall channel and through the 12 V slot (split grommet) in the drawer floor and cabinet top,DCF PE2 DO3 DO4 DO5 SW1 SW2 D1 D2 D4 D5 VIS VSW
+R33,Cabinet top loom,cabinet,0.36,15,799,open,,12 V,"forward along the outboard corridor beside the RCBO enclosure, under the cabinet top; tie mounts",DCF DO1A DO1B DO1C DO1D DO3 DO4 DO5 CGX D1 D2 D4 D5 D3 VIS
+R13,Rear-panel loom,cabinet,0.26,8,319,open,,12 V,"vertical loom between the RCBO enclosure lid and the rear-panel devices; spiral wrap, ties to the door stile",DO1A DO1B DO1C DO1D SW1 SW2 D3 VSW
+R14,"Wall cavity + under floor, 230 V",under,1.09,2,173,orange corrugated conduit 25 mm ID,35%,230 V,LV grommet row in the gland plate; orange corrugated conduit down the wall cavity and under the floor to the rail,AC4 AC5
+R15,"Wall cavity + under floor, 12 V",under,1.02,13,785,split conduit 50 mm ID,40%,12 V,12 V grommet row in the gland plate; black split corrugated conduit down the wall cavity and under the floor to the rail,PE2 DO3 DO4 DO5 ALT IGN PVR PVT PVS CHB VIS VSW VIG
+R16,"Chassis rail, 230 V, tub to the gap",chassis,1.37,2,173,orange corrugated conduit 25 mm ID,35%,230 V,"orange corrugated conduit on the rail web, below the 12 V conduit; rubber-lined P-clips every 300 mm",AC4 AC5
+R17,"Chassis rail, 12 V, tub to the gap",chassis,1.43,11,677,split conduit 50 mm ID,34%,12 V,black split conduit on the rail web; rubber-lined P-clips into M6 rivnuts every 300 mm (no welding or drilling the flanges),DO3 DO4 DO5 ALT IGN PVR PVT PVS VIS VSW VIG
+R18,"Chassis rail, 12 V, gap to the cabin",chassis,0.68,3,221,split conduit 25 mm ID,45%,12 V,black split conduit; P-clips every 300 mm,DO3 ALT IGN
+R19,"Chassis rail, 12 V, cabin to the engine bay",chassis,2.12,2,176,split conduit 25 mm ID,36%,12 V,black split conduit (heat-rated near the exhaust); P-clips every 300 mm,ALT IGN
+R20,Cabin branch,cabin,0.25,1,46,split conduit 13 mm ID,35%,12 V,"up to a sealed grommet in the floor under the rear seat (sealant + rubber grommet), then to the compute box SB50 inlet",DO3
+R21,Engine-bay riser,engine,0.51,2,176,split conduit 25 mm ID,36%,12 V,heat-rated split conduit up the inner guard behind the start battery; P-clips to existing guard holes,ALT IGN
+R22,"Gap riser, 230 V",gap,0.84,2,173,orange corrugated conduit 25 mm ID,35%,230 V,orange conduit up the cab-tub gap to the LV gland in the junction box base,AC4 AC5
+R23,"Gap riser, 12 V",gap,0.67,8,455,split conduit 40 mm ID,36%,12 V,black conduit up the cab-tub gap to the ELV gland in the junction box base,DO4 DO5 PVR PVT PVS VIS VSW VIG
+R24,Junction box pass-through,gap,0.18,6,310,open,,12 V,through the junction box on the 12 V side of its barrier (roof cables are not detachable),DO4 PVR PVS VIS VSW VIG
+R25,Cab back riser to the roof,roof,0.57,6,310,split conduit 32 mm ID,39%,12 V,"black conduit up the back of the cab (C-pillar corner), stick-on cable clamps every 250 mm, over the roof edge under the platform",DO4 PVR PVS VIS VSW VIG
+R26,Platform rear end member,roof,0.72,2,124,hollow,,12 V,"inside the hollow rear end member (34 x 34 mm), in through a grommeted hole in its underside, out through grommets on its inner face",DO4 PVR
+R27,"Tent harness, 230 V",tent,1.45,1,173,spiral wrap 25 mm,35%,230 V,"orange sheathed harness in UV-stable spiral wrap, saddles under the tent base and on the lid front",T1A
+R28,"Tent harness, 12 V + PV",tent,1.46,1,214,spiral wrap 25 mm,44%,12 V,"black sheathed harness in spiral wrap, saddles under the tent base and on the lid front",T1D
+R29,"Slide trunk (fixed, on the glide tray)",slide,0.71,2,132,open,,12 V,"under the bay guard into the front of the cassette, along the glide tray outboard of the fixed run; ties to the tray lip",AC3 DO2
+R30,Power-slide cable chain,slide,0.84,2,132,chain,,12 V,"igus E2.15 (R75) lying on its side, with a separator between the 230 V and 12 V cables; strain-relief at both ends",AC3 DO2

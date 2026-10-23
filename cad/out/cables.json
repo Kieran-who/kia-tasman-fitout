@@ -1,5 +1,5 @@
 {
-"version": "v0.13",
+"version": "v0.14",
 "cables": [
 {
 "id": "B1P",
@@ -907,7 +907,7 @@ null,
 "protection": "MIDI 40 A (shared with MPT)",
 "side": "vehicle",
 "colour": "w_pos",
-"length_m": 1.16,
+"length_m": 1.15,
 "notes": "",
 "runs": [
 "R03",
@@ -946,27 +946,27 @@ null,
 ],
 [
 300.0,
-64.4,
+59.6,
 360.0
 ],
 [
 312.2,
-64.4,
+59.6,
 360.0
 ],
 [
 312.2,
-64.4,
+59.6,
 270.0
 ],
 [
 312.2,
-64.4,
+59.6,
 190.0
 ],
 [
 312.2,
-64.4,
+59.6,
 90.0
 ],
 [
@@ -2660,7 +2660,7 @@ null,
 "protection": "MRBF 30 A (F17); FB2: X3 20 A, X7 15 A",
 "side": "vehicle",
 "colour": "w_12v",
-"length_m": 3.58,
+"length_m": 3.57,
 "notes": "fed in the bay; down the riser and the low rear channel into the slide front; chain under the deck",
 "runs": [
 "R01",
@@ -2701,22 +2701,22 @@ null,
 ],
 [
 312.2,
-51.6,
+46.8,
 190.0
 ],
 [
 312.2,
-51.6,
+46.8,
 90.0
 ],
 [
 312.2,
-51.6,
+46.8,
 30.0
 ],
 [
 305.8,
-51.6,
+46.8,
 30.0
 ],
 [
@@ -4797,23 +4797,24 @@ null,
 ]
 },
 {
-"id": "SHV",
-"circuit": "Shunt sense",
-"frm": "Bank + busbar",
-"to": "SmartShunt Vbatt+",
+"id": "TS1",
+"circuit": "Shunt sense + battery temperature",
+"frm": "Battery 1 + post (lug with sensor, under the MRBF)",
+"to": "SmartShunt Vbatt+ and Aux",
 "size": "data",
-"spec": "0.75 mm2 red (supplied lead)",
-"protection": "1 A inline (supplied)",
+"spec": "Victron temperature sensor lead (2-core, supplied)",
+"protection": "fuse in the lead (supplied)",
 "side": "vehicle",
 "colour": "w_data",
-"length_m": 0.84,
-"notes": "",
+"length_m": 0.89,
+"notes": "v0.14: replaces the Vbatt+ lead; chargers' low-temperature cut-off +3 C via DVCC",
 "runs": [],
-"od": 2.4,
+"od": 5.6,
 "cores": 1,
 "lv": false,
 "via": [
-"bus_bank_pos",
+"batt1_pos_post",
+null,
 null,
 null,
 null,
@@ -4821,19 +4822,24 @@ null,
 ],
 "points": [
 [
-257.5,
-5.5,
-490.9
+236.0,
+112.0,
+484.0
 ],
 [
-237.5,
+240.0,
+108.0,
+500.0
+],
+[
+240.0,
 45.0,
-490.9
+500.0
 ],
 [
 97.0,
 45.0,
-490.9
+500.0
 ],
 [
 97.0,
@@ -4848,6 +4854,180 @@ null,
 ]
 },
 {
+"id": "HTR",
+"circuit": "Battery heater feed",
+"frm": "System + busbar (F18 10 A inline); - to the system - busbar",
+"to": "Heater controller TH1",
+"size": "2.5",
+"spec": "2.5 mm2 twin",
+"protection": "ATC 10 A inline (F18)",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.93,
+"notes": "v0.14: after the remote switch, so it is off when the bank is isolated",
+"runs": [
+"R01"
+],
+"od": 3.8,
+"cores": 2,
+"lv": false,
+"via": [
+"bus_sys_pos",
+null,
+"b_bus270",
+"b_bus360",
+"b_bus410",
+null,
+null,
+null,
+"bay_heater_ctrl"
+],
+"points": [
+[
+257.5,
+5.5,
+265.9
+],
+[
+257.5,
+62.0,
+265.9
+],
+[
+287.8,
+70.8,
+270.0
+],
+[
+287.8,
+70.8,
+360.0
+],
+[
+287.8,
+70.8,
+410.0
+],
+[
+300.0,
+62.0,
+450.0
+],
+[
+268.0,
+62.0,
+450.0
+],
+[
+268.0,
+315.0,
+450.0
+],
+[
+268.0,
+315.0,
+466.0
+]
+]
+},
+{
+"id": "HTP",
+"circuit": "Battery heater pads",
+"frm": "Heater controller TH1 (relay out)",
+"to": "Heater pads HP1 + HP2 (between the batteries)",
+"size": "1.5",
+"spec": "1.5 mm2 twin (silicone)",
+"protection": "F18 (upstream); 50 C cut-out on each pad",
+"side": "vehicle",
+"colour": "w_12v",
+"length_m": 0.44,
+"notes": "v0.14: through the notch in the rear foam, down the gap between the batteries' lids",
+"runs": [],
+"od": 3.0,
+"cores": 2,
+"lv": false,
+"via": [
+"bay_heater_out",
+null,
+null,
+"bay_heater_pads"
+],
+"points": [
+[
+273.0,
+335.0,
+466.0
+],
+[
+273.0,
+335.0,
+415.0
+],
+[
+200.0,
+335.0,
+415.0
+]
+]
+},
+{
+"id": "HTS",
+"circuit": "Battery heater probe",
+"frm": "Heater controller TH1 (sensor in)",
+"to": "NTC probe on battery 2 (lid face, mid-height)",
+"size": "data",
+"spec": "NTC probe lead (supplied, 2-core)",
+"protection": "-",
+"side": "vehicle",
+"colour": "w_data",
+"length_m": 0.66,
+"notes": "v0.14: the outer (colder) battery; behind the rear foam, clear of the pads",
+"runs": [],
+"od": 5.6,
+"cores": 1,
+"lv": false,
+"via": [
+"bay_heater_probe_out",
+null,
+null,
+null,
+null,
+"bay_heater_probe"
+],
+"points": [
+[
+278.0,
+345.0,
+466.0
+],
+[
+278.0,
+345.0,
+415.0
+],
+[
+235.0,
+345.0,
+415.0
+],
+[
+235.0,
+345.0,
+300.0
+],
+[
+235.0,
+460.0,
+300.0
+],
+[
+229.0,
+460.0,
+300.0
+]
+]
+},
+{
 "id": "FAN",
 "circuit": "Inverter fan",
 "frm": "System + busbar (inline 5 A)",
@@ -4857,7 +5037,7 @@ null,
 "protection": "ATC 5 A inline",
 "side": "vehicle",
 "colour": "w_12v",
-"length_m": 1.34,
+"length_m": 1.35,
 "notes": "",
 "runs": [
 "R01",
@@ -4890,22 +5070,22 @@ null,
 ],
 [
 287.8,
-74.8,
+79.6,
 270.0
 ],
 [
 287.8,
-74.8,
+79.6,
 360.0
 ],
 [
 287.8,
-74.8,
+79.6,
 434.4
 ],
 [
 303.3,
-74.8,
+79.6,
 434.4
 ],
 [
@@ -5269,7 +5449,7 @@ null
 "protection": "-",
 "side": "vehicle",
 "colour": "w_data",
-"length_m": 3.98,
+"length_m": 3.99,
 "notes": "",
 "runs": [
 "R13",
@@ -5308,6 +5488,7 @@ null,
 "b_bus270",
 "b_bus190",
 "b_bus90",
+null,
 null,
 null,
 "inv_remote"
@@ -5494,6 +5675,11 @@ null,
 90.0
 ],
 [
+280.0,
+62.0,
+100.0
+],
+[
 169.0,
 62.0,
 100.0
@@ -5520,7 +5706,7 @@ null,
 "protection": "-",
 "side": "vehicle",
 "colour": "w_data",
-"length_m": 4.35,
+"length_m": 4.36,
 "notes": "",
 "runs": [
 "R33",
@@ -5558,6 +5744,7 @@ null,
 "b_bus270",
 "b_bus190",
 "b_bus90",
+null,
 null,
 null,
 "inv_comms"
@@ -5732,6 +5919,11 @@ null,
 303.3,
 74.2,
 90.0
+],
+[
+280.0,
+62.0,
+100.0
 ],
 [
 149.0,
@@ -7315,6 +7507,52 @@ null,
 664.4
 ]
 ]
+},
+{
+"id": "WHT",
+"circuit": "Water can heater",
+"frm": "Tent services box (F19 5 A + thermostat TH2)",
+"to": "Water can pad HP3 (under the can)",
+"size": "1.5",
+"spec": "1.5 mm2 twin (silicone), plug-in",
+"protection": "ATC 5 A (F19) in the services box; 45 C cut-out on the pad",
+"side": "tent",
+"colour": "w_tent",
+"length_m": 0.54,
+"notes": "v0.14: on the lid top under the jacket's end; nothing passes through the lid",
+"runs": [],
+"od": 3.0,
+"cores": 2,
+"lv": false,
+"via": [
+"tent_services_w",
+null,
+null,
+null,
+"water_heat_pad"
+],
+"points": [
+[
+440.0,
+205.0,
+645.4
+],
+[
+440.0,
+110.0,
+645.4
+],
+[
+440.0,
+110.0,
+596.5
+],
+[
+440.0,
+40.0,
+596.5
+]
+]
 }
 ],
 "runs": [
@@ -7341,6 +7579,7 @@ null,
 "AC5",
 "DO2",
 "SW1",
+"HTR",
 "FAN",
 "CHB",
 "SW2",
@@ -7348,8 +7587,8 @@ null,
 ],
 "size_mm": 43.5,
 "conduit_id": 50,
-"fill": 0.36,
-"area": 700
+"fill": 0.37,
+"area": 723
 },
 {
 "code": "R02",
@@ -8727,15 +8966,19 @@ null,
 3.3
 ],
 "DO2": [
--10.4,
+-15.2,
 12.2
 ],
 "MPV": [
-2.4,
+-2.4,
+12.2
+],
+"HTR": [
+8.8,
 12.2
 ],
 "FAN": [
-12.8,
+17.6,
 12.2
 ]
 }
@@ -11296,6 +11539,33 @@ null,
 686,
 730
 ],
+"uts_water_jacket": [
+"lid_storage",
+220,
+598,
+-785,
+95,
+593,
+778
+],
+"uts_water_pad_foam": [
+"lid_storage",
+325,
+495,
+-700,
+45,
+593,
+597
+],
+"uts_water_heat_pad": [
+"lid_storage",
+330,
+490,
+-695,
+40,
+596,
+598
+],
 "uts_water_straps": [
 "lid_storage",
 300,
@@ -11952,6 +12222,78 @@ null,
 555,
 430,
 462
+],
+"batt_foam_rear": [
+"battery_insul",
+242,
+262,
+88,
+582,
+6,
+440
+],
+"batt_foam_inboard": [
+"battery_insul",
+8,
+262,
+70,
+85,
+6,
+440
+],
+"batt_foam_front": [
+"battery_insul",
+1,
+5,
+88,
+582,
+6,
+535
+],
+"batt_foam_top": [
+"battery_insul",
+8,
+262,
+88,
+582,
+540,
+546
+],
+"batt_foam_outer": [
+"battery_insul",
+8,
+262,
+584,
+588,
+292,
+535
+],
+"batt_heat_pad_hp1": [
+"battery_heat",
+20,
+195,
+328,
+330,
+200,
+416
+],
+"batt_heat_pad_hp2": [
+"battery_heat",
+20,
+195,
+340,
+342,
+200,
+416
+],
+"batt_heat_ctrl": [
+"battery_heat",
+262,
+284,
+300,
+360,
+466,
+530
 ],
 "dist_board": [
 "bay",
@@ -15936,22 +16278,22 @@ null,
 ],
 [
 312.2,
-51.6,
+46.8,
 190.0
 ],
 [
 312.2,
-51.6,
+46.8,
 90.0
 ],
 [
 312.2,
-51.6,
+46.8,
 30.0
 ],
 [
 305.8,
-51.6,
+46.8,
 30.0
 ],
 [
@@ -16692,6 +17034,16 @@ null,
 330.0,
 715.4
 ],
+"tent_services_w": [
+440.0,
+205.0,
+645.4
+],
+"water_heat_pad": [
+440.0,
+40.0,
+595.5
+],
 "inv_dc_pos": [
 95.0,
 -34.0,
@@ -16802,6 +17154,11 @@ null,
 280.0,
 484.0
 ],
+"batt1_pos_post": [
+236.0,
+112.0,
+484.0
+],
 "batt2_pos": [
 261.5,
 430.0,
@@ -16811,6 +17168,36 @@ null,
 235.5,
 530.0,
 484.0
+],
+"batt2_pos_post": [
+236.0,
+362.0,
+484.0
+],
+"bay_heater_ctrl": [
+268.0,
+315.0,
+466.0
+],
+"bay_heater_out": [
+273.0,
+335.0,
+466.0
+],
+"bay_heater_probe_out": [
+278.0,
+345.0,
+466.0
+],
+"bay_heater_pads": [
+200.0,
+335.0,
+415.0
+],
+"bay_heater_probe": [
+229.0,
+460.0,
+300.0
 ],
 "bus_bank_neg": [
 62.5,

@@ -254,4 +254,5 @@ def rack_and_tent():
     anchor("tent_services_pv", (sx + 268, yo + s * 6, zb0 - 92))
     anchor("tent_services_a", (sx, 260, zb0 - 71))                      # harness glands on the box's front face
     anchor("tent_services_d", (sx, 330, zb0 - 41))
+    anchor("tent_services_w", (sx + 210, ya, zb0 - 111))                # v0.14: water-pad lead gland (inner face, low)
     return parts

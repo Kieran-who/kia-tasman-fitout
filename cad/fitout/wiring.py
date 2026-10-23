@@ -504,9 +504,29 @@ def cables():
     add("RBF", "Battery switch control", "Bank + busbar", "ML-RBS control feed (inline 2 A)", "data", "1.0 mm2 red", "ATC 2 A inline",
         "w_data", ["bus_bank_pos", (A["bus_bank_pos"][0] - 20, 45, A["bus_bank_pos"][2]), (A["rbs_ctrl"][0], 45, A["rbs_ctrl"][2]), "rbs_ctrl"],
         od_of("single", 1.0))
-    add("SHV", "Shunt sense", "Bank + busbar", "SmartShunt Vbatt+", "data", "0.75 mm2 red (supplied lead)", "1 A inline (supplied)",
-        "w_data", ["bus_bank_pos", (A["bus_bank_pos"][0] - 20, 45, A["bus_bank_pos"][2]), (A["shunt_vbatt"][0], 45, A["bus_bank_pos"][2]),
-                   (A["shunt_vbatt"][0], 45, A["shunt_vbatt"][2]), "shunt_vbatt"], od_of("single", 0.75))
+    # v0.14: the Victron temperature sensor replaces the plain Vbatt+ lead - its lug (sensor inside) goes on battery 1's +
+    # post under the MRBF, red to Vbatt+ (fused in the lead), black to Aux (set to 'temperature'); DVCC shares it
+    sv = A["shunt_vbatt"]
+    add("TS1", "Shunt sense + battery temperature", "Battery 1 + post (lug with sensor, under the MRBF)", "SmartShunt Vbatt+ and Aux",
+        "data", "Victron temperature sensor lead (2-core, supplied)", "fuse in the lead (supplied)", "w_data",
+        ["batt1_pos_post", (240, A["batt1_pos_post"][1] - 4, 500), (240, 45, 500), (sv[0], 45, 500), (sv[0], 45, sv[2]), "shunt_vbatt"],
+        od_of("2c0.75"), notes="v0.14: replaces the Vbatt+ lead; chargers' low-temperature cut-off +3 C via DVCC")
+    # v0.14 battery heater: BB3 -> F18 10 A inline -> TH1 (thermostat + relay, behind the batteries) -> HP1/HP2
+    bs, hc = A["bus_sys_pos"], A["bay_heater_ctrl"]
+    add("HTR", "Battery heater feed", "System + busbar (F18 10 A inline); - to the system - busbar", "Heater controller TH1",
+        "2.5", "2.5 mm2 twin", "ATC 10 A inline (F18)", "w_12v",
+        ["bus_sys_pos", (bs[0], 62, bs[2]), "b_bus270", "b_bus360", "b_bus410", (rch, 62, 450), (hc[0], 62, 450), (hc[0], hc[1], 450),
+         "bay_heater_ctrl"], od_of("twin", 2.5), notes="v0.14: after the remote switch, so it is off when the bank is isolated")
+    ho, hp = A["bay_heater_out"], A["bay_heater_pads"]
+    add("HTP", "Battery heater pads", "Heater controller TH1 (relay out)", "Heater pads HP1 + HP2 (between the batteries)", "1.5",
+        "1.5 mm2 twin (silicone)", "F18 (upstream); 50 C cut-out on each pad", "w_12v",
+        ["bay_heater_out", (ho[0], ho[1], 415), (hp[0], hp[1], 415), "bay_heater_pads"], od_of("twin", 1.5),
+        notes="v0.14: through the notch in the rear foam, down the gap between the batteries' lids")
+    hq, pr = A["bay_heater_probe_out"], A["bay_heater_probe"]
+    add("HTS", "Battery heater probe", "Heater controller TH1 (sensor in)", "NTC probe on battery 2 (lid face, mid-height)", "data",
+        "NTC probe lead (supplied, 2-core)", "-", "w_data",
+        ["bay_heater_probe_out", (hq[0], hq[1], 415), (pr[0] + 6, hq[1], 415), (pr[0] + 6, hq[1], pr[2]), (pr[0] + 6, pr[1], pr[2]),
+         "bay_heater_probe"], od_of("2c0.75"), notes="v0.14: the outer (colder) battery; behind the rear foam, clear of the pads")
     fan = A["inv_fan"]
     add("FAN", "Inverter fan", "System + busbar (inline 5 A)", "92 mm thermostatic fan", "1.5", "1.5 mm2 twin", "ATC 5 A inline", "w_12v",
         ["bus_sys_pos", (A["bus_sys_pos"][0], 62, A["bus_sys_pos"][2]), "b_bus270", "b_bus360", "b_bus410", "b_rh_c",
@@ -523,11 +543,11 @@ def cables():
         notes="single DC-negative bond to the vehicle chassis, shared stud with PE2")
     add("SW2", "Inverter remote on/off", "Rear panel switch S2", "MultiPlus-II remote terminals", "data", "2-core 0.75 mm2", "-", "w_data",
         ["pc_sw_inverter", (1352, A["pc_sw_inverter"][1], A["pc_sw_inverter"][2]), "c_pl215", "c_pl2", "c_pl", "c_r", "c_in"] + TRAY_TO_CB[1:8]
-        + list(reversed(S1)) + ["b_bus360", "b_bus270", "b_bus190", "b_bus90", (A["inv_remote"][0], 62, 100),
+        + list(reversed(S1)) + ["b_bus360", "b_bus270", "b_bus190", "b_bus90", (rch - 20, 62, 100), (A["inv_remote"][0], 62, 100),
                                 (A["inv_remote"][0], A["inv_remote"][1] + 20, 100), "inv_remote"], od_of("2c0.75"))
     COMMS = ["cerbo", (955, -660, 240), "c_cg", "c_fb", "c_r", "c_in"] + TRAY_TO_CB[1:8] + list(reversed(S1))
     add("D1", "VE.Bus", "Cerbo GX", "MultiPlus-II", "data", "RJ45 VE.Bus cable", "-", "w_data",
-        COMMS + ["b_bus360", "b_bus270", "b_bus190", "b_bus90", (A["inv_comms"][0], 62, 100), (A["inv_comms"][0], A["inv_comms"][1] + 20, 100),
+        COMMS + ["b_bus360", "b_bus270", "b_bus190", "b_bus90", (rch - 20, 62, 100), (A["inv_comms"][0], 62, 100), (A["inv_comms"][0], A["inv_comms"][1] + 20, 100),
                  "inv_comms"], od_of("vebus"))
     add("D2", "VE.Direct", "Cerbo GX VE.Direct 1-3", "SmartShunt / MPPT 100/30 / MPPT 75/15", "data", "VE.Direct cables x3", "-", "w_data",
         COMMS[:-4] + ["b_cb_hi", "b_cb_520", "b_cb_310", (95, A["mppt_roof_100_30"][1], 282), _up("mppt_roof_100_30", -6),
@@ -573,6 +593,12 @@ def cables():
                    (hf[0], hf[1] + 8, 770), (A["tent_services_pv"][0], hf[1] + 8, 770),
                    (A["tent_services_pv"][0], hf[1] + 8, A["tent_services_pv"][2]), "tent_services_pv"], od_of("pv2", 6), side="tent",
         notes="v0.13: crosses to the base at the front hinge with a service loop, so opening the shell never pulls on it")
+    # v0.14: water-can pad, fed from the tent services box (T1D / DO5 12 V): F19 5 A + thermostat TH2 inside the box
+    sw_, wp = A["tent_services_w"], A["water_heat_pad"]
+    add("WHT", "Water can heater", "Tent services box (F19 5 A + thermostat TH2)", "Water can pad HP3 (under the can)", "1.5",
+        "1.5 mm2 twin (silicone), plug-in", "ATC 5 A (F19) in the services box; 45 C cut-out on the pad", "w_tent",
+        ["tent_services_w", (sw_[0], 110, sw_[2]), (wp[0], 110, wp[2] + 1), (wp[0], wp[1], wp[2] + 1), "water_heat_pad"],
+        od_of("twin", 1.5), side="tent", notes="v0.14: on the lid top under the jacket's end; nothing passes through the lid")
     _match(L, ("B1P", "B2P"), ("B1N", "B2N"))
     return L
 

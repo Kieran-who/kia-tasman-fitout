@@ -28,7 +28,10 @@ cable,DO1D,1
 cable,ALT,1
 cable,SW1,1
 cable,RBF,1
-cable,SHV,1
+cable,TS1,1
+cable,HTR,1
+cable,HTP,1
+cable,HTS,1
 cable,IGN,1
 cable,CHB,1
 cable,PVR,2
@@ -67,3 +70,6 @@ cable,PVS,7
 cable,D5,7
 cable,PE2,4
 cable,DO1E,1
+cable,WHT,6
+group,battery_heat,1
+group,battery_insul,1

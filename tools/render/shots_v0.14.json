@@ -1,0 +1,42 @@
+[
+  {
+    "name": "01_battery_insulation",
+    "params": {
+      "view": "wiring",
+      "state": "travel",
+      "cam": "0.95,0.95,-0.85,0.15,0.28,-0.33,40",
+      "hide": "lid,lid_cargo,lid_storage,rack,tent,tent_services,tent_harness,future,roof,solar,cargo,bay_cover,payload,slide_d,utility,visor,modules,well_filler,slide_p,power_cabinet",
+      "title": "v0.14 battery bay: closed-cell foam behind, inboard, in front and on top of the bank; thermostat / relay box TH1 behind the gap between the batteries"
+    }
+  },
+  {
+    "name": "02_battery_heater_pads",
+    "params": {
+      "view": "wiring",
+      "state": "travel",
+      "cam": "0.62,1.05,-0.95,0.11,0.30,-0.34,38",
+      "hide": "lid,lid_cargo,lid_storage,rack,tent,tent_services,tent_harness,future,roof,solar,cargo,bay_cover,payload,slide_d,utility,visor,modules,well_filler,slide_p,power_cabinet,batteries,battery_insul",
+      "title": "v0.14 (batteries and foam hidden): 50 W pads HP1 / HP2 on the batteries' facing sides between the cage straps; HTP from TH1, HTS probe lead, TS1 sensor lug"
+    }
+  },
+  {
+    "name": "03_water_jacket",
+    "params": {
+      "view": "under_tent",
+      "state": "camp",
+      "cam": "1.45,1.15,1.35,0.40,0.66,0.33,38",
+      "hide": "future,payload,visor",
+      "title": "v0.14 under the tent: 30 L can in a closed-cell jacket (30 mm top grooved for the tent rail, cap end open), straps underneath it"
+    }
+  },
+  {
+    "name": "04_water_pad_lead",
+    "params": {
+      "view": "under_tent",
+      "state": "camp",
+      "cam": "0.95,1.15,-1.15,0.36,0.62,-0.05,38",
+      "hide": "future,payload,visor",
+      "title": "v0.14: tent services box (F19 5 A + thermostat TH2 inside) beside the jacket's closed end; WHT leaves its inner face and runs under the jacket end to the pad"
+    }
+  }
+]

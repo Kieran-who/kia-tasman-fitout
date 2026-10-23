@@ -71,3 +71,7 @@ cable,"4 mm2 solar pair, high-flex (chain rated)",m,,8,estimate,high-flex solar 
 cable,"4-core 0.75 mm2 (deploy, stow, LED, common)",m,,3,estimate,AU auto-cable retail
 cable,6 mm2 green/yellow,m,,3.5,estimate,AU electrical wholesale
 cable,6 mm2 solar pair (UV),m,,7,estimate,2 x 6 mm2 single-core PV cable ~A$3-4/m each
+cable,"Victron temperature sensor lead (2-core, supplied)",m,,0,included,supplied with the Victron temperature sensor (TT1)
+cable,"NTC probe lead (supplied, 2-core)",m,,0,included,supplied with the thermostat (TH1)
+cable,1.5 mm2 twin (silicone),m,,4,estimate,silicone-insulated twin ~A$3-5/m (heat-tolerant at the pads)
+cable,"1.5 mm2 twin (silicone), plug-in",m,,4,estimate,silicone-insulated twin ~A$3-5/m
