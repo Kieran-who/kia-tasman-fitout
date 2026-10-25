@@ -161,6 +161,11 @@ def fig_plan():
     f.call((700, -300), "T10", 0, 0)
     f.call((1200, HW - 2), "F3", 30, -26)
     f.call((AL, AG - 2), "W8", 34, -26)
+    # v0.14+: tail-light housings at the rear corners (size unknown: dashed placeholder 200 × 100)
+    for s, lab in ((1, "C1"), (-1, "C2")):
+        f.rect(TL - 200, s * HW, TL, s * (HW - 100), "l")
+        f.call((TL - 100, s * (HW - 50)), lab, -70, s * 42)
+        f.dim((AL, s * (HW - 140)), (TL - 200, s * (HW - 140)), 0, f"C5 {'D' if s > 0 else 'P'}", at=0.5)
     f.note(60, 632, "X from the tub front wall (liner face) · Y from the centreline · all in mm · ribs shown at the assumed 100 mm pitch", 9)
     return f
 
@@ -202,6 +207,11 @@ def fig_side():
     f.call((P.LID_X0, LT - 10), "L2", -36, -14)
     f.call((TL + 20, UL - 4), "L5", 46, 12)
     f.call((700, UL), "L6", 0, 38)
+    f.rect(TL - 200, 0, TL, TD - 20, "l")                                     # tail-light housing placeholder
+    f.call((TL - 100, TD / 2), "C2", -30, 40)
+    f.call((AL + 40, TD / 2), "C7", 62, -44)
+    f.call((fo[0] - 50, fo[2] - 40), "C8", -40, 36)
+    f.call((150, TD - 8), "C10", 30, 26)
     f.dim((TL + P.LID_X0 + P.LID_L - TL, LT + 70), (TL + P.TAILGATE_T, LT + 70), 0, "L3", ext=False, at=0.6)
     f.dim((0, TZ + 110), (P.RACK_BAR_X[0], TZ + 110), 0, "R1", at=0.5)
     f.dim((0, TZ + 200), (P.RACK_BAR_X[1], TZ + 200), 0, "R1", at=0.6)
@@ -560,6 +570,31 @@ SECTIONS = [
         ("F3", "Tie-down points", "Every tie-down or rail: wall, X, Z, type and how far it stands proud", "none on the arches", "-", N(3), "1 3"),
         ("F4", "Other protrusions", "Bolt heads, cleats, liner bosses, light: position and how far they stand proud", "–", "-", N(2), "3"),
     ]),
+    ("3b", "Rear corners: tail-light housings (added 2026-10-25)", ["d1-tub-plan", "d2-tub-side"], [
+        ("C1", "Tail-light housing, driver", "The bulge in the side wall at the rear corner. X where its front face starts (from the front wall) and X where it "
+         "meets the tailgate seal; how far it stands in from the side wall at the floor, 270 high and just below the rail; Z of its bottom and top",
+         "none", "TAIL_BULGE_L, TAIL_BULGE_IN", ["X start", "X end", "In floor", "In 270", "In rail", "Z bottom", "Z top"], "1 3"),
+        ("C2", "Tail-light housing, passenger", "Same as C1 on the passenger (outlet) side", "none", "TAIL_BULGE_L, TAIL_BULGE_IN",
+         ["X start", "X end", "In floor", "In 270", "In rail", "Z bottom", "Z top"], "1 3"),
+        ("C3", "Housing shape", "Flat or curved face? Square, sloped or rounded front edge (sketch it)? Any lip where it meets the wall? Same both sides?",
+         "–", "-", N(3), "3"),
+        ("C4", "Access plugs", "Each push-rivet plug or cap on the housings: X, Z, diameter, what's behind it (lamp bolts, globe, wiring) and how much "
+         "hand room it needs. Anything built here must leave these reachable", "–", "-", ["D X", "D Z", "D dia", "P X", "P Z", "P dia", "Hand room"], "3"),
+        ("C5", "Clear length behind the arch", "Rear end of the arch → front face of the tail-light housing, 50 mm in from the side wall, at the floor, "
+         "270 high and just below the rail", r0(TL - AL), "TL − ARCH_L", ["D floor", "D 270", "D rail", "P floor", "P 270", "P rail"], "3"),
+        ("C6", "Clear width beside the housing", "Inner face of the housing → centreline of the tub at 270 high (shows how much is left outboard of the slides)",
+         r0(HW), "TUB_W / 2", ["Driver", "Passenger"], "3"),
+        ("C7", "Rib behind the arch", "The vertical pressed rib between the arch and the outlet recess: X of its centre, width, how far it stands proud, "
+         "full height or not", "–", "-", ["D X", "D width", "D proud", "P X", "P width", "P proud"], "3"),
+        ("C8", "Outlet recess", "The recessed panel the factory outlet sits in: X of its front and rear edges, Z of its bottom and top, depth behind the "
+         "wall face (photos show it lower and further forward than the model)", f"{r0(P.FACTORY_OUTLET[0] - 75)}–{r0(P.FACTORY_OUTLET[0] + 75)}",
+         "FACTORY_OUTLET", ["X front", "X rear", "Z bottom", "Z top", "Depth"], "1"),
+        ("C9", "Arch top profile", "Photos show a stepped arch top: X of each step and the height before and after it, each side; how far the rear "
+         "end slopes", f"flat at {r0(AH)}", "ARCH_H", N(3), "1 3"),
+        ("C10", "Lid hardware hanging into the tub", "Every clamp, star knob, bracket and gas strut below the rail: side, X, how far below the rail "
+         "top, how far in from the wall (photos: knobs and brackets along both rails, a strut at the front corner)", "nothing below 548", "UNDER_LID_Z",
+         N(4), "1 3"),
+    ]),
     ("4", "Load-Lid and Destroyer rails", ["d2-tub-side", "d3-tub-section", "d4-lid-plan"], [
         ("L1", "Lid size", "Overall length (along) and width (across) including edge trims", f"{r0(P.LID_L)} × {r0(P.LID_W)}", "LID_L, LID_W",
          ["Length", "Width"], "6"),
@@ -670,6 +705,8 @@ PHOTOS = ["Whole tub from the tailgate, from each rear corner and from above (li
           "Factory outlet: on, and removed showing the hole and what's behind",
           "Every tie-down and protrusion with a rule beside it",
           "Under the lid: hinges, lock, struts, clamps, any frame members",
+          "Each rear corner (both sides): square-on to the side wall from the tub centre, from the tailgate looking forward, and from above "
+          "with the lid open, with a tape along the floor and up the tail-light housing",
           "Destroyer rail end-on (T-slot profile) with calipers",
           "Each of the 4 tent-bolt crossings from the side, with a rule from the bar to the lowest point",
           "Cab–tub gap from above and below; chassis rail beside the gap",

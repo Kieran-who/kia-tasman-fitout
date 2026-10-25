@@ -29,7 +29,7 @@ ARCH_R = 70            # [EST] radius on the arch's top inboard edge
 RIB_PITCH = 100        # [EST] liner floor rib pitch (ribs run fore-aft)
 RIB_W = 45             # [EST] rib top width
 RIB_H = 14             # [EST] rib height (Z=0 is the rib tops)
-TAIL_BULGE_L = 0       # [owner] no tail-light bulge inside the tub
+TAIL_BULGE_L = 0       # [owner 2026-10-25] there IS a tail-light housing at each rear corner; size TBC (sheet C1-C5), 0 until measured
 TAIL_BULGE_IN = 0
 TAILGATE_T = 60        # [EST]
 TAILGATE_H = TUB_D - 15
