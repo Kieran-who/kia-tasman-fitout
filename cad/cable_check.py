@@ -64,10 +64,15 @@ def run(state="travel"):
                 c = BRepClass3d_SolidClassifier(s.wrapped, gp_Pnt(*q), 0.5)
                 if c.State() == TopAbs_IN:
                     hits.setdefault((t.name[6:], p.name), []).append(q)
-    print(f"[{state}] {len(hits)} cable/part intersections")
-    for (cid, pn), qs in sorted(hits.items(), key=lambda kv: -len(kv[1])):
-        q = qs[len(qs) // 2]
-        print(f"  {cid:5s} x {pn:38s} {len(qs) * STEP:6.0f} mm  e.g. ({q[0]:.0f}, {q[1]:.0f}, {q[2]:.0f})")
+    photo = {p.name for p in solids if p.meta.get("est") == "photo"}
+    est = {k: v for k, v in hits.items() if k[1] in photo}
+    hits = {k: v for k, v in hits.items() if k not in est}
+    for title, hs in ((f"[{state}] {len(hits)} cable/part intersections", hits),
+                      (f"[{state}] {len(est)} cable conflicts with photo-estimated tub / lid features (re-plan once measured)", est)):
+        print(title)
+        for (cid, pn), qs in sorted(hs.items(), key=lambda kv: -len(kv[1])):
+            q = qs[len(qs) // 2]
+            print(f"  {cid:5s} x {pn:38s} {len(qs) * STEP:6.0f} mm  e.g. ({q[0]:.0f}, {q[1]:.0f}, {q[2]:.0f})")
     return hits
 
 

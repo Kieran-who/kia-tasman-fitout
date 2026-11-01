@@ -20,8 +20,11 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "cad"))
 import params as P  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import photo_guide as PG  # noqa: E402
+
 OUT = ROOT / "docs/measurements"
-DATE = "2026-10-20"
+DATE = "2026-11-01"
 RED = "#c92a2a"
 
 
@@ -116,6 +119,7 @@ TL, TW, TD = P.TUB_L, P.TUB_W, P.TUB_D
 HW, AG, AH, AL = TW / 2, P.ARCH_GAP / 2, P.ARCH_H, P.ARCH_L
 UL, LT = P.UNDER_LID_Z, P.LID_TOP_Z
 TZ = P.TENT_Z0
+LS = P.LID_STRUT
 BAR_T = P.RACK_BAR[1]
 
 
@@ -480,6 +484,41 @@ def fig_details():
     return f
 
 
+def fig_corner():
+    """Plan view of a rear corner (passenger side, from above): how to measure the tail-light housing and the clear space."""
+    f = Fig("d8-rear-corner", "D8 · Rear corner from above (passenger side shown; driver is the mirror image)", 760, 400, 700, -890, 0.62, ox=40, oy=360)
+    m = f.m                       # (x, y): passenger wall at the bottom of the drawing, the centreline up the page
+    hw, L, IN = HW, P.TAIL_BULGE_L, P.TAIL_BULGE_IN
+    def rect(x0, y0, x1, y1, cls):
+        (a, b), (c, d) = m(x0, y0), m(x1, y1)
+        f.raw(f'<rect x="{min(a, c):.1f}" y="{min(b, d):.1f}" width="{abs(c - a):.1f}" height="{abs(d - b):.1f}" class="{cls}"/>')
+    rect(700, -hw - 55, TL + P.TAILGATE_T, -hw, "l")                   # wall + cavity
+    rect(700, -hw, AL, -AG, "h")                                       # arch (rear end)
+    rect(TL - L, -hw, TL, -hw + IN, "f")                               # housing
+    rect(TL, -hw, TL + P.TAILGATE_T, -300, "f")                        # tailgate
+    rect(1180, -hw, 1250, -hw + 20, "f")                               # rib
+    rect(1100, -hw - 12, 1280, -hw, "l")                               # outlet recess
+    x1, y1 = m(860, -hw + 2)
+    x2, y2 = m(TL - L - 5, -hw + 2)
+    f.raw(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#1c7ed6" stroke-width="5"/>')
+    f.note(x1 + 8, y1 - 8, "straight edge flat on the side wall, forward of the housing", 9.5)
+    (a, b), (c, d) = m(TL - L, -hw + 2), m(TL - L, -hw + IN)
+    f.raw(f'<line x1="{a:.1f}" y1="{b:.1f}" x2="{c:.1f}" y2="{d:.1f}" class="dim" marker-start="url(#ar)" marker-end="url(#ar)"/>')
+    f.bubble(a + 34, (b + d) / 2 + 2, "C2 in")
+    f.dim((AL, -hw + 140), (TL - L, -hw + 140), 0, "C5", at=0.5)
+    f.dim((TL - L, -hw - 28), (TL, -hw - 28), 0, "C2 length", at=0.5)
+    f.dim((TL - 90, -hw + IN), (TL - 90, -470), 0, "C6 → centreline", at=0.75)
+    f.call((1215, -hw + 10), "C7", 0, -70)
+    f.call((1190, -hw - 6), "C8", -10, 30)
+    f.call((TL - L - 25, -hw + 25), "L15", -40, -80)
+    f.text(960, -hw - 70, "side wall (liner face) · wall cavity", 9.5)
+    f.text(780, -AG + 40, "arch", 9.5)
+    f.text(TL + 30, -560, "TAILGATE", 9.5, rot=90)
+    f.text(TL - L / 2 + 30, -hw + IN + 14, "housing", 9)
+    f.note(40, 392, "Measure 'in' SQUARE to the straight edge at the floor, 270 high and under the rail. X positions from the front wall (X0).", 9)
+    return f
+
+
 def fig_datums():
     f = Fig("d0-datums", "D0 · Reference lines (datums) used on every sheet", 760, 230, 0, 0, 1, ox=0, oy=0)
     f.raw('<rect x="40" y="40" width="300" height="150" fill="#f8f9fa" stroke="#212529" stroke-width="1.5"/>')
@@ -504,7 +543,8 @@ def fig_datums():
     return f
 
 
-FIGS = {f.key: f for f in (fig_datums(), fig_plan(), fig_side(), fig_cross(), fig_lid_plan(), fig_vehicle(), fig_roof(), fig_details())}
+FIGS = {f.key: f for f in (fig_datums(), fig_plan(), fig_side(), fig_cross(), fig_lid_plan(), fig_vehicle(), fig_roof(), fig_details(),
+                           fig_corner())}
 
 # ============================================================================ the measurements
 # (id, what, how / where, model assumes, param, boxes, stage)  boxes: list of box labels, or ("notes", lines)
@@ -515,11 +555,14 @@ r0 = lambda v: f"{v:g}"  # noqa: E731
 
 SECTIONS = [
     ("1", "Tub: floor, walls and tailgate", ["d1-tub-plan", "d3-tub-section"], [
-        ("T1", "Floor length on the centreline", "Front wall liner face → inside face of the closed tailgate, at rib-top height", r0(TL), "TUB_L", ["mm"], "1 3"),
+        ("T1", "Floor length on the centreline", "FROM the inside face of the closed tailgate TO the X0 straight edge on the front wall, along the centreline "
+         "tape at rib-top height (laser: back of the laser on the tailgate). Your laser photo read 1.508 m: say where the laser's back was", r0(TL), "TUB_L", ["mm"], "1 3"),
         ("T2", "Floor length beside the arches", "Rear end of each arch → tailgate inside face, 50 mm in from the side wall", r0(TL - AL), "TL − ARCH_L", DP, "3"),
-        ("T3", "Width wall to wall behind the arches", "Liner face to liner face at X ≈ 1000: at floor, at 270 high, and just below the rail", r0(TW), "TUB_W",
+        ("T3", "Width wall to wall behind the arches", "FROM the passenger wall TO the driver wall, square across at X ≈ 1000 (between the arch and the rib), "
+         "on the flat of the liner: at the floor, 270 high, and just under the lid rail", r0(TW), "TUB_W",
          ["Floor", "270 high", "Rail"], "1 3"),
-        ("T4", "Width wall to wall at the tailgate", "Same, at X ≈ 1460", r0(TW), "TUB_W", ["Floor", "Rail"], "3"),
+        ("T4", "Width at the tailgate", "FROM housing face TO housing face (between the two tail-light housings, C1/C2) at X ≈ 1460; and wall to wall just "
+         "forward of the housings", r0(TW), "TUB_W", ["Housings", "Walls fwd"], "3"),
         ("T5", "Width above the arches at the front", "Wall to wall at X ≈ 50, just above arch height and at rail height", r0(TW), "TUB_W", ["Above arch", "Rail"], "1"),
         ("T6", "Tub depth", "Rib top → top of the tub rail (inside edge), at each corner", r0(TD), "TUB_D",
          ["Front D", "Front P", "Rear D", "Rear P"], "1 3"),
@@ -548,7 +591,8 @@ SECTIONS = [
          ["D floor", "D top", "P floor", "P top"], "1 3"),
         ("W3", "Arch height", "Rib top → top of each arch at the front, middle and rear of its flat top", r0(AH), "ARCH_H",
          ["D front", "D mid", "D rear", "P front", "P mid", "P rear"], "1 3"),
-        ("W4", "Width between the arches (floor)", "Arch face to arch face just above the floor at X ≈ 100, 430, 760", r0(P.ARCH_GAP), "ARCH_GAP", FB, "1 3"),
+        ("W4", "Width between the arches (floor)", "FROM the inner face of the passenger arch TO the inner face of the driver arch, square across just above the "
+         "floor, at X ≈ 100, 430 and 760 (photo P1)", r0(P.ARCH_GAP), "ARCH_GAP", FB, "1 3"),
         ("W5", "Width between the arches (top)", "Same three positions, just below the top radius", r0(P.ARCH_GAP), "ARCH_GAP", FB, "1 3"),
         ("W6", "Arch intrusion", "Side wall face → arch inner face at mid-length", r0(P.ARCH_IN), "ARCH_IN", DP, "3"),
         ("W7", "Arch top shape", "Flat width of the top (wall → start of the radius) and the radius on its inboard edge", f"– / {r0(P.ARCH_R)}", "ARCH_R",
@@ -570,11 +614,12 @@ SECTIONS = [
         ("F3", "Tie-down points", "Every tie-down or rail: wall, X, Z, type and how far it stands proud", "none on the arches", "-", N(3), "1 3"),
         ("F4", "Other protrusions", "Bolt heads, cleats, liner bosses, light: position and how far they stand proud", "–", "-", N(2), "3"),
     ]),
-    ("3b", "Rear corners: tail-light housings (added 2026-10-25)", ["d1-tub-plan", "d2-tub-side"], [
-        ("C1", "Tail-light housing, driver", "The bulge in the side wall at the rear corner. X where its front face starts (from the front wall) and X where it "
-         "meets the tailgate seal; how far it stands in from the side wall at the floor, 270 high and just below the rail; Z of its bottom and top",
-         "none", "TAIL_BULGE_L, TAIL_BULGE_IN", ["X start", "X end", "In floor", "In 270", "In rail", "Z bottom", "Z top"], "1 3"),
-        ("C2", "Tail-light housing, passenger", "Same as C1 on the passenger (outlet) side", "none", "TAIL_BULGE_L, TAIL_BULGE_IN",
+    ("3b", "Rear corners: tail-light housings (added 2026-10-25; photo pages P1-P5)", ["d8-rear-corner", "d1-tub-plan", "d2-tub-side"], [
+        ("C1", "Tail-light housing, driver", "FROM X0 TO the housing's front face where it leaves the side wall (red line on P2, mirrored), and TO where it "
+         "meets the tailgate seal. How far it comes in: straight edge flat on the side wall forward of it, measure square to the housing face, at the "
+         "floor, 270 high and under the rail. Z of its bottom and top", f"{r0(P.TUB_L - P.TAIL_BULGE_L)} / in {r0(P.TAIL_BULGE_IN)} (photo est)", "TAIL_BULGE_L, TAIL_BULGE_IN", ["X start", "X end", "In floor", "In 270", "In rail", "Z bottom", "Z top"], "1 3"),
+        ("C2", "Tail-light housing, passenger", "Same as C1 on the passenger (outlet) side: photo P2",
+         f"{r0(P.TUB_L - P.TAIL_BULGE_L)} / in {r0(P.TAIL_BULGE_IN)} (photo est)", "TAIL_BULGE_L, TAIL_BULGE_IN",
          ["X start", "X end", "In floor", "In 270", "In rail", "Z bottom", "Z top"], "1 3"),
         ("C3", "Housing shape", "Flat or curved face? Square, sloped or rounded front edge (sketch it)? Any lip where it meets the wall? Same both sides?",
          "–", "-", N(3), "3"),
@@ -587,13 +632,21 @@ SECTIONS = [
         ("C7", "Rib behind the arch", "The vertical pressed rib between the arch and the outlet recess: X of its centre, width, how far it stands proud, "
          "full height or not", "–", "-", ["D X", "D width", "D proud", "P X", "P width", "P proud"], "3"),
         ("C8", "Outlet recess", "The recessed panel the factory outlet sits in: X of its front and rear edges, Z of its bottom and top, depth behind the "
-         "wall face (photos show it lower and further forward than the model)", f"{r0(P.FACTORY_OUTLET[0] - 75)}–{r0(P.FACTORY_OUTLET[0] + 75)}",
+         "wall face (photo P2: it looks lower and further forward than the model)",
+         f"photo est X {r0(P.FACTORY_OUTLET_PHOTO[0])}, Z {r0(P.FACTORY_OUTLET_PHOTO[2])}",
          "FACTORY_OUTLET", ["X front", "X rear", "Z bottom", "Z top", "Depth"], "1"),
         ("C9", "Arch top profile", "Photos show a stepped arch top: X of each step and the height before and after it, each side; how far the rear "
          "end slopes", f"flat at {r0(AH)}", "ARCH_H", N(3), "1 3"),
-        ("C10", "Lid hardware hanging into the tub", "Every clamp, star knob, bracket and gas strut below the rail: side, X, how far below the rail "
-         "top, how far in from the wall (photos: knobs and brackets along both rails, a strut at the front corner)", "nothing below 548", "UNDER_LID_Z",
-         N(4), "1 3"),
+        ("C10", "Clear height under the lid hardware", "FROM the rib tops (Z0) UP TO the lowest lid part above (skirt, rail, knob or strut), "
+         "100 mm in from each side wall, at X ≈ 100, 450, 900, 1250 and 1450. This is the real ceiling for the cabinets and drawers",
+         r0(UL), "UNDER_LID_Z", ("grid", ["Driver", "Passenger"], ["X100", "X450", "X900", "X1250", "X1450"]), "1 3"),
+        ("C11", "Tie-down pocket in each side wall", "The C-shaped moulded pocket behind the arch (driver photo): X of its front and rear edges, Z of "
+         "its bottom and top, depth. Is there a factory hook or loop in it?", "–", "-", ["D X0", "D X1", "D Z0", "D Z1", "D depth", "P same?"], "3"),
+        ("C12", "Wall step (ledge line)", "The horizontal step along each side wall (photos P2, P4, P5): Z of the step at the front, over the arch and "
+         "at the rear; how deep the step is (straight edge on the upper wall, measure in to the lower wall)", "–", "-",
+         ["D Z front", "D Z rear", "D depth", "P Z front", "P Z rear", "P depth"], "1 3"),
+        ("C13", "Notch in each arch top", "The triangular notch near the front wall (photos P1, P4, P5): X and Z of its centre, width, depth",
+         "–", "-", ["D X", "D Z", "D w", "D depth", "P X", "P Z"], "3"),
     ]),
     ("4", "Load-Lid and Destroyer rails", ["d2-tub-side", "d3-tub-section", "d4-lid-plan"], [
         ("L1", "Lid size", "Overall length (along) and width (across) including edge trims", f"{r0(P.LID_L)} × {r0(P.LID_W)}", "LID_L, LID_W",
@@ -602,16 +655,30 @@ SECTIONS = [
         ("L3", "Lid rear edge", "Lid rear edge relative to the closed tailgate's outer face (+ = overhangs)", "–", "-", ["mm"], "6"),
         ("L4", "Lid thickness", "Top skin → lowest part of its perimeter frame", r0(P.LID_T), "LID_T", ["mm"], "3 6"),
         ("L5", "Gap rail → lid", "Tub rail top → lid underside at the four corners", r0(P.LID_CLEAR), "LID_CLEAR", ["FD", "FP", "RD", "RP"], "3"),
-        ("L6", "Lid frame inside the tub", "Anything below the tub rail level (cross members, brackets, seals): what, X position, how far down",
-         "nothing", "UNDER_LID_Z", ["Max drop"] + [""] * 0, "3"),
+        ("L6", "Lid side skirt and lid rail (each side)", "The UTE MASTER plate hanging below the lid, and the aluminium rail with holes under it "
+         "(photos P2, P3): Z of the LOWEST edge of each (from the rib tops), and how far each stands in from the side wall. Full length, or where do "
+         "they start and stop (X)?", f"skirt {r0(P.LID_SKIRT['z0'])} / rail {r0(P.LID_BASE_RAIL['z0'])} (photo est)", "LID_SKIRT, LID_BASE_RAIL",
+         ["Skirt Z", "Skirt in", "Rail Z", "Rail in", "X start", "X end"], "1 3"),
         ("L7", "Hinges and lock", "Hinge type and positions; lock/latch positions and how far they reach into the tub", "–", "-", N(2), "3"),
-        ("L8", "Gas struts", "Both ends of each strut: on the lid / on the body, X, Y, Z. Inside the tub?", "not in the tub", "-", N(2), "3"),
-        ("L9", "Lid clamps", "How the lid bolts to the tub; clamp positions and how far they stick inside the tub walls", "–", "-", N(2), "3"),
+        ("L8", "Gas struts (inside the tub, front)", "Lid closed. For BOTH ends of each strut: X (from X0), Z (from Z0) and distance from the side "
+         "wall to the strut's centre; strut diameter (photos P1, P4, P5)", f"x {LS['x0']}–{LS['x1']}, z {LS['z0']}–{LS['z1']} (photo est)", "LID_STRUT",
+         ("grid", ["Driver", "Passenger"], ["Low X", "Low Z", "Low in", "High X", "High Z", "High in", "Dia"]), "1 3"),
+        ("L9", "Star-knob clamps", "Each star knob on the lid skirt (photos P2, P3): X, how far its tip is from the side wall, Z of its lowest point. "
+         "How many per side?", " / ".join(r0(x) for x in P.LID_KNOBS_X) + " (photo est)", "LID_KNOBS_X",
+         ("grid", ["Knob 1", "Knob 2", "Knob 3"], ["D X", "D in", "D Z", "P X", "P in", "P Z"]), "3"),
         ("L10", "Destroyer rails (detail b)", "Height above the lid top, width, length, X of the front and rear ends, Y of the rail centre from the centreline",
          f"{r0(P.LID_RAIL_H)} / {r0(P.LID_RAIL_W)} / – / {r0(P.LID_RAIL_Y)}", "LID_RAIL_H, LID_RAIL_W, LID_RAIL_Y",
          ["Height", "Width", "Length", "Front X", "Rear X", "Y"], "6"),
         ("L11", "Rail T-slot (detail b)", "Slot opening, slot depth, inner width, lip thickness; T-bolt size used", "–", "-",
          ["Opening", "Depth", "Inner w", "Lip", "Bolt"], "6"),
+        ("L15", "Lid rear stays", "The steel bar from each rear lid corner down to 2 bolts at the tail-light housing (photos P2, P3): X and Z of each "
+         "bolt; X where the bar leaves the lid; how far the bar stands off the wall (top and bottom); bar width",
+         f"bolts ~{r0(P.LID_REAR_STAY['x_bot'])}, Z {r0(P.LID_REAR_STAY['z_bot'])} (photo est)", "LID_REAR_STAY",
+         ("grid", ["Driver", "Passenger"], ["Bolt1 X", "Bolt1 Z", "Bolt2 Z", "Top X", "Off top", "Off bot", "Width"]), "1 3"),
+        ("L16", "Lid front-corner brackets", "The angle bracket in each front corner with a plastic hook at its foot (photos P1, P4, P5): how far it "
+         "stands off the front wall, how far its outer edge is from the side wall, its width, Z of the bottom of the hook",
+         f"hook Z {r0(P.LID_FRONT_BRACKET['z0'])} (photo est)", "LID_FRONT_BRACKET",
+         ("grid", ["Driver", "Passenger"], ["Off front", "From side", "Width", "Hook Z"]), "1"),
         ("L12", "Lid top surface", "Chequer pattern height; flat or crowned (straight edge across: gap at the centre)", "flat", "-", ["Pattern", "Crown"], "6"),
         ("L13", "Lid underside over the batteries (v0.14)", "Tub floor → lid underside at the driver front corner (X ≈ 100 and 250, Y ≈ 200 and 500): the battery top foam assumes 9 mm above the handle lugs",
          r0(UL), "UNDER_LID_Z", ["X100 Y200", "X100 Y500", "X250 Y200", "X250 Y500"], "1"),
@@ -745,6 +812,7 @@ table.m tr { page-break-inside: avoid; }
 .chk li { list-style: none; margin: 0 0 1.6mm; } .chk li::before { content: ""; display: inline-block; width: 3.5mm; height: 3.5mm;
   border: 1px solid #495057; margin-right: 2mm; vertical-align: -0.6mm; }
 .lines div { height: 8mm; border-bottom: 1px solid #ced4da; }
+.pref { display: inline !important; font-size: 7.5pt !important; color: #1c7ed6 !important; font-weight: 700; }
 """
 
 
@@ -764,7 +832,9 @@ def table_html(items):
     h = ['<table class="m"><tr><th>ID</th><th>Measure</th><th>Model now</th><th>Your values (mm unless noted)</th><th>Stage</th><th>📷</th></tr>']
     for iid, what, how, model, param, b, st in items:
         pm = f"<code>{escape(param)}</code>" if param and param != "-" else ""
-        h.append(f'<tr><td class="id">{iid}</td><td class="what"><b>{escape(what)}</b><span>{escape(how)}</span></td>'
+        ph = ", ".join(PHOTO_REFS.get(iid, []))
+        ph = f' <span class="pref">📷 {ph}</span>' if ph else ""
+        h.append(f'<tr><td class="id">{iid}</td><td class="what"><b>{escape(what)}</b>{ph}<span>{escape(how)}</span></td>'
                  f'<td class="model">{escape(model)}{pm}</td><td>{boxes_html(b)}</td><td class="st">{escape(st)}</td>'
                  f'<td class="ph"><div></div></td></tr>')
     return "".join(h) + "</table>"
@@ -807,8 +877,11 @@ look exactly like your ute. Measure what's really there.</p>
 </div>"""
 
 
+PHOTO_REFS = PG.refs()
+
+
 def build():
-    pages = [page_intro()]
+    pages = [page_intro(), PG.key_page()] + PG.pages()
     shown = set()
     for num, title, figs, items in SECTIONS:
         body = [f"<h2>{num} · {escape(title)}</h2>"]
@@ -826,7 +899,7 @@ def build():
     pages.append('<div class="page"><h2>Photo checklist</h2><ul class="chk">' + "".join(f"<li>{escape(p)}</li>" for p in PHOTOS) +
                  '</ul><h2 style="margin-top:6mm">Notes and sketches</h2><div class="lines">' + "<div></div>" * 22 + "</div></div>")
     html = (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-            f'<title>Tasman measurement sheet</title><style>{CSS}</style></head><body>' + "".join(pages) + "</body></html>")
+            f'<title>Tasman measurement sheet</title><style>{CSS}{PG.CSS}</style></head><body>' + "".join(pages) + "</body></html>")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "measurement-sheet.html").write_text(html)
     (OUT / "diagrams").mkdir(exist_ok=True)

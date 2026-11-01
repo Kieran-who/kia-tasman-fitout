@@ -34,7 +34,7 @@ SKIN_T = 25             # [EST] visual outer skin thickness (cavity between it a
 # lid gas struts (Ute Master hinges at the FRONT): modelled lying in a channel in the top of each tub side wall so they
 # never enter the fit-out space. Owner (v0.9): the lid comes off with a few bolts, so the struts are taken to be
 # outside the tub, not mounted inside it. [EST] exact position - photograph on the vehicle.
-LID_STRUT = dict(x0=60, x1=560, z0=470, z1=522, dy=22, r_body=11, r_rod=5, body_l=290)
+LID_STRUT = P.LID_STRUT
 
 # colours (RGBA) used only here
 RIM = (42, 42, 45, 255)
@@ -149,7 +149,8 @@ def tub(tailgate_open=False):
             _fillet(box(70, P.ARCH_L - 50, s * (hw - 1), s * (hw + 5), P.ARCH_H + 35, 440), "|Y", 30),  # panel over arch
         ]
         st = LID_STRUT
-        cuts.append(box(st["x0"] - 40, st["x1"] + 30, s * (hw + 6), s * (hw + 40), st["z0"] - 22, P.TUB_D))  # strut channel
+        if st["dy"] > 0:                                                    # (struts in the wall top: superseded by the photos)
+            cuts.append(box(st["x0"] - 40, st["x1"] + 30, s * (hw + 6), s * (hw + 40), st["z0"] - 22, P.TUB_D))
         if s == P.FACTORY_OUTLET[1]:
             fx, fs, fz = P.FACTORY_OUTLET
             cuts.append(box(fx - 75, fx + 75, s * (hw - 1), s * (hw + 16), fz - 62, fz + 62))   # outlet housing pocket
@@ -168,10 +169,10 @@ def tub(tailgate_open=False):
         # horizontal step along the hump top (the 'shelf' line in the photo), recessed into the shelf front edge
         arch = arch.cut(box(40, P.ARCH_L - 90, ya_ - s * 1, ya_ + s * 10, P.ARCH_H - 95, P.ARCH_H - 85))
         parts.append(part(f"wheel_arch_{nm}", "vehicle", arch, "liner"))
-        # tail-light housing bulge at the rear corner (owner: none)
+        # tail-light housing bulge at the rear corner (owner photos 2026-11-01: present both sides, size estimated)
         if P.TAIL_BULGE_L and P.TAIL_BULGE_IN:
             bul = box(P.TUB_L - P.TAIL_BULGE_L, P.TUB_L, s * hw, s * (hw - P.TAIL_BULGE_IN), -P.RIB_H, P.TUB_D - 30)
-            parts.append(part(f"tail_bulge_{nm}", "vehicle", bul.edges("|Z").fillet(25), "liner"))
+            parts.append(part(f"tail_bulge_{nm}", "vehicle", bul.edges("|Z").fillet(25), "liner", est="photo"))
         # ---- outer skin (body colour) with the rear wheel opening, a character line and a corner post at the tailgate
         skin = box(-P.TUB_WALL_T, xr, s * (SK - SKIN_T), s * SK, -330, 505)
         skin = skin.cut(_xz(_arch_open(P.REAR_AXLE_X), *sorted((s * (SK - SKIN_T - 1), s * (SK + 1)))))

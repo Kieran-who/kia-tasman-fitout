@@ -79,10 +79,13 @@ def lid():
             return w.rotate((0, 0, 0), (0, 1, 0), ang).translate((st["x0"], y, st["z0"]))
         bodyc = cyl(st["r_body"], st["body_l"], (st["body_l"] / 2, 0, 0), "X")
         rod = cyl(st["r_rod"], ln - st["body_l"], (st["body_l"] + (ln - st["body_l"]) / 2, 0, 0), "X")
-        parts.append(part(f"lid_gas_strut_{s}", "lid", place(bodyc), "rack"))
-        parts.append(part(f"lid_gas_strut_rod_{s}", "lid", place(rod), "alu"))
-        yb0, yb1 = sorted((s * (P.TUB_W / 2 + 10), s * (P.TUB_W / 2 + 34)))
-        parts.append(part(f"lid_strut_bracket_{s}", "lid", box(st["x1"] - 15, st["x1"] + 15, yb0, yb1, st["z1"] - 8, z0), "alu_dark"))
+        parts.append(part(f"lid_gas_strut_{s}", "lid", place(bodyc), "rack", est="photo"))
+        parts.append(part(f"lid_gas_strut_rod_{s}", "lid", place(rod), "alu", est="photo"))
+        # [PHOTO] lower end on a bracket on the lid base rail (front), upper end on the lid frame
+        yb0, yb1 = sorted((y - 14, y + s * 30))
+        parts.append(part(f"lid_strut_bracket_{s}", "lid", box(st["x0"] - 18, st["x0"] + 18, yb0, yb1, st["z0"] - 14, st["z0"] + 10),
+                          "alu_dark", est="photo"))
+    parts += lid_hardware()
     # Destroyer side rails: tall section, chamfered top, T-track, ramped ends, hex cut-outs (tie-down points)
     rt = z1 + P.LID_RAIL_H
     for s in (1, -1):
@@ -98,6 +101,36 @@ def lid():
             hexa = (cq.Workplane("XZ", origin=(0, yc + 40, 0)).center(xc, z1 + 24).polygon(6, 30).extrude(80))
             rail = rail.cut(hexa)
         parts.append(part(f"lid_destroyer_rail_{s}", "lid", rail, "rail", kg=4))
+    return parts
+
+
+def lid_hardware():
+    """[PHOTO 2026-11-01] Load-Lid hardware that hangs into the tub, from the owner's photos (sizes estimated, sheet L13-L18):
+    mounting rail along each wall top, the lid's side skirt with star-knob clamps, a stay at each rear corner down to two bolts
+    at the tail-light housing, and an angle bracket in each front corner. All carry est='photo' (reported apart by clash.py)."""
+    parts = []
+    hw = P.TUB_W / 2
+    br, sk, rs, fb = P.LID_BASE_RAIL, P.LID_SKIRT, P.LID_REAR_STAY, P.LID_FRONT_BRACKET
+    for s in (1, -1):
+        nm = "driver" if s > 0 else "passenger"
+        y = lambda d: s * (hw - d)   # noqa: E731  (d = distance in from the side wall face)
+        rail = box(20, P.TUB_L - 20, y(br["inset"]), y(0), br["z0"], br["z1"])
+        parts.append(part(f"lid_base_rail_{nm}", "lid", rail, "alu_dark", est="photo"))
+        skirt = box(10, P.TUB_L - 10, y(sk["inset"] + sk["t"]), y(sk["inset"]), sk["z0"], P.UNDER_LID_Z)
+        parts.append(part(f"lid_skirt_{nm}", "lid", skirt, "alu_dark", est="photo"))
+        knobs = comp([cyl(22, 48, (x, y(sk["inset"] + sk["t"] + 24), sk["z0"] + 28), "Y") for x in P.LID_KNOBS_X])
+        parts.append(part(f"lid_knobs_{nm}", "lid", knobs, "rack", est="photo"))
+        # rear stay: flat bar leaning back from the lid corner to two bolts at the housing's front edge
+        y0, y1 = sorted((y(rs["y_off"][1]), y(rs["y_off"][0])))
+        stay = _xz([(rs["x_top"] - rs["w"] / 2, rs["z_top"]), (rs["x_top"] + rs["w"] / 2, rs["z_top"]),
+                    (rs["x_bot"] + rs["w"] / 2, rs["z_bot"]), (rs["x_bot"] - rs["w"] / 2, rs["z_bot"])], y0, y1)
+        parts.append(part(f"lid_rear_stay_{nm}", "lid", stay, "alu_dark", est="photo"))
+        # front corner angle bracket (flange on the front wall + flange toward the side wall), plastic hook at its foot
+        a0, a1 = sorted((y(fb["y_in"][1]), y(fb["y_in"][0])))
+        ang = box(fb["x"][0], fb["x"][0] + 4, a0, a1, fb["z0"], P.UNDER_LID_Z).union(
+            box(fb["x"][0], fb["x"][1], *sorted((y(fb["y_in"][0]), y(fb["y_in"][0] + 4))), fb["z0"], P.UNDER_LID_Z))
+        parts.append(part(f"lid_front_bracket_{nm}", "lid", ang, "alu_dark", est="photo"))
+        parts.append(part(f"lid_front_hook_{nm}", "lid", box(4, 30, a0 + 10, a1 - 10, fb["z0"] - 5, fb["z0"] + 45), "rack", est="photo"))
     return parts
 
 

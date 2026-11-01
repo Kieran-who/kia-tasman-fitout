@@ -29,8 +29,8 @@ ARCH_R = 70            # [EST] radius on the arch's top inboard edge
 RIB_PITCH = 100        # [EST] liner floor rib pitch (ribs run fore-aft)
 RIB_W = 45             # [EST] rib top width
 RIB_H = 14             # [EST] rib height (Z=0 is the rib tops)
-TAIL_BULGE_L = 0       # [owner 2026-10-25] there IS a tail-light housing at each rear corner; size TBC (sheet C1-C5), 0 until measured
-TAIL_BULGE_IN = 0
+TAIL_BULGE_L = 180     # [PHOTO 2026-11-01] tail-light housing at each rear corner: length forward from the tailgate seal (sheet C1/C2)
+TAIL_BULGE_IN = 80     # [PHOTO] how far it stands in from the side wall
 TAILGATE_T = 60        # [EST]
 TAILGATE_H = TUB_D - 15
 TUB_WALL_T = 55        # [EST] visual thickness of the side walls incl. liner
@@ -39,7 +39,16 @@ LID_CLEAR = 8          # [EST] tub rail -> underside of the Ute Master lid
 UNDER_LID_Z = TUB_D + LID_CLEAR             # 548: hard ceiling for everything in the tub
 BED_HOOKS = []         # v0.7: owner confirms there are NO hooks on the arch faces (the v0.2-v0.6 hooks were placeholders)
 ARCH_POCKET = dict(x0=620, x1=780, z0=195, z1=245, depth=35)   # [EST] recessed well moulded into each arch's inner face - measure
-FACTORY_OUTLET = (1330, -1, 400)            # [EST] passenger wall, becomes the cable gland plate
+FACTORY_OUTLET = (1330, -1, 400)            # [EST] passenger wall, becomes the cable gland plate (design position)
+FACTORY_OUTLET_PHOTO = (1190, -1, 210)      # [PHOTO 2026-11-01] where the photos put it: lower and further forward (sheet C8/F1);
+                                            # the wiring exit is re-planned once C8 is measured
+# [PHOTO 2026-11-01] Load-Lid hardware inside the tub (all estimates from the owner's photos; sheet L13-L18)
+LID_BASE_RAIL = dict(z0=488, z1=530, inset=25)     # aluminium mounting rail along the top of each side wall, inside the tub
+LID_SKIRT = dict(z0=490, inset=32, t=5)            # lid side skirt hanging below the lid, in front of the base rail
+LID_KNOBS_X = (1160, 1290)                         # star-knob clamps on each skirt (rear half), stand 50 mm proud
+LID_REAR_STAY = dict(x_top=1285, x_bot=1322, z_top=540, z_bot=255, w=60, y_off=(12, 50))  # rear-corner stay to 2 bolts
+LID_STRUT = dict(x0=150, x1=480, z0=495, z1=540, dy=-42, r_body=11, r_rod=5, body_l=200)  # gas struts inside the tub, front half
+LID_FRONT_BRACKET = dict(x=(0, 45), y_in=(30, 95), z0=285)          # angle bracket in each front corner, plastic hook at the bottom
 
 # body context (only used for the context shell)
 WHEELBASE = 3270       # [PUB]

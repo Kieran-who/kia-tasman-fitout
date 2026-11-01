@@ -51,8 +51,15 @@ def run(state):
         if v > 1000:
             hits.append((v / 1000, a.name, b.name))
     hits.sort(reverse=True)
+    # parts estimated from the owner's photos (est='photo'): conflicts with them are listed apart, as re-design work
+    photo = {p.name for p in solids if p.meta.get("est") == "photo"}
+    est = [h for h in hits if h[1] in photo or h[2] in photo]
+    hits = [h for h in hits if h not in est]
     print(f"[{state}] {len(hits)} clashes > 1 cm3")
     for v, a, b in hits[:60]:
+        print(f"  {v:9.1f} cm3  {a}  x  {b}")
+    print(f"[{state}] {len(est)} conflicts with photo-estimated tub / lid features (re-plan once measured)")
+    for v, a, b in est[:80]:
         print(f"  {v:9.1f} cm3  {a}  x  {b}")
     return hits
 

@@ -104,7 +104,7 @@ Parts only, inc GST: products, plus the cable and raw material each stage uses. 
 | `docs/suspension-options.md` | Suspension and GVM for the extra rear load: Tasman staged rear springs, Pedders GVM+ (3490–3800 kg), Tough Dog, Dobinsons, OME, airbags; XGS / Ironman / Lovells not yet available for the Tasman |
 | `docs/battery-options.md` | House battery alternatives: KickAss Ultra-X 300 / 460 / 230 Ah and 200 Ah vs the iTech400X Pro (fit in the bay, capacity, current, price) |
 | `docs/smart-switching.md` | Smart switching proposal: inverter via VE.Bus, Smart BatteryProtect on Starlink and tent 12 V with ON/OFF/AUTO rockers driven by the Cerbo relays; everything else always on |
-| `docs/measurements/` | **Measurement sheet** to print and fill in (PDF/HTML, diagrams, CSV): every dimension the model still estimates |
+| `docs/measurements/` | **Measurement sheet** to print and fill in (PDF/HTML, diagrams, CSV): every dimension the model still estimates, with a marked-up photo guide (your photos P1–P5: reference lines and where each measurement starts and ends) |
 | `tools/measure/` | Generator for the measurement sheet (reads `cad/params.py`) |
 | `docs/v0.14-concept.md` | Current: cold-weather heating (battery foam + 2 × 50 W pads + TH1, TS1 temperature sense to all chargers, water-can jacket + 50 W pad), wiring sheet E16 |
 | `docs/v0.13-concept.md` | Routed wiring (33 runs, containment, segregation, route check), route sheets E8 + E10–E15, electrical audit corrections, fridge handle tie-downs |
